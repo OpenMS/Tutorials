@@ -15,7 +15,7 @@ Quantitation and identification of chemical compounds are basic tasks in metabol
 
 \subsection{Quantifying metabolites across several experiments}
 
-For the quantification of the metabolites we choose a similar approach to the one used for peptides based on one of OpenMS' feature finder.
+For the metabolite quantification we choose an approach similar to the one used for peptides, but this time based on the OpenMS \KNIMENODE{FeatureFinderMetabo} method. This feature finder again collects peak picked data into individual mass traces. The reason why we need a different feature finder for metabolites lies in the step after trace detection: the aggregation of isotopic traces belonging to the same compound ion into the same feature. Compared to peptides with their averagine model, small molecules have very different isotopic trace distributions. To group small molecule mass traces correctly, an aggregation model tailored to small molecules is thus needed.
 
 \begin{itemize}
 \item
@@ -43,6 +43,12 @@ Please note that some of these are advanced parameters.
 
 \item
 Add a \KNIMENODE{ZipLoopEnd} node and connect the output of the \KNIMENODE{FeatureFinderMetabo} to the first port of the \KNIMENODE{ZipLoopEnd} node.
+
+\end{itemize}
+
+To facilitate the collection of features corresponding to the same compound ion across different samples, an alignment of the samples' feature maps along retention time is often helpful. In addition to local, small-scale elution differences, one can often see constant retention time shifts across large sections between samples. We can use linear transformations to correct for these large scale retention differences. This  brings the majority of corresponding compound ions close to each other. Finding the correct corresponding ions is then faster and easier, as we don't have to search as far around individual features.
+
+\begin{itemize}
 \item
 After the \KNIMENODE{ZipLoopEnd} node add a \KNIMENODE{MapAlignerPoseClustering} node (\menu{Community Nodes > OpenMS > Map Alignment}), set its Output Type to featureXML, and adjust the following settings
 
@@ -58,6 +64,12 @@ After the \KNIMENODE{ZipLoopEnd} node add a \KNIMENODE{MapAlignerPoseClustering}
 \end{tabular}
 \end{center}
 
+\end{itemize}
+
+The next step after retention time correction is the grouping of corresponding features in multiple samples. In contrast to the previous alignment, we assume no linear relations of features across samples. The used method is tolerant against local swaps in elution order.
+
+
+\begin{itemize}
 \item
 After the \KNIMENODE{MapAlignerPoseClustering} add a \KNIMENODE{FeatureLinkerUnlabeledQT} (\menu{Community Nodes > OpenMS > Map Alignment}) and adjust the following settings
 
@@ -93,7 +105,7 @@ In the following section we will try to identify those metabolites.
 \subsection{Identifying metabolites in LC-MS/MS samples}
 
 At the current state we found several metabolites in the individual maps but so far don't know what they are.
-To identify metabolites OpenMS provides the \KNIMENODE{AccurateMassSearch} node which searches observed masses against the Human Metabolome Database (HMDB)\cite{Wishart2007,Wishart2009,Wishart2013}.
+To identify metabolites OpenMS provides multiple tools, including search by mass: the \KNIMENODE{AccurateMassSearch} node searches observed masses against the Human Metabolome Database (HMDB)\cite{Wishart2007,Wishart2009,Wishart2013}.
 We start with the workflow from the previous section (see \cref{fig:metabo_part1}).
 
 \begin{itemize}
@@ -214,8 +226,8 @@ KNIME supports multiple nodes for interactive visualization with interrelated ou
 figures with data dependent customization can be easily realized using basic KNIME nodes. Several simple operations are concatenated in order to enable an interactive volcano plot.
 \begin{itemize}
 \item We first log-transform fold changes and p-values in the \KNIMENODE{R Snippet} node. We then append columns noting interesting features (concerning fold change and p-value).
-\item With this information, we can use various Manager nodes (\menu{Data Views > Property}) to emphasize interesting data points. The configuration dialogs allows us to select columns to change color, shape or size of data points dependent on the column values.
-\item The \KNIMENODE{Scatter Plot} node (\menu{Data Views}) enables interactive visualization of the logarithmized values as a volcano plot: Data points can be selected in the plot and HiLited via the menu option. HiLiteing transfers to all other interactive nodes connected to the same data table. In our case, selection and HiLiteing will also occur in the \KNIMENODE{Interactive Table} node (\menu{Data Views}).
+\item With this information, we can use various Manager nodes (\menu{Data Views > Property}) to emphasize interesting data points. The configuration dialogs allow us to select columns to change color, shape or size of data points dependent on the column values.
+\item The \KNIMENODE{Scatter Plot} node (\menu{Data Views}) enables interactive visualization of the logarithmized values as a volcano plot: the log-transformed values can be chosen in the `Column Selection' tab of the plot view. Data points can be selected in the plot and HiLited via the menu option. HiLiteing transfers to all other interactive nodes connected to the same data table. In our case, selection and HiLiteing will also occur in the \KNIMENODE{Interactive Table} node (\menu{Data Views}).
 \item Output of the interactive table can then be filtered via the HiLite menu tab. For example, we could restrict shown rows to points HiLited in the volcano plot.
 \end{itemize}
 \begin{task}
@@ -227,7 +239,7 @@ Even though the basic capabilities for (interactive) plots in KNIME are valuable
 \begin{itemize}
 \item The used \KNIMENODE{RView (Table)} nodes combine the possibility to write R snippet code with visualization capabilities inside KNIME. Resulting images can be looked at in the output RView, or saved via the \KNIMENODE{Image Port Writer} node.
 \item The heatmap nodes make use of the gplots libary, which is by default part of the R Windows binaries for the KNIME 2.12 full installation. We again use regular expressions to extract all measured intensity columns for plotting. For clarity, feature names are only shown in the heatmap after filtering by fold changes.
-\item The remaining node performs principal component analysis and plots the first two principal components. Data points are colored by group membership to treated or control samples. The R commands to install the necessary plotting package are part of the node snippet. Removal of the comment character `\#' and snippet execution allows for package installation from inside KNIME.
+\item The remaining node performs principal component analysis and plots the first two principal components. Data points are colored by group membership to treated or control samples. The R commands to install the necessary plotting package are part of the node snippet. Removal of the comment character `\#' and execution of the individual lines in the snippet node allows for package installation from inside KNIME.
 \end{itemize}
 
 \subsubsection{Data preparation for Reporting}
