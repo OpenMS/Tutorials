@@ -23,7 +23,7 @@ OpenMS provides a convenient viewer for some of the data: \OPENMSTOOL{TOPPView}.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{graphics/introduction/TOPPView.png}
-\caption{TOPPView}
+\caption{TOPPView the graphical application for viewing mass spectra and analysis results. Top window shows a small region of a peak map. In this 2D representation of the measured spectra, signals of eluting peptides are colored according to the raw peak intensities. The lower windows displays an extracted spectrum (=scan) from the peak map. On the right side, the list of spectra can be browsed.}
 \label{fig:toppview}
 \end{figure}
 
@@ -355,3 +355,44 @@ The \KNIMENODE{ZipLoopEnd} collects the single files that arrive at its input po
 \caption{A minimal workflow calling FileInfo on multiple files in a loop.}
 \label{fig:knime_minimal_loop}
 \end{figure}
+
+\subsubsection{Advanced topics}
+
+Workflows can get rather complex and may contain dozens or even hundreds of nodes. KNIME provides a simple way to improve handling and clarity of large workflows:
+
+\paragraph{MetaNodes} allow to bundle several nodes into a single MetaNode.
+
+\begin{task}
+Select multiple nodes (e.g. all nodes of the ZipLoop including the start and end node). Open the context menu (right-click) and select \menu{Collapse into Meta Node}. Enter a caption for the Meta Node. The previously selected nodes are now contained in the \KNIMENODE{Meta Node}. Double clicking on the \KNIMENODE{Meta Node} will display the contained nodes in a new tab window. 
+\end{task}
+
+\begin{task}
+Undo the packaging. First select the \KNIMENODE{Meta Node}, open the context menu (right-click) and select \menu{Expand Meta Node}.
+\end{task}
+
+KNIME provides a large number of nodes for a wide range of statistical analysis, machine learning, data processing and visualization. Still, more recent statistical analysis methods, specialized visualizations or cutting edge algorithms may not be covered in KNIME. In order to expand its capabilities over the readily available nodes external scripting languages can be integrated. In this tutorial we primarily use scripts of the powerful statistical compute language R. Note that this part is considered advanced and might be difficult to follow if you are not familiar to R. In this case you might skip this part.
+
+\paragraph{R View (Table)} allow to seamlessly include R scripts into KNIME. We will demonstrate on a minimal example how such a script is integrated.
+
+\begin{task}
+First we need some example data in KNIME, which we will generate using the \KNIMENODE{Data Generator} node. You can keep the default settings and execute the node. The table contains 4 columns, each containing random coordinates and one column containing a cluster number (Cluster\_0 to Cluster\_3). Now place a \KNIMENODE{R View (Table)} node into the workflow and connect the upper output port of the \KNIMENODE{Data Generator} node to the input of the \KNIMENODE{R View (Table)} node.
+Right-click and configure the node.
+
+If you get an error message like: Execute failed: R\_HOME does not contain a folder with name 'bin'. Please change the R settings in the preferences. To do so: open \menu{File > Preferences > KNIME > R} and enter the path to your R installation (the folder that contains the bin directory).
+
+If R is correctly recognized we can start writing an R script. Consider that we are interested in plotting the first and second coordinates and color them according to their cluster number. In R this can be done in a single line.
+
+In the \textit{R View (Table)} text editor, enter the following code:
+\begin{lstlisting}
+plot(x=knime.in$Universe_0_0, y=knime.in$Universe_0_1, main="Plotting column Universe_0_0 vs. Universe_0_1", col=knime.in$"Cluster Membership")
+\end{lstlisting}
+        
+Explanation:
+
+The table provided as input to the \KNIMENODE{R View (Table) node} is available as R \texttt{data.frame} with name \texttt{knime.in}. Columns (also listed on the left side of the R View window) can be accessed in the usual R way by first specifying the data.frame name and then the column name (e.g. knime.in\$Universe\_0\_0).
+\texttt{plot} is the plotting function we use to generate the image. We tell it to use the data in column knime.in\$Universe\_0\_0 as x-coordinate and the column knime.in\$Universe\_0\_1 as y coordinate in the plot. \texttt{main} is simply the plot name and col the column that is used to determine the color (in this case it is the Cluster Membership column).
+
+Now press the \menu{Eval script} and \menu{Show plot} buttons.
+\end{task}
+
+\note{Note that we needed to put some extra quotes around Cluster Membership. If we omit those, R would interpret the column name only up to the first space (knime.in\$Cluster) which is not present in the table and leads to an error. Quotes are regularly needed if column names contain spaces or tabs.}
