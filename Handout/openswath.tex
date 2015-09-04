@@ -141,25 +141,5 @@ Please note that due to the semi-supervised machine learning approach of mProphe
 
 \subsection{From the example dataset to real-life applications}
 The sample dataset used in this tutorial is part of the larger SWATH MS Gold Standard (SGS) dataset which is described in the publication of Roest et al.~\cite{Rost2014fd}.
-It contains one of 90 SWATH-MS runs with significant data reduction (peak picking of the raw, profile data) to make file transfer and working with it easier. Usually SWATH-MS datasets are huge with several gigabyte per run. Especially when complex samples in combination with large assay libraries are analyzed, the TOPP tool based workflow requires a lot of computational resources. For this reason, an integrated tool (\OPENMSTOOL{OpenSwathWorkflow}) has been developed, combining all the steps shown in the KNIME-Workflow into a single executable. It is shipped with OpenMS 2.0.0.
-
-To run the \OPENMSTOOL{OpenSwathWorkflow} use:
-
-\begin{description}
-  \item[Linux or Mac] \hfill \\
-    On the Terminal:
-    \begin{lstlisting}
-  OpenSwathWorkflow -in @TODO -tr OpenSWATH_SGS_AssayLibrary.TraML -tr_irt OpenSWATH_iRT_AssayLibrary.TraML -out_tsv OpenSwathWorkflow_output.csv
-  
-  \end{lstlisting}
-  \item[Windows] \hfill \\
-    On the TOPP command line:
-    \begin{lstlisting}
-  OpenSwathDecoyGenerator.exe -in OpenSWATH_SGS_AssayLibrary.TraML -out OpenSWATH_SGS_AssayLibrary_with_Decoys.TraML -method shuffle -append -exclude_similar
-  \end{lstlisting}
-\end{description}
-
-
- 
-Instructions on how to use this tool can be found on \url{http://www.openswath.org}.
+It contains one of 90 SWATH-MS runs with significant data reduction (peak picking of the raw, profile data) to make file transfer and working with it easier. Usually SWATH-MS datasets are huge with several gigabyte per run. Especially when complex samples in combination with large assay libraries are analyzed, the TOPP tool based workflow requires a lot of computational resources. For this reason, an integrated tool (\OPENMSTOOL{OpenSwathWorkflow}) has been developed, combining all the steps shown in the KNIME-Workflow into a single executable. It is shipped with OpenMS 2.0.0. Instructions on how to use this tool can be found on \url{http://www.openswath.org}.
 
