@@ -20,7 +20,7 @@ pyprophet, a much faster reimplementation of the mProphet algorithm is available
 
 \subsection{Generating the Assay Library}
 \subsubsection{Generating TraML from transition lists}
-OpenSWATH requires the assay libraries to be supplied in the TraML format \cite{Deutsch2012TraMLA}. To enable manual editing of transition lists, the TOPP tool \OPENMSTOOL{ConvertTSVToTraML} is available that uses tab separated files as input. Example datasets are provided in \directory{OpenSWATH/assay/}. Please note that the transition lists need to be named \texttt{.csv}.
+OpenSWATH requires the assay libraries to be supplied in the TraML format \cite{Deutsch2012TraMLA}. To enable manual editing of transition lists, the TOPP tool \OPENMSTOOL{ConvertTSVToTraML} is available that uses tab separated files as input. Example datasets are provided in \directory{OpenSWATH/assay/}. Please note that the transition lists need to be named \texttt{.csv} or \texttt{.tsv}.
 
 The header of the transition list contains the following variables (with example values in brackets):
 
@@ -88,20 +88,22 @@ To convert transitions lists to TraML, use \OPENMSTOOL{ConvertTSVToTraML}:\\
 \end{description}
 
 \subsubsection{Appending decoys to a TraML}
-To append decoys to a TraML, the TOPP tool \OPENMSTOOL{OpenSwathDecoyGenerator} can be used:
+In addition to the target assays, OpenSWATH further requires decoy assays in the library which are later used for classification and error rate estimation. For the decoy generation it is crutial that the decoys represent the targets in a realistic but unnatural manner without interfering with the targets. The methods for decoy generation implemented in OpenSWATH include 'shuffle', 'pseudo-reverse', 'reverse' and 'shift'. To append decoys to a TraML, the TOPP tool \OPENMSTOOL{OpenSwathDecoyGenerator} can be used:
 
 \begin{description}
   \item[Linux or Mac] \hfill \\
     On the Terminal:
     \begin{lstlisting}
-  OpenSwathDecoyGenerator -in OpenSWATH_SGS_AssayLibrary.TraML -out OpenSWATH_SGS_AssayLibrary_with_Decoys.TraML -min_transitions 3 -max_transitions 6 -method shuffle -append -exclude_similar
+  OpenSwathDecoyGenerator -in OpenSWATH_SGS_AssayLibrary.TraML -out OpenSWATH_SGS_AssayLibrary_with_Decoys.TraML -method shuffle -append -exclude_similar
   \end{lstlisting}
   \item[Windows] \hfill \\
     On the TOPP command line:
     \begin{lstlisting}
-  OpenSwathDecoyGenerator.exe -in OpenSWATH_SGS_AssayLibrary.TraML -out OpenSWATH_SGS_AssayLibrary_with_Decoys.TraML -min_transitions 3 -max_transitions 6 -method shuffle -append -exclude_similar
+  OpenSwathDecoyGenerator.exe -in OpenSWATH_SGS_AssayLibrary.TraML -out OpenSWATH_SGS_AssayLibrary_with_Decoys.TraML -method shuffle -append -exclude_similar
   \end{lstlisting}
 \end{description}
+
+The flag \texttt{-append} generates an output TraML with the complete set of decoy and target assays. The flag \texttt{-exclude\_similar} is used to exclude decoys which are very similar to the target assays.  
 
 \subsection{OpenSWATH KNIME}
 An example KNIME workflow for OpenSWATH is supplied in \directory{Workflows/} (Figure~\ref{fig:toppas}). The example dataset can be used for this workflow (filenames in brackets):
@@ -137,14 +139,27 @@ Please note that due to the semi-supervised machine learning approach of mProphe
 \label{fig:toppas}
 \end{figure*}
 
-\subsection{Example dataset}
-This sample dataset is part of the larger SWATH MS Gold Standard (SGS) dataset which is described in the publication of Roest et al.~\cite{Rost2014fd}.
-It contains one of 90 SWATH MS runs with significant data reduction (peak picking of the raw, profile data) to make file transfer and working with it easier.
+\subsection{From the example dataset to real-life applications}
+The sample dataset used in this tutorial is part of the larger SWATH MS Gold Standard (SGS) dataset which is described in the publication of Roest et al.~\cite{Rost2014fd}.
+It contains one of 90 SWATH-MS runs with significant data reduction (peak picking of the raw, profile data) to make file transfer and working with it easier. Usually SWATH-MS datasets are huge with several gigabyte per run. Especially when complex samples in combination with large assay libraries are analyzed, the TOPP tool based workflow requires a lot of computational resources. For this reason, an integrated tool (\OPENMSTOOL{OpenSwathWorkflow}) has been developed, combining all the steps shown in the KNIME-Workflow into a single executable. It is shipped with OpenMS 2.0.0.
 
-\subsection{Real-life applications}
-SWATH-MS datasets are huge, several gigabyte per run. 
-Especially when complex samples in combination with large assay libraries are analyzed, the TOPP tool based workflow requires much computational resources.
-For this reason, an integrated tool (\OPENMSTOOL{OpenSwathWorkflow}) combining all the steps in a single executable has been developed. 
-It is shipped with OpenMS/develop and will be shipped with OpenMS 1.12. 
+To run the \OPENMSTOOL{OpenSwathWorkflow} use:
+
+\begin{description}
+  \item[Linux or Mac] \hfill \\
+    On the Terminal:
+    \begin{lstlisting}
+  OpenSwathWorkflow -in @TODO -tr OpenSWATH_SGS_AssayLibrary.TraML -tr_irt OpenSWATH_iRT_AssayLibrary.TraML -out_tsv OpenSwathWorkflow_output.csv
+  
+  \end{lstlisting}
+  \item[Windows] \hfill \\
+    On the TOPP command line:
+    \begin{lstlisting}
+  OpenSwathDecoyGenerator.exe -in OpenSWATH_SGS_AssayLibrary.TraML -out OpenSWATH_SGS_AssayLibrary_with_Decoys.TraML -method shuffle -append -exclude_similar
+  \end{lstlisting}
+\end{description}
+
+
+ 
 Instructions on how to use this tool can be found on \url{http://www.openswath.org}.
 

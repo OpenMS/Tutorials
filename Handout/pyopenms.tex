@@ -46,28 +46,24 @@ Instructions on how to build pyOpenMS can be found online (\url{http://ftp.mi.fu
 The first tool that you are going to re-implement is a TOPP tool called OpenSwathFeatureXMLToTSV. Take a look at the help of the tool:
 
 \begin{lstlisting}
+OpenSwathFeatureXMLToTSV --help
+
 OpenSwathFeatureXMLToTSV -- Converts a featureXML to a mProphet tsv.
-Version: 1.11.0 Aug 16 2013, 23:41:21, Revision: 11695
+Version: 2.0.0 Apr 11 2015, 02:02:58, Revision: 66a7739
 
 Usage:
   OpenSwathFeatureXMLToTSV <options>
 
 Options (mandatory options marked with '*'):
-  -in <files>*                     Input files separated by blank (valid format
-                                   s: 'featureXML')
-  -tr <file>*                      TraML transition file (valid formats: 'traML
-                                   ')
-  -out <file>*                     Tsv output file (mProphet compatible) (valid
-                                   formats: 'csv')
-  -short_format                    Whether to write short (one peptide per line
-                                   ) or long format (one transition per line).
-  -best_scoring_peptide <varname>  If only the best scoring feature per peptide
-                                   should be printed, give the variable name
-
+  -in <files>*                     Input files separated by blank (valid formats: 'featureXML')
+  -tr <file>*                      TraML transition file (valid formats: 'traML')
+  -out <file>*                     Tsv output file (mProphet compatible) (valid formats: 'csv')
+  -short_format                    Whether to write short (one peptide per line) or long format (one transition per line).
+  -best_scoring_peptide <varname>  If only the best scoring feature per peptide should be printed, give the variable name
+                                   
 Common TOPP options:
   -ini <file>                      Use the given TOPP INI file
-  -threads <n>                     Sets the number of threads allowed to be
-                                   used by the TOPP tool (default: '1')
+  -threads <n>                     Sets the number of threads allowed to be used by the TOPP tool (default: '1')
   -write_ini <file>                Writes the default configuration file
   --help                           Shows options
   --helphelp                       Shows all options (including advanced)
@@ -91,12 +87,12 @@ def handle_args():
     import argparse
 
     usage = ""
-    usage += "\nOpenSwathFeatureXMLToTSV -- Converts a featureXML to a mProphet tsv."
+    usage += "\nOpenSwathFeatureXMLToTSV −− Converts a featureXML to a mProphet tsv."
 
     parser = argparse.ArgumentParser(description = usage )
-    parser.add_argument('--in', dest="infile", help = 'An input file containing features [featureXML]')
-    parser.add_argument("--tr", dest="traml_in", help="An input file containing the transitions [TraML]")
-    parser.add_argument("--out", dest="outfile", help="Output mProphet TSV file [tsv]")
+    parser.add_argument('-in', dest='infile', help = 'An input file containing features􏰀 featureXML]')
+    parser.add_argument('-tr', dest='traml_in', help='An input file containing the transitions TraML]')
+    parser.add_argument('-out', dest='outfile', help='Output mProphet TSV file [tsv]')
 
     args = parser.parse_args(sys.argv[1:])
     return args
@@ -114,20 +110,20 @@ Execute this code in the example script
 
 \begin{lstlisting}
 python OpenSwathFeatureXMLToTSV_basics.py --help
-usage: OpenSwathFeatureXMLToTSV_basics.py [-h] [--in INFILE] [--tr TRAML_IN]
-                                          [--out OUTFILE]
+usage: OpenSwathFeatureXMLToTSV_basics.py [-h] [-in INFILE] [-tr TRAML_IN]
+                                          [-out OUTFILE]
 
-OpenSwathFeatureXMLToTSV -- Converts a featureXML to a mProphet tsv.
+OpenSwathFeatureXMLToTSV −− Converts a featureXML to a mProphet tsv.
 
 optional arguments:
-  -h, --help     show this help message and exit
-  --in INFILE    An input file containing features [featureXML]
-  --tr TRAML_IN  An input file containing the transitions [TraML]
-  --out OUTFILE  Output mProphet TSV file [tsv]
+  -h, --help    show this help message and exit
+  -in INFILE    An input file containing features [featureXML]
+  -tr TRAML_IN  An input file containing the transitions [TraML]
+  -out OUTFILE  Output mProphet TSV file [tsv]
 \end{lstlisting}
 
 \begin{lstlisting}
-python OpenSwathFeatureXMLToTSV_basics.py --in data/example.featureXML --tr assay/OpenSWATH_SGS_AssayLibrary.TraML --out example.tsv
+python OpenSwathFeatureXMLToTSV_basics.py -in data/example.featureXML -tr assay/OpenSWATH_SGS_AssayLibrary.TraML -out example.tsv  
 data/example.featureXML assay/OpenSWATH_SGS_AssayLibrary.TraML example.tsv
 \end{lstlisting}
 
@@ -142,12 +138,10 @@ import pyopenms
 import sys
 
 def main(options):
-
-    # load featureXML
+    #  load featureXML
     features = pyopenms.FeatureMap()
     fh = pyopenms.FileHandler()
     fh.loadFeatures(options.infile, features)
-
     keys = []
     features[0].getKeys(keys)
     print keys
@@ -156,12 +150,12 @@ def handle_args():
     import argparse
 
     usage = ""
-    usage += "\nOpenSwathFeatureXMLToTSV -- Converts a featureXML to a mProphet tsv."
+    usage += "\nOpenSwathFeatureXMLToTSV −− Converts a featureXML to a mProphet tsv."
 
     parser = argparse.ArgumentParser(description = usage )
-    parser.add_argument('--in', dest="infile", help = 'An input file containing features [featureXML]')
-    parser.add_argument("--tr", dest="traml_in", help="An input file containing the transitions [TraML]")
-    parser.add_argument("--out", dest="outfile", help="Output mProphet TSV file [tsv]")
+    parser.add_argument('-in', dest='infile', help = 'An input file containing features [featureXML]')
+    parser.add_argument('-tr', dest='traml_in', help='An input file containing the transitions [TraML]')
+    parser.add_argument('-out', dest='outfile', help='Output mProphet TSV file [tsv]')
 
     args = parser.parse_args(sys.argv[1:])
     return args
@@ -176,7 +170,7 @@ The function pyopenms.FeatureMap() initializes an OpenMS FeatureMap data structu
 In the next step, we're accessing the keys using the function getKeys() and printing them to stdout:
 
 \begin{lstlisting}
-python OpenSwathFeatureXMLToTSV_datastructures1.py --in data/example.featureXML --tr assay/OpenSWATH_SGS_AssayLibrary.TraML --out example.tsv
+python OpenSwathFeatureXMLToTSV_datastructures1.py -in data/example.featureXML -tr assay/OpenSWATH_SGS_AssayLibrary.TraML -out example.tsv
 ['PeptideRef', 'leftWidth', 'rightWidth', 'total_xic', 'peak_apices_sum', 'var_xcorr_coelution', 'var_xcorr_coelution_weighted ', 'var_xcorr_shape', 'var_xcorr_shape_weighted', 'var_library_corr', 'var_library_rmsd', 'var_library_manhattan', 'var_library_dotprod', 'delta_rt', 'assay_rt', 'norm_RT', 'rt_score', 'var_norm_rt_score', 'var_intensity_score', 'nr_peaks', 'sn_ratio', 'var_log_sn_score', 'var_elution_model_fit_score', 'xx_lda_prelim_score', 'var_isotope_correlation_score', 'var_isotope_overlap_score', 'var_massdev_score', 'var_massdev_score_weighted', 'var_bseries_score', 'var_yseries_score', 'var_dotprod_score', 'var_manhatt_score', 'main_var_xx_swath_prelim_score', 'PrecursorMZ', 'xx_swath_prelim_score']
 \end{lstlisting}
 
@@ -214,7 +208,7 @@ def convert_to_row(first, targ, run_id, keys, filename):
     pep = targ.getPeptideByRef(peptide_ref)
     full_peptide_name = "NA"
     if (pep.metaValueExists("full_peptide_name")):
-      full_peptide_name = pep.getMetaValue("full_peptide_name")
+        full_peptide_name = pep.getMetaValue("full_peptide_name")
 
     decoy = "0"
     peptidetransitions = [t for t in targ.getTransitions() if t.getPeptideRef() == peptide_ref]
@@ -226,7 +220,7 @@ def convert_to_row(first, targ, run_id, keys, filename):
 
     protein_name = "NA"
     if len(pep.protein_refs) > 0:
-      protein_name = pep.protein_refs[0]
+        protein_name = pep.protein_refs[0]
 
     row = [
         first.getMetaValue("PeptideRef"),
@@ -267,5 +261,5 @@ Hint: If you struggle at any point, take a look at OpenSwathFeatureXMLToTSV\_sol
 \subsubsection{Bonus task}
 
 \begin{task}
-Implement all other 142 TOPP tools using pyOpenMS.
+Implement all other 184 TOPP tools using pyOpenMS.
 \end{task}
