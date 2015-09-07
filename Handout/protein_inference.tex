@@ -1,0 +1,81 @@
+\section{Protein Inference}
+
+In the last chapter, we have successfully quantified peptides in a label-free experiment. As a next step, we will
+further extend this label-free quantification workflow by protein inference and protein quantification capabilities.
+This workflow uses some of the more advanced concepts of KNIME, as well as a few more nodes containing R code.
+For these reasons, you will not have to build it yourself. Instead, we have already
+prepared and copied this workflow to the USB sticks. Just import \textit{protein\_inference.zip} into KNIME
+via \menu{File > Import KNIME workflow > Select archive file} and double-click the imported workflow in order to open it.
+
+Before you can execute the workflow, you again have to correct the locations of the files in the \KNIMENODE{Input Files} nodes (don't forget
+the one for the FASTA database inside the ``ID'' meta node). Try and run your workflow.
+
+\subsection{Extending the LFQ workflow by protein inference and quantification}
+
+We have made the following changes compared to the original label-free quantification workflow from the last chapter:
+
+\begin{itemize}
+\item First, we have added a \KNIMENODE{ProteinQuantifier} node and connected its input port to the output port of \KNIMENODE{ConsensusMapNormalizer}.
+\item This already enables protein quantification. ProteinQuantifier quantifies peptides by summarizing over all observed charge states and proteins
+by summarizing over their quantified peptides. It stores two output files, one for the quantified peptides and one for the proteins.
+\item In this example, we consider only the protein quantification output file, which is written to the first output port of \KNIMENODE{ProteinQuantifier}
+\item Because there is no dedicated node in KNIME to read back the ProteinQuantifier output file format into a KNIME table, we have to use a workaround.
+Here, we have added an additional
+\KNIMENODE{URI Port to Variable} node which converts the name of the output file to a so-called ``flow variable'' in KNIME. This variable is passed on
+to the next node \KNIMENODE{CSV Reader}, where it is used to specify the name of the input file to be read. If you double-click on \KNIMENODE{CSV Reader},
+you will see that the text field, where you usually enter the location of the CSV file to be read, is greyed out. Instead, the flow variable is used
+to specifiy the location, as indicated by the small green button with the ``v=?'' label on the right.
+\item The table containing the \KNIMENODE{ProteinQuantifier} results is filtered one more time in order to remove decoy proteins. You can have a look
+at the final list of quantified protein groups by right-clicking the \KNIMENODE{Row Filter} and selecting \menu{Filtered}.
+\item By default, i.e., when the second input port \textit{protein\_groups} is not used, ProteinQuantifier quantifies proteins using only the unique peptides,
+which usually results in rather low numbers of quantified proteins.
+\item In this example, however, we have performed protein inference using Fido and used the resulting protein grouping information to also quantify
+indistinguishable proteins
+\item As a prerequisite for using FidoAdapter, we have added an \KNIMENODE{IDPosteriorErrorProbability} node within the \KNIMENODE{ID} meta node, between
+OMSSAAdapter and PeptideIndexer. We have set its parameter \textit{prob\_correct} to \textit{true}, so it computes posterior probabilities instead
+of posterior error probabilities (1 - PEP). These are stored in the resulting idXML file and later on used by the Fido algorithm.
+\item Next, we have added a third outgoing connection to our \KNIMENODE{ID} meta node and connected it to the second input port of \KNIMENODE{ZipLoopEnd}.
+Thus, KNIME will wait until all input files have been processed by the loop and then pass on the resulting list of idXML files to the subsequent
+\KNIMENODE{IDMerger} node, which merges all identifications from all idXML files into a single idXML file.
+\item Instead of the meta node \KNIMENODE{Protein inference with FidoAdapter}, we could have just used a \KNIMENODE{FidoAdapter} node
+\menu{Community Nodes > OpenMS > ID Processing}. However, the meta node contains an additional subworkflow which, besides calling \KNIMENODE{FidoAdapter},
+performs a statistical validation of the protein inference results using some of the more advanced KNIME nodes.
+\end{itemize}
+
+\subsection{Statistical validation of protein inference results}
+
+In the following, we will explain the subworkflow contained in the \KNIMENODE{Protein inference with FidoAdapter} meta node.
+
+\subsubsection{Data preparation}
+For downstream analysis on the protein ID level in KNIME, it is again necessary to convert the idXML-file-format result generated from \KNIMENODE{FidoAdapter} into a KNIME table.
+
+\begin{itemize}
+\item By setting \textit{proteins\_only} to true in \KNIMENODE{TextExporter}, only the protein IDs are exported. 
+\item As the built-in table file reader \KNIMENODE{IDTextReader} only reads peptide hits, we have to use \KNIMENODE{URI Port to Variable} which collects the URIs from a URI port object and puts them into variables. 
+\item However, doing this will cause missing column information in the converted KNIME table. Open the \KNIMENODE{File Viewer} and check what each column stands for, filter away unused columns, such as sequence, coverage and rank in the \KNIMENODE{Column Filter} node. Add the column names manually in \KNIMENODE{Column Rename}. 
+\end{itemize}
+
+\subsubsection{ROC curve of protein ID}
+
+\KNIMENODE{ROC Curve} already provides the functionality of drawing ROC curves for binary classification problems. In this case, we accept decoy proteins as false positives and target proteins as true positives. Therefore, an extra column with the class values (target and decoy proteins) has to be appended beforehand in the \KNIMENODE{Rule engine} node. 
+
+\subsubsection{Posterior probability and FDR of protein IDs}
+Because Fido produces the posterior probability of each protein as the output, we can calculate an estimated FDR for the protein IDs which then can be compared with the target-decoy protein FDR. The calculation is done by using a simple R script in \KNIMENODE{R snippet}. 
+First, the target decoy protein FDR is computed as the proportion of decoy proteins among all significant protein IDs. Then posterior probabilistic-driven FDR is estimated by the average of the posterior error probability (1 - posterior probability) of all significant protein IDs. We can also calculate the $q$-value as the minimum FDR value of any data set that includes the current protein ID. 
+We plot the protein ID results versus two different kinds of FDR estimates in \KNIMENODE{R View(Table)} (see Figure \ref{fig:proteinfdr}).
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\textwidth]{graphics/protein_inference/ProteinInferenceKNIME_workflow.pdf}
+  \caption{The workflow of statistical analysis of protein inference results}
+  \label{fig:proteininference}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\textwidth]{graphics/protein_inference/proteinFDR.png}
+  \caption{Statistical validation results of protein IDs. The accumulated number of protein IDs is plotted on two kinds of scales: target-decoy protein FDR and Fido posterior probability estimated FDR. A significant number of protein IDs with $q$-value smaller than 0.05 are identified.}
+  \label{fig:proteinfdr}
+\end{figure}
+
