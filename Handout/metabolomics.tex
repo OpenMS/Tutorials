@@ -21,7 +21,7 @@ For the metabolite quantification we choose an approach similar to the one used 
 \item
 Create a new workflow called for instance "Metabolomics".
 \item
-Add a \KNIMENODE{Input Files} node and configure it with all mzML files from \directory{Metabolomics / datasets}.
+Add a \KNIMENODE{Input Files} node and configure it with all mzML files from \directory{Example\_Data / Metabolomics / datasets}.
 \item
 Add a \KNIMENODE{ZipLoopStart} node and connect the \KNIMENODE{Input Files} node to the first port of the \KNIMENODE{ZipLoopStart} node.
 \item
@@ -71,7 +71,8 @@ The next step after retention time correction is the grouping of corresponding f
 
 \begin{itemize}
 \item
-After the \KNIMENODE{MapAlignerPoseClustering} add a \KNIMENODE{FeatureLinkerUnlabeledQT} (\menu{Community Nodes > OpenMS > Map Alignment}) and adjust the following settings
+After the \KNIMENODE{MapAlignerPoseClustering} add a \KNIMENODE{FeatureLinkerUnlabeledQT} \\
+ (\menu{Community Nodes > OpenMS > Map Alignment}) and adjust the following settings
 
 \begin{center}
 \begin{tabular}{l|l}
@@ -120,22 +121,23 @@ Add an \KNIMENODE{AccurateMassSearch} node and connect the output of the \KNIMEN
 Add four \KNIMENODE{Input File} nodes and configure them with the following files
 \begin{itemize}
 \item
-\directory{Metabolomics / databases / PositiveAdducts.tsv}\\
+\directory{Example\_Data / Metabolomics / databases / PositiveAdducts.tsv}\\
 This file specifies the list of adducts that are considered in the positive mode. Each line contains the formula and charge of an adduct separated by a semicolon (e.g. M+H;1+). The mass of the adduct is calculated automatically.
 \item
-\directory{Metabolomics / databases / NegativeAdducts.tsv}\\
+\directory{Example\_Data / Metabolomics / databases / NegativeAdducts.tsv}\\
 This file specifies the list of adducts that are considered in the negative mode analogous to the positive mode.
 \item
-\directory{Metabolomics / databases / HMDBMappingFile.tsv}\\
+\directory{Example\_Data / Metabolomics / databases / HMDBMappingFile.tsv}\\
 This file contains information from a metabolite database in this case from HMDB. It has three (or more) tab-separated columns: mass, formula, and identifier(s). This allows for an efficient search by mass.
 \item
-\directory{Metabolomics / databases / HMDB2StructMapping.tsv}\\
+\directory{Example\_Data / Metabolomics / databases / HMDB2StructMapping.tsv}\\
 This file contains additional information about the identifiers in the mapping file. It has four tab-separated columns that contain the identifier, name, SMILES, and INCHI. These will be included in the result file. The identifiers in this file must match the identifiers in the HMDBMappingFile.tsv.
 \end{itemize}
 \item
 In the same order as they are given above connect them to the remaining input ports of the \KNIMENODE{AccurateMassSearch} node.
 \item
-Add an \KNIMENODE{Output Folder} node and connect the first output port of the \KNIMENODE{AccurateMassSearch} node to the output folder.
+Add an \KNIMENODE{Output Folder} node and connect the first output port of the \\
+\KNIMENODE{AccurateMassSearch} node to the output folder.
 \end{itemize}
 
 The result of the \KNIMENODE{AccurateMassSearch} node is in the mzTab format \cite{Griss2014} so you can easily open it in a text editor or import it into Excel or KNIME, which we will do in the next section.

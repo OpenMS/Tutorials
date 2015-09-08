@@ -34,7 +34,7 @@ We will make use of these later throughout the tutorial. Let's start with a firs
 \item Start \OPENMSTOOL{TOPPView} (see Start-Menu or Applications on MacOS)
 \item Go to \menu{File > Open File}, navigate to the directory where you copied the contents of the USB stick to,
       and select
-      \directory{ OpenMS / small / velos005614.mzML}
+      \directory{Example\_Data / Introduction / datasets / small / velos005614.mzML}
       . This file contains a reduced LC-MS map (only a selected RT and m/z range
       was extracted using the TOPP tool \OPENMSTOOL{FileFilter}) of a label-free measurement of the human platelet proteome recorded on an Orbitrap velos.
       The other two mzML files contain technical replicates of this experiment.
@@ -292,7 +292,7 @@ The complete workflow is shown in \cref{fig:knime_minimal}.
 FileInfo can produce two different kinds of output files.
 \item All nodes are still marked red, since we are missing an actual input file.
 Double-click the Input File node and select \menu{Browse}.
-In the file system browser select \directory{OpenMS / tiny / velos005614.mzML} and click \menu{Open}.
+In the file system browser select \directory{Example\_Data / Introduction / datasets / tiny / velos005614.mzML} and click \menu{Open}.
 Afterwards close the dialog by clicking \menu{Ok}.
 \note{Make sure to use the ``tiny'' version this time, not ``small'', for the sake of faster workflow execution.}
 \item The \KNIMENODE{Input File} node and the \KNIMENODE{FileInfo} node should now have switched to yellow, but the \KNIMENODE{Output Folder} node is still red.
@@ -327,7 +327,7 @@ First we need to replace our single input file with multiple files.
 Therefore we add the \KNIMENODE{Input Files} node from the category \menu{Community Nodes > GenericKnimeNodes > IO}.
 \item
 To select the files we double-click on the \KNIMENODE{Input Files} node and click on \menu{Add}.
-In the filesystem browser we select all three files from the directory \directory{OpenMS / tiny / }.
+In the filesystem browser we select all three files from the directory \directory{Example\_Data / Introduction / datasets / tiny / }.
 And close the dialog with \menu{Ok}.
 \item
 We now add two more nodes: the \KNIMENODE{ZipLoopStart} and the \KNIMENODE{ZipLoopEnd} node from the category \menu{Community Nodes > GenericKnimeNodes > Flow}. 
