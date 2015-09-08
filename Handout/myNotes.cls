@@ -90,7 +90,10 @@
 		\begin{center}
 		\textsc{\Large The OpenMS Developers}\\[1cm]
 		Mathias Walzer, Timo Sachsenberg, Fabian Aicheler,\\
-		Marc Rurik, Johannes Veit, \\ Knut Reinert, and Oliver Kohlbacher\\[2cm]
+		Marc Rurik, Johannes Veit,\\ 
+		Bludau Isabell, Patrick Pedrioli,\\
+		George Rosenberger, Hannes Röst,\\ 
+		Knut Reinert, and Oliver Kohlbacher\\[2cm]
 %                \textsc{\Large License}\\[1cm]
 \vfill
 		\textbf{Creative Commons Attribution 4.0 International (CC BY 4.0)}\\

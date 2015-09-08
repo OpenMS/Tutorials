@@ -35,8 +35,8 @@ In the next step, we will tweak the parameters of OMSSA to better reflect the in
 \item
 Open the configuration dialog of \KNIMENODE{OMSSAAdapter}.
 The dataset was recorded using an LTQ Orbitrap XL mass spectrometer, so we can set the precursor mass tolerance to a smaller value, say 10 ppm.
-Set \textit{precursor\_ mass\_ tolerance} to 10 and \\ \textit{precursor\textunderscore mass\textunderscore tolerance\textunderscore unit\textunderscore ppm} to \textit{true}.
-\note{Whenever you change the configuration of a node the node as well as all its successors will be reset to the Configured state.}
+Set \textit{precursor\textunderscore mass\textunderscore tolerance} to 10 and \\ \textit{precursor\textunderscore mass\textunderscore tolerance\textunderscore unit\textunderscore ppm} to \textit{true}.
+\note{Whenever you change the configuration of a node, the node as well as all its successors will be reset to the Configured state.}
 \item
 Set \textit{max\_precursor\_charge} to 5, in order to also search for peptides with charges up to 5.
 \item
@@ -86,7 +86,7 @@ Next to the \KNIMENODE{OMSSAAdapter} add a \KNIMENODE{XTandemAdapter} \menu{Comm
 To calculate the PEP, introduce each a \KNIMENODE{IDPosteriorErrorProbability} \menu{Community Nodes > OpenMS > ID Processing} node to the output of each ID engine adapter node.
 This will calculate the PEP to each hit and output an updated idXML.
 \item
-To create a consensus we must first merge these two files with a \KNIMENODE{FileMerger} node \menu{Community Nodes > GenericKnimeNodes > Flow} so we can then merge the corresponding IDs with a \KNIMENODE{IDMerger} \menu{Community Nodes > OpenMS > File Handling}.
+To create a consensus, we must first merge these two files with a \KNIMENODE{FileMerger} node \menu{Community Nodes > GenericKnimeNodes > Flow} so we can then merge the corresponding IDs with a \KNIMENODE{IDMerger} \menu{Community Nodes > OpenMS > File Handling}.
 \item
 Now we can create a consensus identification with the \KNIMENODE{ConsensusID} \menu{Community Nodes > OpenMS > ID Processing} node.
 We can connect this to the \KNIMENODE{PeptideIndexer} and go along with our existing FDR filtering.
@@ -122,7 +122,7 @@ In TOPPView choose \menu{File > Open file} and select the mzML file correspondin
 In the dialog that pops up, select \menu{Open in > New layer}.
 Zoom in until you see boxes (found features) around the peptide signals in the raw data.
 \note{The RT range is very narrow.
-Thus, select the full RT range and zoom only into the m/z dimension by holding down CTRL (CMD on the Mac) and repeatedly dragging a narrow box from the very left to the very right.}
+Thus, select the full RT range and zoom only into the m/z dimension by holding down CTRL (CMD on Mac) and repeatedly dragging a narrow box from the very left to the very right.}
 \item
 You can see which features were annotated with a peptide identification by first selecting the featureXML file in the \texttt{Layers} window on the upper right side and then clicking on the icon with the letters A, B and C on the upper icon bar.
 Now, click on the small triangle next to that icon and select \texttt{Peptide identification}.
@@ -172,7 +172,7 @@ Every row in this table corresponds to a so-called consensus feature, i.e., a pe
     \item Now, let's say we want to plot the log intensity distributions of the human spike-in peptides for all input files. In addition, we will plot the intensity distributions of the background peptides.
     \item As shown in Fig. \ref{fig:lfq_data_analysis}, add a \KNIMENODE{Row Splitter} node \menu{Data Manipulation > Row > Filter} after \KNIMENODE{ConsensusTextReader}. Double-click it to configure. The human spike-in peptides have accessions starting with ``hum''. Thus, set the column to test to \textit{accessions}, select pattern matching as matching criterion, enter \textit{hum*} into the corresponding text field, and check the \textit{contains wild cards} box. Press OK and execute the node.
     \item Row splitter produces two output tables: the first one contains all rows from the input table matching the filter criterion, and the second table contains all other rows. You can inspect the tables by right-clicking and selecting \textit{Filtered} and \textit{Filtered Out}. The former table should now contain only peptides with a human accession, whereas the latter should contain all remaining peptides (including unidentified ones).
-    \item Now, since we only want to plot intensities, we can add a \KNIMENODE{Column Filter} node \menu{Data Manipulation > Column > Filter}, connect its input port to the \textit{Filtered} output port of the \KNIMENODE{Row Filter}, and open its configuration dialog. We could either manually select the columns we want to keep, or, more elegantly, select \textit{Wildcard/Regex Selection} and enter \textit{intensity\_?} as the pattern. KNIME will interactively show you which columns your pattern applies to while you're typing.
+    \item Now, since we only want to plot intensities, we can add a \KNIMENODE{Column Filter} node \\ \menu{Data Manipulation > Column > Filter}, connect its input port to the \textit{Filtered} output port of the \KNIMENODE{Row Filter}, and open its configuration dialog. We could either manually select the columns we want to keep, or, more elegantly, select \textit{Wildcard/Regex Selection} and enter \textit{intensity\_?} as the pattern. KNIME will interactively show you which columns your pattern applies to while you're typing.
     \item Since we want to plot log intensities, we will now compute the log of all intensity values in our table. The easiest way to do this in KNIME is a small piece of R code. Add an \KNIMENODE{R Snippet} node \menu{R} after \KNIMENODE{Column Filter} and double-click to configure. In the \textit{R Script} text editor, enter the following code:
         \begin{lstlisting}
             x <- knime.in       # store copy of input table in x
