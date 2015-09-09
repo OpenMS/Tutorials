@@ -40,7 +40,7 @@ Finally, change the parameter \textit{cv\_acc} to \textit{QC:0000004}, to attach
 
 There are two other basic plots which we almost always might want to look at before judging the quality of a mass spectrometry run and its identifications: the \textit{total ion current} (TIC) and the \textit{PSM mass error} (Mass accuracy), which we have available as pre-packaged QC metanodes.
 \begin{task}
-Import the workflow from \directory{Workflows / QC Metanodes.zip} in KNIME: \menu{File > Import KNIME Workflow...}
+Import the workflow from \directory{Workflows / Quality Control / QC Metanodes.zip} in KNIME: \menu{File > Import KNIME Workflow...}
 \end{task}
 \begin{itemize}
 \item Copy the \KNIMENODE{Mass accuracy} metanode into the workflow behind the \KNIMENODE{QCEmbedder} node and connect it. The qcML will be passed on and the Mass accuracy plots added. The information needed was already collected by the \KNIMENODE{QCCalculator}.
