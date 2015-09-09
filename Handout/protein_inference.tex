@@ -59,20 +59,14 @@ For downstream analysis on the protein ID level in KNIME, it is again necessary 
 
 ROC Curves (Receiver Operating Characteristic curves) are graphical plots that visualize sensitivity (true-positive rate) 
 against fall-out (false positive rate). They are often used to judge the quality of a discrimination method like e.g., 
-peptide or protein identification engines.
-When analyzing data sets without ground-truth (i.e., we don't know which target identifications are true, which are false,), 
-we accept decoy proteins as false positives and target proteins as true positives.
+peptide or protein identification engines. 
 \KNIMENODE{ROC Curve} already provides the functionality of drawing ROC curves for binary classification problems. 
 Before applying this node, an extra column with the class values (target and decoy proteins) has to be appended in 
 the \KNIMENODE{Rule engine} node. 
 
-As we mentioned above, the classification is not based on the real truth or falsehood. 
-Therefore, the so called pseudo-ROC Curve can be generated which plot the number of target 
-proteins against the false discovery rate (FDR). 
+In protein or peptide identification, the ground-truth (i.e., which target identifications are true, which are false) is usually not known. Instead, so called pseudo-ROC Curves are regularly used to plot the number of target proteins against the false discovery rate (FDR). 
 The FDR is approximated by using the target-decoy estimate in order to distinguish
 true IDs from false IDs by separating target IDs from decoy IDs.
-This is similar to the original notion of a ROC curve except that usually the true positives are not known.
-
 
 \subsubsection{Posterior probability and FDR of protein IDs}
 ROC curves illustrate the discriminative capability of the scores of IDs. 
@@ -82,7 +76,7 @@ it should also be ``calibrated'' (for probability indicating that all IDs with r
 should roughly of 5\% probability be false. This implys that the estimated number of false positives can be computed as the sum
 of posterior error probability ( = 1 - posterior probability), further an posterior probability estimated FDR is also possible to be computed. 
 Therefore, we can plot calibration curves to help us visualize the
-quality of the score (when the score is interpreted as a probability as Fido does).
+quality of the score (when the score is interpreted as a probability as Fido does), by comparing how similar the target-decoy estimated FDR and the posterior probability estimated FDR are. Good results should show a close correspondence between these two measurements. 
 
 The calculation is done by using a simple R script in \KNIMENODE{R snippet}. 
 First, the target decoy protein FDR is computed as the proportion of decoy proteins among all significant protein IDs. 
@@ -103,4 +97,4 @@ We plot the protein ID results versus two different kinds of FDR estimates in \K
   \label{fig:proteinfdr}
 \end{figure}
 
-                                
+                                                                                                                      
