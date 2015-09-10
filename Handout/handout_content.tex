@@ -356,11 +356,11 @@ The \KNIMENODE{ZipLoopEnd} collects the single files that arrive at its input po
 \label{fig:knime_minimal_loop}
 \end{figure}
 
-\subsubsection{Advanced topics}
+\subsubsection{Advanced topic: Meta nodes}
 
 Workflows can get rather complex and may contain dozens or even hundreds of nodes. KNIME provides a simple way to improve handling and clarity of large workflows:
 
-\paragraph{MetaNodes} allow to bundle several nodes into a single \KNIMENODE{Meta Node}.
+\KNIMENODE{MetaNodes} allow to bundle several nodes into a single \KNIMENODE{Meta Node}.
 
 \begin{task}
 Select multiple nodes (e.g. all nodes of the ZipLoop including the start and end node). Open the context menu (right-click) and select \menu{Collapse into Meta Node}. Enter a caption for the \KNIMENODE{Meta Node}. The previously selected nodes are now contained in the \KNIMENODE{Meta Node}. Double clicking on the \KNIMENODE{Meta Node} will display the contained nodes in a new tab window. 
@@ -370,9 +370,11 @@ Select multiple nodes (e.g. all nodes of the ZipLoop including the start and end
 Undo the packaging. First select the \KNIMENODE{Meta Node}, open the context menu (right-click) and select \menu{Expand Meta Node}.
 \end{task}
 
+\subsubsection{Advanced topic: R integration}
+
 KNIME provides a large number of nodes for a wide range of statistical analysis, machine learning, data processing and visualization. Still, more recent statistical analysis methods, specialized visualizations or cutting edge algorithms may not be covered in KNIME. In order to expand its capabilities over the readily available nodes external scripting languages can be integrated. In this tutorial, we primarily use scripts of the powerful statistical computing language R. Note that this part is considered advanced and might be difficult to follow if you are not familiar with R. In this case you might skip this part.
 
-\paragraph{R View (Table)} allows to seamlessly include R scripts into KNIME. We will demonstrate on a minimal example how such a script is integrated.
+\KNIMENODE{R View (Table)} allows to seamlessly include R scripts into KNIME. We will demonstrate on a minimal example how such a script is integrated.
 
 \begin{task}
 First we need some example data in KNIME, which we will generate using the \KNIMENODE{Data Generator} node. You can keep the default settings and execute the node. The table contains 4 columns, each containing random coordinates and one column containing a cluster number (Cluster\_0 to Cluster\_3). Now place a \KNIMENODE{R View (Table)} node into the workflow and connect the upper output port of the \KNIMENODE{Data Generator} node to the input of the \KNIMENODE{R View (Table)} node.
