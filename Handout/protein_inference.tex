@@ -57,13 +57,31 @@ For downstream analysis on the protein ID level in KNIME, it is again necessary 
 
 \subsubsection{ROC curve of protein ID}
 
-\KNIMENODE{ROC Curve} already provides the functionality of drawing ROC curves for binary classification problems. In this case, we accept decoy proteins as false positives and target proteins as true positives. Therefore, an extra column with the class values (target and decoy proteins) has to be appended beforehand in the \KNIMENODE{Rule engine} node. 
+ROC Curves (Receiver Operating Characteristic curves) are graphical plots that visualize sensitivity (true-positive rate) 
+against fall-out (false positive rate). They are often used to judge the quality of a discrimination method like e.g., 
+peptide or protein identification engines. 
+\KNIMENODE{ROC Curve} already provides the functionality of drawing ROC curves for binary classification problems. 
+Before applying this node, an extra column with the class values (target and decoy proteins) has to be appended in 
+the \KNIMENODE{Rule engine} node. 
+
+In protein or peptide identification, the ground-truth (i.e., which target identifications are true, which are false) is usually not known. Instead, so called pseudo-ROC Curves are regularly used to plot the number of target proteins against the false discovery rate (FDR). 
+The FDR is approximated by using the target-decoy estimate in order to distinguish
+true IDs from false IDs by separating target IDs from decoy IDs.
 
 \subsubsection{Posterior probability and FDR of protein IDs}
-Because Fido produces the posterior probability of each protein as the output, we can calculate an estimated FDR for the protein IDs which then can be compared with the target-decoy protein FDR. The calculation is done by using a simple R script in \KNIMENODE{R snippet}. 
-First, the target decoy protein FDR is computed as the proportion of decoy proteins among all significant protein IDs. Then posterior probabilistic-driven FDR is estimated by the average of the posterior error probability (1 - posterior probability) of all significant protein IDs. We can also calculate the $q$-value as the minimum FDR value of any data set that includes the current protein ID. 
-We plot the protein ID results versus two different kinds of FDR estimates in \KNIMENODE{R View(Table)} (see Figure \ref{fig:proteinfdr}).
+ROC curves illustrate the discriminative capability of the scores of IDs. 
+In the case of protein identifications, Fido produces the posterior probability of each protein as the output score.
+However, a perfect score should not only be highly discriminative (distinguishing true from false IDs), 
+it should also be ``calibrated'' (for probability indicating that all IDs with reported posterior probability scores of 95\% 
+should roughly of 5\% probability be false. This implies that the estimated number of false positives can be computed as the sum
+of posterior error probability ( = 1 - posterior probability), further an posterior probability estimated FDR is also possible to be computed. 
+Therefore, we can plot calibration curves to help us visualize the
+quality of the score (when the score is interpreted as a probability as Fido does), by comparing how similar the target-decoy estimated FDR and the posterior probability estimated FDR are. Good results should show a close correspondence between these two measurements. 
 
+The calculation is done by using a simple R script in \KNIMENODE{R snippet}. 
+First, the target decoy protein FDR is computed as the proportion of decoy proteins among all significant protein IDs. 
+Then posterior probabilistic-driven FDR is estimated by the average of the posterior error probability of all significant protein IDs. Since FDR is the property for a group of protein IDs, we can also calculate a local property: the $q$-value of a certain protein ID by the minimum value of FDRs of any groups of protein IDs that contain this protein ID. 
+We plot the protein ID results versus two different kinds of FDR estimates in \KNIMENODE{R View(Table)} (see Figure \ref{fig:proteinfdr}).
 
 \begin{figure}[htbp]
   \centering
@@ -74,8 +92,9 @@ We plot the protein ID results versus two different kinds of FDR estimates in \K
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.85\textwidth]{graphics/protein_inference/proteinFDR.png}
-  \caption{Statistical validation results of protein IDs. The accumulated number of protein IDs is plotted on two kinds of scales: target-decoy protein FDR and Fido posterior probability estimated FDR. A significant number of protein IDs with $q$-value smaller than 0.05 are identified.}
+  \includegraphics[width=0.45\textwidth]{graphics/protein_inference/proteinFDR.png}
+  \caption{the pseudo-ROC Curve of protein IDs. The accumulated number of protein IDs is plotted on two kinds of scales: target-decoy protein FDR and Fido posterior probability estimated FDR. The largest value of posterior probability estimated FDR is already smaller than 0.04, this is because the posterior probability output from Fido is generally very high.}
   \label{fig:proteinfdr}
 \end{figure}
 
+                                                                                                                      
