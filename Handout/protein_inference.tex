@@ -24,7 +24,7 @@ Here, we have added an additional
 \KNIMENODE{URI Port to Variable} node which converts the name of the output file to a so-called ``flow variable'' in KNIME. This variable is passed on
 to the next node \KNIMENODE{CSV Reader}, where it is used to specify the name of the input file to be read. If you double-click on \KNIMENODE{CSV Reader},
 you will see that the text field, where you usually enter the location of the CSV file to be read, is greyed out. Instead, the flow variable is used
-to specifiy the location, as indicated by the small green button with the ``v=?'' label on the right.
+to specify the location, as indicated by the small green button with the ``v=?'' label on the right.
 \item The table containing the \KNIMENODE{ProteinQuantifier} results is filtered one more time in order to remove decoy proteins. You can have a look
 at the final list of quantified protein groups by right-clicking the \KNIMENODE{Row Filter} and selecting \menu{Filtered}.
 \item By default, i.e., when the second input port \textit{protein\_groups} is not used, ProteinQuantifier quantifies proteins using only the unique peptides,

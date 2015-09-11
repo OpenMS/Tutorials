@@ -115,7 +115,7 @@ The output of the \KNIMENODE{IDMapper} is then connected to the \KNIMENODE{ZipLo
 \KNIMENODE{FeatureFinderCentroided} finds and quantifies peptide ion signals contained in the MS1 data.
 It reduces the entire signal, i.e., all peaks explained by one and the same peptide ion signal, to a single peak at the maximum of the chromatographic elution profile of the monoisotopic mass trace of this peptide ion and assigns an overall intensity.
 \item
-\KNIMENODE{FeatureFinderCentroided} produces a featureXML file as ouput, containing only quantitative information of so-far unidentified peptide signals.
+\KNIMENODE{FeatureFinderCentroided} produces a featureXML file as output, containing only quantitative information of so-far unidentified peptide signals.
 In order to annotate these with the corresponding ID information, we need the \KNIMENODE{IDMapper} node.
 \item Run your pipeline and inspect the results of the \KNIMENODE{IDMapper} node in TOPPView.
 \item In order to assess how well the feature finding worked, you can project the features contained in the featureXML file on the raw data contained in the mzML file.
