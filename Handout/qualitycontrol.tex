@@ -46,6 +46,22 @@ Import the workflow from \directory{Workflows / Quality Control / QC Metanodes.z
 \item Copy the \KNIMENODE{Mass accuracy} metanode into the workflow behind the \KNIMENODE{QCEmbedder} node and connect it. The qcML will be passed on and the Mass accuracy plots added. The information needed was already collected by the \KNIMENODE{QCCalculator}.
 \item Do the same with the \KNIMENODE{TIC} metanode so that your qcML file will get passed on and enriched on each step. 
 \end{itemize}
+
+R Dependencies: This section requires that the R packages ggplot2 and scales are both installed. This is the same procedure as in section \ref{sec:metaboR}. In case that you use an R installation where one or both of them are not yet installed, open the \KNIMENODE{R Snippet} nodes inside the metanodes you just used (double-click). Edit the script in the \textit{R Script} text editor from:\\
+
+\begin{lstlisting}
+#install.packages("ggplot2")
+#install.packages("scales")
+\end{lstlisting}
+to 
+\begin{lstlisting}
+install.packages("ggplot2")
+install.packages("scales")
+\end{lstlisting}
+Press \menu{Eval script} to execute the script.\newline
+
+\vspace{1cm}
+
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.85\textwidth]{graphics/qc/qc_basic}
@@ -91,6 +107,7 @@ ggplot(knime.in, aes(x=peptide_charge)) +
   \label{fig:qc_extra}
 \end{figure}
 
+\newpage
 \subsection{Set QC metrics}
 \label{Set QC metrics}
 
@@ -101,11 +118,12 @@ For this, we will first collect all created qcML files, merge them together and 
 \item connect the \KNIMENODE{QCEmbedder}s output from last section to the \KNIMENODE{ZipLoopEnd}s second input port. 
 \item The corresponding output port will collect all qcML files from each \KNIMENODE{ZipLoop} iteration and pass them on as a list of files.
 \item Now we add a \KNIMENODE{QCMerger} node after the \KNIMENODE{ZipLoopEnd} and feed it that list of qcML files. In addition, we set its parameter \textit{setname} to give our newly created set a name - say \textit{spikein\_replicates}.
-\item To now inspect all the QCs next to each other in that created qcML file, we have to add a new \KNIMENODE{Output Folder} to which we can connect the \KNIMENODE{QCMerger} output.
+\item To inspect all the QCs next to each other in that created qcML file, we have to add a new \KNIMENODE{Output Folder} to which we can connect the \KNIMENODE{QCMerger} output.
 \end{itemize}
-\newpage
-When inspecting the set qcML file in a browser, we will be presented another overview. After the set content listing, the basic QC parameters (like number of identifications) are each displayed in a graph. Each set member (or run) has its own section on the x-axis and each run is connected with that graph via a link in the mouseover on one of the QC parameter values.
 
+When inspecting the set-qcML file in a \textbf{browser}, we will be presented another overview. After the set content listing, the basic QC parameters (like number of identifications) are each displayed in a graph. Each set member (or run) has its own section on the x-axis and each run is connected with that graph via a link in the mouseover on one of the QC parameter values.
+
+\newpage
 
 \begin{figure}[htbp]
   \centering
@@ -114,6 +132,6 @@ When inspecting the set qcML file in a browser, we will be presented another ove
   \label{fig:qc_set}
 \end{figure}
 
-\vspace{4cm}
+
 \note{For ideas on new QC metrics and parameters -as you add them in your qcML files as generic parameters, feel free to contact us, so we can include them in the CV.}
 
