@@ -71,7 +71,10 @@ Press \menu{Eval script} to execute the script.\newline
   \label{fig:qc_basic}
 \end{figure}
 
-\note{To have a peek into what our qcML now looks like for one of the \KNIMENODE{ZipLoop} iterations, we can add an \KNIMENODE{Output Folder} node from \menu{Community Nodes > GenericKnimeNodes > IO} and set its destination parameter to somewhere we want to find our intermediate qcML files in, for example \menu{tmp > qc\_lfq}. If we now connect the last metanode with the \KNIMENODE{Output Folder} and restart the workflow, we can start inspecting the qcML files. Just open them with the browser, and the contained QC parameter will be rendered for you.}
+\note{To have a peek into what our qcML now looks like for one of the \KNIMENODE{ZipLoop} iterations, we can add an \KNIMENODE{Output Folder} node from \menu{Community Nodes > GenericKnimeNodes > IO} and set its destination parameter to somewhere we want to find our intermediate qcML files in, for example \menu{tmp > qc\_lfq}. If we now connect the last metanode with the \KNIMENODE{Output Folder} and restart the workflow, we can start inspecting the qcML files. }
+\begin{task}
+Find your first created qcML file and open it with the browser (not IE), and the contained QC parameters will be rendered for you.
+\end{task}
 
 
 \subsection{Adding brand new QC metrics}
