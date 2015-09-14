@@ -20,6 +20,8 @@ Finally, in a qcml file, we split the metrics on a per mass-spectrometry-run bas
 \subsection{Building a qcML file per run}
 \label{Building a qcML file per run}
 
+\note{For this part of the tutorial, you need the latest version of OpenMS in KNIME (bleeding edge development version). Therefore you have to add the software site \menu{http://tech.knime.org/update/community-contributions/trunk/} in KNIME's \menu{Help > Install New Software} menu and update OpenMS.}
+
 As a start, we will build a basic qcML file for each mzML file in the label-free analysis. We are already creating the two necessary analysis files to build a basic qcML file upon each mzML file, a feature file and an identification file. We use the \KNIMENODE{QCCreator} node from \menu{Community Nodes > OpenMS > Utilities} where also all other \KNIMENODE{QC*} nodes will be found. The \KNIMENODE{QCCreator} will create a very basic qcML file in which it will store collected and calculated quality data.
 
 \begin{itemize} 
@@ -133,5 +135,7 @@ When inspecting the set-qcML file in a \textbf{browser}, we will be presented an
 \end{figure}
 
 
-\note{For ideas on new QC metrics and parameters -as you add them in your qcML files as generic parameters, feel free to contact us, so we can include them in the CV.}
+\begin{task}
+For ideas on new QC metrics and parameters -as you add them in your qcML files as generic parameters, feel free to contact us, so we can include them in the CV.
+\end{task}
 
