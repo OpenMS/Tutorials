@@ -5,7 +5,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Getting started}
 
-Before we get started we will install OpenMS and KNIME using the installers provided on the USB stick. Please choose the directory that matches your operating system and execute the installer. Note that these steps are not be necessary if you use one of our laptops.
+Before we get started we will install OpenMS and KNIME using the installers provided on the USB stick. Please choose the directory that matches your operating system and execute the installer. Note that these steps are not necessary if you use one of our laptops.
 
 For example for Windows you call
 \begin{itemize}
@@ -54,7 +54,7 @@ We will make use of these later throughout the tutorial. Let's start with a firs
       . This file contains a reduced LC-MS map (only a selected RT and m/z range
       was extracted using the TOPP tool \OPENMSTOOL{FileFilter}) of a label-free measurement of the human platelet proteome recorded on an Orbitrap velos.
       The other two mzML files contain technical replicates of this experiment.
-      First, we want to obtain a global view on the whole LC-MS map - the default option \textit{Map view 2D} is the correct one and we can click the ok button. 
+      First, we want to obtain a global view on the whole LC-MS map - the default option \textit{Map view 2D} is the correct one and we can click the \menu{Ok} button. 
 \item Play around.
 \item Three basic modes allow you to interact with the displayed data: scrolling, zooming and measuring:
     \begin{itemize}
@@ -382,10 +382,10 @@ The \KNIMENODE{ZipLoopEnd} collects the single files that arrive at its input po
 
 Workflows can get rather complex and may contain dozens or even hundreds of nodes. KNIME provides a simple way to improve handling and clarity of large workflows:
 
-\KNIMENODE{MetaNodes} allow to bundle several nodes into a single \KNIMENODE{Meta Node}.
+\KNIMENODE{Meta Nodes} allow to bundle several nodes into a single \KNIMENODE{Meta Node}.
 
 \begin{task}
-Select multiple nodes (e.g. all nodes of the ZipLoop including the start and end node). Open the context menu (right-click) and select \menu{Collapse into Meta Node}. Enter a caption for the \KNIMENODE{Meta Node}. The previously selected nodes are now contained in the \KNIMENODE{Meta Node}. Double clicking on the \KNIMENODE{Meta Node} will display the contained nodes in a new tab window. 
+Select multiple nodes (e.g. all nodes of the ZipLoop including the start and end node). To select a set of nodes, draw a rectangle around them with the left mouse button or hold \keys{Ctrl} to add/remove single nodes from the selection. Open the context menu (right-click on a node in the selection) and select \menu{Collapse into Meta Node}. Enter a caption for the \KNIMENODE{Meta Node}. The previously selected nodes are now contained in the \KNIMENODE{Meta Node}. Double clicking on the \KNIMENODE{Meta Node} will display the contained nodes in a new tab window. 
 \end{task}
 
 \begin{task}
@@ -412,10 +412,10 @@ plot(x=knime.in$Universe_0_0, y=knime.in$Universe_0_1, main="Plotting column Uni
 \end{lstlisting}
         
 Explanation:
-The table provided as input to the \KNIMENODE{R View (Table)} node is available as R \texttt{data.frame} with name \texttt{knime.in}. Columns (also listed on the left side of the R View window) can be accessed in the usual R way by first specifying the \texttt{data.frame} name and then the column name (e.g. \texttt{knime.in\$Universe\_0\_0)}.
-\texttt{plot} is the plotting function we use to generate the image. We tell it to use the data in column \texttt{knime.in\$Universe\_0\_0} as x-coordinate and the column \texttt{knime.in\$Universe\_0\_1} as y coordinate in the plot. \texttt{main} is simply the plot name and col the column that is used to determine the color (in this case it is the \texttt{Cluster Membership} column).
+The table provided as input to the \KNIMENODE{R View (Table)} node is available as R \texttt{data.frame} with name \texttt{knime.in}. Columns (also listed on the left side of the R View window) can be accessed in the usual R way by first specifying the \texttt{data.frame} name and then the column name (e.g. \texttt{knime.in\$Universe\_0\_0}).
+\texttt{plot} is the plotting function we use to generate the image. We tell it to use the data in column \texttt{Universe\_0\_0} of the dataframe object \texttt{knime.in} (denoted as \texttt{knime.in\$Universe\_0\_1}) as x-coordinate and the other column \texttt{knime.in\$Universe\_0\_1} as y-coordinate in the plot. \texttt{main} is simply the main title of the plot and \texttt{col} the column that is used to determine the color (in this case it is the \texttt{Cluster Membership} column).
 
 Now press the \menu{Eval script} and \menu{Show plot} buttons.
 \end{task}
 
-\note{Note that we needed to put some extra quotes around \texttt{Cluster Membership}. If we omit those, R would interpret the column name only up to the first space (\texttt{knime.in\$Cluster}) which is not present in the table and leads to an error. Quotes are regularly needed if column names contain spaces or tabs.}
+\note{Note that we needed to put some extra quotes around \texttt{Cluster Membership}. If we omit those, R would interpret the column name only up to the first space (\texttt{knime.in\$Cluster}) which is not present in the table and leads to an error. Quotes are regularly needed if column names contain spaces, tabs or other special characters like \$ itself.}
