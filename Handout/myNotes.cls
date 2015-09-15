@@ -92,7 +92,7 @@
 		Mathias Walzer, Timo Sachsenberg, Fabian Aicheler,\\
 		Marc Rurik, Johannes Veit,\\ 
 		Bludau Isabell, Patrick Pedrioli,\\
-		George Rosenberger, Hannes Röst,\\ 
+		Julianus Pfeuffer, Xiao Liang,\\ 
 		Knut Reinert, and Oliver Kohlbacher\\[2cm]
 %                \textsc{\Large License}\\[1cm]
 \vfill
