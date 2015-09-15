@@ -39,7 +39,7 @@ OpenMS provides a convenient viewer for some of the data: \OPENMSTOOL{TOPPView}.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{graphics/introduction/TOPPView.png}
-\caption{TOPPView, the graphical application for viewing mass spectra and analysis results. Top window shows a small region of a peak map. In this 2D representation of the measured spectra, signals of eluting peptides are colored according to the raw peak intensities. The lower windows displays an extracted spectrum (=scan) from the peak map. On the right side, the list of spectra can be browsed.}
+\caption{TOPPView, the graphical application for viewing mass spectra and analysis results. Top window shows a small region of a peak map. In this 2D representation of the measured spectra, signals of eluting peptides are colored according to the raw peak intensities. The lower window displays an extracted spectrum (=scan) from the peak map. On the right side, the list of spectra can be browsed.}
 \label{fig:toppview}
 \end{figure}
 
@@ -136,7 +136,7 @@ First, we install some additional extensions that are required by our OpenMS nod
 %    \item ChemAxon/Infocom Marvin Extensions Feature
 %    \end{itemize}
 \item From the \menu{Work with:} drop down list select \\\menu{http://tech.knime.org/update/community-contributions/trusted/2.12}
-\item Now select the following plugin from the \textit{KNIME Community Contributions - Cheminformatics} category 	
+\item Now select the following plugin from the "KNIME Community Contributions - Cheminformatics" category 	
     \begin{itemize}
     \item     RDKit KNIME integration
     \end{itemize}	
@@ -190,7 +190,7 @@ Nodes for signal and data processing, filtering and data reduction. Here, files 
 Downstream statistical analysis and visualization. Here, tables are passed between nodes.
 \end{itemize}
 
-Between file based processing and table based analysis a conversion node typically performs the conversion from OpenMS results into KNIME tables.
+Between file-based processing and table-based analysis a conversion node typically performs the conversion from OpenMS results into KNIME tables.
 
 Nodes can have three different states, indicated by the small traffic light below the node.
 
@@ -230,34 +230,34 @@ The dialog shows the individual parameters, their current value and type, and, i
 \end{figure}
 
 The graphical user interface (GUI) of KNIME consists of different components or so called panels that are shown in \cref{fig:knime_workbench}.
-We will shortly introduce the individual panels and their purpose below.
+We will shortly introduce the individual panels and their purposes below.
 
 \begin{description}
-\item[Workflow Editor]
+\item[Workflow Editor:]
 The workflow editor is the central part of the KNIME GUI.
 Here you assemble the workflow by adding nodes from the Node Repository via "drag \& drop".
 Nodes can be connected by clicking on the output port of one node and releasing the mouse at the desired input port of the next node.
 
-\item[Workflow Explorer]
+\item[Workflow Explorer:]
 Shows a list of available workflows (also called workflow projects).
 You can open a workflow by double clicking it.
 A new workflow can be created with a right-click in the Workflow Explorer followed by selecting \menu{New KNIME Workflow...}.
 
-\item[Node Repository]
+\item[Node Repository:]
 Shows all nodes that are available in your KNIME installation.
 Every plugin you install will provide new nodes that can be found here.
 The OpenMS nodes can be found in \menu{Community Nodes > OpenMS}.
 Nodes for managing files (e.g., Input Files or Output Folders) can be found in \menu{Community Nodes > GenericKnimeNodes}.
 You can search the node repository by typing the node name into the small text box in the upper part of the node repository.
 
-\item[Outline]
+\item[Outline:]
 The Outline panel contains a small overview of the complete workflow. While of limited use when working on a small workflow, this feature is very helpful as soon as the workflows get bigger.
 
-\item[Console]
+\item[Console:]
 In the console panel warning and error messages are shown.
-This panel will provide helpful information if one of the nodes failed or shows an warnings sign.
+This panel will provide helpful information if one of the nodes failed or shows a warning sign.
 
-\item[Node Description]
+\item[Node Description:]
 As soon as a node is selected, the Node Description window will show the documentation of the node including documentation for all its parameters.
 For OpenMS nodes you will also find a link to the tool page in the online documentation.
 
@@ -284,7 +284,7 @@ If you want to check your own workflow by comparing it to the solution or got st
 
 During the tutorial a lot of the workflows will be created based on the workflow from a previous task.
 To keep the intermediate workflows we suggest you create copies of your workflows so you can see the progress.
-To create a copy of your workflow follow the following steps
+To create a copy of your workflow follow the next steps.
 
 \begin{itemize}
 \item
@@ -394,7 +394,7 @@ Undo the packaging. First select the \KNIMENODE{Meta Node}, open the context men
 
 \subsubsection{Advanced topic: R integration}
 
-KNIME provides a large number of nodes for a wide range of statistical analysis, machine learning, data processing and visualization. Still, more recent statistical analysis methods, specialized visualizations or cutting edge algorithms may not be covered in KNIME. In order to expand its capabilities over the readily available nodes external scripting languages can be integrated. In this tutorial, we primarily use scripts of the powerful statistical computing language R. Note that this part is considered advanced and might be difficult to follow if you are not familiar with R. In this case you might skip this part.
+KNIME provides a large number of nodes for a wide range of statistical analysis, machine learning, data processing and visualization. Still, more recent statistical analysis methods, specialized visualizations or cutting edge algorithms may not be covered in KNIME. In order to expand its capabilities beyond the readily available nodes, external scripting languages can be integrated. In this tutorial, we primarily use scripts of the powerful statistical computing language R. Note that this part is considered advanced and might be difficult to follow if you are not familiar with R. In this case you might skip this part.
 
 \KNIMENODE{R View (Table)} allows to seamlessly include R scripts into KNIME. We will demonstrate on a minimal example how such a script is integrated.
 
@@ -402,7 +402,7 @@ KNIME provides a large number of nodes for a wide range of statistical analysis,
 First we need some example data in KNIME, which we will generate using the \KNIMENODE{Data Generator} node. You can keep the default settings and execute the node. The table contains 4 columns, each containing random coordinates and one column containing a cluster number (Cluster\_0 to Cluster\_3). Now place a \KNIMENODE{R View (Table)} node into the workflow and connect the upper output port of the \KNIMENODE{Data Generator} node to the input of the \KNIMENODE{R View (Table)} node.
 Right-click and configure the node.
 
-If you get an error message like: Execute failed: R\_HOME does not contain a folder with name 'bin'. Please change the R settings in the preferences. To do so open \menu{File > Preferences > KNIME > R} and enter the path to your R installation (the folder that contains the bin directory).
+If you get an error message like "Execute failed: R\_HOME does not contain a folder with name 'bin'.": please change the R settings in the preferences. To do so open \menu{File > Preferences > KNIME > R} and enter the path to your R installation (the folder that contains the bin directory).
 
 If R is correctly recognized we can start writing an R script. Consider that we are interested in plotting the first and second coordinates and color them according to their cluster number. In R this can be done in a single line.
 

@@ -8,7 +8,7 @@
 
 In this chapter, we will build a workflow with OpenMS / KNIME to quantify a label-free experiment. 
 Label-free quantification is a method aiming to compare the relative amounts of proteins or peptides in two or more samples.
-We will start from the minimal workflow from the last chapter and, step-by-step, build a label-free quantitation workflow.
+We will start from the minimal workflow of the last chapter and, step-by-step, build a label-free quantitation workflow.
 
 \subsection{Peptide Identification}
 \label{Peptide_Identification}
@@ -71,7 +71,7 @@ Meta nodes are useful when you construct even larger workflows and want to keep 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.85\textwidth]{graphics/labelfree/fdr_peptide_identification}
-  \caption{OMSSA ID pipeline including FDR filtering}
+  \caption{OMSSA ID pipeline including FDR filtering.}
   \label{fig:id_fdr}
 \end{figure}
 
@@ -97,7 +97,7 @@ We can connect this to the \KNIMENODE{PeptideIndexer} and go along with our exis
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.85\textwidth]{graphics/labelfree/consensus_id}
-  \caption{Complete consensus identification workflow}
+  \caption{Complete consensus identification workflow.}
   \label{fig:consensusid}
 \end{figure}
 
@@ -132,7 +132,7 @@ Now, click on the small triangle next to that icon and select \texttt{Peptide id
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.85\textwidth]{graphics/labelfree/lfq_no_align}
-  \caption{Extended workflow featuring peptide identification and quantification}
+  \caption{Extended workflow featuring peptide identification and quantification.}
   \label{fig:ff_idmapping}
 \end{figure}
 
@@ -144,7 +144,7 @@ So far, we successfully performed peptide identification as well as quantificati
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.85\textwidth]{graphics/labelfree/lfq}
-  \caption{Complete identification and label-free quantification workflow}
+  \caption{Complete identification and label-free quantification workflow.}
   \label{fig:complete_without_consensusid}
 \end{figure}
 
@@ -158,21 +158,21 @@ So far, we successfully performed peptide identification as well as quantificati
 
 \subsubsection{Basic data analysis in KNIME}
 
-For downstream analysis of the quantification results within the KNIME environment, you can use the \KNIMENODE{ConsensusTextReader} node \menu{Community Nodes > OpenMS > Conversion} instead of the \KNIMENODE{Output Folder} node to convert the output into a KNIME table (indicated by an arrow as output port). 
+For downstream analysis of the quantification results within the KNIME environment, you can use the \KNIMENODE{ConsensusTextReader} node \menu{Community Nodes > OpenMS > Conversion} instead of the \KNIMENODE{Output Folder} node to convert the output into a KNIME table (indicated by a triangle as output port). 
 After running the node you can view the KNIME table by right clicking on the \KNIMENODE{ConsensusTextReader} and selecting \menu{Consensus Table}.
 Every row in this table corresponds to a so-called consensus feature, i.e., a peptide signal quantified across several runs. The first couple of columns describe the consensus feature as a whole (average RT and m/z across the maps, charge, etc.). The remaining columns describe the exact positions and intensities of the quantified features separately for all input samples (e.g., intensity\_0 is the intensity of the feature in the first input file). The last 11 columns contain information on peptide identification.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.85\textwidth]{graphics/labelfree/data_analysis}
-  \caption{Simple KNIME data analysis example for LFQ}
+  \caption{Simple KNIME data analysis example for LFQ.}
   \label{fig:lfq_data_analysis}
 \end{figure}
 
 \begin{itemize}
     \item Now, let's say we want to plot the log intensity distributions of the human spike-in peptides for all input files. In addition, we will plot the intensity distributions of the background peptides.
     \item As shown in Fig. \ref{fig:lfq_data_analysis}, add a \KNIMENODE{Row Splitter} node \menu{Data Manipulation > Row > Filter} after \KNIMENODE{ConsensusTextReader}. Double-click it to configure. The human spike-in peptides have accessions starting with ``hum''. Thus, set the column to test to \textit{accessions}, select pattern matching as matching criterion, enter \textit{hum*} into the corresponding text field, and check the \textit{contains wild cards} box. Press OK and execute the node.
-    \item Row splitter produces two output tables: the first one contains all rows from the input table matching the filter criterion, and the second table contains all other rows. You can inspect the tables by right-clicking and selecting \textit{Filtered} and \textit{Filtered Out}. The former table should now contain only peptides with a human accession, whereas the latter should contain all remaining peptides (including unidentified ones).
+    \item \KNIMENODE{Row Splitter} produces two output tables: the first one contains all rows from the input table matching the filter criterion, and the second table contains all other rows. You can inspect the tables by right-clicking and selecting \textit{Filtered} and \textit{Filtered Out}. The former table should now contain only peptides with a human accession, whereas the latter should contain all remaining peptides (including unidentified ones).
     \item Now, since we only want to plot intensities, we can add a \KNIMENODE{Column Filter} node \\ \menu{Data Manipulation > Column > Filter}, connect its input port to the \textit{Filtered} output port of the \KNIMENODE{Row Filter}, and open its configuration dialog. We could either manually select the columns we want to keep, or, more elegantly, select \textit{Wildcard/Regex Selection} and enter \textit{intensity\_?} as the pattern. KNIME will interactively show you which columns your pattern applies to while you're typing.
     \item Since we want to plot log intensities, we will now compute the log of all intensity values in our table. The easiest way to do this in KNIME is a small piece of R code. Add an \KNIMENODE{R Snippet} node \menu{R} after \KNIMENODE{Column Filter} and double-click to configure. In the \textit{R Script} text editor, enter the following code:
         \begin{lstlisting}
