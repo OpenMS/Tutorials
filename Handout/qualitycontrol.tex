@@ -20,6 +20,8 @@ Finally, in a qcml file, we split the metrics on a per mass-spectrometry-run bas
 \subsection{Building a qcML file per run}
 \label{Building a qcML file per run}
 
+\note{For this part of the tutorial, you need the latest version of OpenMS in KNIME (bleeding edge development version). Therefore you have to add the software site \menu{http://tech.knime.org/update/community-contributions/trunk/} in KNIME's \menu{Help > Install New Software} menu and update OpenMS.}
+
 As a start, we will build a basic qcML file for each mzML file in the label-free analysis. We are already creating the two necessary analysis files to build a basic qcML file upon each mzML file, a feature file and an identification file. We use the \KNIMENODE{QCCreator} node from \menu{Community Nodes > OpenMS > Utilities} where also all other \KNIMENODE{QC*} nodes will be found. The \KNIMENODE{QCCreator} will create a very basic qcML file in which it will store collected and calculated quality data.
 
 \begin{itemize} 
@@ -69,7 +71,10 @@ Press \menu{Eval script} to execute the script.\newline
   \label{fig:qc_basic}
 \end{figure}
 
-\note{To have a peek into what our qcML now looks like for one of the \KNIMENODE{ZipLoop} iterations, we can add an \KNIMENODE{Output Folder} node from \menu{Community Nodes > GenericKnimeNodes > IO} and set its destination parameter to somewhere we want to find our intermediate qcML files in, for example \menu{tmp > qc\_lfq}. If we now connect the last metanode with the \KNIMENODE{Output Folder} and restart the workflow, we can start inspecting the qcML files. Just open them with the browser, and the contained QC parameter will be rendered for you.}
+\note{To have a peek into what our qcML now looks like for one of the \KNIMENODE{ZipLoop} iterations, we can add an \KNIMENODE{Output Folder} node from \menu{Community Nodes > GenericKnimeNodes > IO} and set its destination parameter to somewhere we want to find our intermediate qcML files in, for example \menu{tmp > qc\_lfq}. If we now connect the last metanode with the \KNIMENODE{Output Folder} and restart the workflow, we can start inspecting the qcML files. }
+\begin{task}
+Find your first created qcML file and open it with the browser (not IE), and the contained QC parameters will be rendered for you.
+\end{task}
 
 
 \subsection{Adding brand new QC metrics}
@@ -133,5 +138,7 @@ When inspecting the set-qcML file in a \textbf{browser}, we will be presented an
 \end{figure}
 
 
-\note{For ideas on new QC metrics and parameters -as you add them in your qcML files as generic parameters, feel free to contact us, so we can include them in the CV.}
+\begin{task}
+For ideas on new QC metrics and parameters -as you add them in your qcML files as generic parameters, feel free to contact us, so we can include them in the CV.
+\end{task}
 
