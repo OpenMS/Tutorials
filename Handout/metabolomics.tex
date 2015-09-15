@@ -60,7 +60,7 @@ After the \KNIMENODE{ZipLoopEnd} node add a \KNIMENODE{MapAlignerPoseClustering}
 \textit{algorithm $\rightarrow$ superimposer $\rightarrow$ num\_used\_points} & $10000$ \\
 \textit{algorithm $\rightarrow$ pairfinder $\rightarrow$ distance\_RT $\rightarrow$ max\_difference} & $20.0$ \\
 \textit{algorithm $\rightarrow$ pairfinder $\rightarrow$ distance\_MZ $\rightarrow$ max\_difference} & $20.0$ \\
-\textit{algorithm $\rightarrow$ pairfinder $\rightarrow$ distance\_MZ $\rightarrow$ unit} & $ppm$
+\textit{algorithm $\rightarrow$ pairfinder $\rightarrow$ distance\_MZ $\rightarrow$ unit} & ppm
 \end{tabular}
 \end{center}
 
@@ -137,7 +137,7 @@ This file contains additional information about the identifiers in the mapping f
 In the same order as they are given above connect them to the remaining input ports of the \KNIMENODE{AccurateMassSearch} node.
 \item
 Add an \KNIMENODE{Output Folder} node and connect the first output port of the \\
-\KNIMENODE{AccurateMassSearch} node to the output folder.
+\KNIMENODE{AccurateMassSearch} node to the \KNIMENODE{Output Folder}.
 \end{itemize}
 
 The result of the \KNIMENODE{AccurateMassSearch} node is in the mzTab format \cite{Griss2014} so you can easily open it in a text editor or import it into Excel or KNIME, which we will do in the next section.
