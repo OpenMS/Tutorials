@@ -7,6 +7,8 @@
 \hyphenation{TOPPView}
 \hyphenation{KNIME}
 \hyphenation{OpenMS}
+\hyphenation{X!Tandem}
+\hyphenation{XTandem-Adapter}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % FONT SELECTION -> WE NOW USE UBUNTU FONT AND XETEX FOR A MORE PROFESSIONAL
@@ -14,9 +16,10 @@
 % UBUNTU FONT CAN BE DOWNLOADED FROM HERE: http://font.ubuntu.com
 %
 \usepackage{fontspec}
-\setmainfont[Ligatures = TeX]{Ubuntu-R.ttf}
-\setmonofont[Ligatures = TeX]{Ubuntu-M.ttf}
 
+\setmainfont[Ligatures = TeX]{Ubuntu-R.ttf}
+
+\setmonofont[Ligatures = TeX]{Ubuntu-M.ttf}
 % math fonts
 %\usepackage[math-style=TeX]{unicode-math}
 %\setmathfont{Cambria Math}
@@ -31,8 +34,8 @@
       filecolor=black,     % \href{...} local file
       linkcolor=black,       % \ref{...} and \pageref{...}
       citecolor=black,
-      pdftitle={OpenMS Tutorial Handouts},
-      pdfauthor={Johannes Veit},
+      pdftitle={GCB Tutorial Handouts},
+      pdfauthor={Timo Sachsenberg},
       pdfsubject={},
       pdfkeywords={},
       pagebackref,
@@ -163,42 +166,30 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \setcounter{equation}{0}
-\section{General remarks}
-\label{General remarks}
-
-\begin{itemize}
-\item This handout will guide you through an introductory tutorial for the OpenMS/TOPP software package~\cite{OpenMS}.
-\item OpenMS~\cite{Sturm2008} is a versatile open-source library for mass spectrometry data analysis. Based on this library, we offer a collection
-      of command-line tools ready to be used by end users. These so-called TOPP tools (short for ``The OpenMS Proteomics Pipeline'')~\cite{Kohlbacher2007} can be understood as
-      small building blocks of arbitrary complex data analysis workflows.
-\item In order to facilitate workflow construction, OpenMS was integrated into KNIME~\cite{KNIME}, the Konstanz
-			Information Miner, an open-source integration platform providing a powerful and flexible workflow system
-			combined with advanced data analytics, visualization, and report capabilities. Raw MS data as well as the
-			results of data processing using TOPP can be visualized using TOPPView~\cite{Sturm2009}.
-\item In this hands-on tutorial session, you will become familiar with some of the basic functionalities of OpenMS/TOPP, TOPPView, and KNIME
-      and learn how to use a selection of TOPP tools used in the tutorial workflows.
-\item All data referenced in this tutorial can be found in the \directory{Example\_Data} folder that came with this tutorial.
-%\item Installation packages of the new OpenMS 1.11 release for Windows (32 and 64 bit) and Mac OS X (10.7 and 10.8) as well as
-%      all data required for this tutorial session can be found on the USB sticks provided by us.
-\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\newpage
-\include{handout_content}
 
-\include{labelfree}
+\include{general_remarks}
+\newpage{}
+
+\include{databases}
+\newpage{}
+
+\include{introduction_knime}
+\newpage{}
+
+\include{targetdecoy}
+\newpage{}
 
 \include{protein_inference}
+\newpage{}
 
-\include{metabolomics}
+\include{introduction_openms}
+\newpage{}
 
-\include{openswath}
-
-\include{pyopenms}
-
-\include{qualitycontrol}
-
-%\include{pyopenms}
+\include{labelfree}
+\newpage{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\newpage

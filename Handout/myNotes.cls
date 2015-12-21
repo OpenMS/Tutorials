@@ -80,20 +80,24 @@
 
 \def\titlepage{
     \thispagestyle{empty}
-    \begin{center}
-		\includegraphics[width=0.7\textwidth]{./graphics/assets/OpenMS_logo.png}\\[3cm]
-		\textsc{\LARGE OpenMS Tutorial}\\[2cm]
+	    \begin{center}
+			\textsc{\LARGE Fundamentals of \\ Proteome Bioinformatics Revisited \\
+			\Large presented at GCB 2015 \\
+        	\large German Conference on Bioinformatics 2015}\\[2cm]
+			\includegraphics[width=0.7\textwidth]{./graphics/blackbox.png}\\[3cm]
+			\includegraphics[height=2.5cm]{./graphics/GCB_logo.png}\hspace{1cm}
+			\includegraphics[height=2.5cm]{./graphics/assets/OpenMS_logo.png}\hspace{1cm}
+			\includegraphics[height=2.5cm]{./graphics/mpc_logo.png}\hspace{1cm}
+			\includegraphics[height=2.5cm]{./graphics/BMBF_with_FKZ.png}
 		\end{center}
 		\newpage
     \thispagestyle{empty}
 		\vfill
 		\begin{center}
-		\textsc{\Large The OpenMS Developers}\\[1cm]
-		Mathias Walzer, Timo Sachsenberg, Fabian Aicheler,\\
-		Marc Rurik, Johannes Veit,\\ 
-		Bludau Isabell, Patrick Pedrioli,\\
-		Julianus Pfeuffer, Xiao Liang,\\ 
-		Knut Reinert, and Oliver Kohlbacher\\[2cm]
+		\textsc{\Large created by:}\\[1cm]
+		Michael Turewicz,  Michael Kohl, Julian Uszkoreit,\\  
+		Julianus Pfeuffer, Timo Sachsenberg\\
+		Martin Eisenacher, Oliver Kohlbacher, Knut Reinert\\[2cm]
 %                \textsc{\Large License}\\[1cm]
 \vfill
 		\textbf{Creative Commons Attribution 4.0 International (CC BY 4.0)}\\
