@@ -1,0 +1,6 @@
+/Users/pfeuffer/svn/OpenMS/Tutorials/UM_2015/Example_Data/Metabolomics/databases/HMDB2StructMapping.tsv
+/Users/pfeuffer/svn/OpenMS/Tutorials/UM_2015/Example_Data/Metabolomics/databases/HMDBMappingFile.tsv
+/Users/pfeuffer/svn/OpenMS/Tutorials/UM_2015/Example_Data/Metabolomics/databases/NegativeAdducts.tsv
+/Users/pfeuffer/svn/OpenMS/Tutorials/UM_2015/Example_Data/Metabolomics/databases/PositiveAdducts.tsv
+/Users/pfeuffer/svn/OpenMS/Tutorials/UM_2015/Example_Data/Labelfree/databases/s_pyo_sf370_potato_human_target_decoy_with_contaminants.fasta
+/Users/pfeuffer/svn/OpenMS/Tutorials/UM_2015/Example_Data/Labelfree/databases/s_pyo_sf370_potato_human_target_decoy_with_contaminants.fasta.phr

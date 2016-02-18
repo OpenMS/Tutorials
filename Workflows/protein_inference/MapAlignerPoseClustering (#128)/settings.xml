@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.knime.org/2008/09/XMLConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.knime.org/2008/09/XMLConfig http://www.knime.org/XMLConfig_2008_09.xsd" key="settings.xml">
+<entry key="node_file" type="xstring" value="settings.xml"/>
+<config key="flow_stack"/>
+<config key="internal_node_subsettings">
+<entry key="memory_policy" type="xstring" value="CacheSmallInMemory"/>
+</config>
+<config key="model">
+<entry key="MapAlignerPoseClustering.version" type="xstring" value="2.0.0"/>
+<entry key="MapAlignerPoseClustering.1.log" type="xstring" isnull="true" value=""/>
+<entry key="MapAlignerPoseClustering.1.debug" type="xstring" value="0"/>
+<entry key="MapAlignerPoseClustering.1.threads" type="xstring" value="1"/>
+<entry key="MapAlignerPoseClustering.1.no_progress" type="xstring" value="false"/>
+<entry key="MapAlignerPoseClustering.1.force" type="xstring" value="false"/>
+<entry key="MapAlignerPoseClustering.1.test" type="xstring" value="false"/>
+<entry key="MapAlignerPoseClustering.1.reference.index" type="xstring" value="0"/>
+<entry key="MapAlignerPoseClustering.1.algorithm.max_num_peaks_considered" type="xstring" value="1000"/>
+<entry key="MapAlignerPoseClustering.1.algorithm.superimposer.mz_pair_max_distance" type="xstring" value="0.5"/>
+<entry key="MapAlignerPoseClustering.1.algorithm.superimposer.rt_pair_distance_fraction" type="xstring" value="0.1"/>
+<entry key="MapAlignerPoseClustering.1.algorithm.superimposer.num_used_points" type="xstring" value="2000"/>
+<entry key="MapAlignerPoseClustering.1.algorithm.superimposer.scaling_bucket_size" type="xstring" value="0.005"/>
+<entry key="MapAlignerPoseClustering.1.algorithm.superimposer.shift_bucket_size" type="xstring" value="3.0"/>
+<entry key="MapAlignerPoseClustering.1.algorithm.superimposer.max_shift" type="xstring" value="1000.0"/>
+<entry key="MapAlignerPoseClustering.1.algorithm.superimposer.max_scaling" type="xstring" value="2.0"/>
+<entry key="MapAlignerPoseClustering.1.algorithm.superimposer.dump_buckets" type="xstring" isnull="true" value=""/>
+<entry key="MapAlignerPoseClustering.1.algorithm.superimposer.dump_pairs" type="xstring" isnull="true" value=""/>
+<entry key="MapAlignerPoseClustering.1.algorithm.pairfinder.second_nearest_gap" type="xstring" value="2.0"/>
+<entry key="MapAlignerPoseClustering.1.algorithm.pairfinder.use_identifications" type="xstring" value="false"/>
+<entry key="MapAlignerPoseClustering.1.algorithm.pairfinder.ignore_charge" type="xstring" value="false"/>
+<entry key="MapAlignerPoseClustering.1.algorithm.pairfinder.distance_RT.max_difference" type="xstring" value="100.0"/>
+<entry key="MapAlignerPoseClustering.1.algorithm.pairfinder.distance_RT.exponent" type="xstring" value="1.0"/>
+<entry key="MapAlignerPoseClustering.1.algorithm.pairfinder.distance_RT.weight" type="xstring" value="1.0"/>
+<entry key="MapAlignerPoseClustering.1.algorithm.pairfinder.distance_MZ.max_difference" type="xstring" value="0.3"/>
+<entry key="MapAlignerPoseClustering.1.algorithm.pairfinder.distance_MZ.unit" type="xstring" value="Da"/>
+<entry key="MapAlignerPoseClustering.1.algorithm.pairfinder.distance_MZ.exponent" type="xstring" value="2.0"/>
+<entry key="MapAlignerPoseClustering.1.algorithm.pairfinder.distance_MZ.weight" type="xstring" value="1.0"/>
+<entry key="MapAlignerPoseClustering.1.algorithm.pairfinder.distance_intensity.exponent" type="xstring" value="1.0"/>
+<entry key="MapAlignerPoseClustering.1.algorithm.pairfinder.distance_intensity.weight" type="xstring" value="0.0"/>
+<entry key="GENERIC_KNIME_NODES_outtype#0" type="xint" value="1"/>
+<entry key="GENERIC_KNIME_NODES_outtype#1" type="xint" value="0"/>
+</config>
+<entry key="customDescription" type="xstring" isnull="true" value=""/>
+<entry key="state" type="xstring" value="CONFIGURED"/>
+<entry key="factory" type="xstring" value="de.openms.knime.nodes.MapAlignerPoseClustering.MapAlignerPoseClusteringNodeFactory"/>
+<entry key="node-name" type="xstring" value="MapAlignerPoseClustering"/>
+<entry key="node-bundle-name" type="xstring" value="Generic Workflow Nodes for KNIME: OpenMS"/>
+<entry key="node-bundle-symbolic-name" type="xstring" value="de.openms"/>
+<entry key="node-bundle-vendor" type="xstring" value="Freie Universitaet Berlin, Universitaet Tuebingen, and the OpenMS Team"/>
+<entry key="node-bundle-version" type="xstring" value="2.0.0.201511241504"/>
+<entry key="node-feature-name" type="xstring" value="OpenMS"/>
+<entry key="node-feature-symbolic-name" type="xstring" value="de.openms.feature.feature.group"/>
+<entry key="node-feature-vendor" type="xstring" isnull="true" value=""/>
+<entry key="node-feature-version" type="xstring" value="2.0.0.201602011314"/>
+<config key="factory_settings"/>
+<entry key="name" type="xstring" value="MapAlignerPoseClustering"/>
+<entry key="hasContent" type="xboolean" value="false"/>
+<entry key="isInactive" type="xboolean" value="false"/>
+<config key="ports">
+<config key="port_1">
+<entry key="index" type="xint" value="1"/>
+<entry key="port_dir_location" type="xstring" isnull="true" value=""/>
+</config>
+<config key="port_2">
+<entry key="index" type="xint" value="2"/>
+<entry key="port_dir_location" type="xstring" isnull="true" value=""/>
+</config>
+</config>
+<config key="filestores">
+<entry key="file_store_location" type="xstring" isnull="true" value=""/>
+<entry key="file_store_id" type="xstring" isnull="true" value=""/>
+</config>
+</config>
