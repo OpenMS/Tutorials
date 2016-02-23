@@ -1,12 +1,13 @@
 %!TEX root = handout.tex
 
 % file names are changed quite often between tutorial so make them configurable at the top
-\newcommand{\WindowsKnimeInstallerName}{Windows / KNIME\ 2.12.0\ Installer\ (64bit).exe}
+\newcommand{\WindowsKnimeInstallerName}{Windows / KNIME\ Full\ 3.1.1\ Installer\ (64bit).exe}
 \newcommand{\WindowsOpenMSInstallerName}{Windows / OpenMS-2.0\_Win64\_setup.exe}
 \newcommand{\WindowsOpenMSPrereqInstallerName}{Windows / OpenMS-2.0-prerequisites-installer.exe}
-\newcommand{\MacKnimeInstallerName}{Mac / knime\_2.12.0.macosx.cocoa.x86\_64.dmg}
+\newcommand{\MacKnimeInstallerName}{Mac / knime-full\_3.1.1.macosx.cocoa.x86\_64.dmg}
 \newcommand{\MacOpenMSInstallerName}{Mac / OpenMS-2.0.0\_setup.dmg}
-
+\newcommand{\KnimeUpdateSite}{http://update.knime.org/analytics-platform/3.1}
+\newcommand{\KnimeTrustedSite}{http://tech.knime.org/update/community-contributions/trusted/3.1}
 \setcounter{equation}{0}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -124,25 +125,20 @@ Before we can start with the tutorial we need to install all the required extens
 First, we install some additional extensions that are required by our OpenMS nodes or used in the Tutorials e.g. for visualization.
 \begin{enumerate}
 \item Click on \menu{Help > Install New Software...}
-\item From the \menu{Work with:} drop down list select \menu{http://update.knime.org/analytics-platform/2.12}
+\item From the \menu{Work with:} drop down list select \menu{\KnimeUpdateSite}
 \item Now select the following plugins from the \textit{KNIME \& Extensions} category
     \begin{itemize}
     \item KNIME Base Chemistry Types \& Nodes
     \item KNIME Chemistry Add-Ons
-    \item KNIME File Handling Nodes
     \item KNIME Interactive R Statistics Integration
     \item KNIME Math Expression (JEP)
     \item KNIME R Statistics Integration (Windows Binaries)
-    \item KNIME Report Designer
     \item KNIME SVG Support
     \item KNIME XLS Support
     \item KNIME XML-Processing
     \end{itemize}
-%\item And the following plugin from the \textit{Marvin Chemistry Extensions (donated by Infocom \& Chemaxon)} category
-%    \begin{itemize}
-%    \item ChemAxon/Infocom Marvin Extensions Feature
-%    \end{itemize}
-\item From the \menu{Work with:} drop down list select \\\menu{http://tech.knime.org/update/community-contributions/trusted/2.12}
+
+\item From the \menu{Work with:} drop down list select \\\menu{\KnimeTrustedSite}
 \item Now select the following plugin from the "KNIME Community Contributions - Cheminformatics" category 	
     \begin{itemize}
     \item     RDKit KNIME integration
@@ -163,7 +159,7 @@ You are now ready to install the OpenMS nodes.
   %\item \label{it:select_site} After pressing \keys{OK} KNIME will show you all the contents of the added Update Site.
 
 % Use this part if you base the tutorial on the last stable release (recommended)
-  \item From the \menu{Work with:} drop down list select the \\ \menu{http://tech.knime.org/update/community-contributions/trusted/2.12}
+  \item From the \menu{Work with:} drop down list select the \\ \menu{\KnimeTrustedSite}
 \item Select the \textbf{OpenMS} nodes in the category: \\ "KNIME Community Contributions - Bioinformatics \& NGS" and click \keys{Next}.
 \item Follow the instructions and after a restart of KNIME the OpenMS nodes will be available under “Community Nodes”.
 \end{enumerate}
