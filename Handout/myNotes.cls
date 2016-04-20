@@ -82,7 +82,7 @@
     \thispagestyle{empty}
     \begin{center}
 		\includegraphics[width=0.7\textwidth]{./graphics/assets/OpenMS_logo.png}\\[3cm]
-		\textsc{\LARGE OpenMS Tutorial}\\[2cm]
+		\textsc{\LARGE Von Spektren zu Ergebnissen: Effiziente Analyse von massenspektrometrischen Daten mit Workflows}\\[2cm]
 		\end{center}
 		\newpage
     \thispagestyle{empty}

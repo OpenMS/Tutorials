@@ -75,33 +75,6 @@ Meta nodes are useful when you construct even larger workflows and want to keep 
   \label{fig:id_fdr}
 \end{figure}
 
-\subsubsection{Bonus task: identification using several search engines}
-\note{If you are ahead of the tutorial or later on, you can further improve your FDR identification workflow by a so-called consensus identification using several search engines. Otherwise, just continue with section \ref{Labelfree_Quantification}.}
-It has become widely accepted that the parallel usage of different search engines can increase peptide identification rates in shotgun proteomics experiments. The ConsensusID algorithm is based on the calculation of posterior error probabilities (PEP) and a combination of the normalized scores by considering missing peptide sequences.
-
-\begin{itemize}
-\item
-Next to the \KNIMENODE{OMSSAAdapter} add a \KNIMENODE{XTandemAdapter} \\
-\menu{Community Nodes > OpenMS > Identification} node and set its parameters and ports analogously to the \KNIMENODE{OMSSAAdapter}.
-\item
-To calculate the PEP, introduce each a \KNIMENODE{IDPosteriorErrorProbability} \menu{Community Nodes > OpenMS > ID Processing} node to the output of each ID engine adapter node.
-This will calculate the PEP to each hit and output an updated idXML.
-\item
-To create a consensus, we must first merge these two files with a \KNIMENODE{FileMerger} node \menu{Community Nodes > GenericKnimeNodes > Flow} so we can then merge the corresponding IDs with a \KNIMENODE{IDMerger} \menu{Community Nodes > OpenMS > File Handling}.
-\item
-Now we can create a consensus identification with the \KNIMENODE{ConsensusID} \menu{Community Nodes > OpenMS > ID Processing} node.
-We can connect this to the \KNIMENODE{PeptideIndexer} and go along with our existing FDR filtering.
-\note{By default, X!Tandem takes additional enzyme cutting rules into consideration (besides the specified tryptic digest). Thus you have to set PeptideIndexer's \textit{enzyme $\rightarrow$ specificity} parameter to \texttt{semi} to accept X!Tandems semi tryptic identifications as well.}
-\end{itemize}
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.85\textwidth]{graphics/labelfree/consensus_id}
-  \caption{Complete consensus identification workflow.}
-  \label{fig:consensusid}
-\end{figure}
-
-
 \subsection{Quantification}
 \label{Labelfree_Quantification}
 

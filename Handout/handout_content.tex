@@ -114,64 +114,6 @@ process, in order to make it more difficult to create an invalid workflow.
 Throughout most of the parts of this tutorial you will use KNIME to create and
 execute workflows. This first step is to make yourself familiar with KNIME.
 
-% 
-% This description is based on KNIME 1.12.0
-%
-
-\subsubsection{Install OpenMS using KNIME}
-
-Before we can start with the tutorial we need to install all the required extensions for KNIME.
-
-First, we install some additional extensions that are required by our OpenMS nodes or used in the Tutorials e.g. for visualization.
-\begin{enumerate}
-\item Click on \menu{Help > Install New Software...}
-\item From the \menu{Work with:} drop down list select \menu{\KnimeUpdateSite}
-\item Now select the following plugins from the \textit{KNIME \& Extensions} category
-    \begin{itemize}
-    \item KNIME Base Chemistry Types \& Nodes
-    \item KNIME Chemistry Add-Ons
-    \item KNIME Interactive R Statistics Integration
-    \item KNIME Math Expression (JEP)
-    \item KNIME R Statistics Integration (Windows Binaries)
-    \item KNIME SVG Support
-    \item KNIME XLS Support
-    \item KNIME XML-Processing
-    \end{itemize}
-
-\item From the \menu{Work with:} drop down list select \\\menu{\KnimeTrustedSite}
-\item Now select the following plugin from the "KNIME Community Contributions - Cheminformatics" category 	
-    \begin{itemize}
-    \item     RDKit KNIME integration
-    \end{itemize}	
-\item Follow the instructions and after a restart of KNIME the dependencies will be installed.
-\end{enumerate}
-
-You are now ready to install the OpenMS nodes.
-
-\begin{enumerate}
-\item Open KNIME.
-\item Click on \menu{Help > Install New Software...}
-  
-% Use this part if you base the tutorial on the nightly contributions (not recommended - more of a emergency measure)
-  %\item \label{it:add_site} In the now open dialog choose \menu{Add...} (in the upper right corner of the dialog) to define a new update site. In the opening dialog enter the following details. \\
-  %\textit{Name:} \texttt{Trunk Community Contributions} \\
-  %\textit{Location:} \texttt{http://tech.knime.org/update/community-contributions/trunk/}
-  %\item \label{it:select_site} After pressing \keys{OK} KNIME will show you all the contents of the added Update Site.
-
-% Use this part if you base the tutorial on the last stable release (recommended)
-  \item From the \menu{Work with:} drop down list select the \\ \menu{\KnimeTrustedSite}
-\item Select the \textbf{OpenMS} nodes in the category: \\ "KNIME Community Contributions - Bioinformatics \& NGS" and click \keys{Next}.
-\item Follow the instructions and after a restart of KNIME the OpenMS nodes will be available under “Community Nodes”.
-\end{enumerate}
-
-% Use this part if you base the tutorial on a pre-release of OpenMS X.X.X
- %\note{
- %For this tutorial we use a pre-release version of OpenMS X.X.X
- %While not being a full release, it was nevertheless intensively tested to ensure its functionality for this tutorial.
- %For regular use we recommend using the latest stable OpenMS release.
- %Please note that some of the workflows shown here require OpenMS X.X and therefore will not work with OpenMS Y.Y downloaded from the stable update site.
- %}
-
 \subsubsection{KNIME concepts}
 
 A \textbf{workflow} is a sequence of computational steps applied to a single or multiple input data sets to process and analyze the data.
@@ -182,8 +124,8 @@ KNIME distinguishes between different port types, representing different types o
 The most common representation of data in KNIME are tables (similar to an excel sheet).
 Ports that accept tables are marked with a small triangle.
 For OpenMS we use a different port type, so called \textbf{file ports}, representing complete files.
-Those ports are marked by a small grey box.
-Dark grey boxes represent mandatory inputs and light grey boxes optional inputs.
+Those ports are marked by a small blue box.
+Filled blue boxes represent mandatory inputs and empty boxes optional inputs.
 
 A typical OpenMS workflow in KNIME can be divided in two conceptually different parts:
 \begin{itemize}

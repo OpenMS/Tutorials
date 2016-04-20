@@ -15,7 +15,7 @@ Quantitation and identification of chemical compounds are basic tasks in metabol
 
 \subsection{Quantifying metabolites across several experiments}
 
-For the metabolite quantification we choose an approach similar to the one used for peptides, but this time based on the OpenMS \KNIMENODE{FeatureFinderMetabo} method. This feature finder again collects peak picked data into individual mass traces. The reason why we need a different feature finder for metabolites lies in the step after trace detection: the aggregation of isotopic traces belonging to the same compound ion into the same feature. Compared to peptides with their averagine model, small molecules have very different isotopic trace distributions. To group small molecule mass traces correctly, an aggregation model tailored to small molecules is thus needed.
+For the metabolite quantification we choose an approach similar to the one used for peptides, but this time based on the OpenMS \KNIMENODE{FeatureFinderMetabo} method. This feature finder again collects peak picked data into individual mass traces. The reason why we need a different feature finder for metabolites lies in the step after trace detection: the aggregation of isotopic traces belonging to the same compound ion into the same feature. Compared to peptides with their averagine model, small molecules have very different isotopic distributions. To group small molecule mass traces correctly, an aggregation model tailored to small molecules is thus needed.
 
 \begin{itemize}
 \item
@@ -187,7 +187,7 @@ Try to compute and visualize the m/z and retention time error of the different e
 In this part of the metabolomics session we take a look at more advanced downstream analysis and the use of the statistical programming language R. As laid out in the introduction we try to detect a set of spike-in compounds against a complex blood background. As there are many ways to perform this type of analysis we provide a complete workflow.
 
 \begin{task}
-Import the workflow from \directory{Workflows / metabolite\_analysis.zip} in KNIME: \menu{File > Import KNIME Workflow...}
+Import the workflow from \directory{Workflows / metabolite\_ID.zip} in KNIME: \menu{File > Import KNIME Workflow...}
 \end{task}
 
 The section below will guide you in your understanding of the different parts of the workflow. Once you understood the workflow you should play around and be creative. Maybe create a novel visualization in KNIME or R? Do some more elaborate statistical analysis? Feel free to experiment and show us your results if you like. Note that some basic R knowledge is required to fully understand the processing in \KNIMENODE{R Snippet} nodes.
@@ -238,7 +238,7 @@ Inspect the nodes of this section. Customize your visualization and possibly try
 
 \subsubsection{Advanced visualization}
 \label{sec:metaboR}
-R Dependencies: This section requires that the R packages ggplot2 and ggbiplot are both installed. ggplot2 is part of the \textit{KNIME R Statistics Integration (Windows Binaries)} installed during the tutorial setup section, ggbiplot however is not.
+R Dependencies: This section requires that the R packages ggplot2 and ggbiplot are both installed. ggplot2 is part of the \textit{KNIME R Statistics Integration (Windows Binaries)} which should already be installed via the full KNIME installer, ggbiplot however is not.
 In case that you use an R installation where one or both of them are not yet installed, add an \KNIMENODE{R Snippet} node and double-click to configure. In the \textit{R Script} text editor, enter the following code:
 \begin{lstlisting}
 #Include the next line if you also have to install ggplot2:
@@ -250,13 +250,12 @@ install_github("vqv/ggbiplot")
 \end{lstlisting}
 Press \menu{Eval script} to execute the script.\newline
 
-Even though the basic capabilities for (interactive) plots in KNIME are valuable for initial data exploration, professional looking depiction of analysis results often relies on dedicated plotting libraries. The statistics language R supports the addition of a large variety of packages, including packages providing extensive plotting capabilities. This part of the workflow shows how to use R nodes in KNIME to visualize more advanced figures. Specifically, we make use of different plotting packages to realize heatmaps and a PCA plot.
+Even though the basic capabilities for (interactive) plots in KNIME are valuable for initial data exploration, professional looking depiction of analysis results often relies on dedicated plotting libraries. The statistics language R supports the addition of a large variety of packages, including packages providing extensive plotting capabilities. This part of the workflow shows how to use R nodes in KNIME to visualize more advanced figures. Specifically, we make use of different plotting packages to realize heatmaps.
 
 
 \begin{itemize}
 \item The used \KNIMENODE{RView (Table)} nodes combine the possibility to write R snippet code with visualization capabilities inside KNIME. Resulting images can be looked at in the output RView, or saved via the \KNIMENODE{Image Port Writer} node.
-\item The heatmap nodes make use of the gplots libary, which is by default part of the R Windows binaries for the KNIME 2.12 full installation. We again use regular expressions to extract all measured intensity columns for plotting. For clarity, feature names are only shown in the heatmap after filtering by fold changes.
-\item The remaining node performs principal component analysis and plots the first two principal components. Data points are colored by group membership to treated or control samples. The R commands to install the necessary plotting package are part of the node snippet. Removal of the comment character `\#' and execution of the individual lines in the snippet node allows for package installation from inside KNIME.
+\item The heatmap nodes make use of the gplots libary, which is by default part of the R Windows binaries for the KNIME 3.1.1 full installation. We again use regular expressions to extract all measured intensity columns for plotting. For clarity, feature names are only shown in the heatmap after filtering by fold changes.
 \end{itemize}
 
 \subsubsection{Data preparation for Reporting}
@@ -284,7 +283,7 @@ Inspect the output of the join operation after the Molecule Type Cast and RDKit 
 While all relevant information is now contained in our table the presentation could be improved.
 Currently, we have several rows corresponding to a single consensus feature (=linked feature) but with different, alternative identifications.
 It would be more convenient to have only one row for each consensus feature with all accurate mass identifications added as additional columns.
-To achieve we use the \KNIMENODE{Column to Grid} node that flattens several rows with the same consensus number into a single one.
+To this end, we use the \KNIMENODE{Column to Grid} node that flattens several rows with the same consensus number into a single one.
 Note that we have to specify the maximum number of columns in the grid so we set this to a large value (e.g. 100).
 We finally export the data to an Excel file (\KNIMENODE{XLS Writer}).
 
