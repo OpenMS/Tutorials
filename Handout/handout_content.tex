@@ -106,9 +106,6 @@ process, in order to make it more difficult to create an invalid workflow.
 Throughout most of the parts of this tutorial you will use KNIME to create and
 execute workflows. This first step is to make yourself familiar with KNIME.
 
-% 
-% This description is based on KNIME 1.12.0
-%
 
 \subsubsection{Install OpenMS using KNIME}
 
@@ -117,25 +114,25 @@ Before we can start with the tutorial we need to install all the required extens
 First, we install some additional extensions that are required by our OpenMS nodes or used in the Tutorials e.g. for visualization.
 \begin{enumerate}
 \item Click on \menu{Help > Install New Software...}
-\item From the \menu{Work with:} drop down list select \menu{http://update.knime.org/analytics-platform/2.12}
+\item From the \menu{Work with:} drop down list select \menu{http://update.knime.org/analytics-platform/3.1}
 \item Now select the following plugins from the \textit{KNIME \& Extensions} category
     \begin{itemize}
     \item KNIME Base Chemistry Types \& Nodes
     \item KNIME Chemistry Add-Ons
-    \item KNIME File Handling Nodes
+    \item KNIME File Handling Nodes (required for OpenMS nodes in general)
     \item KNIME Interactive R Statistics Integration
-    \item KNIME Math Expression (JEP)
     \item KNIME R Statistics Integration (Windows Binaries)
     \item KNIME Report Designer
     \item KNIME SVG Support
     \item KNIME XLS Support
     \item KNIME XML-Processing
+    \item (Older versions of KNIME do not have KNIME Math Expression (JEP) installed which is used in one of the workflows)
     \end{itemize}
 %\item And the following plugin from the \textit{Marvin Chemistry Extensions (donated by Infocom \& Chemaxon)} category
 %    \begin{itemize}
 %    \item ChemAxon/Infocom Marvin Extensions Feature
 %    \end{itemize}
-\item From the \menu{Work with:} drop down list select \\\menu{http://tech.knime.org/update/community-contributions/trusted/2.12}
+\item From the \menu{Work with:} drop down list select \\\menu{http://tech.knime.org/update/community-contributions/trusted/3.1}
 \item Now select the following plugin from the "KNIME Community Contributions - Cheminformatics" category 	
     \begin{itemize}
     \item     RDKit KNIME integration
@@ -156,7 +153,7 @@ You are now ready to install the OpenMS nodes.
   %\item \label{it:select_site} After pressing \keys{OK} KNIME will show you all the contents of the added Update Site.
 
 % Use this part if you base the tutorial on the last stable release (recommended)
-  \item From the \menu{Work with:} drop down list select the \\ \menu{http://tech.knime.org/update/community-contributions/trusted/2.12}
+  \item From the \menu{Work with:} drop down list select the \\ \menu{http://tech.knime.org/update/community-contributions/trusted/3.1}
 \item Select the \textbf{OpenMS} nodes in the category: \\ "KNIME Community Contributions - Bioinformatics \& NGS" and click \keys{Next}.
 \item Follow the instructions and after a restart of KNIME the OpenMS nodes will be available under “Community Nodes”.
 \end{enumerate}
@@ -172,16 +169,15 @@ You are now ready to install the OpenMS nodes.
 \subsubsection{KNIME concepts}
 
 A \textbf{workflow} is a sequence of computational steps applied to a single or multiple input data sets to process and analyze the data.
-In KNIME such workflows are implemented graphically by combining so-called \textbf{nodes}.
+In KNIME such workflows are implemented graphically by connecting so-called \textbf{nodes}.
 A node represents a single analysis step in a workflow.
 Nodes have input and output \textbf{ports} where the data enters the node or the results are provided for other nodes after processing, respectively.
 KNIME distinguishes between different port types, representing different types of data.
 The most common representation of data in KNIME are tables (similar to an excel sheet).
 Ports that accept tables are marked with a small triangle.
 For OpenMS we use a different port type, so called \textbf{file ports}, representing complete files.
-Those ports are marked by a small grey box.
-Dark grey boxes represent mandatory inputs and light grey boxes optional inputs.
-
+Those ports are marked by a small blue box.
+Solid blue boxes represent mandatory inputs and empty blue boxes optional inputs.
 A typical OpenMS workflow in KNIME can be divided in two conceptually different parts:
 \begin{itemize}
 \item
@@ -189,9 +185,7 @@ Nodes for signal and data processing, filtering and data reduction. Here, files 
 \item
 Downstream statistical analysis and visualization. Here, tables are passed between nodes.
 \end{itemize}
-
 Between file-based processing and table-based analysis a conversion node typically performs the conversion from OpenMS results into KNIME tables.
-
 Nodes can have three different states, indicated by the small traffic light below the node.
 
 \begin{itemize}
@@ -203,12 +197,12 @@ Configured but not yet executed nodes are marked yellow.
 Successfully executed nodes are marked green.
 \end{itemize}
 
-If the node execution failed the node will switch to the red state.
-
+If the node execution failed the node will switch to the red state. Other anomalies and warnings like missing information or empty results 
+will be presented with a yellow exclamation mark sign above the traffic light.
 Most nodes will be configured as soon as all input ports are connected.
 For some nodes additional parameters have to be provided that cannot be either guessed from the data or filled with sensible defaults.
 In this case, of if you want to customize the default configuration, you can open the configuration dialog of a node with a double-click on the node.
-For OpenMS you will see a configuration dialog like the one shown in \cref{fig:knime_configure}.
+For all OpenMS nodes you will see a configuration dialog like the one shown in \cref{fig:knime_configure}.
 \note{OpenMS distinguishes between normal parameters and advanced parameters.
 Advanced parameters are by default hidden from the users since they should only rarely be customized.
 In case you want to have a look at the parameters or need to customize them in one of the tutorials you can show them by clicking on the checkbox  \menu{Show advanced parameter} in the lower part of the dialog.}
@@ -235,13 +229,16 @@ We will shortly introduce the individual panels and their purposes below.
 \begin{description}
 \item[Workflow Editor:]
 The workflow editor is the central part of the KNIME GUI.
-Here you assemble the workflow by adding nodes from the Node Repository via "drag \& drop".
-Nodes can be connected by clicking on the output port of one node and releasing the mouse at the desired input port of the next node.
+Here you assemble the workflow by adding nodes from the Node Repository via "drag \& drop". For quick creation note that double-clicking on 
+a node in the repository automatically connects it with the selected node in the workbench.
+Nodes can be connected by clicking on the output port of one node and dragging the edge until releasing the mouse at the desired input port 
+of the next node.
 
 \item[Workflow Explorer:]
 Shows a list of available workflows (also called workflow projects).
 You can open a workflow by double clicking it.
 A new workflow can be created with a right-click in the Workflow Explorer followed by selecting \menu{New KNIME Workflow...}.
+Remember to save your workflow often with the Ctrl+S shortcut.
 
 \item[Node Repository:]
 Shows all nodes that are available in your KNIME installation.
