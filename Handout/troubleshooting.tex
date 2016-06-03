@@ -6,30 +6,45 @@ feel free to leave us a message at the means of support that you see most fit.
 \subsection{FAQ}
 
 \subsubsection{General}
-Q: Can I add my own modifications to the Unimod.xml?
-A: No!
+\textbf{Q:} Can I add my own modifications to the Unimod.xml?\\
+\textbf{A:} Unfortunately not very easy. This is an open issue.
+\\\\
+\textbf{Q:} I have problem XYZ but it also occurs with other nodes or generally in the KNIME environment/GUI, what should I do?\\
+\textbf{A:} This sounds like a general KNIME bug and we advise to search help directly at the KNIME developers. They also provide a \href{https://tech.knime.org/
+faq}{FAQ} and a \href{https://tech.knime.org/forum}{forum}.
 
 \subsubsection{Platform-specific problems}
-\paragraph{Linux}
-Q: Stdlib problem on Linux
-A: We currently build with gcc 4.8. We will try to extend our support for older Linuxes. Until then, build the
-binaries yourself (see OpenMS documentation) and replace them in KNIME (TODO give folder)
-
-Q: Configuration dialog on Linux
-A: Unsolved, probably an X-Server problem
-
-\paragraph{Windows}
-Q: Prerequisites
-A: Get the prerequisites installer or install NET and VCRedist yourself.
-
+\textbf{Linux}\\
+\textbf{Q:} Whenever I try to execute an OpenMS node I get an error similar to these:
+\begin{verbatim}
+/usr/lib/x86_64-linux-gnu/libgomp.so.1: version `GOMP_4.0' not found
+/usr/lib/x86_64-linux-gnu/libstdc++.so.6: version `GLIBCXX_3.4.20' not found
+\end{verbatim}
+\textbf{A:} We currently build the binaries shipped in the OpenMS KNIME plugin with gcc 4.8. We will try to extend our support for older compilers.
+Until then you either need to upgrade your gcc compiler
+or at least the library that the tool complained about or you need to build the
+binaries yourself (see OpenMS documentation) and replace them in your KNIME binary folder\\
+(\menu{YOURKNIMEFOLDER/plugins/de.openms.platform.architecture.version/payload/bin}).
+\\\\
+\textbf{Q:} Why is my configuration dialog closing right away when I double-click or try to configure it? Or why is my GUI responding so slow?\\
+\textbf{A:} If you have any problems with the KNIME GUI or the opening of dialogues under Linux you might be affected by a
+GTK bug. See the KNIME forum (e.g. \href{https://tech.knime.org/forum/knime-general/ubuntu-1604-slow-performance}{here} or \href{https://tech.knime.org/forum/knime-users/knime-300-crashes-after-splash-screen}{here}) for a discussion and a possible solution.\\\\
+\textbf{Windows}\\
+\textbf{Q:} KNIME has problems getting the requirements for some of the OpenMS nodes on Windows, what can I do?\\
+\textbf{A:} Get the prerequisites installer \href{\WindowsPrerequisitesLink}{here} or install NET3.5, NET4 and VCRedist10.0 yourself.\\
 \subsubsection{Nodes}
-Q: XTandem not working
-A: For now: Give it the default configuration under TODO folder
-
-Q: MSGFPlus and Luciphor
-A: These are java processes that are started underneath. E.g. are not killed during cancellation of the node.
-
+\textbf{Q:} Why is my XTandemAdapter printing empty results?\\
+\textbf{A:} From OpenMS 2.0.1 the XTandemAdapter requires a default parameter file. Give it the default configuration in\\
+\menu{YOURKNIMEFOLDER/plugins/de.openms.platform.architecture.version/payload/share/}\\
+\menu{CHEMISTRY/XTandem\_default\_input.xml} as a third input file.
+\\\\
+\textbf{Q:} Do MSGFPlusAdapter and LuciphorAdapter generally behave different/unexpected?\\
+\textbf{A:} These are Java processes that are started underneath. For example they can not be killed during cancellation of the node.
+This should not affect its performance, however.
 \subsection{Sources of support}
-Mailing List:
-GitHub issue tracker:
-KNIME Community Contributions forum for OpenMS:
+If your questions could not be answered by the FAQ, please feel free to turn to our developers via one of the following means:
+\begin{itemize}
+\item File an issue on \href{https://github.com/OpenMS/OpenMS/issues}{GitHub}
+\item Write to the \href{mailto:open-ms-developers@lists.sourceforge.net}{Mailing List}
+\item Open a thread on the KNIME Community Contributions \href{https://tech.knime.org/forum/openms}{forum} for OpenMS
+\end{itemize}
