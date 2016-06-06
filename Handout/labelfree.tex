@@ -91,7 +91,7 @@ To create a consensus, we must first merge these two files with a \KNIMENODE{Fil
 \item
 Now we can create a consensus identification with the \KNIMENODE{ConsensusID} \menu{Community Nodes > OpenMS > ID Processing} node.
 We can connect this to the \KNIMENODE{PeptideIndexer} and go along with our existing FDR filtering.
-\note{By default, X!Tandem takes additional enzyme cutting rules into consideration (besides the specified tryptic digest). Thus you have to set PeptideIndexer's \textit{enzyme $\rightarrow$ specificity} parameter to \texttt{semi} to accept X!Tandems semi tryptic identifications as well.}
+\note{By default, X!Tandem takes additional enzyme cutting rules into consideration (besides the specified tryptic digest). Thus for the tutorial files, you have to set PeptideIndexer's \textit{enzyme $\rightarrow$ specificity} parameter to \texttt{none} to accept X!Tandems non-tryptic identifications as well.}
 \end{itemize}
 
 \begin{figure}[htbp]
