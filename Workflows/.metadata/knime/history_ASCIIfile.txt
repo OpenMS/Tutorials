@@ -1,0 +1,2 @@
+knime://knime.workflow/data.all
+http://ftp.mi.fu-berlin.de/pub/OpenMS/nightly_binaries/log_x64_head.txt

@@ -84,6 +84,9 @@ acs-*.bib
 # listings
 *.lol
 
+# MacOS specifics
+*.DS_Store
+
 # makeidx
 *.idx
 *.ilg

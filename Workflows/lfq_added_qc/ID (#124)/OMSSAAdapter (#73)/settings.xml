@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.knime.org/2008/09/XMLConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.knime.org/2008/09/XMLConfig http://www.knime.org/XMLConfig_2008_09.xsd" key="settings.xml">
+<entry key="node_file" type="xstring" value="settings.xml"/>
+<config key="flow_stack"/>
+<config key="internal_node_subsettings">
+<entry key="memory_policy" type="xstring" value="CacheSmallInMemory"/>
+</config>
+<config key="model">
+<entry key="OMSSAAdapter.version" type="xstring" value="2.0.0"/>
+<entry key="OMSSAAdapter.1.precursor_mass_tolerance" type="xstring" value="10.0"/>
+<entry key="OMSSAAdapter.1.precursor_mass_tolerance_unit_ppm" type="xstring" value="true"/>
+<entry key="OMSSAAdapter.1.fragment_mass_tolerance" type="xstring" value="0.5"/>
+<entry key="OMSSAAdapter.1.min_precursor_charge" type="xstring" value="1"/>
+<entry key="OMSSAAdapter.1.max_precursor_charge" type="xstring" value="5"/>
+<entry key="OMSSAAdapter.1.fixed_modifications" type="xstring" value="Carbamidomethyl (C)@@@__@@@"/>
+<entry key="OMSSAAdapter.1.variable_modifications" type="xstring" value="Oxidation (M)@@@__@@@"/>
+<entry key="OMSSAAdapter.1.pc" type="xstring" value="1"/>
+<entry key="OMSSAAdapter.1.hs" type="xstring" value="4"/>
+<entry key="OMSSAAdapter.1.tez" type="xstring" value="1"/>
+<entry key="OMSSAAdapter.1.tom" type="xstring" value="0"/>
+<entry key="OMSSAAdapter.1.tem" type="xstring" value="0"/>
+<entry key="OMSSAAdapter.1.tex" type="xstring" value="1446.94"/>
+<entry key="OMSSAAdapter.1.zt" type="xstring" value="3"/>
+<entry key="OMSSAAdapter.1.z1" type="xstring" value="0.95"/>
+<entry key="OMSSAAdapter.1.zc" type="xstring" value="1"/>
+<entry key="OMSSAAdapter.1.zcc" type="xstring" value="2"/>
+<entry key="OMSSAAdapter.1.zoh" type="xstring" value="2"/>
+<entry key="OMSSAAdapter.1.v" type="xstring" value="1"/>
+<entry key="OMSSAAdapter.1.e" type="xstring" value="0"/>
+<entry key="OMSSAAdapter.1.no" type="xstring" value="4"/>
+<entry key="OMSSAAdapter.1.nox" type="xstring" value="40"/>
+<entry key="OMSSAAdapter.1.i" type="xstring" value="1,4"/>
+<entry key="OMSSAAdapter.1.sp" type="xstring" value="100"/>
+<entry key="OMSSAAdapter.1.sb1" type="xstring" value="1"/>
+<entry key="OMSSAAdapter.1.sct" type="xstring" value="0"/>
+<entry key="OMSSAAdapter.1.x" type="xstring" value="0"/>
+<entry key="OMSSAAdapter.1.hm" type="xstring" value="2"/>
+<entry key="OMSSAAdapter.1.ht" type="xstring" value="6"/>
+<entry key="OMSSAAdapter.1.hl" type="xstring" value="30"/>
+<entry key="OMSSAAdapter.1.he" type="xstring" value="1000.0"/>
+<entry key="OMSSAAdapter.1.mm" type="xstring" value="128"/>
+<entry key="OMSSAAdapter.1.mnm" type="xstring" value="false"/>
+<entry key="OMSSAAdapter.1.is" type="xstring" value="0.0"/>
+<entry key="OMSSAAdapter.1.ir" type="xstring" value="0.0"/>
+<entry key="OMSSAAdapter.1.ii" type="xstring" value="0.0"/>
+<entry key="OMSSAAdapter.1.chunk_size" type="xstring" value="0"/>
+<entry key="OMSSAAdapter.1.log" type="xstring" isnull="true" value=""/>
+<entry key="OMSSAAdapter.1.debug" type="xstring" value="0"/>
+<entry key="OMSSAAdapter.1.threads" type="xstring" value="1"/>
+<entry key="OMSSAAdapter.1.no_progress" type="xstring" value="false"/>
+<entry key="OMSSAAdapter.1.force" type="xstring" value="false"/>
+<entry key="OMSSAAdapter.1.test" type="xstring" value="false"/>
+<entry key="GENERIC_KNIME_NODES_outtype#0" type="xint" value="0"/>
+</config>
+<entry key="customDescription" type="xstring" isnull="true" value=""/>
+<entry key="state" type="xstring" value="CONFIGURED"/>
+<entry key="factory" type="xstring" value="de.openms.knime.nodes.OMSSAAdapter.OMSSAAdapterNodeFactory"/>
+<entry key="node-name" type="xstring" value="OMSSAAdapter"/>
+<entry key="node-bundle-name" type="xstring" value="Generic Workflow Nodes for KNIME: OpenMS"/>
+<entry key="node-bundle-symbolic-name" type="xstring" value="de.openms"/>
+<entry key="node-bundle-vendor" type="xstring" value="Freie Universitaet Berlin, Universitaet Tuebingen, and the OpenMS Team"/>
+<entry key="node-bundle-version" type="xstring" value="2.0.0.201511241504"/>
+<entry key="node-feature-name" type="xstring" value="OpenMS"/>
+<entry key="node-feature-symbolic-name" type="xstring" value="de.openms.feature.feature.group"/>
+<entry key="node-feature-vendor" type="xstring" isnull="true" value=""/>
+<entry key="node-feature-version" type="xstring" value="2.0.0.201602011314"/>
+<config key="factory_settings"/>
+<entry key="name" type="xstring" value="OMSSAAdapter"/>
+<entry key="hasContent" type="xboolean" value="false"/>
+<entry key="isInactive" type="xboolean" value="false"/>
+<config key="ports">
+<config key="port_1">
+<entry key="index" type="xint" value="1"/>
+<entry key="port_dir_location" type="xstring" isnull="true" value=""/>
+</config>
+</config>
+<config key="filestores">
+<entry key="file_store_location" type="xstring" isnull="true" value=""/>
+<entry key="file_store_id" type="xstring" isnull="true" value=""/>
+</config>
+</config>

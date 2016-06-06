@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.knime.org/2008/09/XMLConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.knime.org/2008/09/XMLConfig http://www.knime.org/XMLConfig_2008_09.xsd" key="settings.xml">
+<entry key="node_file" type="xstring" value="settings.xml"/>
+<config key="flow_stack"/>
+<config key="internal_node_subsettings">
+<entry key="memory_policy" type="xstring" value="CacheSmallInMemory"/>
+</config>
+<config key="model">
+<entry key="OpenSwathRTNormalizer.version" type="xstring" value="2.0.0"/>
+<entry key="OpenSwathRTNormalizer.1.min_rsq" type="xstring" value="0.95"/>
+<entry key="OpenSwathRTNormalizer.1.min_coverage" type="xstring" value="0.6"/>
+<entry key="OpenSwathRTNormalizer.1.estimateBestPeptides" type="xstring" value="false"/>
+<entry key="OpenSwathRTNormalizer.1.log" type="xstring" isnull="true" value=""/>
+<entry key="OpenSwathRTNormalizer.1.debug" type="xstring" value="0"/>
+<entry key="OpenSwathRTNormalizer.1.threads" type="xstring" value="1"/>
+<entry key="OpenSwathRTNormalizer.1.no_progress" type="xstring" value="false"/>
+<entry key="OpenSwathRTNormalizer.1.force" type="xstring" value="false"/>
+<entry key="OpenSwathRTNormalizer.1.test" type="xstring" value="false"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.stop_report_after_feature" type="xstring" value="-1"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.rt_extraction_window" type="xstring" value="-1.0"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.rt_normalization_factor" type="xstring" value="1.0"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.quantification_cutoff" type="xstring" value="0.0"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.write_convex_hull" type="xstring" value="false"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.add_up_spectra" type="xstring" value="1"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.spacing_for_spectra_resampling" type="xstring" value="0.005"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.TransitionGroupPicker.stop_after_feature" type="xstring" value="-1"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.TransitionGroupPicker.stop_after_intensity_ratio" type="xstring" value="1.0E-4"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.TransitionGroupPicker.min_peak_width" type="xstring" value="-1.0"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.TransitionGroupPicker.background_subtraction" type="xstring" value="none"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.TransitionGroupPicker.recalculate_peaks" type="xstring" value="false"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.TransitionGroupPicker.recalculate_peaks_max_z" type="xstring" value="1.0"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.TransitionGroupPicker.minimal_quality" type="xstring" value="-10000.0"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.TransitionGroupPicker.compute_peak_quality" type="xstring" value="false"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.TransitionGroupPicker.PeakPickerMRM.sgolay_frame_length" type="xstring" value="15"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.TransitionGroupPicker.PeakPickerMRM.sgolay_polynomial_order" type="xstring" value="3"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.TransitionGroupPicker.PeakPickerMRM.gauss_width" type="xstring" value="50.0"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.TransitionGroupPicker.PeakPickerMRM.use_gauss" type="xstring" value="true"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.TransitionGroupPicker.PeakPickerMRM.peak_width" type="xstring" value="40.0"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.TransitionGroupPicker.PeakPickerMRM.signal_to_noise" type="xstring" value="1.0"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.TransitionGroupPicker.PeakPickerMRM.sn_win_len" type="xstring" value="1000.0"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.TransitionGroupPicker.PeakPickerMRM.sn_bin_count" type="xstring" value="30"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.TransitionGroupPicker.PeakPickerMRM.remove_overlapping_peaks" type="xstring" value="false"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.TransitionGroupPicker.PeakPickerMRM.method" type="xstring" value="legacy"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.DIAScoring.dia_extraction_window" type="xstring" value="0.05"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.DIAScoring.dia_centroided" type="xstring" value="false"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.DIAScoring.dia_byseries_intensity_min" type="xstring" value="300.0"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.DIAScoring.dia_byseries_ppm_diff" type="xstring" value="10.0"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.DIAScoring.dia_nr_isotopes" type="xstring" value="4"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.DIAScoring.dia_nr_charges" type="xstring" value="4"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.DIAScoring.peak_before_mono_max_ppm_diff" type="xstring" value="20.0"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.EMGScoring.interpolation_step" type="xstring" value="0.2"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.EMGScoring.tolerance_stdev_bounding_box" type="xstring" value="3.0"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.EMGScoring.max_iteration" type="xstring" value="500"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.EMGScoring.statistics.mean" type="xstring" value="1.0"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.EMGScoring.statistics.variance" type="xstring" value="1.0"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.Scores.use_shape_score" type="xstring" value="true"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.Scores.use_coelution_score" type="xstring" value="true"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.Scores.use_rt_score" type="xstring" value="true"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.Scores.use_library_score" type="xstring" value="true"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.Scores.use_elution_model_score" type="xstring" value="true"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.Scores.use_intensity_score" type="xstring" value="true"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.Scores.use_nr_peaks_score" type="xstring" value="true"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.Scores.use_total_xic_score" type="xstring" value="true"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.Scores.use_sn_score" type="xstring" value="true"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.Scores.use_dia_scores" type="xstring" value="true"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.Scores.use_ms1_correlation" type="xstring" value="false"/>
+<entry key="OpenSwathRTNormalizer.1.algorithm.Scores.use_ms1_fullscan" type="xstring" value="false"/>
+<entry key="OpenSwathRTNormalizer.1.outlierDetection.outlierMethod" type="xstring" value="iter_residual"/>
+<entry key="OpenSwathRTNormalizer.1.outlierDetection.useIterativeChauvenet" type="xstring" value="false"/>
+<entry key="OpenSwathRTNormalizer.1.outlierDetection.RANSACMaxIterations" type="xstring" value="1000"/>
+<entry key="OpenSwathRTNormalizer.1.outlierDetection.RANSACMaxPercentRTThreshold" type="xstring" value="3"/>
+<entry key="OpenSwathRTNormalizer.1.outlierDetection.RANSACSamplingSize" type="xstring" value="10"/>
+<entry key="OpenSwathRTNormalizer.1.peptideEstimation.InitialQualityCutoff" type="xstring" value="0.5"/>
+<entry key="OpenSwathRTNormalizer.1.peptideEstimation.OverallQualityCutoff" type="xstring" value="5.5"/>
+<entry key="OpenSwathRTNormalizer.1.peptideEstimation.NrRTBins" type="xstring" value="10"/>
+<entry key="OpenSwathRTNormalizer.1.peptideEstimation.MinPeptidesPerBin" type="xstring" value="1"/>
+<entry key="OpenSwathRTNormalizer.1.peptideEstimation.MinBinsFilled" type="xstring" value="8"/>
+<entry key="GENERIC_KNIME_NODES_outtype#0" type="xint" value="0"/>
+</config>
+<entry key="customDescription" type="xstring" isnull="true" value=""/>
+<entry key="state" type="xstring" value="EXECUTED"/>
+<entry key="factory" type="xstring" value="de.openms.knime.nodes.OpenSwathRTNormalizer.OpenSwathRTNormalizerNodeFactory"/>
+<entry key="node-name" type="xstring" value="OpenSwathRTNormalizer"/>
+<entry key="node-bundle-name" type="xstring" value="Generic Workflow Nodes for KNIME: OpenMS"/>
+<entry key="node-bundle-symbolic-name" type="xstring" value="de.openms"/>
+<entry key="node-bundle-vendor" type="xstring" value="Freie Universitaet Berlin, Universitaet Tuebingen, and the OpenMS Team"/>
+<entry key="node-bundle-version" type="xstring" value="2.0.0.201504151637"/>
+<config key="factory_settings"/>
+<entry key="name" type="xstring" value="OpenSwathRTNormalizer"/>
+<entry key="hasContent" type="xboolean" value="true"/>
+<entry key="isInactive" type="xboolean" value="false"/>
+<config key="ports">
+<config key="port_1">
+<entry key="index" type="xint" value="1"/>
+<entry key="port_spec_class" type="xstring" value="org.knime.core.data.uri.URIPortObjectSpec"/>
+<entry key="port_object_class" type="xstring" value="com.genericworkflownodes.knime.base.data.port.FileStoreURIPortObject"/>
+<entry key="port_object_summary" type="xstring" value="1 file (extension: &quot;trafoxml&quot;)"/>
+<entry key="port_spec_location" type="xstring" value="spec/spec.zip"/>
+<entry key="port_object_location" type="xstring" value="object/portobject.zip"/>
+<entry key="port_dir_location" type="xstring" value="port_1"/>
+</config>
+</config>
+<config key="filestores">
+<entry key="file_store_location" type="xstring" value="filestore"/>
+<entry key="file_store_id" type="xstring" value="9028cbc7-8890-4155-826d-eab602446dfd"/>
+</config>
+</config>
