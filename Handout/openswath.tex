@@ -9,7 +9,7 @@ OpenSWATH~\cite{Rost2014fd} is a module of OpenMS that allows analysis of LC-MS/
 The analysis approach described by Gillet et al. extracts ion traces of specific fragment ions from all MS2 spectra that have the same precursor isolation window, thus generating data that is very similar to SRM traces.
 
 \subsection{Installation of OpenSWATH}
-OpenSWATH has been fully integrated since OpenMS 1.10 (\url{http://open-ms.sourceforge.net} \cite{Kohlbacher2007,Sturm2008,Bertsch2011OpenMS}).
+OpenSWATH has been fully integrated since OpenMS 1.10 \cite{Kohlbacher2007,Sturm2008,Bertsch2011OpenMS}).
 
 \subsection{Installation of mProphet}
 mProphet (\url{http://www.mprophet.org/}) \cite{Reiter2011MProphet} is available as standalone script in \directory{External\_Tools/mProphet/}. 
@@ -133,11 +133,11 @@ with statistical information available in\\
 
 Please note that due to the semi-supervised machine learning approach of mProphet the results differ slightly when mProphet is executed several times.
 
-\begin{figure*}[htbp]
-  \includegraphics[width=1\textwidth]{graphics/OpenSwath}
-\caption{OpenSWATH KNIME Workflow.}
-\label{fig:toppas}
-\end{figure*}
+\begin{figure}[htbp]
+  \includegraphics[width=\textwidth]{graphics/OpenSwath}
+  \caption{OpenSWATH KNIME Workflow.}
+  \label{fig:openswath}
+\end{figure}
 
 \subsection{From the example dataset to real-life applications}
 The sample dataset used in this tutorial is part of the larger SWATH MS Gold Standard (SGS) dataset which is described in the publication of Roest et al.~\cite{Rost2014fd}.
