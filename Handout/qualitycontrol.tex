@@ -11,7 +11,7 @@ We will, step-by-step, extend the label-free quantitation workflow from section 
 But first, to make sure you get the most of this tutorial section, a little primer on how we handle QC on the technical level. \\
 
 \subsubsection*{QC metrics and qcML}
-To assert the quality of a measurement or analysis we use quality metrics. Metrics are describing a certain aspect of the measurement or analysis and can be anything from a single value, over a range of values to a image plot or other summary. Thus, qcML metric representation is divided into QC parameters (QP) and QC attachments (QA) to be able to represent all sorts of metrics on a technical level.\\
+To assert the quality of a measurement or analysis we use quality metrics. Metrics are describing a certain aspect of the measurement or analysis and can be anything from a single value, over a range of values to an image plot or other summary. Thus, qcML metric representation is divided into QC parameters (QP) and QC attachments (QA) to be able to represent all sorts of metrics on a technical level.\\
 A QP may (or may not) have a value which would equal a metric describable with a single value. If the metric is more complex and needs more than just a single value, the QP does not require the single value but rather depends on an attachment of values (QA) for full meaning. Such a QA holds the plot or the range of values in a table-like form. Like this, we can describe any metric by a QP and an optional QA.\\
 To assure a consensual meaning of the quality parameters and attachments, we created a controlled vocabulary (CV). Each entry in the CV describes a metric or part/extension thereof. We embed each parameter or attachment with one of these and by doing so, connect a meaning to the QP/QA. Like this, we later know exactly what we collected and the programs can find and connect the right dots for rendering the report or calculating new metrics automatically. You can find the constantly growing controlled vocabulary here:\\ \menu{https://github.com/qcML/qcML-development/blob/master/cv/qc-cv.obo}.\\
 Finally, in a qcml file, we split the metrics on a per mass-spectrometry-run base or a set of mass-spectrometry-runs respectively. Each run or set will contain its QP/QA we calculate for it, describing their quality.
@@ -20,23 +20,21 @@ Finally, in a qcml file, we split the metrics on a per mass-spectrometry-run bas
 \subsection{Building a qcML file per run}
 \label{Building a qcML file per run}
 
-\note{For this part of the tutorial, you need the latest version of OpenMS in KNIME (bleeding edge development version). Therefore you have to add the software site \menu{http://tech.knime.org/update/community-contributions/trunk/} in KNIME's \menu{Help > Install New Software} menu and update OpenMS.}
-
-As a start, we will build a basic qcML file for each mzML file in the label-free analysis. We are already creating the two necessary analysis files to build a basic qcML file upon each mzML file, a feature file and an identification file. We use the \KNIMENODE{QCCreator} node from \menu{Community Nodes > OpenMS > Utilities} where also all other \KNIMENODE{QC*} nodes will be found. The \KNIMENODE{QCCreator} will create a very basic qcML file in which it will store collected and calculated quality data.
+As a start, we will build a basic qcML file for each mzML file in the label-free analysis. We are already creating the two necessary analysis files to build a basic qcML file upon each mzML file, a feature file and an identification file. We use the \KNIMENODE{QCCalculator} node from \menu{Community Nodes > OpenMS > Utilities} where also all other \KNIMENODE{QC*} nodes will be found. The \KNIMENODE{QCCalculator} will create a very basic qcML file in which it will store collected and calculated quality data.
 
 \begin{itemize} 
 \item Copy your label-fee quantitation workflow into a new lfq-qc workflow and open it.
-\item Place the \KNIMENODE{QCCreator} node after the \KNIMENODE{IDMapper} node. Being inside the \KNIMENODE{ZipLoop}, it will execute for each of the three mzML files the \KNIMENODE{Input} node.
-\item Connect the first \KNIMENODE{QCCreator} port to the first \KNIMENODE{ZipLoopStart} outlet port, which will carry the individual mzML files.
-\item Connect the last's \KNIMENODE{ID} outlet port (\KNIMENODE{IDFilter} or the \KNIMENODE{ID} metanode) to the second \KNIMENODE{QCCreator} port for the identification file.
-\item Finally, connect the \KNIMENODE{IDMapper} outlet to the third \KNIMENODE{QCCreator} port for the feature file.
+\item Place the \KNIMENODE{QCCalculator} node after the \KNIMENODE{IDMapper} node. Being inside the \KNIMENODE{ZipLoop}, it will execute for each of the three mzML files the \KNIMENODE{Input} node.
+\item Connect the first \KNIMENODE{QCCalculator} port to the first \KNIMENODE{ZipLoopStart} outlet port, which will carry the individual mzML files.
+\item Connect the last's \KNIMENODE{ID} outlet port (\KNIMENODE{IDFilter} or the \KNIMENODE{ID} metanode) to the second \KNIMENODE{QCCalculator} port for the identification file.
+\item Finally, connect the \KNIMENODE{IDMapper} outlet to the third \KNIMENODE{QCCalculator} port for the feature file.
 \end{itemize}
 
 The created qcML files will not have much to show for, basic as they are. So we will extend them with some basic plots.
 \begin{itemize}
-\item First, we will add an 2D overview image of the given mass spectrometry run as you may know it from \OPENMSTOOL{TOPPView}. Add a the \KNIMENODE{ImageCreator} node from \menu{Community Nodes > OpenMS > Utilities}. Change the \textit{width} and \textit{heigth} parameters to 640x640 as we don't want it to be too big. Connect it the first \KNIMENODE{ZipLoopStart} outlet port, so it will create an image file of the mzML's contained run.
-\item Now we have to embed this file into the qcML file, attach it to the right QualityParameter. For this, place a \KNIMENODE{QCEmbedder} node behind the \KNIMENODE{ImageCreator} and connect that to its third inlet port. Its first inlet port connect to the outlet of the \KNIMENODE{QCCalculator} node to pass on the qcML file. Now change the parameter \textit{qp\_att\_acc} to \textit{QC:0000055} which designates the attached image to be of type  \texttt{QC:0000055 - MS experiment heatmap}.
-Finally, change the parameter \textit{cv\_acc} to \textit{QC:0000004}, to attach the image to the QualityParameter \texttt{QC:0000004 - MS acquisition result details}.
+\item First, we will add an 2D overview image of the given mass spectrometry run as you may know it from \OPENMSTOOL{TOPPView}. Add the \KNIMENODE{ImageCreator} node from \menu{Community Nodes > OpenMS > Utilities}. Change the \textit{width} and \textit{heigth} parameters to 640x640 as we don't want it to be too big. Connect it to the first \KNIMENODE{ZipLoopStart} outlet port, so it will create an image file of the mzML's contained run.
+\item Now we have to embed this file into the qcML file, and attach it to the right QualityParameter. For this, place a \KNIMENODE{QCEmbedder} node behind the \KNIMENODE{ImageCreator} and connect that to its third inlet port. Connect its first inlet port to the outlet of the \KNIMENODE{QCCalculator} node to pass on the qcML file. Now change the parameter \textit{cv\_acc} to \textit{QC:0000055} which designates the attached image to be of type  \texttt{QC:0000055 - MS experiment heatmap}.
+Finally, change the parameter \textit{qp\_att\_acc} to \textit{QC:0000004}, to attach the image to the QualityParameter \texttt{QC:0000004 - MS acquisition result details}.
 \item For a reference of which CVs are already defined for qcML, have a look at \\ \menu{https://github.com/qcML/qcML-development/blob/master/cv/qc-cv.obo}.
 \end{itemize}
 
