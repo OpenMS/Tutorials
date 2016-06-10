@@ -110,7 +110,7 @@ Now that we have successfully constructed a peptide identification pipeline, we 
 \begin{itemize}
 \item
 Add a \KNIMENODE{FeatureFinderCentroided} node \menu{Community Nodes > OpenMS > Quantitation} which gets input from the first output port of the \KNIMENODE{ZipLoopStart} node. Also, add an \KNIMENODE{IDMapper} node \menu{Community Nodes > OpenMS > ID Processing} which gets input from the \KNIMENODE{FeatureFinderCentroided} node and the ID Meta node (or \KNIMENODE{IDFilter} node if you haven't used the Meta node).
-The output of the \KNIMENODE{IDMapper} is then connected to the \KNIMENODE{ZipLoopEnd} node.
+The output of the \KNIMENODE{IDMapper} is then connected to an \textit{in} port of the \KNIMENODE{ZipLoopEnd} node.
 \item
 \KNIMENODE{FeatureFinderCentroided} finds and quantifies peptide ion signals contained in the MS1 data.
 It reduces the entire signal, i.e., all peaks explained by one and the same peptide ion signal, to a single peak at the maximum of the chromatographic elution profile of the monoisotopic mass trace of this peptide ion and assigns an overall intensity.
@@ -181,7 +181,7 @@ Every row in this table corresponds to a so-called consensus feature, i.e., a pe
             x <- log10(x)       # compute log of all values
             knime.out <- x      # write result to output table
         \end{lstlisting}
-    \item Now we are ready to plot! Add a \KNIMENODE{Box Plot} node \menu{Data Views} after the \KNIMENODE{R Snippet} node, execute it, and open its view. If everything went well, you should see a significant fold change of your human peptide intensities across the three runs.
+    \item Now we are ready to plot! Add a \KNIMENODE{Box Plot} node \menu{Views} after the \KNIMENODE{R Snippet} node, execute it, and open its view. If everything went well, you should see a significant fold change of your human peptide intensities across the three runs.
     \item In order to verify that the concentration of background peptides is constant in all three runs, you can just copy and paste the three nodes after \KNIMENODE{Row Splitter} and connect the duplicated \KNIMENODE{Column Filter} to the second output port (\textit{Filtered Out}) of \KNIMENODE{Row Splitter}, as shown in Fig. \ref{fig:lfq_data_analysis}. Execute and open the view of your second \KNIMENODE{Box Plot}.
     \item That's it! You have constructed an entire identification and label-free quantification workflow including a simple data analysis using KNIME!
 \end{itemize}
