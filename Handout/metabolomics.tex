@@ -21,7 +21,7 @@ For the metabolite quantification we choose an approach similar to the one used 
 \item
 Create a new workflow called for instance "Metabolomics".
 \item
-Add a \KNIMENODE{Input Files} node and configure it with all mzML files from \directory{Example\_Data / Metabolomics / datasets}.
+Add an \KNIMENODE{Input Files} node and configure it with all mzML files from \directory{Example\_Data / Metabolomics / datasets}.
 \item
 Add a \KNIMENODE{ZipLoopStart} node and connect the \KNIMENODE{Input Files} node to the first port of the \KNIMENODE{ZipLoopStart} node.
 \item
@@ -111,12 +111,12 @@ We start with the workflow from the previous section (see \cref{fig:metabo_part1
 
 \begin{itemize}
 \item
-Add a \KNIMENODE{FileConverter} node and connect the output of the \KNIMENODE{FeatureLinkerUnlabeledQT} to the incoming port.
+Add a \KNIMENODE{FileConverter} node (\menu{Community Nodes > OpenMS > File Handling}) and connect the output of the \KNIMENODE{FeatureLinkerUnlabeledQT} to the incoming port.
 \item
 Open the Configure dialog of the \KNIMENODE{FileConverter} and select the tab "OutputTypes".
 In the drop down list for FileConverter.1.out select "featureXML".
 \item
-Add an \KNIMENODE{AccurateMassSearch} node and connect the output of the \KNIMENODE{FileConverter} to the first port of the \KNIMENODE{AccurateMassSearch}.
+Add an \KNIMENODE{AccurateMassSearch} node (\menu{Community Nodes > OpenMS > Utilities}) and connect the output of the \KNIMENODE{FileConverter} to the first port of the \KNIMENODE{AccurateMassSearch}.
 \item
 Add four \KNIMENODE{Input File} nodes and configure them with the following files
 \begin{itemize}
@@ -153,11 +153,11 @@ The complete workflow from this section is shown in \cref{fig:metabo_part2}.
 
 \subsection{Convert your data into a KNIME table}
 
-The result from the \KNIMENODE{TextExporter} node as well as the result from the \KNIMENODE{AccurateMassSearch} node are files while standard KNIME nodes display and processes only KNIME tables. To convert these files into KNIME tables we need two different nodes.
-For the \KNIMENODE{AccurateMassSearch} results we use the \KNIMENODE{MzTabReader} node (\menu{Community Nodes > OpenMS > Conversion > mzTab}), for the result of the \KNIMENODE{TextExporter} we use the \KNIMENODE{ConsensusTextReader} (\menu{Community Nodes > OpenMS > Conversion}).
+The result from the \KNIMENODE{TextExporter} node as well as the result from the \KNIMENODE{AccurateMassSearch} node are files while standard KNIME nodes display and process only KNIME tables. To convert these files into KNIME tables we need two different nodes.
+For the \KNIMENODE{AccurateMassSearch} results we use the \KNIMENODE{MzTabReader} node (\menu{Community Nodes > OpenMS > Conversion > mzTab}) and its \textit{Small Molecule Section} port. For the result of the \KNIMENODE{TextExporter} we use the \KNIMENODE{ConsensusTextReader} (\menu{Community Nodes > OpenMS > Conversion}).
 
 When executed, both nodes will import the OpenMS files and provide access to the data as KNIME tables.
-You can now easily combine both tables using the \KNIMENODE{Joiner} node (\menu{Data Manipulation > Column > Split \& Combine}) and configuring it to match the m/z and retention time values of the respective tables.
+You can now easily combine both tables using the \KNIMENODE{Joiner} node (\menu{Manipulation > Column > Split \& Combine}) and configure it to match the m/z and retention time values of the respective tables.
 The full workflow is shown in \cref{fig:metabo_part3}.
 
 \begin{figure}[htbp]
@@ -190,9 +190,9 @@ In this part of the metabolomics session we take a look at more advanced downstr
 Import the workflow from \directory{Workflows / metabolite\_ID.zip} in KNIME: \menu{File > Import KNIME Workflow...}
 \end{task}
 
-The section below will guide you in your understanding of the different parts of the workflow. Once you understood the workflow you should play around and be creative. Maybe create a novel visualization in KNIME or R? Do some more elaborate statistical analysis? Feel free to experiment and show us your results if you like. Note that some basic R knowledge is required to fully understand the processing in \KNIMENODE{R Snippet} nodes.
+The section below will guide you in your understanding of the different parts of the workflow. Once you understood the workflow you should play around and be creative. Maybe create a novel visualization in KNIME or R? Do some more elaborate statistical analysis? Note that some basic R knowledge is required to fully understand the processing in \KNIMENODE{R Snippet} nodes.
 
-\subsubsection{Data preparation ID}
+\subsubsection{Signal processing and Data preparation ID}
 This part is analogous to what you did for the simple metabolomics pipeline.
 
 \subsubsection{Data preparation Quant}
@@ -228,8 +228,8 @@ KNIME supports multiple nodes for interactive visualization with interrelated ou
 figures with data dependent customization can be easily realized using basic KNIME nodes. Several simple operations are concatenated in order to enable an interactive volcano plot.
 \begin{itemize}
 \item We first log-transform fold changes and p-values in the \KNIMENODE{R Snippet} node. We then append columns noting interesting features (concerning fold change and p-value).
-\item With this information, we can use various Manager nodes (\menu{Data Views > Property}) to emphasize interesting data points. The configuration dialogs allow us to select columns to change color, shape or size of data points dependent on the column values.
-\item The \KNIMENODE{Scatter Plot} node (\menu{Data Views}) enables interactive visualization of the logarithmized values as a volcano plot: the log-transformed values can be chosen in the `Column Selection' tab of the plot view. Data points can be selected in the plot and HiLited via the menu option. HiLiteing transfers to all other interactive nodes connected to the same data table. In our case, selection and HiLiteing will also occur in the \KNIMENODE{Interactive Table} node (\menu{Data Views}).
+\item With this information, we can use various Manager nodes (\menu{Views > Property}) to emphasize interesting data points. The configuration dialogs allow us to select columns to change color, shape or size of data points dependent on the column values.
+\item The \KNIMENODE{Scatter Plot} node (\menu{Views}) enables interactive visualization of the logarithmized values as a volcano plot: the log-transformed values can be chosen in the `Column Selection' tab of the plot view. Data points can be selected in the plot and HiLited via the menu option. HiLiteing transfers to all other interactive nodes connected to the same data table. In our case, selection and HiLiteing will also occur in the \KNIMENODE{Interactive Table} node (\menu{Views}).
 \item Output of the interactive table can then be filtered via the HiLite menu tab. For example, we could restrict shown rows to points HiLited in the volcano plot.
 \end{itemize}
 \begin{task}
