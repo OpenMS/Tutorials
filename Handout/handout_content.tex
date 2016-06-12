@@ -220,9 +220,9 @@ Successfully executed nodes are marked green.
 
 If the node execution failed the node will switch to the red state. Other anomalies and warnings like missing information or empty results 
 will be presented with a yellow exclamation mark sign above the traffic light.
-Most nodes will be configured as soon as all input ports are connected.
-For some nodes additional parameters have to be provided that cannot be either guessed from the data or filled with sensible defaults.
-In this case, of if you want to customize the default configuration, you can open the configuration dialog of a node with a double-click on the node.
+Most nodes will be configured as soon as all input ports are connected. Some nodes need to know about the output of the predecessor and may stay red until the predecessor was executed.
+If nodes still remain in a red state, probably additional parameters have to be provided in the configuration dialog that cannot be either guessed from the data or filled with sensible defaults.
+In this case, or if you want to customize the default configuration in general, you can open the configuration dialog of a node with a double-click on the node.
 For all OpenMS nodes you will see a configuration dialog like the one shown in \cref{fig:knime_configure}.
 \note{OpenMS distinguishes between normal parameters and advanced parameters.
 Advanced parameters are by default hidden from the users since they should only rarely be customized.
