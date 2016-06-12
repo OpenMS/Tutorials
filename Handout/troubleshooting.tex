@@ -7,7 +7,8 @@ with as much information as you can. In an ideal case, that would be:
 \item Your operating system and its version (e.g. Windows 8, Ubuntu 14.04)
 \item Your KNIME version (e.g. KNIME 3.1.2 full, KNIME 3.1.1 core)
 \item If not full: Which update site did you use for the OpenMS plugin? Trunk (nightly-builds) or Stable?
-\item Your OpenMS plugin version found under \menu{Help > Install New Software > What is already installed?}
+\item Your OpenMS plugin version found under\\
+\menu{Help > Install New Software > What is already installed?}
 \item Other installations of OpenMS on your computer (e.g. from the independent OpenMS installer, another KNIME instance etc.)
 \item The log of the error in KNIME and the standard output of the tool (see FAQ: How to debug)
 \item Your description of what you tried to do and experienced instead
@@ -17,12 +18,15 @@ with as much information as you can. In an ideal case, that would be:
 
 \subsubsection{How to debug KNIME and/or the OpenMS nodes?}
 \begin{itemize}
-\item KNIME: Start with the normal log on the bottom right of KNIME. In general all warnings and errors will be
+\item \textbf{KNIME:} Start with the normal log on the bottom right of KNIME. In general all warnings and errors will be
 listed there. If the output is not helpful enough, try to set the logging verbosity to the highest (DEBUG) under
 Preferences -> KNIME -> Log file log level.
-\item OpenMS nodes: The first step should also be the log of KNIME. You can view the output and the errors of our
-tools by right-clicking on the node and selecting \menu{View: NODENAME Std Output/Error}. This shows you the output of the OpenMS executable that was called by that node. For advanced users, you can try 
-to execute the underlying executable in your \menu{KNIME/plugins/de.openms.platform.arch.version/payload/bin} folder, 
+\item \textbf{OpenMS nodes:} The first step should also be the log of KNIME. You can view the output and the errors of our
+tools by right-clicking on the node and selecting\\
+\menu{View: NODENAME Std Output/Error}. This shows you the output of the OpenMS executable that was called by that 
+node. For advanced users, you can try 
+to execute the underlying executable in your\\
+\menu{KNIME/plugins/de.openms.platform.arch.version/payload/bin} folder, 
 to see if the error is reproducible outside of KNIME.\\
 You can look up temporary files that are created by OpenMS nodes not connected to an Output or Viewer Node by right-
 clicking on a node and selecting the corresponding output view for the output you want to have a look at. The output 
@@ -71,7 +75,7 @@ GTK bug. See the KNIME forum (e.g. \href{https://tech.knime.org/forum/knime-gene
 \\\\
 \textbf{Q:} Do MSGFPlusAdapter and LuciphorAdapter generally behave different/unexpected?\\
 \textbf{A:} These are Java processes that are started underneath. For example they can not be killed during cancellation of the node.
-This should not affect its performance, however.
+This should not affect its performance, however. They might require a specific Java installation on your computer.
 \subsection{Sources of support}
 If your questions could not be answered by the FAQ, please feel free to turn to our developers via one of the following means:
 \begin{itemize}
