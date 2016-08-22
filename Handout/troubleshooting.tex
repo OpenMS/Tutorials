@@ -1,9 +1,44 @@
 \section{Troubleshooting guide}
 This section will show you where you can turn to when you encounter any problems with this tutorial or with our
 nodes in general. Please see the FAQ first. If your problem is not listed or the proposed solution does not work,
-feel free to leave us a message at the means of support that you see most fit.
+feel free to leave us a message at the means of support that you see most fit. If that is the case, please provide us 
+with as much information as you can. In an ideal case, that would be:
+\begin{itemize}
+\item Your operating system and its version (e.g. Windows 8, Ubuntu 14.04)
+\item Your KNIME version (e.g. KNIME 3.1.2 full, KNIME 3.1.1 core)
+\item If not full: Which update site did you use for the OpenMS plugin? Trunk (nightly-builds) or Stable?
+\item Your OpenMS plugin version found under\\
+\menu{Help > Install New Software > What is already installed?}
+\item Other installations of OpenMS on your computer (e.g. from the independent OpenMS installer, another KNIME instance etc.)
+\item The log of the error in KNIME and the standard output of the tool (see FAQ: How to debug)
+\item Your description of what you tried to do and experienced instead
+\end{itemize}
 
 \subsection{FAQ}
+
+\subsubsection{How to debug KNIME and/or the OpenMS nodes?}
+\begin{itemize}
+\item \textbf{KNIME:} Start with the normal log on the bottom right of KNIME. In general all warnings and errors will be
+listed there. If the output is not helpful enough, try to set the logging verbosity to the highest (DEBUG) under
+Preferences -> KNIME -> Log file log level.
+\item \textbf{OpenMS nodes:} The first step should also be the log of KNIME. You can view the output and the errors of our
+tools by right-clicking on the node and selecting\\
+\menu{View: NODENAME Std Output/Error}. This shows you the output of the OpenMS executable that was called by that 
+node. For advanced users, you can try 
+to execute the underlying executable in your\\
+\menu{KNIME/plugins/de.openms.platform.arch.version/payload/bin} folder, 
+to see if the error is reproducible outside of KNIME.\\
+You can look up temporary files that are created by OpenMS nodes not connected to an Output or Viewer Node by right-
+clicking on a node and selecting the corresponding output view for the output you want to have a look at. The output 
+views are located on the bottom of the menu that shows up after right-clicking. Their icon is a magnifying glass on 
+top of a data table. The names of the output views in that menu may vary from node to node (usually a combination of 
+"file","out","output" and optionally its possible extensions). For example for the Input File node you can open the 
+information on the output files by clicking on "loaded file". In any case, a hierarchy of file descriptions will show 
+up. If there are multiple files on that port they will be numbered (usually beginning from 0). Expand the information 
+for the file you want to see and copy its URI (you might need to erase the "file:" prefix). Now open it with an 
+editor of your choice. Be aware that temporary files are subject to deletion and are usually only stored as long as 
+they are actually needed.
+\end{itemize}
 
 \subsubsection{General}
 \textbf{Q:} Can I add my own modifications to the Unimod.xml?\\
@@ -40,7 +75,7 @@ GTK bug. See the KNIME forum (e.g. \href{https://tech.knime.org/forum/knime-gene
 \\\\
 \textbf{Q:} Do MSGFPlusAdapter and LuciphorAdapter generally behave different/unexpected?\\
 \textbf{A:} These are Java processes that are started underneath. For example they can not be killed during cancellation of the node.
-This should not affect its performance, however.
+This should not affect its performance, however. They might require a specific Java installation on your computer.
 \subsection{Sources of support}
 If your questions could not be answered by the FAQ, please feel free to turn to our developers via one of the following means:
 \begin{itemize}
