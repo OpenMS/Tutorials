@@ -52,7 +52,7 @@ Therefore extend the workflow with a \KNIMENODE{PeptideIndexer} node \menu{Commu
 This node needs the idXML as input as well as the database file.
 \note{You can direct the files of an \KNIMENODE{Input File} node to more than just one destination port.}
 \item
-The decoys in the database are prefixed with ``REV\_'', so we have to set \textit{decoy\_string} to \textit{REV\_} and \textit{prefix} to \textit{true} in the configuration dialog of \KNIMENODE{PeptideIndexer}.
+The decoys in the database are prefixed with ``REV\_'', so we have to set \textit{decoy\_string} to \textit{REV\_} and \textit{decoy\_string\_position} to \textit{prefix} in the configuration dialog of \KNIMENODE{PeptideIndexer}.
 \item
 Now we can go for the FDR estimation, which the \KNIMENODE{FalseDiscoveryRate} node will calculate for us \menu{Community Nodes > OpenMS > ID Processing}.
 As we have a combined search database and thus only one idXML per mzML we will only use the \textit{in} port of the \KNIMENODE{FalseDiscoveryRate} node.
