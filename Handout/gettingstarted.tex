@@ -15,28 +15,36 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Getting started}
 
-Before we get started we will install OpenMS and KNIME using the installers provided on the USB stick. Please choose the directory that matches your operating system and execute the installer. Note that these steps are not necessary if you use one of our laptops.
+\subsection{Installation}
+
+Before we get started we will install OpenMS and KNIME. If you take part in a training session you will have likely received an USB stick from us that contains the required data and software. If we provide laptops, with the software you may of course skip the installation process and continue reading the next section.
+
+\subsubsection{Installation from the OpenMS USB stick}
+Please choose the directory that matches your operating system and execute the installer. 
 
 For example for Windows you call
 \begin{itemize}
-\item the OpenMS installer: \directory{\WindowsOpenMSInstallerName}
-\item the KNIME installer: \directory{\WindowsOpenMSPrereqInstallerName} \\ and \directory{\WindowsKnimeInstallerName}
+  \item the OpenMS installer: \directory{\WindowsOpenMSInstallerName}
+  \item the KNIME installer: \directory{\WindowsOpenMSPrereqInstallerName} \\ and \directory{\WindowsKnimeInstallerName}
 \end{itemize}
 
 on Mac you call
 \begin{itemize}
-\item the OpenMS installer: \directory{\MacOpenMSInstallerName}
-\item the KNIME installer: \directory{\MacKnimeInstallerName}
+  \item the OpenMS installer: \directory{\MacOpenMSInstallerName}
+  \item the KNIME installer: \directory{\MacKnimeInstallerName}
+  \item OpenMS prerequisites (Windows-only): After installation, before your first use of the OpenMS plugin in KNIME you will be asked to download it automatically if certain requirements are not found in your Windows registry. Alternatively, you can get a bundled version \href{\WindowsPrerequisitesLink}{here}.
 \end{itemize}
 
-and follow the instructions. If you are working through this tutorial at home or downloaded it from our homepage, you can get the installers under the
-following links:
+and follow the instructions. 
+
+\subsubsection{Installation from the internet}
+If you are working through this tutorial at home you can get the installers under the following links:
 \begin{itemize}
-\item \href{http://www.openms.de/downloads}{OpenMS}
-\item \href{https://www.knime.org/downloads/overview}{KNIME}
-\item OpenMS prerequisites (Windows-only): After installation, before your first use of the OpenMS plugin in KNIME you will be asked to download it automatically if certain requirements are not found in your Windows registry. Alternatively, you can get a bundled version \href{\WindowsPrerequisitesLink}{here}.
+  \item \href{http://www.openms.de/downloads}{OpenMS}
+  \item \href{https://www.knime.org/downloads/overview}{KNIME}
+  \item OpenMS prerequisites (Windows-only): After installation, before your first use of the OpenMS plugin in KNIME you will be asked to download it automatically if certain requirements are not found in your Windows registry. Alternatively, you can get a bundled version \href{\WindowsPrerequisitesLink}{here}.
 \end{itemize}
-Choose the installers for the platform you are working on. We suggest to use the full installers of KNIME so that you can skip the installation of the OpenMS plugin and other dependencies for the example workflows.
+Choose the installers for the platform you are working on. We suggest to use the full installers of KNIME that includes all free community extensions so that you can skip the installation of the OpenMS plugin and other dependencies for the example workflows later.
 
 \subsection{Data conversion}
 \label{Data_Conversion}
@@ -127,10 +135,9 @@ the most important concepts will also be reviewed in this tutorial.
 
 \subsubsection{Plugin and dependency installation}
 \label{Install_plugins}
-\note{If you installed the binaries from our USB Stick or downloaded and installed the full release of KNIME with all contributing plugins, you can skip this section.}
+\note{If you installed a KNIME installer that contains all community contributions, or you received the full installer on our USB Stick you can skip this section. This is usually the preferred way but only works for stable releases. For bleeding edge functionality (as provided as nightly community contributions or in the case we cover prereleases of OpenMS) you need to perform the steps indicated below.}
 
 Before we can start with the tutorial we need to install all the required extensions for KNIME.
-
 First, we install some additional extensions that are required by our OpenMS nodes or used in the Tutorials e.g. for visualization and file handling.
 \begin{enumerate}
 \item Click on \menu{Help > Install New Software...}
@@ -144,47 +151,62 @@ First, we install some additional extensions that are required by our OpenMS nod
     \item KNIME R Statistics Integration (Windows Binaries)
     \item KNIME Report Designer
     \item KNIME SVG Support
-    \item KNIME XLS Support
-    \item KNIME XML-Processing
-    \item (Older versions of KNIME do not have KNIME Math Expression (JEP) installed which is used in one of the workflows)
+%    \item KNIME XLS Support not needed anymore (integrated in e.g. KNIME 3.2.1)
+%    \item KNIME XML-Processing (integrated in e.g. KNIME 3.2.1)
+%    \item KNIME Math Expression (JEP) (integrated in e.g. KNIME 3.2.1)
     \end{itemize}
 %\item And the following plugin from the \textit{Marvin Chemistry Extensions (donated by Infocom \& Chemaxon)} category
 %    \begin{itemize}
 %    \item ChemAxon/Infocom Marvin Extensions Feature
 %    \end{itemize}
+\item Click on "next" and follow the instructions (you may but don't need to restart KNIME now)
+\item Click again on \menu{Help > Install New Software...}
 \item From the \menu{Work with:} drop down list select \\\menu{\KnimeTrustedSite}
 \item Now select the following plugin from the "KNIME Community Contributions - Cheminformatics" category 	
     \begin{itemize}
     \item     RDKit KNIME integration
     \end{itemize}	
-\item Follow the instructions and after a restart of KNIME the dependencies will be installed.
+\item Click on "next" and follow the instructions and after a restart of KNIME the dependencies will be installed.
 \end{enumerate}
 
 You are now ready to install the OpenMS nodes.
 
-\begin{enumerate}
-\item Open KNIME.
-\item Click on \menu{Help > Install New Software...}
-  
-% Use this part if you base the tutorial on the nightly contributions (not recommended - more of a emergency measure)
-  %\item \label{it:add_site} In the now open dialog choose \menu{Add...} (in the upper right corner of the dialog) to define a new update site. In the opening dialog enter the following details. \\
-  %\textit{Name:} \texttt{Trunk Community Contributions} \\
-  %\textit{Location:} \menu{\KnimeTrunkSite}
-  %\item \label{it:select_site} After pressing \keys{OK} KNIME will show you all the contents of the added Update Site.
+\begin{itemize}
+  \item Open KNIME.
+  \item Click on \menu{Help > Install New Software...}
+\end{itemize}
+Now you need to decide which OpenMS nodes you want to install. You may choose between the stable, well tested release or the unstable, nightly release with extended functionality.
 
-% Use this part if you base the tutorial on the last stable release (recommended)
+\iftoggle{isprerelease}
+{
+ \note{For this tutorial we use the \textbf{unstable, nightly release} version of OpenMS because it corresponds to a prerelease of the new OpenMS version. While not being a full release, it was nevertheless intensively tested to ensure its functionality for this tutorial. For regular use we still recommend using the latest stable OpenMS release. Please also note that some of the workflows shown here require new functionality contained only in the prerelease version of OpenMS. These will likely not work if transferred to the current stable, but older OpenMS version.}
+
+Instructions for the unstable, nightly release:
+\begin{itemize}
+ % If you base the tutorial on the nightly contributions (not recommended - more of a emergency measure)
+  \item \label{it:add_site} In the now open dialog choose \menu{Add...} (in the upper right corner of the dialog) to define a new update site. In the opening dialog enter the following details. \\
+  \textit{Name:} \texttt{Trunk Community Contributions} \\
+  \textit{Location:} \menu{\KnimeTrunkSite}
+  \item \label{it:select_site} After pressing \keys{OK} KNIME will show you all the contents of the added Update Site.
+\end{itemize}
+}
+{
+Instructions for the stable release (recommended):
+\begin{itemize}
   \item From the \menu{Work with:} drop down list select the \\ \menu{\KnimeTrustedSite}
-\item Select the \textbf{OpenMS} nodes in the category: \\ "KNIME Community Contributions - Bioinformatics \& NGS" and click \keys{Next}.
-\item Follow the instructions and after a restart of KNIME the OpenMS nodes will be available under “Community Nodes”.
-\end{enumerate}
+  \item Select the \textbf{OpenMS} nodes in the category: \\ "KNIME Community Contributions - Bioinformatics \& NGS" and click \keys{Next}.
+  \item Follow the instructions and after a restart of KNIME the OpenMS nodes will be available under “Community Nodes”.
+\end{itemize}
 
-% Use this part if you base the tutorial on a pre-release of OpenMS X.X.X
- %\note{
- %For this tutorial we use a pre-release version of OpenMS X.X.X
- %While not being a full release, it was nevertheless intensively tested to ensure its functionality for this tutorial.
- %For regular use we recommend using the latest stable OpenMS release.
- %Please note that some of the workflows shown here require OpenMS X.X and therefore will not work with OpenMS Y.Y downloaded from the stable update site.
- %}
+Instructions for the unstable, nightly release:
+\begin{itemize}
+ % If you base the tutorial on the nightly contributions (not recommended - more of a emergency measure)
+  \item \label{it:add_site} In the now open dialog choose \menu{Add...} (in the upper right corner of the dialog) to define a new update site. In the opening dialog enter the following details. \\
+  \textit{Name:} \texttt{Trunk Community Contributions} \\
+  \textit{Location:} \menu{\KnimeTrunkSite}
+  \item \label{it:select_site} After pressing \keys{OK} KNIME will show you all the contents of the added Update Site.
+\end{itemize}
+}
 
 \subsubsection{KNIME concepts}
 

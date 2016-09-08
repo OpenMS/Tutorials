@@ -178,6 +178,12 @@
 \newcommand{\KNIMENODE}[1]{\texttt{#1}}
 \newcommand{\OPENMSTOOL}[1]{\texttt{#1}}
 
+\usepackage{etoolbox} % simplified if / else checks in latex
+
+% define that this tutorial is based on a prerelease of OpenMS (will output some additional notes)
+\newtoggle{isprerelease}
+\toggletrue{isprerelease}
+
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
