@@ -442,7 +442,10 @@ KNIME provides a large number of nodes for a wide range of statistical analysis,
 First we need some example data in KNIME, which we will generate using the \KNIMENODE{Data Generator} node. You can keep the default settings and execute the node. The table contains 4 columns, each containing random coordinates and one column containing a cluster number (Cluster\_0 to Cluster\_3). Now place a \KNIMENODE{R View (Table)} node into the workflow and connect the upper output port of the \KNIMENODE{Data Generator} node to the input of the \KNIMENODE{R View (Table)} node.
 Right-click and configure the node.
 
-If you get an error message like "Execute failed: R\_HOME does not contain a folder with name 'bin'.": please change the R settings in the preferences. To do so open \menu{File > Preferences > KNIME > R} and enter the path to your R installation (the folder that contains the bin directory).
+If you get an error message like "Execute failed: R\_HOME does not contain a folder with name 'bin'." or "Execution failed: R Home is invalid.": please change the R settings in the preferences. To do so open \menu{File > Preferences > KNIME > R} and enter the path to your R installation (the folder that contains the bin directory (e.g., "C: \textbackslash Program Files \textbackslash R \textbackslash R-3.3.1").
+
+If you get an error message like:
+"Execute failed: Could not find Rserve package. Please install it in your R installation by running \\ "install.packages('Rserve')"." You may need to run your R binary as administrator (In windows explorer: right-click "Run as administrator") and enter install.packages('Rserve') to install the package.
 
 If R is correctly recognized we can start writing an R script. Consider that we are interested in plotting the first and second coordinates and color them according to their cluster number. In R this can be done in a single line.
 
