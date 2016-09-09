@@ -192,10 +192,10 @@ Import the workflow from \directory{Workflows / metabolite\_ID.knwf} in KNIME: \
 
 The section below will guide you in your understanding of the different parts of the workflow. Once you understood the workflow you should play around and be creative. Maybe create a novel visualization in KNIME or R? Do some more elaborate statistical analysis? Note that some basic R knowledge is required to fully understand the processing in \KNIMENODE{R Snippet} nodes.
 
-\subsubsection{Signal processing and Data preparation ID}
+\subsubsection{Signal processing and data preparation for identification}
 This part is analogous to what you did for the simple metabolomics pipeline.
 
-\subsubsection{Data preparation Quant}
+\subsubsection{Data preparation for quantification}
 The first part is identical to what you did for the simple metabolomics pipeline. Additionally, we convert zero intensities into NA values and remove all rows that contain at least one NA value from the analysis. We do this using a very simple \KNIMENODE{R Snippet} and subsequent \KNIMENODE{Missing Value filter} node.
 
 \begin{task}
