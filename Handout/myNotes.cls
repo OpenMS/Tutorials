@@ -91,11 +91,9 @@
 		\vfill
 		\begin{center}
 		\textsc{\Large The OpenMS Developers}\\[1cm]
-		Julianus Pfeuffer, Timo Sachsenberg, \\
-		Marc Rurik, Johannes Veit,\\ 
-		Bludau Isabell, Patrick Pedrioli,\\
-		Fabian Aicheler, Xiao Liang,\\ 
-		Knut Reinert, and Oliver Kohlbacher\\[2cm]
+		presented by: \\
+		Julianus Pfeuffer, Timo Sachsenberg \\[2cm]
+		% either put here the presenting authors for workshops or all authors
 
 %                \textsc{\Large License}\\[1cm]
 \vfill
