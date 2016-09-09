@@ -17,7 +17,7 @@
 
 \subsection{Installation}
 
-Before we get started we will install OpenMS and KNIME. If you take part in a training session you will have likely received an USB stick from us that contains the required data and software. If we provide laptops, with the software you may of course skip the installation process and continue reading the next section.
+Before we get started we will install OpenMS and KNIME. If you take part in a training session you will have likely received an USB stick from us that contains the required data and software. If we provide laptops with the software you may of course skip the installation process and continue reading the next section.
 
 \subsubsection{Installation from the OpenMS USB stick}
 Please choose the directory that matches your operating system and execute the installer. 
@@ -32,7 +32,7 @@ on Mac you call
 \begin{itemize}
   \item the OpenMS installer: \directory{\MacOpenMSInstallerName}
   \item the KNIME installer: \directory{\MacKnimeInstallerName}
-  \item OpenMS prerequisites (Windows-only): After installation, before your first use of the OpenMS plugin in KNIME you will be asked to download it automatically if certain requirements are not found in your Windows registry. Alternatively, you can get a bundled version \href{\WindowsPrerequisitesLink}{here}.
+  \item OpenMS prerequisites (Windows-only): After installation, before your first use of the OpenMS plugin in KNIME you will be asked to download it automatically if certain requirements are not found in your Windows registry. Alternatively, you can get a bundled version \href{\WindowsPrerequisitesLink}{here} or on the OpenMS USB stick.
 \end{itemize}
 
 and follow the instructions. 
@@ -96,7 +96,7 @@ We will make use of these later throughout the tutorial. Let's start with a firs
               or use your mouse wheel to zoom in and out.
         \item All previous zoom levels are stored in a zoom history. The zoom history can be traversed using
               \keys[,]{\ctrl,+} or \keys[,]{\ctrl,-} or the mouse wheel (scroll up and down).
-        \item Pressing the Backspace key zooms out to show the full LC-MS map (and also resets the zoom history).
+        \item Pressing the backspace key zooms out to show the full LC-MS map (and also resets the zoom history).
         \end{itemize}
     \item Measure mode
         \begin{itemize}
@@ -120,14 +120,14 @@ We will make use of these later throughout the tutorial. Let's start with a firs
 \subsection{Introduction to KNIME / OpenMS}
 \label{KNIME_Intro}
 
-Using OpenMS in combination with KNIME you can create, edit, open, save, and run workflows
+Using OpenMS in combination with KNIME, you can create, edit, open, save, and run workflows
 combining TOPP tools with the powerful data analysis capabilities of KNIME. Workflows can
 be created conveniently in a graphical user interface. The parameters of all involved
 tools can be edited within the application and are also saved as part of the workflow.
 Furthermore, KNIME interactively performs validity checks during the workflow editing
 process, in order to make it more difficult to create an invalid workflow.
 
-Throughout most of the parts of this tutorial you will use KNIME to create and
+Throughout most parts in this tutorial you will use KNIME to create and
 execute workflows. This first step is to make yourself familiar with KNIME. Additional
 information on basic usage of KNIME can be found on the KNIME
 \href{https://tech.knime.org/knime}{Getting Started page}. However,
@@ -135,7 +135,7 @@ the most important concepts will also be reviewed in this tutorial.
 
 \subsubsection{Plugin and dependency installation}
 \label{Install_plugins}
-\note{If you installed a KNIME installer that contains all community contributions, or you received the full installer on our USB Stick you can skip this section. This is usually the preferred way but only works for stable releases. For bleeding edge functionality (as provided as nightly community contributions or in the case we cover prereleases of OpenMS) you need to perform the steps indicated below.}
+\note{If you chose the KNIME installer that contains all community contributions, or you received the full installer on our USB Stick you can skip this section. This is usually the preferred way but only works for stable releases. For bleeding edge functionality (as provided through the KNIME nightly community contributions or in the case we cover prereleases of OpenMS) you need to perform the actions below.}
 
 Before we can start with the tutorial we need to install all the required extensions for KNIME.
 First, we install some additional extensions that are required by our OpenMS nodes or used in the Tutorials e.g. for visualization and file handling.
@@ -179,9 +179,9 @@ Now you need to decide which OpenMS nodes you want to install. You may choose be
 
 \iftoggle{isprerelease}
 {
- \note{For this tutorial we use the \textbf{unstable, nightly release} version of OpenMS because it corresponds to a prerelease of the new OpenMS version. While not being a full release, it was nevertheless intensively tested to ensure its functionality for this tutorial. For regular use we still recommend using the latest stable OpenMS release. Please also note that some of the workflows shown here require new functionality contained only in the prerelease version of OpenMS. These will likely not work if transferred to the current stable, but older OpenMS version.}
+ \note{For this tutorial we use the \textbf{bleeding edge, nightly release} version of OpenMS because it corresponds to a prerelease of the new OpenMS version. While not being a full release, it was nevertheless intensively tested to ensure its functionality for this tutorial. For regular use we still recommend using the latest stable OpenMS release. Please also note that some of the workflows shown here require new functionality contained only in the prerelease version of OpenMS. These will likely not work if transferred to the current stable, but older OpenMS version.}
 
-Instructions for the unstable, nightly release:
+Instructions for the bleeding edge, nightly release:
 \begin{itemize}
  % If you base the tutorial on the nightly contributions (not recommended - more of a emergency measure)
   \item \label{it:add_site} In the now open dialog choose \menu{Add...} (in the upper right corner of the dialog) to define a new update site. In the opening dialog enter the following details. \\
@@ -210,20 +210,20 @@ Instructions for the unstable, nightly release:
 
 \subsubsection{KNIME concepts}
 
-A \textbf{workflow} is a sequence of computational steps applied to a single or multiple input data sets to process and analyze the data.
+A \textbf{workflow} is a sequence of computational steps applied to a single or multiple input data to process and analyze the data.
 In KNIME such workflows are implemented graphically by connecting so-called \textbf{nodes}.
 A node represents a single analysis step in a workflow.
 Nodes have input and output \textbf{ports} where the data enters the node or the results are provided for other nodes after processing, respectively.
 KNIME distinguishes between different port types, representing different types of data.
 The most common representation of data in KNIME are tables (similar to an excel sheet).
 Ports that accept tables are marked with a small triangle.
-For OpenMS we use a different port type, so called \textbf{file ports}, representing complete files.
+For OpenMS nodes, we use a different port type, so called \textbf{file ports}, representing complete files.
 Those ports are marked by a small blue box.
 Filled blue boxes represent mandatory inputs and empty blue boxes optional inputs.
 A typical OpenMS workflow in KNIME can be divided in two conceptually different parts:
 \begin{itemize}
 \item
-Nodes for signal and data processing, filtering and data reduction. Here, files are passed between nodes. Execution times of the individual steps are longer as the main computational steps are performed. 
+Nodes for signal and data processing, filtering and data reduction. Here, files are passed between nodes. Execution times of the individual steps are typicallz longerfor these type of nodes as they perform the main computations. 
 \item
 Downstream statistical analysis and visualization. Here, tables are passed between nodes.
 \end{itemize}
@@ -239,10 +239,10 @@ Configured but not yet executed nodes are marked yellow.
 Successfully executed nodes are marked green.
 \end{itemize}
 
-If the node execution failed the node will switch to the red state. Other anomalies and warnings like missing information or empty results 
-will be presented with a yellow exclamation mark sign above the traffic light.
+If the node execution failed, the node will switch to the red state. Other anomalies and warnings like missing information or empty results 
+will be presented with a yellow exclamation mark above the traffic light.
 Most nodes will be configured as soon as all input ports are connected. Some nodes need to know about the output of the predecessor and may stay red until the predecessor was executed.
-If nodes still remain in a red state, probably additional parameters have to be provided in the configuration dialog that cannot be either guessed from the data or filled with sensible defaults.
+If nodes still remain in a red state, probably additional parameters have to be provided in the configuration dialog that can neither be guessed from the data nor filled with sensible defaults.
 In this case, or if you want to customize the default configuration in general, you can open the configuration dialog of a node with a double-click on the node.
 For all OpenMS nodes you will see a configuration dialog like the one shown in \cref{fig:knime_configure}.
 \note{OpenMS distinguishes between normal parameters and advanced parameters.
@@ -266,7 +266,7 @@ The dialog shows the individual parameters, their current value and type, and, i
 \end{figure}
 
 The graphical user interface (GUI) of KNIME consists of different components or so called panels that are shown in \cref{fig:knime_workbench}.
-We will shortly introduce the individual panels and their purposes below.
+We will briefly introduce the individual panels and their purposes below.
 
 \begin{description}
 \item[Workflow Editor:]
@@ -298,7 +298,7 @@ This panel will provide helpful information if one of the nodes failed or shows 
 
 \item[Node Description:]
 As soon as a node is selected, the Node Description window will show the documentation of the node including documentation for all its parameters.
-For OpenMS nodes you will also find a link to the tool page in the online documentation.
+For OpenMS nodes you will also find a link to the tool page of the online documentation.
 
 \end{description}
 
@@ -312,7 +312,7 @@ Workflows can easily be created by a right click in the Workflow Explorer follow
 
 To be able to share a workflow with others, KNIME supports the import and export of complete workflows.
 To export a workflow, select it in the Workflow Explorer and select \menu{File > Export KNIME Workflow...}.
-KNIME will export workflows as a knwf file containing all the information on nodes, their connections, and their configuration.
+KNIME will export workflows as a knwf file containing all the information on nodes, their connections, and their parameter configuration.
 Those knwf files can again be imported by selecting \menu{File > Import KNIME Workflow...}.
 
 \note{For your convenience we added all workflows discussed in this tutorial to the \directory{Workflows} folder on the USB Stick. Additionally, the
@@ -322,8 +322,8 @@ If you want to check your own workflow by comparing it to the solution or got st
 \subsubsection{Duplicating workflows}
 \label{sec:duplicate-wf}
 
-During the tutorial a lot of the workflows will be created based on the workflow from a previous task.
-To keep the intermediate workflows we suggest you create copies of your workflows so you can see the progress.
+In this tutorial, a lot of the workflows will be created based on the workflow from a previous task.
+To keep the intermediate workflows, we suggest you create copies of your workflows so you can see the progress.
 To create a copy of your workflow follow the next steps.
 
 \begin{itemize}
@@ -434,7 +434,7 @@ Undo the packaging. First select the \KNIMENODE{Meta Node}, open the context men
 
 \subsubsection{Advanced topic: R integration}
 
-KNIME provides a large number of nodes for a wide range of statistical analysis, machine learning, data processing and visualization. Still, more recent statistical analysis methods, specialized visualizations or cutting edge algorithms may not be covered in KNIME. In order to expand its capabilities beyond the readily available nodes, external scripting languages can be integrated. In this tutorial, we primarily use scripts of the powerful statistical computing language R. Note that this part is considered advanced and might be difficult to follow if you are not familiar with R. In this case you might skip this part.
+KNIME provides a large number of nodes for a wide range of statistical analysis, machine learning, data processing, and visualization. Still, more recent statistical analysis methods, specialized visualizations or cutting edge algorithms may not be covered in KNIME. In order to expand its capabilities beyond the readily available nodes, external scripting languages can be integrated. In this tutorial, we primarily use scripts of the powerful statistical computing language R. Note that this part is considered advanced and might be difficult to follow if you are not familiar with R. In this case you might skip this part.
 
 \KNIMENODE{R View (Table)} allows to seamlessly include R scripts into KNIME. We will demonstrate on a minimal example how such a script is integrated.
 
