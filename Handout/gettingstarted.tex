@@ -25,14 +25,14 @@ Please choose the directory that matches your operating system and execute the i
 For example for Windows you call
 \begin{itemize}
   \item the OpenMS installer: \directory{\WindowsOpenMSInstallerName}
-  \item the KNIME installer: \directory{\WindowsOpenMSPrereqInstallerName} \\ and \directory{\WindowsKnimeInstallerName}
+  \item the KNIME installer:  \directory{\WindowsKnimeInstallerName}
+  \item OpenMS prerequisites (Windows-only): After installation, before your first use of the OpenMS plugin in KNIME you will be asked to download it automatically if certain requirements are not found in your Windows registry. Alternatively, you can get a bundled version \href{\WindowsPrerequisitesLink}{here} or on the OpenMS USB stick (\directory{\WindowsOpenMSPrereqInstallerName}).
 \end{itemize}
 
 on Mac you call
 \begin{itemize}
   \item the OpenMS installer: \directory{\MacOpenMSInstallerName}
   \item the KNIME installer: \directory{\MacKnimeInstallerName}
-  \item OpenMS prerequisites (Windows-only): After installation, before your first use of the OpenMS plugin in KNIME you will be asked to download it automatically if certain requirements are not found in your Windows registry. Alternatively, you can get a bundled version \href{\WindowsPrerequisitesLink}{here} or on the OpenMS USB stick.
 \end{itemize}
 
 and follow the instructions. 
@@ -137,7 +137,8 @@ the most important concepts will also be reviewed in this tutorial.
 \label{Install_plugins}
 \note{If you chose the KNIME installer that contains all community contributions, or you received the full installer on our USB Stick you can skip this section. This is usually the preferred way but only works for stable releases. For bleeding edge functionality (as provided through the KNIME nightly community contributions or in the case we cover prereleases of OpenMS) you need to perform the actions below.}
 
-Before we can start with the tutorial we need to install all the required extensions for KNIME.
+Before we can start with the tutorial we need to install all the required extensions for KNIME. Since KNIME 3.2.1 the program automatically
+detects missing plugins when you open a workflow but to make sure that the right source for OpenMS is chosen, please follow the instructions here.
 First, we install some additional extensions that are required by our OpenMS nodes or used in the Tutorials e.g. for visualization and file handling.
 \begin{enumerate}
 \item Click on \menu{Help > Install New Software...}
@@ -219,11 +220,13 @@ The most common representation of data in KNIME are tables (similar to an excel 
 Ports that accept tables are marked with a small triangle.
 For OpenMS nodes, we use a different port type, so called \textbf{file ports}, representing complete files.
 Those ports are marked by a small blue box.
-Filled blue boxes represent mandatory inputs and empty blue boxes optional inputs.
+Filled blue boxes represent mandatory inputs and empty blue boxes optional inputs. The same holds for output ports, despite you can deactivate them
+in the configuration dialog under the OutputTypes tab. After execution, deactivated ports will be marked with a red cross and downstream nodes
+will be inactive (inconfigurable).\\
 A typical OpenMS workflow in KNIME can be divided in two conceptually different parts:
 \begin{itemize}
 \item
-Nodes for signal and data processing, filtering and data reduction. Here, files are passed between nodes. Execution times of the individual steps are typicallz longerfor these type of nodes as they perform the main computations. 
+Nodes for signal and data processing, filtering and data reduction. Here, files are passed between nodes. Execution times of the individual steps are typically longer for these type of nodes as they perform the main computations. 
 \item
 Downstream statistical analysis and visualization. Here, tables are passed between nodes.
 \end{itemize}
@@ -281,6 +284,11 @@ Shows a list of available workflows (also called workflow projects).
 You can open a workflow by double clicking it.
 A new workflow can be created with a right-click in the Workflow Explorer followed by selecting \menu{New KNIME Workflow...}.
 Remember to save your workflow often with the Ctrl+S shortcut.
+
+\item[Workflow Coach (since KNIME 3.2.1):]
+Shows a list of suggested following nodes, based on the last added/clicked nodes.
+When you are not sure which node to choose next, you have a reasonable suggestion based on other users behavior there.
+Connect them to the last node with a double-click.
 
 \item[Node Repository:]
 Shows all nodes that are available in your KNIME installation.
