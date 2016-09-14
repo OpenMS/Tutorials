@@ -82,18 +82,19 @@
     \thispagestyle{empty}
     \begin{center}
 		\includegraphics[width=0.7\textwidth]{./graphics/assets/OpenMS_logo.png}\\[3cm]
-		\textsc{\LARGE OpenMS Tutorial}\\[2cm]
-		\end{center}
+		\textsc{\LARGE OpenMS Tutorial}\\[2cm]		
+\vfill		
+		\hfill\includegraphics[width=0.3\textwidth]{./graphics/assets/deNBI_Logo_rgb.png}\\
+	\end{center}
 		\newpage
     \thispagestyle{empty}
 		\vfill
 		\begin{center}
 		\textsc{\Large The OpenMS Developers}\\[1cm]
-		Mathias Walzer, Timo Sachsenberg, Fabian Aicheler,\\
-		Marc Rurik, Johannes Veit,\\ 
-		Bludau Isabell, Patrick Pedrioli,\\
-		Julianus Pfeuffer, Xiao Liang,\\ 
-		Knut Reinert, and Oliver Kohlbacher\\[2cm]
+		presented by: \\
+		Julianus Pfeuffer, Timo Sachsenberg \\[2cm]
+		% either put here the presenting authors for workshops or all authors
+
 %                \textsc{\Large License}\\[1cm]
 \vfill
 		\textbf{Creative Commons Attribution 4.0 International (CC BY 4.0)}\\

@@ -1,7 +1,7 @@
 %!TEX root = handout.tex
 
 \newpage
-\section{Metabolomics}
+\section{Label-free quantification of metabolites}
 
 \subsection{Introduction}
 Quantitation and identification of chemical compounds are basic tasks in metabolomic studies. In this tutorial session we construct a UPLC-MS based, label-free quantitation and identification workflow. Following quantitation and identification we then perform statistical downstream analysis to detect quantitation values that differ significantly between two conditions. This approach can, for example, be used to detect biomarkers. Here, we use two spike-in conditions of a dilution series (0.5 mg/l and 10.0 mg/l, male blood background, measured in triplicates) comprising seven isotopically labeled compounds. The goal of this tutorial is to detect and quantify these differential spike-in compounds against the complex background.
@@ -187,19 +187,19 @@ Try to compute and visualize the m/z and retention time error of the different e
 In this part of the metabolomics session we take a look at more advanced downstream analysis and the use of the statistical programming language R. As laid out in the introduction we try to detect a set of spike-in compounds against a complex blood background. As there are many ways to perform this type of analysis we provide a complete workflow.
 
 \begin{task}
-Import the workflow from \directory{Workflows / metabolite\_ID.zip} in KNIME: \menu{File > Import KNIME Workflow...}
+Import the workflow from \directory{Workflows / metabolite\_ID.knwf} in KNIME: \menu{File > Import KNIME Workflow...}
 \end{task}
 
 The section below will guide you in your understanding of the different parts of the workflow. Once you understood the workflow you should play around and be creative. Maybe create a novel visualization in KNIME or R? Do some more elaborate statistical analysis? Note that some basic R knowledge is required to fully understand the processing in \KNIMENODE{R Snippet} nodes.
 
-\subsubsection{Signal processing and Data preparation ID}
+\subsubsection{Signal processing and data preparation for identification}
 This part is analogous to what you did for the simple metabolomics pipeline.
 
-\subsubsection{Data preparation Quant}
+\subsubsection{Data preparation for quantification}
 The first part is identical to what you did for the simple metabolomics pipeline. Additionally, we convert zero intensities into NA values and remove all rows that contain at least one NA value from the analysis. We do this using a very simple \KNIMENODE{R Snippet} and subsequent \KNIMENODE{Missing Value filter} node.
 
 \begin{task}
-Inspect the \KNIMENODE{R Snippet} by double-clicking on it. The KNIME table that is passed to an \KNIMENODE{R Snippet} node is available in R as a data.frame named knime.in. The result of this node will be read from the data.frame knime.out after the script finishes. Try to understand and evaluate parts of the script (Eval Selection). In this dialog you can also print intermediary results using for example the R command head() or cat() to the Console pane.
+Inspect the \KNIMENODE{R Snippet} by double-clicking on it. The KNIME table that is passed to an \KNIMENODE{R Snippet} node is available in R as a data.frame named knime.in. The result of this node will be read from the data.frame knime.out after the script finishes. Try to understand and evaluate parts of the script (Eval Selection). In this dialog you can also print intermediary results using for example the R command head(knime.in) or cat(knime.in) to the Console pane.
 \end{task}
 
 \subsubsection{Statistical analysis}
@@ -255,7 +255,7 @@ Even though the basic capabilities for (interactive) plots in KNIME are valuable
 
 \begin{itemize}
 \item The used \KNIMENODE{RView (Table)} nodes combine the possibility to write R snippet code with visualization capabilities inside KNIME. Resulting images can be looked at in the output RView, or saved via the \KNIMENODE{Image Port Writer} node.
-\item The heatmap nodes make use of the gplots libary, which is by default part of the R Windows binaries for the KNIME 3.1.1 full installation. We again use regular expressions to extract all measured intensity columns for plotting. For clarity, feature names are only shown in the heatmap after filtering by fold changes.
+\item The heatmap nodes make use of the gplots libary, which is by default part of the R Windows binaries (for full KNIME version 3.1.1 or higher). We again use regular expressions to extract all measured intensity columns for plotting. For clarity, feature names are only shown in the heatmap after filtering by fold changes.
 \end{itemize}
 
 \subsubsection{Data preparation for Reporting}
