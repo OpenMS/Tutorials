@@ -1,11 +1,11 @@
 %!TEX root = handout.tex
 
 % file names are changed quite often between tutorial so make them configurable at the top		
-\newcommand{\WindowsKnimeInstallerName}{Windows / KNIME\ Full\ 3.2.1\ Installer\ (64bit).exe}		
+\newcommand{\WindowsKnimeInstallerName}{Windows / KNIME\ 3.2.1\ Installer\ (64bit).exe}		
 \newcommand{\WindowsOpenMSInstallerName}{Windows / OpenMS-2.1\_Win64\_setup.exe}		
 \newcommand{\WindowsOpenMSPrereqInstallerName}{Windows / OpenMS-2.1-prerequisites-installer.exe}	
 \newcommand{\WindowsPrerequisitesLink}{http://sourceforge.net/projects/open-ms/files/OpenMS/OpenMS-1.10/OpenMS-1.10-win32-prerequisites-installer.exe/download}
-\newcommand{\MacKnimeInstallerName}{Mac / knime-full\_3.2.1.macosx.cocoa.x86\_64.dmg}		
+\newcommand{\MacKnimeInstallerName}{Mac / knime\_3.2.1.app.macosx.cocoa.x86\_64.dmg}		
 \newcommand{\MacOpenMSInstallerName}{Mac / OpenMS-2.1.0\_setup.dmg}		
 \newcommand{\KnimeUpdateSite}{http://update.knime.org/analytics-platform/3.2}		
 \newcommand{\KnimeTrustedSite}{http://tech.knime.org/update/community-contributions/trusted/3.2}
@@ -128,14 +128,14 @@ Furthermore, KNIME interactively performs validity checks during the workflow ed
 process, in order to make it more difficult to create an invalid workflow.
 
 Throughout most parts in this tutorial you will use KNIME to create and
-execute workflows. This first step is to make yourself familiar with KNIME. Additional
+execute workflows. The first step is to make yourself familiar with KNIME. Additional
 information on basic usage of KNIME can be found on the KNIME
 \href{https://tech.knime.org/knime}{Getting Started page}. However,
 the most important concepts will also be reviewed in this tutorial.
 
 \subsubsection{Plugin and dependency installation}
 \label{Install_plugins}
-\note{If you chose the KNIME installer that contains all community contributions, or you received the full installer on our USB Stick you can skip this section. This is usually the preferred way but only works for stable releases. For bleeding edge functionality (as provided through the KNIME nightly community contributions or in the case we cover prereleases of OpenMS) you need to perform the actions below.}
+\note{If you chose the KNIME installer that contains all community contributions, or you received the full installer on our USB Stick you can skip this section. This is usually the preferred way but only works for stable releases that were available at the time the full release of KNIME was created. For bleeding edge functionality (as provided through the KNIME nightly community contributions or in the case we cover prereleases of OpenMS) you need to perform the actions below.}
 
 Before we can start with the tutorial we need to install all the required extensions for KNIME. Since KNIME 3.2.1 the program automatically
 detects missing plugins when you open a workflow but to make sure that the right source for OpenMS is chosen, please follow the instructions here.
@@ -149,7 +149,7 @@ First, we install some additional extensions that are required by our OpenMS nod
     \item KNIME Chemistry Add-Ons
     \item KNIME File Handling Nodes (required for OpenMS nodes in general)
     \item KNIME Interactive R Statistics Integration
-    \item KNIME R Statistics Integration (Windows Binaries)
+    \item KNIME R Statistics Integration (Windows Binaries) [Windows-only]
     \item KNIME Report Designer
     \item KNIME SVG Support
 %    \item KNIME XLS Support not needed anymore (integrated in e.g. KNIME 3.2.1)
@@ -176,7 +176,7 @@ You are now ready to install the OpenMS nodes.
   \item Open KNIME.
   \item Click on \menu{Help > Install New Software...}
 \end{itemize}
-Now you need to decide which OpenMS nodes you want to install. You may choose between the stable, well tested release or the unstable, nightly release with extended functionality.
+Now you need to decide which OpenMS nodes you want to install. You may choose between the stable, well-tested release or the unstable, nightly release with extended functionality.
 
 \iftoggle{isprerelease}
 {
@@ -221,17 +221,16 @@ Ports that accept tables are marked with a small triangle.
 For OpenMS nodes, we use a different port type, so called \textbf{file ports}, representing complete files.
 Those ports are marked by a small blue box.
 Filled blue boxes represent mandatory inputs and empty blue boxes optional inputs. The same holds for output ports, despite you can deactivate them
-in the configuration dialog under the OutputTypes tab. After execution, deactivated ports will be marked with a red cross and downstream nodes
+in the configuration dialog (double-click on node) under the OutputTypes tab. After execution, deactivated ports will be marked with a red cross and downstream nodes
 will be inactive (inconfigurable).\\
 A typical OpenMS workflow in KNIME can be divided in two conceptually different parts:
 \begin{itemize}
 \item
-Nodes for signal and data processing, filtering and data reduction. Here, files are passed between nodes. Execution times of the individual steps are typically longer for these type of nodes as they perform the main computations. 
+Nodes for signal and data processing, filtering and data reduction. Here, files are passed between nodes. Execution times of the individual steps are typically longer for these types of nodes as they perform the main computations. 
 \item
-Downstream statistical analysis and visualization. Here, tables are passed between nodes.
+Downstream statistical analysis and visualization. Here, tables are passed between nodes and mostly internal KNIME nodes or nodes from third-party statistics plugins are used. The transfer from files (produced by OpenMS) and tables usually happens with our provided Exporter and Reader nodes (e.g. MzTabExporter followed by MzTabReader).
 \end{itemize}
-Between file-based processing and table-based analysis a conversion node typically performs the conversion from OpenMS results into KNIME tables.
-Nodes can have three different states, indicated by the small traffic light below the node.
+Moreover, nodes can have three different states, indicated by the small traffic light below the node.
 
 \begin{itemize}
 \item
@@ -274,21 +273,26 @@ We will briefly introduce the individual panels and their purposes below.
 \begin{description}
 \item[Workflow Editor:]
 The workflow editor is the central part of the KNIME GUI.
-Here you assemble the workflow by adding nodes from the Node Repository via "drag \& drop". For quick creation note that double-clicking on 
-a node in the repository automatically connects it with the selected node in the workbench.
-Nodes can be connected by clicking on the output port of one node and dragging the edge until releasing the mouse at the desired input port 
-of the next node.
+Here you assemble the workflow by adding nodes from the Node Repository via "drag \& drop". For quick creation of a 
+workflow, note that double-clicking on 
+a node in the repository automatically connects it with the selected node in the workbench (connecting all the inputs 
+with as many fitting outputs of the last node).
+Manually, nodes can be connected by clicking on the output port of one node and dragging the edge until releasing the 
+mouse at the desired input port of the next node. Deletions are possible by selecting nodes and/or edges and pressing 
+\menu{Del} or \menu{Backspace} depending on your OS and settings. Multiselection happens via dragging rectangles or 
+adding elements to the selection by clicking while holding \menu{Ctrl}.
 
 \item[Workflow Explorer:]
 Shows a list of available workflows (also called workflow projects).
 You can open a workflow by double clicking it.
-A new workflow can be created with a right-click in the Workflow Explorer followed by selecting \menu{New KNIME Workflow...}.
-Remember to save your workflow often with the Ctrl+S shortcut.
+A new workflow can be created with a right-click in the Workflow Explorer followed by selecting \menu{New KNIME 
+Workflow...}.
+Remember to save your workflow often with the \menu{Ctrl}+\menu{S} shortcut.
 
 \item[Workflow Coach (since KNIME 3.2.1):]
 Shows a list of suggested following nodes, based on the last added/clicked nodes.
-When you are not sure which node to choose next, you have a reasonable suggestion based on other users behavior there.
-Connect them to the last node with a double-click.
+When you are not sure which node to choose next, you have a reasonable suggestion based on other users behavior 
+there. Connect them to the last node with a double-click.
 
 \item[Node Repository:]
 Shows all nodes that are available in your KNIME installation.
@@ -298,14 +302,18 @@ Nodes for managing files (e.g., Input Files or Output Folders) can be found in \
 You can search the node repository by typing the node name into the small text box in the upper part of the node repository.
 
 \item[Outline:]
-The Outline panel contains a small overview of the complete workflow. While of limited use when working on a small workflow, this feature is very helpful as soon as the workflows get bigger.
+The Outline panel contains a small overview of the complete workflow. While of limited use when working on a small 
+workflow, this feature is very helpful as soon as the workflows get bigger. You can adjust the zoom level of the 
+explorer by adjusting the percentage in the toolbar at the top of KNIME.
 
 \item[Console:]
 In the console panel warning and error messages are shown.
 This panel will provide helpful information if one of the nodes failed or shows a warning sign.
 
 \item[Node Description:]
-As soon as a node is selected, the Node Description window will show the documentation of the node including documentation for all its parameters.
+As soon as a node is selected, the Node Description window will show the documentation of the node including 
+documentation for all its parameters and especially their in- and outputs, such that you know what types of data 
+nodes may produce or expect.
 For OpenMS nodes you will also find a link to the tool page of the online documentation.
 
 \end{description}
@@ -320,19 +328,19 @@ Workflows can easily be created by a right click in the Workflow Explorer follow
 
 To be able to share a workflow with others, KNIME supports the import and export of complete workflows.
 To export a workflow, select it in the Workflow Explorer and select \menu{File > Export KNIME Workflow...}.
-KNIME will export workflows as a knwf file containing all the information on nodes, their connections, and their parameter configuration.
-Those knwf files can again be imported by selecting \menu{File > Import KNIME Workflow...}.
+KNIME will export workflows as a \textit{knwf} file containing all the information on nodes, their connections, and their parameter configuration.
+Those \textit{knwf} files can again be imported by selecting \menu{File > Import KNIME Workflow...}.
 
 \note{For your convenience we added all workflows discussed in this tutorial to the \directory{Workflows} folder on the USB Stick. Additionally, the
 workflow files can be found on our \href{https://github.com/OpenMS/Tutorials}{GitHub repository}.
-If you want to check your own workflow by comparing it to the solution or got stuck, simply import the full workflow from the corresponding knwf file.}
+If you want to check your own workflow by comparing it to the solution or got stuck, simply import the full workflow from the corresponding \textit{knwf} file.}
 
 \subsubsection{Duplicating workflows}
 \label{sec:duplicate-wf}
 
 In this tutorial, a lot of the workflows will be created based on the workflow from a previous task.
 To keep the intermediate workflows, we suggest you create copies of your workflows so you can see the progress.
-To create a copy of your workflow follow the next steps.
+To create a copy of your workflow, save it, close it and follow the next steps.
 
 \begin{itemize}
 \item
@@ -342,7 +350,7 @@ Right click again somewhere on the workflow explorer and select \menu{Paste}.
 \item
 This will create a workflow with same name as the one you copied with a (2) appended.
 \item
-To distinguish them later on you can easily rename the workflows in the Workflow Explorer by right clicking on the workflow and selecting \menu{Rename}. \note{To rename a workflow it has to be closed.}
+To distinguish them later on you can easily rename the workflows in the Workflow Explorer by right clicking on the workflow and selecting \menu{Rename}. \note{To rename a workflow it has to be closed, too.}
 \end{itemize}
 
 \subsubsection{A minimal workflow}
@@ -350,7 +358,8 @@ To distinguish them later on you can easily rename the workflows in the Workflow
 
 Let us now start with the creation of our very first, very simple workflow.
 As a first step, we will gather some basic information about the data set before starting the
-actual development of a data analysis workflow.
+actual development of a data analysis workflow. This minimal workflow can also be used to check if all requirements 
+are met and that your system is compatible.
 
 \begin{itemize}
 \item
@@ -367,7 +376,7 @@ Afterwards close the dialog by clicking \menu{Ok}.
 \note{Make sure to use the ``tiny'' version this time, not ``small'', for the sake of faster workflow execution.}
 \item The \KNIMENODE{Input File} node and the \KNIMENODE{FileInfo} node should now have switched to yellow, but the \KNIMENODE{Output Folder} node is still red.
 Double-click on the \KNIMENODE{Output Folder} node and click on \menu{Browse} to select an output directory for the generated data.
-\item Great! Your first workflow is now ready to be run. Press \keys{\shift + F7} to execute the complete workflow.
+\item Great! Your first workflow is now ready to be run. Press \keys{\shift + F7} (or the button with multiple green triangles in the KNIME Toolbar) to execute the complete workflow.
 You can also right click on any node of your workflow and select \menu{Execute} from the context menu.
 \item The traffic lights tell you about the current status of all nodes in your workflow.
 Currently running tools show either a progress in percent or a moving blue bar, nodes waiting for data show the small word ``queued'', and successfully executed ones become green.
@@ -433,40 +442,70 @@ Workflows can get rather complex and may contain dozens or even hundreds of node
 \KNIMENODE{Meta Nodes} allow to bundle several nodes into a single \KNIMENODE{Meta Node}.
 
 \begin{task}
-Select multiple nodes (e.g. all nodes of the ZipLoop including the start and end node). To select a set of nodes, draw a rectangle around them with the left mouse button or hold \keys{Ctrl} to add/remove single nodes from the selection. Open the context menu (right-click on a node in the selection) and select \menu{Collapse into Meta Node}. Enter a caption for the \KNIMENODE{Meta Node}. The previously selected nodes are now contained in the \KNIMENODE{Meta Node}. Double clicking on the \KNIMENODE{Meta Node} will display the contained nodes in a new tab window. 
+Select multiple nodes (e.g. all nodes of the ZipLoop including the start and end node). To select a set of nodes, draw a rectangle around them with the left mouse button or hold \keys{Ctrl} to add/remove single nodes from the selection. \textbf{Pro-tip:} There is a \menu{Select Loop} option when you right-click a node in a loop, that does exactly that for you. Then, open the context menu (right-click on a node in the selection) and select \menu{Collapse into Meta Node}. Enter a caption for the \KNIMENODE{Meta Node}. The previously selected nodes are now contained in the \KNIMENODE{Meta Node}. Double clicking on the \KNIMENODE{Meta Node} will display the contained nodes in a new tab window. 
 \end{task}
 
 \begin{task}
-Undo the packaging. First select the \KNIMENODE{Meta Node}, open the context menu (right-click) and select \menu{Expand Meta Node}.
+Freeze/wrap the meta node to let it behave like an encapsulated single node. First select the \KNIMENODE{Meta Node}, 
+open the context menu (right-click) and select \menu{Meta Node > Wrap}. The differences between Meta Nodes and their 
+wrapped counterparts are marginal (and only apply when exposing user inputs and workflow variables). Therefore we 
+suggest to use standard meta nodes to clean up your workflow and cluster common subparts until you actually notice 
+their limits.
+\end{task}
+
+\begin{task}
+Undo the packaging. First select the \KNIMENODE{(Wrapped) Meta Node}, open the context menu (right-click) and select \menu{(Wrapped) Meta Node > Expand}.
 \end{task}
 
 \subsubsection{Advanced topic: R integration}
 
-KNIME provides a large number of nodes for a wide range of statistical analysis, machine learning, data processing, and visualization. Still, more recent statistical analysis methods, specialized visualizations or cutting edge algorithms may not be covered in KNIME. In order to expand its capabilities beyond the readily available nodes, external scripting languages can be integrated. In this tutorial, we primarily use scripts of the powerful statistical computing language R. Note that this part is considered advanced and might be difficult to follow if you are not familiar with R. In this case you might skip this part.
+KNIME provides a large number of nodes for a wide range of statistical analysis, machine learning, data processing, 
+and visualization. Still, more recent statistical analysis methods, specialized visualizations or cutting edge 
+algorithms may not be covered in KNIME. In order to expand its capabilities beyond the readily available nodes, 
+external scripting languages can be integrated. In this tutorial, we primarily use scripts of the powerful 
+statistical computing language R. Note that this part is considered advanced and might be difficult to follow if you 
+are not familiar with R. In this case you might skip this part.
 
-\KNIMENODE{R View (Table)} allows to seamlessly include R scripts into KNIME. We will demonstrate on a minimal example how such a script is integrated.
+\KNIMENODE{R View (Table)} allows to seamlessly include R scripts into KNIME. We will demonstrate on a minimal 
+example how such a script is integrated.
 
 \begin{task}
-First we need some example data in KNIME, which we will generate using the \KNIMENODE{Data Generator} node. You can keep the default settings and execute the node. The table contains 4 columns, each containing random coordinates and one column containing a cluster number (Cluster\_0 to Cluster\_3). Now place a \KNIMENODE{R View (Table)} node into the workflow and connect the upper output port of the \KNIMENODE{Data Generator} node to the input of the \KNIMENODE{R View (Table)} node.
-Right-click and configure the node.
-
-If you get an error message like "Execute failed: R\_HOME does not contain a folder with name 'bin'." or "Execution failed: R Home is invalid.": please change the R settings in the preferences. To do so open \menu{File > Preferences > KNIME > R} and enter the path to your R installation (the folder that contains the bin directory (e.g., "C: \textbackslash Program Files \textbackslash R \textbackslash R-3.3.1").
+First we need some example data in KNIME, which we will generate using the \KNIMENODE{Data Generator} node. You can 
+keep the default settings and execute the node. The table contains four columns, each containing random coordinates 
+and one column containing a cluster number (Cluster\_0 to Cluster\_3). Now place a \KNIMENODE{R View (Table)} node 
+into the workflow and connect the upper output port of the \KNIMENODE{Data Generator} node to the input of the 
+\KNIMENODE{R View (Table)} node. Right-click and configure the node.
+If you get an error message like "Execute failed: R\_HOME does not contain a folder with name 'bin'." or "Execution 
+failed: R Home is invalid.": please change the R settings in the preferences. To do so open \menu{File > Preferences 
+> KNIME > R} and enter the path to your R installation (the folder that contains the bin directory (e.g., "C: 
+\textbackslash Program Files \textbackslash R \textbackslash R-3.3.1").
 
 If you get an error message like:
-"Execute failed: Could not find Rserve package. Please install it in your R installation by running \\ "install.packages('Rserve')"." You may need to run your R binary as administrator (In windows explorer: right-click "Run as administrator") and enter install.packages('Rserve') to install the package.
+"Execute failed: Could not find Rserve package. Please install it in your R installation by running \\ 
+"install.packages('Rserve')"." You may need to run your R binary as administrator (In windows explorer: right-click 
+"Run as administrator") and enter install.packages('Rserve') to install the package.
 
-If R is correctly recognized we can start writing an R script. Consider that we are interested in plotting the first and second coordinates and color them according to their cluster number. In R this can be done in a single line.
-
+If R is correctly recognized we can start writing an R script. Consider that we are interested in plotting the first 
+and second coordinates and color them according to their cluster number. In R this can be done in a single line.
 In the \KNIMENODE{R View (Table)} text editor, enter the following code:
 \begin{lstlisting}
 plot(x=knime.in$Universe_0_0, y=knime.in$Universe_0_1, main="Plotting column Universe_0_0 vs. Universe_0_1", col=knime.in$"Cluster Membership")
 \end{lstlisting}
         
-Explanation:
-The table provided as input to the \KNIMENODE{R View (Table)} node is available as R \texttt{data.frame} with name \texttt{knime.in}. Columns (also listed on the left side of the R View window) can be accessed in the usual R way by first specifying the \texttt{data.frame} name and then the column name (e.g. \texttt{knime.in\$Universe\_0\_0}).
-\texttt{plot} is the plotting function we use to generate the image. We tell it to use the data in column \texttt{Universe\_0\_0} of the dataframe object \texttt{knime.in} (denoted as \texttt{knime.in\$Universe\_0\_1}) as x-coordinate and the other column \texttt{knime.in\$Universe\_0\_1} as y-coordinate in the plot. \texttt{main} is simply the main title of the plot and \texttt{col} the column that is used to determine the color (in this case it is the \texttt{Cluster Membership} column).
+\textbf{Explanation:}
+The table provided as input to the \KNIMENODE{R View (Table)} node is available as R \texttt{data.frame} with name 
+\texttt{knime.in}. Columns (also listed on the left side of the R View window) can be accessed in the usual R way by 
+first specifying the \texttt{data.frame} name and then the column name (e.g. \texttt{knime.in\$Universe\_0\_0}).
+\texttt{plot} is the plotting function we use to generate the image. We tell it to use the data in column 
+\texttt{Universe\_0\_0} of the dataframe object \texttt{knime.in} (denoted as \texttt{knime.in\$Universe\_0\_1}) as 
+x-coordinate and the other column \texttt{knime.in\$Universe\_0\_1} as y-coordinate in the plot. \texttt{main} is 
+simply the main title of the plot and \texttt{col} the column that is used to determine the color (in this case it is 
+the \texttt{Cluster Membership} column).
 
 Now press the \menu{Eval script} and \menu{Show plot} buttons.
 \end{task}
 
-\note{Note that we needed to put some extra quotes around \texttt{Cluster Membership}. If we omit those, R would interpret the column name only up to the first space (\texttt{knime.in\$Cluster}) which is not present in the table and leads to an error. Quotes are regularly needed if column names contain spaces, tabs or other special characters like \$ itself.}
+\note{Note that we needed to put some extra quotes around \texttt{Cluster Membership}. If we omit those, R would 
+interpret the column name only up to the first space (\texttt{knime.in\$Cluster}) which is not present in the table 
+and leads to an error. Quotes are regularly needed if column names contain spaces, tabs or other special characters 
+like \$ itself.}
