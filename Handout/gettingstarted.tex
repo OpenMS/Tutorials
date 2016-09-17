@@ -96,7 +96,7 @@ We will make use of these later throughout the tutorial. Let's start with a firs
               or use your mouse wheel to zoom in and out.
         \item All previous zoom levels are stored in a zoom history. The zoom history can be traversed using
               \keys[,]{\ctrl,+} or \keys[,]{\ctrl,-} or the mouse wheel (scroll up and down).
-        \item Pressing the backspace key zooms out to show the full LC-MS map (and also resets the zoom history).
+        \item Pressing \keys{Backspace} zooms out to show the full LC-MS map (and also resets the zoom history).
         \end{itemize}
     \item Measure mode
         \begin{itemize}
@@ -135,7 +135,7 @@ the most important concepts will also be reviewed in this tutorial.
 
 \subsubsection{Plugin and dependency installation}
 \label{Install_plugins}
-\note{If you chose the KNIME installer that contains all community contributions, or you received the full installer on our USB Stick you can skip this section. This is usually the preferred way but only works for stable releases that were available at the time the full release of KNIME was created. For bleeding edge functionality (as provided through the KNIME nightly community contributions or in the case we cover prereleases of OpenMS) you need to perform the actions below.}
+\note{If you chose the KNIME installer that contains all community contributions, or you received the full installer on our USB Stick you can skip this section. This is usually the preferred way but only works for stable releases that were available at the time the full release of KNIME was created. For bleeding edge functionality (as provided through the KNIME nightly community contributions or in the case we cover prereleases of OpenMS) you need to perform the actions below to download the plugin from official update sites.}
 
 Before we can start with the tutorial we need to install all the required extensions for KNIME. Since KNIME 3.2.1 the program automatically
 detects missing plugins when you open a workflow but to make sure that the right source for OpenMS is chosen, please follow the instructions here.
@@ -196,7 +196,7 @@ Instructions for the stable release (recommended):
 \begin{itemize}
   \item From the \menu{Work with:} drop down list select the \\ \menu{\KnimeTrustedSite}
   \item Select the \textbf{OpenMS} nodes in the category: \\ "KNIME Community Contributions - Bioinformatics \& NGS" and click \keys{Next}.
-  \item Follow the instructions and after a restart of KNIME the OpenMS nodes will be available under “Community Nodes”.
+  \item Follow the instructions and after a restart of KNIME the OpenMS nodes will be available in the Node repository under “Community Nodes”.
 \end{itemize}
 
 Instructions for the unstable, nightly release:
@@ -249,8 +249,15 @@ In this case, or if you want to customize the default configuration in general, 
 For all OpenMS nodes you will see a configuration dialog like the one shown in \cref{fig:knime_configure}.
 \note{OpenMS distinguishes between normal parameters and advanced parameters.
 Advanced parameters are by default hidden from the users since they should only rarely be customized.
-In case you want to have a look at the parameters or need to customize them in one of the tutorials you can show them by clicking on the checkbox \menu{Show advanced parameter} in the lower part of the dialog.}
-The dialog shows the individual parameters, their current value and type, and, in the lower part of the dialog, the documentation for the currently selected parameter.
+In case you want to have a look at the parameters or need to customize them in one of the tutorials you can show them 
+by clicking on the checkbox \menu{Show advanced parameter} in the lower part of the dialog.}
+The dialog shows the individual parameters, their current value and type, and, in the lower part of the dialog, the 
+documentation for the currently selected parameter. Please also note the tabs on the top of the configuration dialog. 
+In the case of OpenMS nodes, there will be another tab called \textit{OutputTypes}. It contains dropdown menus for 
+every output port that let you select the output filetype that you want the node to return (if the tools supports 
+it). For optional output ports you can select \textit{Inactive} such that the port is crossed out after execution and 
+the associated generation of the file and possible additional computations are not performed. Note that this will 
+deactivate potential downstream nodes connected to this port.
 
 \begin{figure}
 \centering
@@ -279,8 +286,8 @@ a node in the repository automatically connects it with the selected node in the
 with as many fitting outputs of the last node).
 Manually, nodes can be connected by clicking on the output port of one node and dragging the edge until releasing the 
 mouse at the desired input port of the next node. Deletions are possible by selecting nodes and/or edges and pressing 
-\menu{Del} or \menu{Backspace} depending on your OS and settings. Multiselection happens via dragging rectangles or 
-adding elements to the selection by clicking while holding \menu{Ctrl}.
+\keys{Del} or (\keys{Fn}+)\keys{Backspace} depending on your OS and settings. Multiselection happens via dragging 
+rectangles with the mouse or adding elements to the selection by clicking them while holding down \keys{Ctrl}.
 
 \item[Workflow Explorer:]
 Shows a list of available workflows (also called workflow projects).

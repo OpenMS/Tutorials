@@ -66,16 +66,19 @@ binaries yourself (see OpenMS documentation) and replace them in your KNIME bina
 GTK bug. See the KNIME forum (e.g. \href{https://tech.knime.org/forum/knime-general/ubuntu-1604-slow-performance}{here} or \href{https://tech.knime.org/forum/knime-users/knime-300-crashes-after-splash-screen}{here}) for a discussion and a possible solution.\\\\
 \textbf{Windows}\\
 \textbf{Q:} KNIME has problems getting the requirements for some of the OpenMS nodes on Windows, what can I do?\\
-\textbf{A:} Get the prerequisites installer \href{\WindowsPrerequisitesLink}{here} or install NET3.5, NET4 and VCRedist10.0 yourself.\\
+\textbf{A:} Get the prerequisites installer \href{\WindowsPrerequisitesLink}{here} or install NET3.5, NET4 and VCRedist10.0 (potentially also 12.0) yourself.\\
 \subsubsection{Nodes}
-\textbf{Q:} Why is my XTandemAdapter printing empty results?\\
-\textbf{A:} From OpenMS 2.0.1 the XTandemAdapter requires a default parameter file. Give it the default configuration in\\
+\textbf{Q:} Why is my XTandemAdapter printing empty or VERY few results, although I did not use an e-value cutoff?\\
+\textbf{A:} Due to a bug in OpenMS 2.0.1 the XTandemAdapter requires a default parameter file. Give it the default configuration in\\
 \menu{YOURKNIMEFOLDER/plugins/de.openms.platform.architecture.version/payload/share/}\\
-\menu{CHEMISTRY/XTandem\_default\_input.xml} as a third input file.
+\menu{CHEMISTRY/XTandem\_default\_input.xml} as a third input file. This should be resolved in newer versions though, such that it automatically uses this file if the optional inputs is empty.
 \\\\
 \textbf{Q:} Do MSGFPlusAdapter and LuciphorAdapter generally behave different/unexpected?\\
-\textbf{A:} These are Java processes that are started underneath. For example they can not be killed during cancellation of the node.
-This should not affect its performance, however. They might require a specific Java installation on your computer.
+\textbf{A:} These are Java processes that are started underneath. For example they can not be killed during 
+cancellation of the node.
+This should not affect its performance, however. In rare cases they might require changes to the configuration under 
+which your Java VM is running. Also MSGFPlus is creating several auxiliary files and accesses them during execution. 
+Some users therefore experienced problems when executing several instances at the same time.
 \subsection{Sources of support}
 If your questions could not be answered by the FAQ, please feel free to turn to our developers via one of the following means:
 \begin{itemize}
