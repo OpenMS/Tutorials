@@ -10,13 +10,13 @@ pyOpenMS is integrated into OpenMS starting from version 1.11. This tutorial is 
 
 \subsection{Installation}
 One basic requirement for the installation of python packages, in particular pyOpenMS, is a package manager for
-python. There are two commonly used ones: \textit{easy\_install} and the newer \textit{pip}. For Windows and Mac we
+python. There are two commonly used ones: \textit{easy\_install} (\url{https://pypi.python.org/pypi/setuptools}) and the newer \textit{pip} (\url{https://pypi.python.org/pypi/pip}). For Windows and Mac we
 already provide a package for \textit{pip} (and suggest to use it to get the newest version of pyOpenMS). For Linux you will have to use \textit{easy\_install}.
 \subsubsection{Windows}
 \begin{enumerate}
   \item Install Python 2.7 (\url{http://www.python.org/download/})
   \item Install NumPy (\url{http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy})
-  \item Install pip (\url{https://pypi.python.org/pypi/pip})
+  \item Install pip (see above)
   \item On the command line:
     \begin{lstlisting}
     python -m pip install -U pip
@@ -43,6 +43,7 @@ Using the preinstalled python of the system
 \end{enumerate}
 
 \subsubsection{Linux}
+Use your package manager apt-get or yum, where possible.
 \begin{enumerate}
   \item Install Python 2.6 or 2.7 (Debian: python-dev, RedHat: python-devel)
   \item Install NumPy (Debian / RedHat: python-numpy)
