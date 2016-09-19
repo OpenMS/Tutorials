@@ -9,22 +9,36 @@ pyOpenMS provides Python bindings for a large part of the OpenMS library for mas
 pyOpenMS is integrated into OpenMS starting from version 1.11. This tutorial is addressed to people already familiar with Python. If you are new to Python, we suggest to start with a Python tutorial (\url{http://en.wikibooks.org/wiki/Non-Programmer%27s_Tutorial_for_Python_2.6}).
 
 \subsection{Installation}
+One basic requirement for the installation of python packages, in particular pyOpenMS, is a package manager for
+python. There are two commonly used ones: \textit{easy\_install} and the newer \textit{pip}. For Windows and Mac we
+already provide a package for \textit{pip} (and suggest to use it to get the newest version of pyOpenMS). For Linux you will have to use \textit{easy\_install}.
 \subsubsection{Windows}
 \begin{enumerate}
   \item Install Python 2.7 (\url{http://www.python.org/download/})
   \item Install NumPy (\url{http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy})
-  \item Install setuptools (\url{https://pypi.python.org/pypi/setuptools})
+  \item Install pip (\url{https://pypi.python.org/pypi/pip})
   \item On the command line:
     \begin{lstlisting}
-    easy_install pyopenms
+    python -m pip install -U pip
+	python -m pip install -U wheel
+	python -m pip install pyopenms
     \end{lstlisting}
 \end{enumerate}
 
 \subsubsection{Mac OS X 10.10}
+Using the preinstalled python of the system 
 \begin{enumerate}
+  \item Install pip (\textit{easy\_install} should be included on Mac)
+    \begin{lstlisting}
+    sudo easy_install pip
+    \end{lstlisting} 
+    If you encounter problems, install pip as described on their homepage
+    (\url{https://pypi.python.org/pypi/pip}) using their script.
   \item On the Terminal:
     \begin{lstlisting}
-    sudo easy_install pyopenms
+    pip install -U pip
+	pip install -U wheel
+	pip install pyopenms
     \end{lstlisting}
 \end{enumerate}
 
@@ -90,8 +104,8 @@ def handle_args():
     usage += "\nOpenSwathFeatureXMLToTSV −− Converts a featureXML to a mProphet tsv."
 
     parser = argparse.ArgumentParser(description = usage )
-    parser.add_argument('-in', dest='infile', help = 'An input file containing features􏰀 featureXML]')
-    parser.add_argument('-tr', dest='traml_in', help='An input file containing the transitions TraML]')
+    parser.add_argument('-in', dest='infile', help = 'An input file containing features [featureXML]')
+    parser.add_argument('-tr', dest='traml_in', help='An input file containing the transitions [TraML]')
     parser.add_argument('-out', dest='outfile', help='Output mProphet TSV file [tsv]')
 
     args = parser.parse_args(sys.argv[1:])
