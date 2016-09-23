@@ -91,8 +91,8 @@
 		\vfill
 		\begin{center}
 		\textsc{\Large The OpenMS Developers}\\[1cm]
-%		presented by: \\
-%		Julianus Pfeuffer, Timo Sachsenberg \\[2cm]
+		presented by: \\
+		Julianus Pfeuffer, Timo Sachsenberg \\[2cm]
 		% either put here the presenting authors for workshops or all authors
 
 %                \textsc{\Large License}\\[1cm]
