@@ -63,7 +63,9 @@ binaries yourself (see OpenMS documentation) and replace them in your KNIME bina
 \\\\
 \textbf{Q:} Why is my configuration dialog closing right away when I double-click or try to configure it? Or why is my GUI responding so slow?\\
 \textbf{A:} If you have any problems with the KNIME GUI or the opening of dialogues under Linux you might be affected by a
-GTK bug. See the KNIME forum (e.g. \href{https://tech.knime.org/forum/knime-general/ubuntu-1604-slow-performance}{here} or \href{https://tech.knime.org/forum/knime-users/knime-300-crashes-after-splash-screen}{here}) for a discussion and a possible solution.\\\\
+GTK bug. See the KNIME forum (e.g. \href{https://tech.knime.org/forum/knime-general/ubuntu-1604-slow-performance}{here} or \href{https://tech.knime.org/forum/knime-users/knime-300-crashes-after-splash-screen}{here}) for a discussion and a possible solution. In short: set environment variable by calling \texttt{export SWT\_GTK3=0} or edit knime.ini to make Eclipse use GTK2 by adding the following two lines:\\
+\texttt{--launcher.GTK\_version\\
+2}\\\\
 \textbf{macOS}\\
 \textbf{Q:} I have problems installing RServe in my local R installation for the R KNIME Extension:\\
 \textbf{A:} If you encounter linker errors while running install.packages("Rserve") when using an R installation from homebrew, make sure gettext is installed via homebrew and you pass flags to its lib directory. See StackOverflow question \href{http://stackoverflow.com/questions/21370363/link-error-installing-rcpp-library-not-found-for-lintl}{21370363}.
