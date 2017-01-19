@@ -47,6 +47,9 @@ they are actually needed.
 \textbf{Q:} I have problem XYZ but it also occurs with other nodes or generally in the KNIME environment/GUI, what should I do?\\
 \textbf{A:} This sounds like a general KNIME bug and we advise to search help directly at the KNIME developers. They also provide a \href{https://tech.knime.org/
 faq}{FAQ} and a \href{https://tech.knime.org/forum}{forum}.
+\\\\
+\textbf{Q:} After exporting and reading in results into a KNIME table (e.g. with a MzTabExporter and MzTabReader combination) numeric values get rounded (e.g. from scientific notation 4.5e-10 to zero) or are in a different representation than in the underlying exported file!\\
+\textbf{A:} Please try a different table column renderer in KNIME. Open the table in question, right-click on the header of an affected column and select another Available Renderer by hovering and finally left-clicking.
 
 \subsubsection{Platform-specific problems}
 \textbf{Linux}\\
