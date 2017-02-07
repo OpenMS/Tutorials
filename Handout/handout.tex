@@ -19,31 +19,31 @@
 %
 \usepackage{fontspec}
 
-\setmainfont{Ubuntu}
-%[
-%  Ligatures=TeX,
-%  Path=fonts/,
-%  Extension=.ttf,
-%  UprightFont=*-R,
-%  ItalicFont=*-I,
-%  BoldFont=*-B,
-%  BoldItalicFont=*-BI,
-%  FontFace={l}{n}{*-L},
-%  FontFace={l}{it}{*-LI},
-%  FontFace={mb}{n}{*-M},
-%  FontFace={mb}{it}{*-MI},
-%  FontFace={k}{n}{*-B},
-%  FontFace={k}{it}{*-BI}
-%]
-\setmonofont{Ubuntu Mono}
-%[
-%  Ligatures=TeX,
-%  Path=fonts/,
-%  Extension=.ttf,
-%  UprightFont=*-R,
-%  BoldFont=*-B,
-%  BoldItalicFont=*-BI
-%]
+
+\setmainfont[
+  Ligatures=TeX,
+  Path=./fonts/,
+  Extension=.ttf,
+  UprightFont=*-R,
+  BoldFont=*-B,
+  BoldItalicFont=*-BI,
+  FontFace={l}{n}{*-L},
+  FontFace={l}{it}{*-LI},
+  FontFace={mb}{n}{*-M},
+  FontFace={mb}{it}{*-MI},
+  FontFace={k}{n}{*-B},
+  FontFace={k}{it}{*-BI}
+] {Ubuntu}
+
+\setmonofont[
+  Ligatures=TeX,
+  Path=./fonts/,
+  Extension=.ttf,
+  UprightFont=*-R,
+  BoldFont=*-B,
+  BoldItalicFont=*-BI
+] {UbuntuMono}
+
 % math fonts
 %\usepackage[math-style=TeX]{unicode-math}
 %\setmathfont{Cambria Math}
