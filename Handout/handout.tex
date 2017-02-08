@@ -9,41 +9,40 @@
 \hyphenation{OpenMS}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% FONT SELECTION -> WE NOW USE UBUNTU FONT AND XETEX FOR A MORE PROFESSIONAL
-% LOOK.
-% UBUNTU FONT CAN BE DOWNLOADED FROM HERE: http://font.ubuntu.com
-% THEY SHOULD ALSO BE INCLUDED IN THE REPOSITORY.
-% WE TRIED TO USE RELATIVE PATHS BUT IT DOES NOT SEEM TO ALWAYS WORK
-% WITH THE FONTSPEC PACKAGE. THEREFORE PLEASE INSTALL THE FONTS WITH THE
-% METHODS FOR YOUR OS BEFORE COMPILING.
-%
+% We use UBUNTU font for a more professional look.
+% UBUNTU fonts can be downloaded from: http://font.ubuntu.com.
+% but are also included in this repository at ./fonts.
+% 
 \usepackage{fontspec}
 
-\setmainfont{Ubuntu}
-%[
-%  Ligatures=TeX,
-%  Path=fonts/,
-%  Extension=.ttf,
-%  UprightFont=*-R,
-%  ItalicFont=*-I,
-%  BoldFont=*-B,
-%  BoldItalicFont=*-BI,
-%  FontFace={l}{n}{*-L},
-%  FontFace={l}{it}{*-LI},
-%  FontFace={mb}{n}{*-M},
-%  FontFace={mb}{it}{*-MI},
-%  FontFace={k}{n}{*-B},
-%  FontFace={k}{it}{*-BI}
-%]
-\setmonofont{Ubuntu Mono}
-%[
-%  Ligatures=TeX,
-%  Path=fonts/,
-%  Extension=.ttf,
-%  UprightFont=*-R,
-%  BoldFont=*-B,
-%  BoldItalicFont=*-BI
-%]
+% If (for some reason), this command does not work, manually install the fonts system-wide and use
+% \setmainfont {Ubuntu}
+\setmainfont[
+  Ligatures=TeX,
+  Path=./fonts/,
+  Extension=.ttf,
+  UprightFont=*-R,
+  BoldFont=*-B,
+  BoldItalicFont=*-BI,
+  FontFace={l}{n}{*-L},
+  FontFace={l}{it}{*-LI},
+  FontFace={mb}{n}{*-M},
+  FontFace={mb}{it}{*-MI},
+  FontFace={k}{n}{*-B},
+  FontFace={k}{it}{*-BI}
+] {Ubuntu}
+
+% If (for some reason), this command does not work, manually install the fonts system-wide and use
+% \setmainfont {UbuntuMono}
+\setmonofont[
+  Ligatures=TeX,
+  Path=./fonts/,
+  Extension=.ttf,
+  UprightFont=*-R,
+  BoldFont=*-B,
+  BoldItalicFont=*-BI
+] {UbuntuMono}
+
 % math fonts
 %\usepackage[math-style=TeX]{unicode-math}
 %\setmathfont{Cambria Math}
