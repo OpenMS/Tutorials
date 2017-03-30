@@ -37,7 +37,10 @@ information on the output files by clicking on "loaded file". In any case, a hie
 up. If there are multiple files on that port they will be numbered (usually beginning from 0). Expand the information 
 for the file you want to see and copy its URI (you might need to erase the "file:" prefix). Now open it with an 
 editor of your choice. Be aware that temporary files are subject to deletion and are usually only stored as long as 
-they are actually needed.
+they are actually needed. There is also a Debug mode for the GKN nodes that keeps temporary files that can be activated
+under Preferences -> KNIME -> Generic KNIME Nodes -> Debug mode.
+For the single nodes you can also increase the debug level in the configuration dialog under the advanced parameters.
+You can also specify a log file there, to save the log output of a specific node on your file system.
 \end{itemize}
 
 \subsubsection{General}
@@ -50,6 +53,9 @@ faq}{FAQ} and a \href{https://tech.knime.org/forum}{forum}.
 \\\\
 \textbf{Q:} After exporting and reading in results into a KNIME table (e.g. with a MzTabExporter and MzTabReader combination) numeric values get rounded (e.g. from scientific notation 4.5e-10 to zero) or are in a different representation than in the underlying exported file!\\
 \textbf{A:} Please try a different table column renderer in KNIME. Open the table in question, right-click on the header of an affected column and select another Available Renderer by hovering and finally left-clicking.
+\\\\
+\textbf{Q:} I have checked all the configurations but KNIME complains that it can not find certain output Files (FileStoreObjects).\\
+\textbf{A:} Sometimes KNIME/GKN has hiccups with multiple nodes with a same name, executed at the same time in the same loop. We have seen that a simple save and restart of KNIME usually solves the problem.
 
 \subsubsection{Platform-specific problems}
 \textbf{Linux}\\
