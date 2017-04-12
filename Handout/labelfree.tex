@@ -117,13 +117,17 @@ It reduces the entire signal, i.e., all peaks explained by one and the same pept
 \item
 \KNIMENODE{FeatureFinderCentroided} produces a featureXML file as output, containing only quantitative information of so-far unidentified peptide signals.
 In order to annotate these with the corresponding ID information, we need the \KNIMENODE{IDMapper} node.
-\item Run your pipeline and inspect the results of the \KNIMENODE{IDMapper} node in TOPPView.
-\item In order to assess how well the feature finding worked, you can project the features contained in the featureXML file on the raw data contained in the mzML file.
-In TOPPView choose \menu{File > Open file} and select the mzML file corresponding to your featureXML file in \directory{Example\_Data / Labelfree / datasets}.
-In the dialog that pops up, select \menu{Open in > New layer}.
-Zoom in until you see boxes (found features) around the peptide signals in the raw data.
-\note{The RT range is very narrow.
-Thus, select the full RT range and zoom only into the m/z dimension by holding down \menu{Ctrl} (\menu{cmd} on Mac) and repeatedly dragging a narrow box from the very left to the very right.}
+\item Run your pipeline and inspect the results of the \KNIMENODE{IDMapper} node in TOPPView. Open the mzML file of your data to display the raw peak intensities.
+\item To assess how well the feature finding worked, you can project the features contained in the featureXML file on the raw data contained in the mzML file. To this end, open the featureXML file in TOPPView by clicking on \menu{File > Open file} and add it to a new layer (\menu{Open in > New layer}). The features are now visualized on top of your raw data. If you zoom in on a small region, you should be able to see the individual boxes around features that have been detected (see Figure~\ref{fig:ff_featurexml}). If you hover over the the feature centroid (small circle indicating the chromatographic apex of monoisotopic trace) additional information of the feature is displayed.
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.85\textwidth]{graphics/labelfree/featureXML.png}
+  \caption{Visualization of detected features (boxes) in TOPPView.}
+  \label{fig:ff_featurexml}
+\end{figure}
+
+\note{The chromatographic RT range of a feature is about 30-60~s and its m/z range around 2.5 m/z in this dataset. If you have trouble zooming in on a feature, select the full RT range and zoom only into the m/z dimension by holding down \menu{Ctrl} (\menu{cmd} on Mac) and repeatedly dragging a narrow box from the very left to the very right.}
 \item
 You can see which features were annotated with a peptide identification by first selecting the featureXML file in the \texttt{Layers} window on the upper right side and then clicking on the icon with the letters A, B and C on the upper icon bar.
 Now, click on the small triangle next to that icon and select \texttt{Peptide identification}.
