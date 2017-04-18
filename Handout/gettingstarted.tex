@@ -5,11 +5,13 @@
 \newcommand{\WindowsOpenMSInstallerName}{Windows / OpenMS-2.1.0\_Win64\_setup.exe}	
 \newcommand{\WindowsOpenMSPrereqInstallerName}{Windows / OpenMS-2.1-prerequisites-installer.exe}
 \newcommand{\WindowsPrerequisitesLink}{http://sourceforge.net/projects/open-ms/files/OpenMS/OpenMS-1.10/OpenMS-1.10-win32-prerequisites-installer.exe/download}
+\newcommand{\WindowsDefaultPWizFolder}{C: \textbackslash Program Files \textbackslash OpenMS-2.1.0 \textbackslash share \textbackslash OpenMS \textbackslash THIRDPARTY \textbackslash pwiz-bin}
 \newcommand{\MacKnimeInstallerName}{Mac / knime-full\_3.3.1.app.macosx.cocoa.x86\_64.dmg}	
 \newcommand{\MacOpenMSInstallerName}{Mac / OpenMS-2.1.0\_Mac.dmg}
 \newcommand{\KnimeUpdateSite}{http://update.knime.org/analytics-platform/3.3}
 \newcommand{\KnimeTrustedSite}{http://tech.knime.org/update/community-contributions/trusted/3.3}
 \newcommand{\KnimeTrunkSite}{http://tech.knime.org/update/community-contributions/trunk/}
+
 \setcounter{equation}{0}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -44,14 +46,44 @@ If you are working through this tutorial at home you can get the installers unde
   \item \href{https://www.knime.org/downloads/overview}{KNIME}
   \item OpenMS prerequisites (Windows-only): After installation, before your first use of the OpenMS plugin in KNIME you will be asked to download it automatically if certain requirements are not found in your Windows registry. Alternatively, you can get a bundled version \href{\WindowsPrerequisitesLink}{here}.
 \end{itemize}
-Choose the installers for the platform you are working on. We suggest to use the full installers of KNIME that includes all free community extensions so that you can skip the installation of the OpenMS plugin and other dependencies for the example workflows later.
+Choose the installers for the platform you are working on. We suggest using the full installers of KNIME. It includes all free community extensions so that you can skip the installation of the OpenMS plugin and other dependencies for the example workflows later.
 
 \subsection{Data conversion}
 \label{Data_Conversion}
 
-Each MS instrument vendor has one or more formats for storing the acquired data. Converting these data into an open format (preferably mzML) is the very first step when you want to work with open-source mass spectrometry software. A freely available conversion tool is MSconvert, which is part of a ProteoWizard installation. All files used in this tutorial have already been converted to mzML by us, so you do not need to perform the data conversion yourself.
+Each MS instrument vendor has one or more formats for storing the acquired data. Converting these data into an open format (preferably mzML) is the very first step when you want to work with open-source mass spectrometry software. A freely available conversion tool is MSconvert, which is part of a ProteoWizard installation. \textbf{All files used in this tutorial have already been converted to mzML by us, so you do not need to perform the data conversion yourself}.
 
 \note{The OpenMS installation package for Windows automatically installs ProteoWizard, so you do not need to download and install it separately. Due to restrictions from the instrument vendors, file format conversion for most formats is only possible on Windows systems, so exporting from the acquisition PC connected to the instrument is usually the most convenient option.}
+
+If you have a Windows PC and you want to convert raw data to mzML using ProteoWizard you can either use MSConvertGUI (a graphical user interface) or msconvert (a simple command line tool). Both tools are available in:
+\newline
+\menu{\WindowsDefaultPWizFolder}.
+
+\subsubsection{MSConvertGUI}
+MSConvertGUI (see Figure~\ref{fig:MSConvertGUI}) exposes the main parameters for data conversion in a convenient graphical user interface.
+
+\begin{figure}
+\centering
+\includegraphics[width=12cm]{graphics/introduction/proteowizard.png}
+\caption{MSConvertGUI (ProteoWizard), allows converting raw files to mzML. Select the raw files you want to convert by clicking on the browse button. Default parameters can usually be kept as-is. To reduce the initial data size, make sure that the peakPicking filter (converts profile data to centroided data) is listed, enabled (true) and applied to all MS levels (parameter "1-"). Start the conversion process by clicking on the "Start" button.}
+\label{fig:toppview}
+\end{figure}
+
+\subsubsection{msconvert}
+The msconvert command line tool offers more options than the graphical tool MSConvertGUI. It allows converting large numbers of files and can be easier automatized.
+
+To convert and pick the file \textit{raw\_data\_file.RAW} you write:
+\newline
+\menu{msconvert raw\_data\_file.RAW --filter "peakPicking true 1-"}
+\newline
+in your command line.
+\newline
+To convert all RAW files in a folder may write:
+\newline
+\menu{msconvert *.RAW -o my\_output\_dir}
+\newline
+\note{To display all options you may type \texttt{msconvert --help}. Additional information is available on the ProteoWizard web page.}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -127,7 +159,7 @@ tools can be edited within the application and are also saved as part of the wor
 Furthermore, KNIME interactively performs validity checks during the workflow editing
 process, in order to make it more difficult to create an invalid workflow.
 
-Throughout most parts in this tutorial you will use KNIME to create and
+Throughout most parts of this tutorial you will use KNIME to create and
 execute workflows. The first step is to make yourself familiar with KNIME. Additional
 information on basic usage of KNIME can be found on the KNIME
 \href{https://tech.knime.org/knime}{Getting Started page}. However,
@@ -142,7 +174,7 @@ detects missing plugins when you open a workflow but to make sure that the right
 First, we install some additional extensions that are required by our OpenMS nodes or used in the Tutorials e.g. for visualization and file handling.
 \begin{enumerate}
 \item Click on \menu{Help > Install New Software...}
-\item From the \menu{Work with:} drop down list select \menu{\KnimeUpdateSite}
+\item From the \menu{Work with:} drop-down list select \menu{\KnimeUpdateSite}
 \item Now select the following plugins from the \textit{KNIME \& Extensions} category
     \begin{itemize}
     \item KNIME Base Chemistry Types \& Nodes
@@ -162,7 +194,7 @@ First, we install some additional extensions that are required by our OpenMS nod
 %    \end{itemize}
 \item Click on "next" and follow the instructions (you may but don't need to restart KNIME now)
 \item Click again on \menu{Help > Install New Software...}
-\item From the \menu{Work with:} drop down list select \\\menu{\KnimeTrustedSite}
+\item From the \menu{Work with:} drop-down list select \\\menu{\KnimeTrustedSite}
 \item Now select the following plugin from the "KNIME Community Contributions - Cheminformatics" category 	
     \begin{itemize}
     \item     RDKit KNIME integration
@@ -189,7 +221,7 @@ Instructions for the bleeding edge, nightly release:
   \textit{Name:} \texttt{Trunk Community Contributions} \\
   \textit{Location:} \menu{\KnimeTrunkSite}
   \item \label{it:select_site} After pressing \keys{OK} KNIME will show you all the contents of the added Update Site.
-  \item \textbf{Note:} From now on, you can use this repository for plugins in the \menu{Work with:} drop down list.
+  \item \textbf{Note:} From now on, you can use this repository for plugins in the \menu{Work with:} drop-down list.
   \item Select the \textbf{OpenMS} nodes in the category: \\ "KNIME Community Contributions - Bioinformatics \& NGS" and click \keys{Next}.
   \item Follow the instructions and after a restart of KNIME the OpenMS nodes will be available in the Node repository under “Community Nodes”.
 \end{itemize}
@@ -197,7 +229,7 @@ Instructions for the bleeding edge, nightly release:
 {
 Instructions for the stable release (recommended):
 \begin{itemize}
-  \item From the \menu{Work with:} drop down list select the \\ \menu{\KnimeTrustedSite}
+  \item From the \menu{Work with:} drop-down list select the \\ \menu{\KnimeTrustedSite}
   \item Select the \textbf{OpenMS} nodes in the category: \\ "KNIME Community Contributions - Bioinformatics \& NGS" and click \keys{Next}.
   \item Follow the instructions and after a restart of KNIME the OpenMS nodes will be available in the Node repository under “Community Nodes”.
 \end{itemize}
@@ -209,7 +241,7 @@ Instructions for the unstable, nightly release:
   \textit{Name:} \texttt{Trunk Community Contributions} \\
   \textit{Location:} \menu{\KnimeTrunkSite}
   \item \label{it:select_site} After pressing \keys{OK} KNIME will show you all the contents of the added Update Site.
-  \item \textbf{Note:} From now on, you can use this repository for plugins in the \menu{Work with:} drop down list.
+  \item \textbf{Note:} From now on, you can use this repository for plugins in the \menu{Work with:} drop-down list.
   \item Select the \textbf{OpenMS} nodes in the category: \\ "KNIME Community Contributions - Bioinformatics \& NGS" and click \keys{Next}.
   \item Follow the instructions and after a restart of KNIME the OpenMS nodes will be available in the Node repository under “Community Nodes”.
 \end{itemize}
@@ -228,7 +260,7 @@ For OpenMS nodes, we use a different port type, so called \textbf{file ports}, r
 Those ports are marked by a small blue box.
 Filled blue boxes represent mandatory inputs and empty blue boxes optional inputs. The same holds for output ports, despite you can deactivate them
 in the configuration dialog (double-click on node) under the OutputTypes tab. After execution, deactivated ports will be marked with a red cross and downstream nodes
-will be inactive (inconfigurable).\\
+will be inactive (not configurable).\\
 A typical OpenMS workflow in KNIME can be divided in two conceptually different parts:
 \begin{itemize}
 \item
@@ -247,7 +279,7 @@ Configured but not yet executed nodes are marked yellow.
 Successfully executed nodes are marked green.
 \end{itemize}
 
-If the node execution failed, the node will switch to the red state. Other anomalies and warnings like missing information or empty results 
+If the node execution fails, the node will switch to the red state. Other anomalies and warnings like missing information or empty results 
 will be presented with a yellow exclamation mark above the traffic light.
 Most nodes will be configured as soon as all input ports are connected. Some nodes need to know about the output of the predecessor and may stay red until the predecessor was executed.
 If nodes still remain in a red state, probably additional parameters have to be provided in the configuration dialog that can neither be guessed from the data nor filled with sensible defaults.
@@ -260,7 +292,7 @@ by clicking on the checkbox \menu{Show advanced parameter} in the lower part of 
 The dialog shows the individual parameters, their current value and type, and, in the lower part of the dialog, the 
 documentation for the currently selected parameter. Please also note the tabs on the top of the configuration dialog. 
 In the case of OpenMS nodes, there will be another tab called \textit{OutputTypes}. It contains dropdown menus for 
-every output port that let you select the output filetype that you want the node to return (if the tools supports 
+every output port that let you select the output filetype that you want the node to return (if the tool supports 
 it). For optional output ports you can select \textit{Inactive} such that the port is crossed out after execution and 
 the associated generation of the file and possible additional computations are not performed. Note that this will 
 deactivate potential downstream nodes connected to this port.
@@ -280,7 +312,7 @@ deactivate potential downstream nodes connected to this port.
 \label{fig:knime_workbench}
 \end{figure}
 
-The graphical user interface (GUI) of KNIME consists of different components or so called panels that are shown in \cref{fig:knime_workbench}.
+The graphical user interface (GUI) of KNIME consists of different components or so-called panels that are shown in \cref{fig:knime_workbench}.
 We will briefly introduce the individual panels and their purposes below.
 
 \begin{description}
@@ -288,7 +320,7 @@ We will briefly introduce the individual panels and their purposes below.
 The workflow editor is the central part of the KNIME GUI.
 Here you assemble the workflow by adding nodes from the Node Repository via "drag \& drop". For quick creation of a 
 workflow, note that double-clicking on 
-a node in the repository automatically connects it with the selected node in the workbench (connecting all the inputs 
+a node in the repository automatically connects it to the selected node in the workbench (connecting all the inputs 
 with as many fitting outputs of the last node).
 Manually, nodes can be connected by clicking on the output port of one node and dragging the edge until releasing the 
 mouse at the desired input port of the next node. Deletions are possible by selecting nodes and/or edges and pressing 
@@ -297,7 +329,7 @@ rectangles with the mouse or adding elements to the selection by clicking them w
 
 \item[KNIME Explorer:]
 Shows a list of available workflows (also called workflow projects).
-You can open a workflow by double clicking it.
+You can open a workflow by double-clicking it.
 A new workflow can be created with a right-click in the Workflow Explorer followed by selecting \menu{New KNIME 
 Workflow...}.
 Remember to save your workflow often with the \menu{Ctrl}+\menu{S} shortcut.
@@ -455,7 +487,7 @@ Workflows can get rather complex and may contain dozens or even hundreds of node
 \KNIMENODE{Meta Nodes} allow to bundle several nodes into a single \KNIMENODE{Meta Node}.
 
 \begin{task}
-Select multiple nodes (e.g. all nodes of the ZipLoop including the start and end node). To select a set of nodes, draw a rectangle around them with the left mouse button or hold \keys{Ctrl} to add/remove single nodes from the selection. \textbf{Pro-tip:} There is a \menu{Select Loop} option when you right-click a node in a loop, that does exactly that for you. Then, open the context menu (right-click on a node in the selection) and select \menu{Collapse into Meta Node}. Enter a caption for the \KNIMENODE{Meta Node}. The previously selected nodes are now contained in the \KNIMENODE{Meta Node}. Double clicking on the \KNIMENODE{Meta Node} will display the contained nodes in a new tab window. 
+Select multiple nodes (e.g. all nodes of the ZipLoop including the start and end node). To select a set of nodes, draw a rectangle around them with the left mouse button or hold \keys{Ctrl} to add/remove single nodes from the selection. \textbf{Pro-tip:} There is a \menu{Select Loop} option when you right-click a node in a loop, that does exactly that for you. Then, open the context menu (right-click on a node in the selection) and select \menu{Collapse into Meta Node}. Enter a caption for the \KNIMENODE{Meta Node}. The previously selected nodes are now contained in the \KNIMENODE{Meta Node}. Double-clicking on the \KNIMENODE{Meta Node} will display the contained nodes in a new tab window. 
 \end{task}
 
 \begin{task}
