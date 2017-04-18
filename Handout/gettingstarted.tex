@@ -51,13 +51,16 @@ Choose the installers for the platform you are working on. We suggest using the 
 \subsection{Data conversion}
 \label{Data_Conversion}
 
-Each MS instrument vendor has one or more formats for storing the acquired data. Converting these data into an open format (preferably mzML) is the very first step when you want to work with open-source mass spectrometry software. A freely available conversion tool is MSconvert, which is part of a ProteoWizard installation. \textbf{All files used in this tutorial have already been converted to mzML by us, so you do not need to perform the data conversion yourself}.
+Each MS instrument vendor has one or more formats for storing the acquired data. Converting these data into an open format (preferably mzML) is the very first step when you want to work with open-source mass spectrometry software. A freely available conversion tool is MSconvert, which is part of a ProteoWizard installation. All files used in this tutorial \textbf{have already been converted to mzML} by us, so you do not need to perform the data conversion yourself.
+However, we provide a small raw file so you can try the important step of raw data conversion for yourself.
 
-\note{The OpenMS installation package for Windows automatically installs ProteoWizard, so you do not need to download and install it separately. Due to restrictions from the instrument vendors, file format conversion for most formats is only possible on Windows systems, so exporting from the acquisition PC connected to the instrument is usually the most convenient option.}
+\note{The OpenMS installation package for Windows automatically installs ProteoWizard, so you do not need to download and install it separately. Due to restrictions from the instrument vendors, file format conversion for most formats is \textbf{only possible on Windows} systems. In practice, performing the conversion to mzML on the acquisition PC connected to the instrument is usually the most convenient option.}
 
-If you have a Windows PC and you want to convert raw data to mzML using ProteoWizard you can either use MSConvertGUI (a graphical user interface) or msconvert (a simple command line tool). Both tools are available in:
+To convert raw data to mzML using ProteoWizard you can either use MSConvertGUI (a graphical user interface) or msconvert (a simple command line tool). Both tools are available in:
 \newline
 \menu{\WindowsDefaultPWizFolder}.
+You can find a small RAW file on the USB stick:
+\menu{Example\_Data \textbackslash Introduction \textbackslash datasets \textbackslash raw}.
 
 \subsubsection{MSConvertGUI}
 MSConvertGUI (see Figure~\ref{fig:MSConvertGUI}) exposes the main parameters for data conversion in a convenient graphical user interface.
@@ -65,8 +68,8 @@ MSConvertGUI (see Figure~\ref{fig:MSConvertGUI}) exposes the main parameters for
 \begin{figure}
 \centering
 \includegraphics[width=12cm]{graphics/introduction/proteowizard.png}
-\caption{MSConvertGUI (ProteoWizard), allows converting raw files to mzML. Select the raw files you want to convert by clicking on the browse button. Default parameters can usually be kept as-is. To reduce the initial data size, make sure that the peakPicking filter (converts profile data to centroided data) is listed, enabled (true) and applied to all MS levels (parameter "1-"). Start the conversion process by clicking on the "Start" button.}
-\label{fig:toppview}
+\caption{MSConvertGUI (ProteoWizard), allows converting raw files to mzML. Select the raw files you want to convert by clicking on the browse button and then on "Add". Default parameters can usually be kept as-is. To reduce the initial data size, make sure that the peakPicking filter (converts profile data to centroided data) is listed, enabled (true) and applied to all MS levels (parameter "1-"). Start the conversion process by clicking on the "Start" button.}
+\label{fig:proteowizard}
 \end{figure}
 
 \subsubsection{msconvert}
