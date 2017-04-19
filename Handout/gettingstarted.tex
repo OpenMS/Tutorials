@@ -58,9 +58,9 @@ However, we provide a small raw file so you can try the important step of raw da
 
 To convert raw data to mzML using ProteoWizard you can either use MSConvertGUI (a graphical user interface) or msconvert (a simple command line tool). Both tools are available in:
 \newline
-\menu{\WindowsDefaultPWizFolder}.
+\directory{\WindowsDefaultPWizFolder}.
 You can find a small RAW file on the USB stick:
-\menu{Example\_Data \textbackslash Introduction \textbackslash datasets \textbackslash raw}.
+\directory{Example\_Data \textbackslash Introduction \textbackslash datasets \textbackslash raw}.
 
 \subsubsection{MSConvertGUI}
 MSConvertGUI (see Figure~\ref{fig:MSConvertGUI}) exposes the main parameters for data conversion in a convenient graphical user interface.
@@ -75,7 +75,7 @@ MSConvertGUI (see Figure~\ref{fig:MSConvertGUI}) exposes the main parameters for
 \subsubsection{msconvert}
 The msconvert command line tool offers more options than the graphical tool MSConvertGUI. It allows converting large numbers of files and can be easier automatized.
 
-To convert and pick the file \textit{raw\_data\_file.RAW} you write:
+To convert and pick the file \textit{raw\_data\_file.RAW} you may write:
 \newline
 \menu{msconvert raw\_data\_file.RAW --filter "peakPicking true 1-"}
 \newline
