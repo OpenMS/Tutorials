@@ -300,8 +300,8 @@ Please copy the spectral library from \\
 \directory{Example\_Data / Metabolomics / databases / MetaboliteSpectralDB.mzML}\\
 on the USB stick into the following directory of your KNIME installation (version numbers and dates may differ slightly):
 \begin{itemize}
-	\item Windows \newline \directory{C: / Program Files / KNIME3.3 / plugins \newline/ de.openms.win32.x86\_64\_2.1.0.201703301405 / payload / share / OpenMS / CHEMISTRY}
-	\item macOS \newline \directory{ Applications/ KNIME 3.3.app / Contents / Eclipse / plugins \newline / de.openms.win32.x86\_64\_2.1.0.201703301405 / payload / share / OpenMS / CHEMISTRY}
+	\item Windows \newline \directory{C: / Program Files / KNIME3.3 / plugins \newline/ de.openms.win32.x86\_64\_2.1.0.201611191105 / payload / share / OpenMS / CHEMISTRY}
+	\item macOS \newline \directory{ Applications/ KNIME 3.3.app / Contents / Eclipse / plugins \newline / de.openms.win32.x86\_64\_2.1.0.201611191105 / payload / share / OpenMS / CHEMISTRY}
 \end{itemize}
 Now construct the workflow as shown in Figure~\ref{fig:speclib}.
 Use the file \directory{Example\_Data / Metabolomics / datasets \newline / Metabolite\_ID\_SpectraDB\_positive.mzML} as input for your workflow. It contains tandem spectra that are identified by the \KNIMENODE{MetaboliteSpectralMatcher}. The resulting mzTab file is read back into a KNIME table and stored in an Excel table. Make sure that you connect the MzTabReader port corresponding to the Small Molecule Section to the \KNIMENODE{Excel writer (XLS)}).
