@@ -296,11 +296,14 @@ Because these libraries tend to be large we don't distribute them with OpenMS.
 
 \begin{task}
 Please copy the spectral library: \newline
-\directory{Example\_Data \textbackslash Metabolomics \textbackslash databases \textbackslash MetaboliteSpectralDB.mzML} from the USB stick into the directory of your KNIME installation.
+\directory{Example\_Data / Metabolomics / databases / MetaboliteSpectralDB.mzML} from the USB stick into the directory of your KNIME installation.
 \newline
-Navigate to your KNIME folder (On Window \directory{C: \textbackslash Program Files \textbackslash KNIME3.3 \newline \textbackslash plugins \textbackslash de.openms.win32.x86\_64\_2.1.0.201703301405 \textbackslash payload \textbackslash share \textbackslash OpenMS \textbackslash CHEMISTRY \textbackslash}).
+Navigate to your KNIME folder (On Window \directory{C: / Program Files / KNIME3.3  plugins / de.openms.win32.x86\_64\_2.1.0.201703301405 / payload / share / OpenMS\ CHEMISTRY / }).
 Now construct the workflow shown in Figure~\ref{fig:speclib}.
-Use the file \directory{Example\_Data \textbackslash Metabolomics \textbackslash datasets \newline \textbackslash Metabolite\_ID\_SpectraDB\_positive.mzML} as input for your workflow. It contains tandem spectra that are identified by the \KNIMENODE{MetaboliteSpectralMatcher}. The resulting mzTab file is read back into a KNIME table and stored in an Excel table. Make sure that you connect the MzTabReader port corresponding to the Small Molecule Section to the \KNIMENODE{Excel writer (XLS)}).
+\newline
+Use the file \directory{Example\_Data / Metabolomics / datasets / 
+\newline
+Metabolite\_ID\_SpectraDB\_positive.mzML} as input for your workflow. It contains tandem spectra that are identified by the \KNIMENODE{MetaboliteSpectralMatcher}. The resulting mzTab file is read back into a KNIME table and stored in an Excel table. Make sure that you connect the MzTabReader port corresponding to the Small Molecule Section to the \KNIMENODE{Excel writer (XLS)}).
 \end{task}
 
 \begin{figure}[htbp]
