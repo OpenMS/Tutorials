@@ -5,7 +5,7 @@
 \newcommand{\WindowsOpenMSInstallerName}{Windows / OpenMS-2.1.0\_Win64\_setup.exe}	
 \newcommand{\WindowsOpenMSPrereqInstallerName}{Windows / OpenMS-2.1-prerequisites-installer.exe}
 \newcommand{\WindowsPrerequisitesLink}{http://sourceforge.net/projects/open-ms/files/OpenMS/OpenMS-1.10/OpenMS-1.10-win32-prerequisites-installer.exe/download}
-\newcommand{\WindowsDefaultPWizFolder}{C: \textbackslash Program Files \textbackslash OpenMS-2.1.0 \textbackslash share \textbackslash OpenMS \textbackslash THIRDPARTY \textbackslash pwiz-bin}
+\newcommand{\WindowsDefaultPWizFolder}{C: / Program Files / OpenMS-2.1.0 / share / OpenMS / THIRDPARTY / pwiz-bin}
 \newcommand{\MacKnimeInstallerName}{Mac / knime-full\_3.3.1.app.macosx.cocoa.x86\_64.dmg}	
 \newcommand{\MacOpenMSInstallerName}{Mac / OpenMS-2.1.0\_Mac.dmg}
 \newcommand{\KnimeUpdateSite}{http://update.knime.org/analytics-platform/3.3}
@@ -60,7 +60,7 @@ To convert raw data to mzML using ProteoWizard you can either use MSConvertGUI (
 \newline
 \directory{\WindowsDefaultPWizFolder}.
 You can find a small RAW file on the USB stick:
-\directory{Example\_Data \textbackslash Introduction \textbackslash datasets \textbackslash raw}.
+\directory{Example\_Data / Introduction / datasets / raw}.
 
 \subsubsection{MSConvertGUI}
 MSConvertGUI (see Figure~\ref{fig:MSConvertGUI}) exposes the main parameters for data conversion in a convenient graphical user interface.
@@ -525,8 +525,8 @@ into the workflow and connect the upper output port of the \KNIMENODE{Data Gener
 \KNIMENODE{R View (Table)} node. Right-click and configure the node.
 If you get an error message like "Execute failed: R\_HOME does not contain a folder with name 'bin'." or "Execution 
 failed: R Home is invalid.": please change the R settings in the preferences. To do so open \menu{File > Preferences 
-> KNIME > R} and enter the path to your R installation (the folder that contains the bin directory (e.g., "C: 
-\textbackslash Program Files \textbackslash R \textbackslash R-3.3.1").
+> KNIME > R} and enter the path to your R installation (the folder that contains the bin directory (e.g., \directory{C: 
+/ Program Files / R / R-3.3.1}).
 
 If you get an error message like:
 "Execute failed: Could not find Rserve package. Please install it in your R installation by running \\ 
