@@ -295,6 +295,7 @@ In this part of the tutorial, we take a look on how metabolite spectra can be id
 Because these libraries tend to be large we don't distribute them with OpenMS. 
 
 \begin{task}
+
 Please copy the spectral library from \\
 \directory{Example\_Data / Metabolomics / databases / MetaboliteSpectralDB.mzML}\\
 on the USB stick into the following directory of your KNIME installation (version numbers and dates may differ slightly):
@@ -304,6 +305,7 @@ on the USB stick into the following directory of your KNIME installation (versio
 \end{itemize}
 Now construct the workflow as shown in Figure~\ref{fig:speclib}.
 Use the file \directory{Example\_Data / Metabolomics / datasets \newline / Metabolite\_ID\_SpectraDB\_positive.mzML} as input for your workflow. It contains tandem spectra that are identified by the \KNIMENODE{MetaboliteSpectralMatcher}. The resulting mzTab file is read back into a KNIME table and stored in an Excel table. Make sure that you connect the MzTabReader port corresponding to the Small Molecule Section to the \KNIMENODE{Excel writer (XLS)}).
+
 \end{task}
 
 \begin{figure}[htbp]
