@@ -79,6 +79,10 @@ GTK bug. See the KNIME forum (e.g. \href{https://tech.knime.org/forum/knime-gene
 \textbf{Q:} I have problems installing RServe in my local R installation for the R KNIME Extension:\\
 \textbf{A:} If you encounter linker errors while running install.packages("Rserve") when using an R installation from homebrew, make sure gettext is installed via homebrew and you pass flags to its lib directory. See StackOverflow question \href{http://stackoverflow.com/questions/21370363/link-error-installing-rcpp-library-not-found-for-lintl}{21370363}.
 \\\\
+\textbf{Q:} Although I \keys{Ctrl}+\keys{Leftclick} TOPPAS.app or TOPPView.app and accept the risk of a downloaded application, the icon only shortly blinks and nothing happens:\\
+\textbf{A:} It seems like your OS is not able to remove the quarantine flag. If you trust us, please remove it yourself by typing the following command in your Terminal.app:\\
+\menu{xattr -r -d com.apple.quarantine /Applications/OpenMS-2.1.0}
+\\\\
 \textbf{Windows}\\
 \textbf{Q:} KNIME has problems getting the requirements for some of the OpenMS nodes on Windows, what can I do?\\
 \textbf{A:} Get the prerequisites installer \href{\WindowsPrerequisitesLink}{here} or install NET3.5, NET4 and VCRedist10.0 (potentially also 12.0) yourself.\\
