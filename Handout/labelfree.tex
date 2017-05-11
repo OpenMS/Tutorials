@@ -25,8 +25,8 @@ As a start, we will extend the minimal workflow so that it performs a peptide id
 \item Here, you can annotate this spectrum data file with the peptide identification results. Choose \menu{Tools > Annotate with identification} from the menu and select the idXML file that \KNIMENODE{OMSSAAdapter} generated (it is located within the output directory that you specified when starting the pipeline).
 \item On the right, select the tab \menu{Identification view}. Using this view, you can see all identified peptides and browse the corresponding MS2 spectra.
 \note{Opening the output file of \KNIMENODE{OMSSAAdapter} (the idXML file) directly is also possible, but the direct visualization of an idXML file is less useful.}
-\item The search results stored in the idXML file can also be read back into a KNIME table for inspection and subsequent analyses: Add a \KNIMENODE{TextExporter} node from \menu{Community Nodes > OpenMS > File Handling} to your workflow and connect the output port of your \KNIMENODE{OMSSAAdapter} (the same port your \KNIMENODE{ZipLoopEnd} is connected to) to its input port. This tool will convert the idXML file to a more human-readable text file which can also be read into a KNIME table using the \KNIMENODE{IDTextReader} node. Add an \KNIMENODE{IDTextReader} node \menu{Community Nodes > OpenMS > Conversion} after \KNIMENODE{TextExporter} and execute it. Now you can right-click \KNIMENODE{IDTextReader} and select \menu{ID Table} to browse your peptide identifications.
-\item From here, you can use all the tools KNIME offers for analyzing the data in this table. As a simple example, you could add a \KNIMENODE{Histogram} \menu{Data Views} node after \KNIMENODE{IDTextReader}, double-click it, select \textit{peptide\_charge} as binning column, hit \menu{OK}, and execute it. Right-clicking and selecting \menu{View: Histogram view} will open a plot showing the charge state distribution of your identifications.
+\item The search results stored in the idXML file can also be read back into a KNIME table for inspection and subsequent analyses: Add a \KNIMENODE{TextExporter} node from \menu{Community Nodes > OpenMS > File Handling} to your workflow and connect the output port of your \KNIMENODE{OMSSAAdapter} (the same port your \KNIMENODE{ZipLoopEnd} is connected to) to its input port. This tool will convert the idXML file to a more human-readable text file which can also be read into a KNIME table using the \KNIMENODE{IDTextReader} node. Add an \KNIMENODE{IDTextReader} node (\menu{Community Nodes > OpenMS > Conversion}) after \KNIMENODE{TextExporter} and execute it. Now you can right-click \KNIMENODE{IDTextReader} and select \menu{ID Table} to browse your peptide identifications.
+\item From here, you can use all the tools KNIME offers for analyzing the data in this table. As a simple example, you could add a \KNIMENODE{Histogram} node (from category \menu{Data Views}) node after \KNIMENODE{IDTextReader}, double-click it, select \textit{peptide\_charge} as binning column, hit \menu{OK}, and execute it. Right-clicking and selecting \menu{View: Histogram view} will open a plot showing the charge state distribution of your identifications.
 \end{itemize}
 
 In the next step, we will tweak the parameters of OMSSA to better reflect the instrument's accuracy. Also, we will extend our pipeline with a false discovery rate (FDR) filter to retain only those identifications that will yield an FDR of $<$ 1 \%.
@@ -70,7 +70,7 @@ Meta nodes are useful when you construct even larger workflows and want to keep 
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.85\textwidth]{graphics/labelfree/fdr_peptide_identification}
+  \includegraphics[width=\textwidth]{graphics/labelfree/PepIdFDR.png}
   \caption{OMSSA ID pipeline including FDR filtering.}
   \label{fig:id_fdr}
 \end{figure}
@@ -96,12 +96,12 @@ We can connect this to the \KNIMENODE{PeptideIndexer} and go along with our exis
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.85\textwidth]{graphics/labelfree/consensus_id}
+  \includegraphics[width=\textwidth]{graphics/labelfree/PepConsensusID.png}
   \caption{Complete consensus identification workflow.}
   \label{fig:consensusid}
 \end{figure}
 
-
+\newpage
 \subsection{Quantification}
 \label{Labelfree_Quantification}
 
@@ -117,13 +117,17 @@ It reduces the entire signal, i.e., all peaks explained by one and the same pept
 \item
 \KNIMENODE{FeatureFinderCentroided} produces a featureXML file as output, containing only quantitative information of so-far unidentified peptide signals.
 In order to annotate these with the corresponding ID information, we need the \KNIMENODE{IDMapper} node.
-\item Run your pipeline and inspect the results of the \KNIMENODE{IDMapper} node in TOPPView.
-\item In order to assess how well the feature finding worked, you can project the features contained in the featureXML file on the raw data contained in the mzML file.
-In TOPPView choose \menu{File > Open file} and select the mzML file corresponding to your featureXML file in \directory{Example\_Data / Labelfree / datasets}.
-In the dialog that pops up, select \menu{Open in > New layer}.
-Zoom in until you see boxes (found features) around the peptide signals in the raw data.
-\note{The RT range is very narrow.
-Thus, select the full RT range and zoom only into the m/z dimension by holding down \menu{Ctrl} (\menu{cmd} on Mac) and repeatedly dragging a narrow box from the very left to the very right.}
+\item Run your pipeline and inspect the results of the \KNIMENODE{IDMapper} node in TOPPView. Open the mzML file of your data to display the raw peak intensities.
+\item To assess how well the feature finding worked, you can project the features contained in the featureXML file on the raw data contained in the mzML file. To this end, open the featureXML file in TOPPView by clicking on \menu{File > Open file} and add it to a new layer (\menu{Open in > New layer}). The features are now visualized on top of your raw data. If you zoom in on a small region, you should be able to see the individual boxes around features that have been detected (see Figure~\ref{fig:ff_featurexml}). If you hover over the the feature centroid (small circle indicating the chromatographic apex of monoisotopic trace) additional information of the feature is displayed.
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.85\textwidth]{graphics/labelfree/featureXML.png}
+  \caption{Visualization of detected features (boxes) in TOPPView.}
+  \label{fig:ff_featurexml}
+\end{figure}
+
+\note{The chromatographic RT range of a feature is about 30-60~s and its m/z range around 2.5 m/z in this dataset. If you have trouble zooming in on a feature, select the full RT range and zoom only into the m/z dimension by holding down \keys{\ctrlwin} (\keys{cmd \cmd} on macOS) and repeatedly dragging a narrow box from the very left to the very right.}
 \item
 You can see which features were annotated with a peptide identification by first selecting the featureXML file in the \texttt{Layers} window on the upper right side and then clicking on the icon with the letters A, B and C on the upper icon bar.
 Now, click on the small triangle next to that icon and select \texttt{Peptide identification}.
@@ -131,7 +135,7 @@ Now, click on the small triangle next to that icon and select \texttt{Peptide id
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.85\textwidth]{graphics/labelfree/lfq_no_align}
+  \includegraphics[width=\textwidth]{graphics/labelfree/PepQuantIdNoAlign.png}
   \caption{Extended workflow featuring peptide identification and quantification.}
   \label{fig:ff_idmapping}
 \end{figure}
@@ -143,7 +147,7 @@ So far, we successfully performed peptide identification as well as quantificati
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.85\textwidth]{graphics/labelfree/lfq}
+  \includegraphics[width=\textwidth]{graphics/labelfree/PepQuantId.png}
   \caption{Complete identification and label-free quantification workflow.}
   \label{fig:complete_without_consensusid}
 \end{figure}

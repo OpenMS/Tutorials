@@ -269,7 +269,7 @@ Combining ID and Quantification table into a single table is again achieved usin
   \centering
   \includegraphics[width=0.7\textwidth]{graphics/metabo/reporting_2015.png}
   \caption{Data preparation for reporting}
-  \label{fig:consensusid}
+  \label{fig:reporting}
 \end{figure}
 
 \begin{question}
@@ -287,4 +287,68 @@ To this end, we use the \KNIMENODE{Column to Grid} node that flattens several ro
 Note that we have to specify the maximum number of columns in the grid so we set this to a large value (e.g. 100).
 We finally export the data to an Excel file (\KNIMENODE{XLS Writer}).
 
+\subsection{Spectral library search}
+
+Identifying metabolites using only the accurate mass may result in ambiguous results. In practice, additional information (e.g., the retention time) is used to further narrow down potential candidates. Apart from MS1-based features, tandem mass spectra (MS2) of metabolites provide additional information.
+In this part of the tutorial, we take a look on how metabolite spectra can be identified using a library of previously identified spectra.
+
+Because these libraries tend to be large we don't distribute them with OpenMS. 
+
+\begin{task}
+
+Please copy the spectral library from \\
+\directory{Example\_Data / Metabolomics / databases / MetaboliteSpectralDB.mzML}\\
+on the USB stick into the following directory of your KNIME installation (version numbers and dates may differ slightly):
+\begin{itemize}
+	\item Windows \newline \directory{C: / Program Files / KNIME3.3 / plugins \newline/ de.openms.win32.x86\_64\_2.1.0.201611191105 / payload / share / OpenMS / CHEMISTRY}
+	\item macOS \newline \directory{ Applications/ KNIME 3.3.app / Contents / Eclipse / plugins / \newline 
+de.openms.macosx.x86\_64\_2.1.0.201611191105 / payload / share / OpenMS / CHEMISTRY}
+\end{itemize}
+Now construct the workflow as shown in Figure~\ref{fig:speclib}.
+Use the file \directory{Example\_Data / Metabolomics / datasets \newline / Metabolite\_ID\_SpectraDB\_positive.mzML} as input for your workflow. It contains tandem spectra that are identified by the \KNIMENODE{MetaboliteSpectralMatcher}. The resulting mzTab file is read back into a KNIME table and stored in an Excel table. Make sure that you connect the MzTabReader port corresponding to the Small Molecule Section to the \KNIMENODE{Excel writer (XLS)}).
+
+\end{task}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{graphics/metabo/speclib.png}
+  \caption{Spectral library identification workflow}
+  \label{fig:speclib}
+\end{figure}
+
+Run the workflow and inspect the output.
+
+\subsubsection{Manual validation}
+
+In metabolomics, matches between tandem spectra and spectral libraries are manually validated. Several commercial and free online resources exist which help in that task. Some examples are:
+
+\begin{itemize}
+\item mzCloud contains only spectra from Thermo Orbitrap instruments. The webpage requires Microsoft Silverlight which currently does not work in modern browsers (see \url{https://www.mzcloud.org/DataViewer}).
+\item MassBank North America (MoNA) has spectra from different instruments but falls short in in number of spectra (compared to Metlin and mzCloud) \url{http://mona.fiehnlab.ucdavis.edu/spectra/display/KNA00122}
+\item METLIN includes 961,829 molecules ranging from lipids, steroids, metabolites, small peptides, carbohydrates, exogenous drugs and toxicants. In total over 14,000 metabolites.
+\end{itemize}
+
+Here, we will use METLIN to manually validate metabolites.
+
+\begin{task}
+Open the mzML file in TOPPView and inspect some of your top hits. Select the tandem spectrum of Glutathione, but do not close TOPPView, yet.
+\end{task}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\textwidth]{graphics/metabo/glutathioneTV.png}
+  \caption{Tandem spectrum of glutathione. Visualized in TOPPView.}
+  \label{fig:consensusid}
+\end{figure}
+
+\begin{task}
+On the METLIN homepage search for \menu{Compound Name} Glutathione using the \menu{Advanced Search} (\url{https://metlin.scripps.edu/landing_page.php?pgcontent=advanced_search}). Note that free registration is required. Which collision energy (and polarity) gives the best (visual) match to your experimental spectrum in TOPPView?
+\end{task}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\textwidth]{graphics/metabo/glutathioneMetlin.png}
+  \caption{Tandem spectrum of glutathione. Visualized in Metlin. Note that several fragment spectra from varying collision energies are available.}
+  \label{fig:glutathioneMetlin}
+\end{figure}
 
