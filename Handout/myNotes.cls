@@ -81,30 +81,41 @@
 \def\titlepage{
     \thispagestyle{empty}
     \begin{center}
-		\includegraphics[width=0.7\textwidth]{./graphics/assets/OpenMS_logo.png}\\[3cm]
-		\textsc{\LARGE OpenMS Tutorial}\\[2cm]		
-\vfill		
-		\hfill\includegraphics[width=0.3\textwidth]{./graphics/assets/deNBI_Logo_rgb.png}\\
-	\end{center}
-		\newpage
-    \thispagestyle{empty}
+		\includegraphics[width=0.7\textwidth]{./graphics/assets/OpenMS_logo.png}\\[0.5cm]
+		\textsc{\LARGE\textbf{User Tutorial}}\\[5cm]		
 		\vfill
-		\begin{center}
+		%\vspace{2cm}
+		\begin{minipage}{.5\textwidth}
+			\centering
+			\includegraphics[width=.8\linewidth, height=2cm]{./graphics/assets/deNBI_Logo_rgb.png}
+		\end{minipage}%
+		\begin{minipage}{.5\textwidth}
+			\centering
+			\figstrut{5cm}{2cm}
+			\includegraphics[width=.8\linewidth, height=5cm]{./graphics/assets/elixir_germany_white_background.png}
+		\end{minipage}	
+		%\hfill\vspace{-2cm}\includegraphics[width=0.3\textwidth]{./graphics/assets/deNBI_Logo_rgb.png}\hfill\hspace{5cm}\vspace{1cm}\includegraphics[width=0.3\textwidth]{./graphics/assets/elixir_germany_white_background.png}\\
+	\end{center}
+	\newpage
+    \thispagestyle{empty}
+	\vfill
+	\begin{center}
 		\textsc{\Large The OpenMS Developers}\\[1cm]
 %		presented by: \\
 %		Julianus Pfeuffer, Timo Sachsenberg \\[2cm]
 		% either put here the presenting authors for workshops or all authors
-
-%                \textsc{\Large License}\\[1cm]
-\vfill
+%       \textsc{\Large License}\\[1cm]
+		\vfill
 		\textbf{Creative Commons Attribution 4.0 International (CC BY 4.0)}\\
-		\end{center}
-		\newpage}
+	\end{center}
+	\newpage
+} % end titlepage
 
 \def\firstpages{
-        \pagenumbering{arabic}
-        \pagestyle{plain}
-        \titlepage
-        \tableofcontents
+    \pagenumbering{arabic}
+    \pagestyle{plain}
+    \titlepage
+    \tableofcontents
 	\newpage
-	\pagestyle{plain}}
+	\pagestyle{plain}
+}

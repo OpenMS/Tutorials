@@ -178,6 +178,17 @@
   }
 ]{task}
 
+\newcommand\figstrut[2]{
+	% #1: Height of object
+	% #2: Height of highest object
+	\dimen0=#1%
+	\advance\dimen0 by -#2%
+	\divide\dimen0 by -2%
+	\dimen1=#1%
+	\advance\dimen1 by \dimen0%
+	\vrule height \dimen1 depth \dimen0 width 0pt\relax%
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\KNIMENODE}[1]{\texttt{#1}}
 \newcommand{\OPENMSTOOL}[1]{\texttt{#1}}
