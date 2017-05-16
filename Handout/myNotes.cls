@@ -81,7 +81,7 @@
 \def\titlepage{
     \thispagestyle{empty}
     \begin{center}
-		\includegraphics[width=0.7\textwidth]{./graphics/assets/OpenMS_logo.png}\\[0.5cm]
+		\includegraphics[width=0.7\textwidth]{./graphics/assets/OpenMS_5cm_300ppi_transparent.png}\\[0.5cm]
 		\textsc{\LARGE\textbf{User Tutorial}}\\[5cm]		
 		\vfill
 		%\vspace{2cm}
