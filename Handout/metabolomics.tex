@@ -243,10 +243,10 @@ In case that you use an R installation where one or both of them are not yet ins
 \begin{lstlisting}
 #Include the next line if you also have to install ggplot2:
 install.packages("ggplot2")
-#Include the following lines to install ggbiplot:
-install.packages("devtools")
-library(devtools)
-install_github("vqv/ggbiplot")
+#Include the following lines to install ggfortify:
+install.packages("ggfortify")
+library(ggplot2)
+library(ggfortify)
 \end{lstlisting}
 Press \menu{Eval script} to execute the script.\newline
 
@@ -289,7 +289,7 @@ We finally export the data to an Excel file (\KNIMENODE{XLS Writer}).
 
 \subsection{Spectral library search}
 
-Identifying metabolites using only the accurate mass may result in ambiguous results. In practice, additional information (e.g., the retention time) is used to further narrow down potential candidates. Apart from MS1-based features, tandem mass spectra (MS2) of metabolites provide additional information.
+Identifying metabolites using only the accurate mass may lead to ambiguous results. In practice, additional information (e.g. the retention time) is used to further narrow down potential candidates. Apart from MS1-based features, tandem mass spectra (MS2) of metabolites provide additional information.
 In this part of the tutorial, we take a look on how metabolite spectra can be identified using a library of previously identified spectra.
 
 Because these libraries tend to be large we don't distribute them with OpenMS. 
