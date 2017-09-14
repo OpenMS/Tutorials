@@ -35,7 +35,7 @@ In the next step, we will tweak the parameters of OMSSA to better reflect the in
 \item
 Open the configuration dialog of \KNIMENODE{OMSSAAdapter}.
 The dataset was recorded using an LTQ Orbitrap XL mass spectrometer, so we can set the precursor mass tolerance to a smaller value, say 10 ppm.
-Set \textit{precursor\textunderscore mass\textunderscore tolerance} to 10 and \\ \textit{precursor\textunderscore mass\textunderscore tolerance\textunderscore unit\textunderscore ppm} to \textit{true}.
+Set \textit{precursor\textunderscore mass\textunderscore tolerance} to 10 and \\ \textit{precursor\textunderscore error\textunderscore units} to \textit{ppm}.
 \note{Whenever you change the configuration of a node, the node as well as all its successors will be reset to the Configured state (all node results are discarded and need to be recalculated by executing the nodes again).}
 \item
 Set \textit{max\_precursor\_charge} to 5, in order to also search for peptides with charges up to 5.
@@ -52,7 +52,7 @@ Therefore, extend the workflow with a \KNIMENODE{PeptideIndexer} node \menu{Comm
 This node needs the idXML as input as well as the database file.
 \note{You can direct the files of an \KNIMENODE{Input File} node to more than just one destination port.}
 \item
-The decoys in the database are prefixed with ``REV\_'', so we have to set \textit{decoy\_string} to \textit{REV\_} and \textit{decoy\_string\_position} to \textit{prefix} in the configuration dialog of \KNIMENODE{PeptideIndexer}.
+The decoys in the database are prefixed with ``DECOY\_'', so we have to set \textit{decoy\_string} to \textit{DECOY\_} and \textit{decoy\_string\_position} to \textit{prefix} in the configuration dialog of \KNIMENODE{PeptideIndexer}.
 \item
 Now we can go for the FDR estimation, which the \KNIMENODE{FalseDiscoveryRate} node will calculate for us (you will find it in \menu{Community Nodes > OpenMS > ID Processing}).
 As we have a combined search database and thus only one idXML per mzML we will only use the \textit{in} port of the \KNIMENODE{FalseDiscoveryRate} node.
