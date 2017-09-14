@@ -3,12 +3,12 @@
 % File names are changed quite often between tutorial so make them configurable at the top.
 % Please escape whitespaces except before and after / as a path separator.
 \newcommand{\WindowsKnimeInstallerName}{Windows / KNIME\ Full\ 3.4.1\ Installer\ (64bit).exe}	
-\newcommand{\WindowsOpenMSInstallerName}{Windows / OpenMS-2.3.0\_Win64\_setup.exe}	
+\newcommand{\WindowsOpenMSInstallerName}{Windows / OpenMS-2.3.0\_Win64.exe}	
 \newcommand{\WindowsOpenMSPrereqInstallerName}{Windows / OpenMS-2.3-prerequisites-installer.exe}
 \newcommand{\WindowsPrerequisitesLink}{http://sourceforge.net/projects/open-ms/files/OpenMS/OpenMS-2.3/OpenMS-2.3-prerequisites-installer.exe/download}
 \newcommand{\WindowsDefaultPWizFolder}{C: / Program\ Files / OpenMS-2.3.0 / share / OpenMS / THIRDPARTY / pwiz-bin}
 \newcommand{\MacKnimeInstallerName}{Mac / knime-full\_3.4.1.app.macosx.cocoa.x86\_64.dmg}	
-\newcommand{\MacOpenMSInstallerName}{Mac / OpenMS-2.3.0\_Mac.dmg}
+\newcommand{\MacOpenMSInstallerName}{Mac / OpenMS-2.3.0-Darwin.dmg}
 \newcommand{\KnimeUpdateSite}{http://update.knime.org/analytics-platform/3.4}
 \newcommand{\KnimeTrustedSite}{http://tech.knime.org/update/community-contributions/trusted/3.4}
 \newcommand{\KnimeTrunkSite}{http://tech.knime.org/update/community-contributions/trunk/}
@@ -38,17 +38,17 @@ on \textbf{macOS} you call
   \item the KNIME installer: \directory{\MacKnimeInstallerName}
 \end{itemize}
 
-and follow the instructions. For the OpenMS installation on macOS, you need to accept the license drag and drop the OpenMS folder into your Applications folder.
+and follow the instructions. For the OpenMS installation on \textbf{macOS}, you need to accept the license drag and drop the OpenMS folder into your Applications folder.
 On \textbf{Linux} you can extract KNIME to a folder of your choice and for TOPPView you need to install OpenMS via your package manager or build it on your own with the instructions under \href{https://www.openms.de/documentation}{www.openms.de/documentation}.
 
-\subsubsection{Installation from the internet}
-If you are working through this tutorial at home you can get the installers under the following links:
-\begin{itemize}
-  \item OpenMS: \href{https://www.openms.de/download/openms-binaries}{ https://www.openms.de/download/openms-binaries}
-  \item KNIME: \href{https://www.knime.org/downloads/overview}{ https://www.knime.org/downloads/overview}
-  \item OpenMS prerequisites (Windows-only): After installation, before your first use of the OpenMS plugin in KNIME you will be asked to download it automatically if certain requirements are not found in your Windows registry. Alternatively, you can get a bundled version \href{\WindowsPrerequisitesLink}{here}.
-\end{itemize}
-Choose the installers for the platform you are working on. We suggest using the full installers of KNIME. It includes all free community extensions so that you can skip the installation of the OpenMS plugin and most other dependencies for the example workflows later.
+%\subsubsection{Installation from the internet}
+%If you are working through this tutorial at home you can get the installers under the following links:
+%\begin{itemize}
+%  \item OpenMS: \href{https://www.openms.de/download/openms-binaries}{ https://www.openms.de/download/openms-binaries}
+%  \item KNIME: \href{https://www.knime.org/downloads/overview}{ https://www.knime.org/downloads/overview}
+%  \item OpenMS prerequisites (Windows-only): After installation, before your first use of the OpenMS plugin in KNIME you will be asked to download it automatically if certain requirements are not found in your Windows registry. Alternatively, you can get a bundled version \href{\WindowsPrerequisitesLink}{here}.
+%\end{itemize}
+%Choose the installers for the platform you are working on. We suggest using the full installers of KNIME. It includes all free community extensions so that you can skip the installation of the OpenMS plugin and most other dependencies for the example workflows later.
 
 \subsection{Data conversion}
 \label{Data_Conversion}
