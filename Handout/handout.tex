@@ -126,7 +126,7 @@
 \usetikzlibrary{calc}
 
 \global\mdfdefinestyle{notedefault}{topline=false,bottomline=false,rightline=false,leftmargin=1cm}
-\newcommand{\note}[1]{ \begin{mdframed}[style=notedefault] \textbf{Note:}~#1 \end{mdframed} }
+\newcommand{\note}[1]{ \begin{mdframed}[style=notedefault,nobreak=true] \textbf{Note:}~#1 \end{mdframed} }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newmdenv[
@@ -198,6 +198,16 @@
 % define that this tutorial is based on a prerelease of OpenMS (will output some additional notes)
 \newtoggle{isprerelease}
 \toggletrue{isprerelease}
+
+\usepackage[lmargin=25mm,rmargin=25mm,bmargin=25mm,tmargin=25mm]{geometry}
+
+\usepackage{floatrow}
+\usepackage{subcaption}
+\usepackage[font=footnotesize,
+            format=plain,
+            labelfont={bf,sf,footnotesize},
+            textfont=footnotesize]{caption}
+
 
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
