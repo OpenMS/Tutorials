@@ -75,8 +75,15 @@ MSConvertGUI (see Fig.~\ref{fig:MSConvertGUI}) exposes the main parameters for d
 \begin{figure}
 \centering
 \includegraphics[width=12cm]{graphics/introduction/proteowizard.png}
-\caption{MSConvertGUI (ProteoWizard), allows converting raw files to mzML. Select the raw files you want to convert by clicking on the browse button and then on "Add". Default parameters can usually be kept as-is. To reduce the initial data size, make sure that the peakPicking filter (converts profile data to centroided data) is listed, enabled (true) and applied to all MS levels (parameter "1-"). Start the conversion process by clicking on the "Start" button.}
+\caption{MSConvertGUI (ProteoWizard), allows converting raw files to mzML. Select the raw files you want to convert by clicking on the browse button and then on "Add". Default parameters can usually be kept as-is. To reduce the initial data size, make sure that the peakPicking filter (converts profile data to centroided data (see Fig. ~\ref{fig:ProfileCentroidData})) is listed, enabled (true) and applied to all MS levels (parameter "1-"). Start the conversion process by clicking on the "Start" button.}
 \label{fig:MSConvertGUI}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=12cm]{graphics/introduction/profilecentroided.png}
+\caption{The amount of data in a spectra is reduced by peak picking. Here a profile spectrum (blue) is converted to centroided data (green). Most algorithms  from this point on will work with centroided data.}
+\label{fig:ProfileCentroidData}
 \end{figure}
 
 \subsubsection{msconvert}
@@ -93,8 +100,8 @@ To convert all RAW files in a folder may write:
 \newline
 \menu{msconvert *.RAW -o my\_output\_dir}
 \newline
-\note{To display all options you may type \menu{msconvert -{}-help}. Additional information is available on the ProteoWizard web page.}
-
+\note{To display all options you may type \menu{msconvert -{}-help}. Additional information is
+available on the ProteoWizard web page.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -150,13 +157,19 @@ We will make use of these later throughout the tutorial. Let's start with a firs
         \end{itemize}
     \end{itemize}
 \item Right click on your 2D map and select \menu{Switch to 3D view} and examine your
-			data in 3D mode
+			data in 3D mode (see Fig. ~\ref{fig:toppview_3D})
 \item Go back to the 2D view. In 2D mode, visualize your data in different normalization modes, use linear, percentage and log-view (icons on the upper left tool bar).
 \note{On \textit{macOS}, due to a bug in one of the external libraries used by OpenMS, you will see a small window of the 3D mode when switching to 2D. Close the 3D tab in order to get rid of it.}
 \item In \OPENMSTOOL{TOPPView} you can also execute TOPP tools. Go to
 			\menu{Tools > Apply tool (whole layer)} and choose a TOPP tool (e.g., \OPENMSTOOL{FileInfo}) and
 			inspect the results.
+\begin{figure}
+\includegraphics[width=0.75\textwidth]{graphics/introduction/3dview.png}
+\caption{3D representation of the measured spectra, signals of eluting peptides are colored according to the raw peak intensities.}
+\label{fig:toppview_3D}
+\end{figure}
 \end{itemize}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
