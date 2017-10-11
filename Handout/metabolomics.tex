@@ -48,6 +48,16 @@ Add a \KNIMENODE{ZipLoopEnd} node and connect the output of the \KNIMENODE{Featu
 
 To facilitate the collection of features corresponding to the same compound ion across different samples, an alignment of the samples' feature maps along retention time is often helpful. In addition to local, small-scale elution differences, one can often see constant retention time shifts across large sections between samples. We can use linear transformations to correct for these large scale retention differences. This  brings the majority of corresponding compound ions close to each other. Finding the correct corresponding ions is then faster and easier, as we don't have to search as far around individual features.
 
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=\textwidth]{graphics/align.png}
+	\caption[Map alignment]
+	{
+	\textbf{Map alignment.} The first feature map is used as a reference to which other maps are aligned. The calculated transformation brings corresponding features into close retention time proximity. Linking of these features form a so-called consensus features of a \textit{consensus map}.
+	}
+	\label{bg_alignment}
+\end{figure}
+
 \begin{itemize}
 \item
 After the \KNIMENODE{ZipLoopEnd} node add a \KNIMENODE{MapAlignerPoseClustering} node (\menu{Community Nodes > OpenMS > Map Alignment}), set its Output Type to featureXML, and adjust the following settings
