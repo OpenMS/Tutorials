@@ -94,11 +94,12 @@ Connect a \KNIMENODE{Output Folder} to the output of the \KNIMENODE{FeatureFinde
 
 The workflow can be extended for multi-file analysis, here an \KNIMENODE{Input Files} is to be used instead of the \KNIMENODE{Input File}.  In front of the \KNIMENODE{FeatureFinderMetabo} a \KNIMENODE{Ziploop Start} and behind \KNIMENODE{Ziploop End} has to be used, since FeatureFinderMetabo will analyis on file to file bases. 
 \newline
-To facilitate the collection of features corresponding to the same compound ion across different samples, an alignment of the samples' feature maps along retention time is often helpful. In addition to local, small-scale elution differences, one can often see constant retention time shifts across large sections between samples. We can use linear transformations to correct for these large scale retention differences. This  brings the majority of corresponding compound ions close to each other. Finding the correct corresponding ions is then faster and easier, as we don't have to search as far around individual features.
+To facilitate the collection of features corresponding to the same compound ion across different samples, an 
+ment of the samples' feature maps along retention time is often helpful. In addition to local, small-scale elution differences, one can often see constant retention time shifts across large sections between samples. We can use linear transformations to correct for these large scale retention differences. This  brings the majority of corresponding compound ions close to each other. Finding the correct corresponding ions is then faster and easier, as we don't have to search as far around individual features.
 
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[width=\textwidth]{graphics/align.png}
+	\includegraphics[width=\textwidth]{graphics/metabo/align.png}
 	\caption[Map alignment]
 	{
 	\textbf{Map alignment.} The first feature map is used as a reference to which other maps are aligned. The calculated transformation brings corresponding features into close retention time proximity. Linking of these features form a so-called consensus features of a \textit{consensus map}.
@@ -137,7 +138,7 @@ The next step after retention time correction is the grouping of corresponding f
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.7\textwidth]{graphics/link.png}
+	\includegraphics[width=0.7\textwidth]{graphics/metabo/link.png}
 	\caption[Label-free quantification]
 	{
 	\textbf{Feature linking}. Features A and B correspond to the same analyte. The linking of features between runs (indicated by an arrow) allows comparing feature intensities.
