@@ -135,6 +135,16 @@ After the \KNIMENODE{ZipLoopEnd} node add a \KNIMENODE{MapAlignerPoseClustering}
 
 The next step after retention time correction is the grouping of corresponding features in multiple samples. In contrast to the previous alignment, we assume no linear relations of features across samples. The used method is tolerant against local swaps in elution order.
 
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.7\textwidth]{graphics/link.png}
+	\caption[Label-free quantification]
+	{
+	\textbf{Feature linking}. Features A and B correspond to the same analyte. The linking of features between runs (indicated by an arrow) allows comparing feature intensities.
+	}
+	\label{fig_bg_link}
+\end{figure}
+
 \begin{itemize}
 \item
 After the \KNIMENODE{MapAlignerPoseClustering} add a \KNIMENODE{FeatureLinkerUnlabeledQT} \\
