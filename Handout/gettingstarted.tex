@@ -501,6 +501,36 @@ The \KNIMENODE{ZipLoopEnd} collects the single files that arrive at its input po
 \label{fig:knime_minimal_loop}
 \end{figure}
 
+\subsubsection{Working with chemical structures}
+Metabolomics analyses often involve working with chemical structures. Popular cheminformatic toolkits such as RDKit or CDK are available as KNIME plugins and allow us to work with chemical structures directly from within KNIME. In particular, we will use KNIME and RDKit to visualize a list of compounds and filter them by predefined substructures. Chemical structures are often represented as SMILES (\textbf{S}implified \textbf{m}olecular \textbf{i}nput \textbf{l}ine \textbf{e}ntry \textbf{s}pecification), a simple and compact way to describe complex chemical structures as text. For example, the chemical structure of L-alanine can be written as the SMILES string C[C@H](N)C(O)=O. As we will discuss later, all OpenMS tools that perform metabolite identification will report SMILES as part of their result, which can then be further processed and visualized using RDKit and KNIME.\\
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{graphics/metabo/structures_filter_workflow.png}
+\caption{Workflow to visualize a list of SMILES strings and filter them by predefined substructures.}
+\label{fig:structures_filter_workflow}
+\end{figure}
+
+Perform the following steps to build the workflow shown in in Fig.~\ref{fig:structures_filter_workflow}. You will use this workflow to visualize a list of SMILES strings and filter them by predefined substructures:
+
+\begin{itemize}
+\item Add the node \KNIMENODE{File Reader}, open the node configuration dialog and select the file \directory{smiles.csv}. This file has been exported from the Human Metabolome Database (HMDB) and contains the portion of the human metabolome that has been detected and quantified. The file preview on the bottom of the dialog shows that each compound is given by its HMDB accession, compound name, and SMILES string. Click on the column header 'SMILES' to change its properties. Change the column type from 'string' to 'smiles' and close the dialog with \menu{Ok}. Afterwards the SMILES column will be visualized as chemical structures instead of text directly within all KNIME tables.
+
+\item Add the node \KNIMENODE{RDKit From Molecule} and connect it to the  \KNIMENODE{File Reader}. This node will use the provided SMILES strings to add an additional column that is required by RDKit.
+
+\item Add the node \KNIMENODE{RDKit Functional Group Filter} and open the node configuration dialog. You can use this dialog to filter the compounds by any combination of functional groups. In this case we want to find all compounds that contain at least one aromatic carboxylic acid group. To do this, set this group as active and choose '>=' and '1'.
+
+\item Connect the first output port (Molecules passing the filter) to a \KNIMENODE{CSV Writer} node to save the filtered metabolites to a file. Right click \KNIMENODE{RDKit Functional Group Filter} and select the view 'Molecules passing the filter' to inspect the selected compounds in KNIME. How many compounds pass the chosen filter (see Fig.~\ref{fig:structures_filter_results})?
+
+\begin{figure}
+\centering
+\includegraphics[width=0.59\textwidth]{graphics/metabo/structures_filter_results.png}
+\caption{Resulting list of compounds that contains at least one aromatic carboxylic acid group.}
+\label{fig:structures_filter_results}
+\end{figure}
+
+\end{itemize}
+
 \subsubsection{Advanced topic: Meta nodes}
 
 Workflows can get rather complex and may contain dozens or even hundreds of nodes. KNIME provides a simple way to improve handling and clarity of large workflows:
