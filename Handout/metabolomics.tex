@@ -43,12 +43,15 @@ Connect a \KNIMENODE{Output Folder} to the output of the \KNIMENODE{FeatureFinde
 \end{center}
 \end{itemize}
 
-\noindent Parameter explanation:
-\newline
-\textbf{chrom\_fwhm}: The expected chromatographic peak width in seconds. \\
-\textbf{trace\_termination\_criterion}: In the first stage \KNIMENODE{FeatureFinderMetabo} assembles mass traces with a pre-defined mass accuracy. If this parameter is set to 'outlier', the extension of a mass trace is stopped after a predefined number of consecutive outliers is found. If this parameter is set to 'sample\_rate', the extension of a mass trace is stopped once the ratio of collected peaks versus visited spectra falls below the ratio given by min\_sample\_rate. \\
-\textbf{min\_trace\_length}: Minimal length of a mass trace in seconds. Choose a small value, if you want to identify low-intensity compounds. \\
-\textbf{max\_trace\_length}: Maximal length of a mass trace in seconds. Set this parameter to -1 to disable the filtering by maximal length. \\
+The parameters change the behavior of \KNIMENODE{FeatureFinderMetabo} as follows:
+\begin{itemize}
+\item \textbf{chrom\_fwhm}: The expected chromatographic peak width in seconds.
+\item \textbf{trace\_termination\_criterion}: In the first stage \KNIMENODE{FeatureFinderMetabo} assembles mass traces with a pre-defined mass accuracy. If this parameter is set to 'outlier', the extension of a mass trace is stopped after a predefined number of consecutive outliers is found. If this parameter is set to 'sample\_rate', the extension of a mass trace is stopped once the ratio of collected peaks versus visited spectra falls below the ratio given by min\_sample\_rate.
+\item \textbf{min\_trace\_length}: Minimal length of a mass trace in seconds. Choose a small value, if you want to identify low-intensity compounds.
+\item \textbf{max\_trace\_length}: Maximal length of a mass trace in seconds. Set this parameter to -1 to disable the filtering by maximal length.
+\item \textbf{width\_filtering}: \KNIMENODE{FeatureFinderMetabo} can remove features with unlikely peak widths from the results. If activated it will use the interval provided by the paramters min\_fwhm and max\_fwhm.
+\item \textbf{report\_convex\_hulls}: If set to true, convex hulls including mass traces will be reported for all identified features. This increases the output size considerably.
+\end{itemize}
 
 \begin{figure}[htbp]
   \centering
@@ -127,12 +130,15 @@ After the \KNIMENODE{ZipLoopEnd} node add a \KNIMENODE{MapAlignerPoseClustering}
 
 \noindent \KNIMENODE{MapAlignerPoseClustering} provides an algorithm to align the retention time scales of multiple input files, correcting shifts and distortions between them. Retention time adjustment may be necessary to correct for chromatography differences e.g. before data from multiple LC-MS runs can be combined (feature linking). The alignment algorithm implemented here is the pose clustering algorithm. \\
 
-\noindent Parameter explanation: \\
-\textbf{max\_num\_peaks\_considered}: The maximal number of peaks/features to be considered per map. To use all, set this parameter to -1. \\
-\textbf{mz\_pair\_max\_distance}: Maximum of m/z deviation of corresponding elements in different maps.  This condition applies to the pairs considered in hashing. \\
-\textbf{num\_used\_points}: Maximum number of elements considered in each map (selected by intensity). Use a smaller number to reduce the running time and to disregard weak signals during alignment. \\
-\textbf{distance\_RT\_max\_difference}: Features that have a larger RT difference will never be paired. \\
-\textbf{distance\_MZ\_max\_difference}: Features that have a larger m/z/ difference will never be paired. \\
+\noindent The parameters change the behavior of \KNIMENODE{MapAlignerPoseClustering} as follows:
+\begin{itemize}
+\item \textbf{max\_num\_peaks\_considered}: The maximal number of peaks/features to be considered per map. To use all, set this parameter to -1.
+\item \textbf{mz\_pair\_max\_distance}: Maximum of m/z deviation of corresponding elements in different maps.  This condition applies to the pairs considered in hashing.
+\item \textbf{num\_used\_points}: Maximum number of elements considered in each map (selected by intensity). Use a smaller number to reduce the running time and to disregard weak signals during alignment.
+\item \textbf{distance\_RT $\rightarrow$ max\_difference}: Features that have a larger RT difference will never be paired.
+\item \textbf{distance\_MZ $\rightarrow$ max\_difference}: Features that have a larger m/z difference will never be paired.
+\item \textbf{distance\_MZ $\rightarrow$ unit}: Unit used for the parameter distance\_MZ max\_difference, either Da or ppm.
+\end{itemize}
 
 The next step after retention time correction is the grouping of corresponding features in multiple samples. In contrast to the previous alignment, we assume no linear relations of features across samples. The used method is tolerant against local swaps in elution order.
 
@@ -159,6 +165,13 @@ After the \KNIMENODE{MapAlignerPoseClustering} add a \KNIMENODE{FeatureLinkerUnl
 \textit{algorithm $\rightarrow$ distance\_MZ $\rightarrow$ unit} & ppm
 \end{tabular}
 \end{center}
+
+\noindent The parameters change the behavior of \KNIMENODE{FeatureLinkerUnlabeledQT} as follows (similar to the parameters we adjusted for \KNIMENODE{MapAlignerPoseClustering}):
+\begin{itemize}
+\item \textbf{distance\_RT $\rightarrow$ max\_difference}: Features that have a larger RT difference will never be paired.
+\item \textbf{distance\_MZ $\rightarrow$ max\_difference}: Features that have a larger m/z difference will never be paired.
+\item \textbf{distance\_MZ $\rightarrow$ unit}: Unit used for the parameter distance\_MZ max\_difference, either Da or ppm.
+\end{itemize}
 
 \item
 After the \KNIMENODE{FeatureLinkerUnlabeledQT} add a \KNIMENODE{TextExporter} node (\menu{Community Nodes > OpenMS > File Handling}).
