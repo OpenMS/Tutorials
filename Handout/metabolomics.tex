@@ -30,6 +30,13 @@ Please note that some of these are advanced parameters.
 \item
 Connect a \KNIMENODE{Output Folder} to the output of the \KNIMENODE{FeatureFinderMetabo} (see Fig.~\ref{fig:minimal_FFM_wf}).
 
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.5\textwidth]{graphics/metabo/minimal_FFM_wf.png}
+  \caption{FeatureFinderMetabo workflow.}
+  \label{fig:minimal_FFM_wf}
+\end{figure}
+
 \begin{center}
 \begin{tabular}{l|l}
 \textbf{parameter} & \textbf{value} \\ \hline
@@ -52,13 +59,6 @@ The parameters change the behavior of \KNIMENODE{FeatureFinderMetabo} as follows
 \item \textbf{width\_filtering}: \KNIMENODE{FeatureFinderMetabo} can remove features with unlikely peak widths from the results. If activated it will use the interval provided by the paramters min\_fwhm and max\_fwhm.
 \item \textbf{report\_convex\_hulls}: If set to true, convex hulls including mass traces will be reported for all identified features. This increases the output size considerably.
 \end{itemize}
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.5\textwidth]{graphics/metabo/minimal_FFM_wf.png}
-  \caption{FeatureFinderMetabo workflow.}
-  \label{fig:minimal_FFM_wf}
-\end{figure}
 
 \noindent The output file .featureXML can be visualized with TOPPView on top of the used .mzML file - in a so called 	\textit{layer} - to look at the identified features.
 \newline
@@ -100,7 +100,7 @@ The workflow can be extended for multi-file analysis, here an \KNIMENODE{Input F
 To facilitate the collection of features corresponding to the same compound ion across different samples, an 
 ment of the samples' feature maps along retention time is often helpful. In addition to local, small-scale elution differences, one can often see constant retention time shifts across large sections between samples. We can use linear transformations to correct for these large scale retention differences. This  brings the majority of corresponding compound ions close to each other. Finding the correct corresponding ions is then faster and easier, as we don't have to search as far around individual features.
 
-\begin{figure}[htb!]
+\begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=\textwidth]{graphics/metabo/align.png}
 	\caption[Map alignment]
@@ -181,17 +181,17 @@ Add an \KNIMENODE{Output Folder} node and configure it with an output directory 
 Run the pipeline and inspect the output.
 \end{itemize}
 
-You should find a single, tab-separated file containing the information on where metabolites were found and with which intensities.
-You can also add \KNIMENODE{Output Folder} nodes at different stages of the workflow and inspect the intermediate results (e.g., identified metabolite features for each input map).
-The complete workflow can be seen in \cref{fig:metabo_part1}.
-In the following section we will try to identify those metabolites.
-
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.85\textwidth]{graphics/metabo/metabo_part1}
   \caption{Label-free quantification workflow for metabolites}
   \label{fig:metabo_part1}
 \end{figure}
+
+You should find a single, tab-separated file containing the information on where metabolites were found and with which intensities.
+You can also add \KNIMENODE{Output Folder} nodes at different stages of the workflow and inspect the intermediate results (e.g., identified metabolite features for each input map).
+The complete workflow can be seen in \cref{fig:metabo_part1}.
+In the following section we will try to identify those metabolites.
 
 \noindent The \KNIMENODE{FeatureLinkerUnlabeledQT} output can be visualized in ToppView on top of the input and output of the \KNIMENODE{FeatureFinderMetabo} (see Fig~\ref{fig:ToppView_5}). 
 
