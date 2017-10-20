@@ -119,6 +119,12 @@ OpenMS provides a convenient viewer for some of the data: \OPENMSTOOL{TOPPView}.
 We will guide you through some of the basic features of \OPENMSTOOL{TOPPView}. Please familiarize yourself with the key controls and visualization methods.
 We will make use of these later throughout the tutorial. Let's start with a first look at one of the files of our tutorial data set. Conceptually, there are no differences in visualizing metabolomic or proteomic data. Here, we inspect a simple proteomic measurement:
 
+\begin{figure}[!htb]
+\includegraphics[width=0.75\textwidth]{graphics/introduction/3dview.png}
+\caption{3D representation of the measured spectra, signals of eluting peptides are colored according to the raw peak intensities.}
+\label{fig:toppview_3D}
+\end{figure}
+
 \begin{itemize}
 \item Start \OPENMSTOOL{TOPPView} (see \textbf{Windows}' Start-Menu or \directory{Applications/OpenMS-2.3.0} on \textbf{macOS})
 \item Go to \menu{File > Open File}, navigate to the directory where you copied the contents of the USB stick to,
@@ -162,12 +168,15 @@ We will make use of these later throughout the tutorial. Let's start with a firs
 \item In \OPENMSTOOL{TOPPView} you can also execute TOPP tools. Go to
 			\menu{Tools > Apply tool (whole layer)} and choose a TOPP tool (e.g., \OPENMSTOOL{FileInfo}) and
 			inspect the results.
-\begin{figure}
-\includegraphics[width=0.75\textwidth]{graphics/introduction/3dview.png}
-\caption{3D representation of the measured spectra, signals of eluting peptides are colored according to the raw peak intensities.}
-\label{fig:toppview_3D}
-\end{figure}
 \end{itemize}
+
+\noindent Dependent on your data MS/MS spectra can be visualized as well (see Fig.\ref{fig:ms2}) . You can do so, by double-click on the MS/MS spectrum shown in scan view.
+\newline
+\begin{figure}[!htb]
+\includegraphics[width=0.75\textwidth]{graphics/introduction/ms2_introduction.png}
+\caption{MS/MS spectrum}
+\label{fig:ms2}
+\end{figure}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
