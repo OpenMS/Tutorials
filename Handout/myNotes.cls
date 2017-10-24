@@ -82,7 +82,7 @@
     \thispagestyle{empty}
     \begin{center}
 		\includegraphics[width=0.7\textwidth]{./graphics/assets/OpenMS_5cm_300ppi_transparent.png}\\[0.5cm]
-		\textsc{\LARGE\textbf{User Tutorial}}\\[5cm]		
+		\textsc{\LARGE\textbf{EBI Training \\ Metabolomics Workflows}}\\[5cm]		
 		\vfill
 		%\vspace{2cm}
 		\begin{minipage}{.5\textwidth}

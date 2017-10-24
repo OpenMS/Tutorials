@@ -1,7 +1,7 @@
 %!TEX root = handout.tex
 
 \newpage
-\section{Label-free quantification of metabolites}
+\section{Day 2: Label-free quantification of metabolites}
 
 \subsection{Introduction}
 Quantitation and identification of chemical compounds are basic tasks in metabolomic studies. In this tutorial session we construct a UPLC-MS based, label-free quantitation and identification workflow. Following quantitation and identification we then perform statistical downstream analysis to detect quantitation values that differ significantly between two conditions. This approach can, for example, be used to detect biomarkers. Here, we use two spike-in conditions of a dilution series (0.5 mg/l and 10.0 mg/l, male blood background, measured in triplicates) comprising seven isotopically labeled compounds. The goal of this tutorial is to detect and quantify these differential spike-in compounds against the complex background.
@@ -13,7 +13,7 @@ Quantitation and identification of chemical compounds are basic tasks in metabol
 %  \label{fig:consensusid}
 %\end{figure}
 
-\subsection{Quantifying metabolites across several experiments}
+\subsection{Basics of non-targeted metabolomics data analysis}
 
 For the metabolite quantification we choose an approach similar to the one used for peptides, but this time based on the OpenMS \KNIMENODE{FeatureFinderMetabo} method. This feature finder again collects peak picked data into individual mass traces. The reason why we need a different feature finder for metabolites lies in the step after trace detection: the aggregation of isotopic traces belonging to the same compound ion into the same feature. Compared to peptides with their averagine model, small molecules have very different isotopic distributions. To group small molecule mass traces correctly, an aggregation model tailored to small molecules is thus needed. 
 
@@ -29,13 +29,6 @@ For an optimal result adjust the following settings.
 Please note that some of these are advanced parameters.
 \item
 Connect a \KNIMENODE{Output Folder} to the output of the \KNIMENODE{FeatureFinderMetabo} (see Fig.~\ref{fig:minimal_FFM_wf}).
-
-\begin{figure}[!htbp]
-  \centering
-  \includegraphics[width=0.5\textwidth]{graphics/metabo/minimal_FFM_wf.png}
-  \caption{FeatureFinderMetabo workflow.}
-  \label{fig:minimal_FFM_wf}
-\end{figure}
 
 \begin{center}
 \begin{tabular}{l|l}
@@ -59,6 +52,13 @@ The parameters change the behavior of \KNIMENODE{FeatureFinderMetabo} as follows
 \item \textbf{width\_filtering}: \KNIMENODE{FeatureFinderMetabo} can remove features with unlikely peak widths from the results. If activated it will use the interval provided by the paramters min\_fwhm and max\_fwhm.
 \item \textbf{report\_convex\_hulls}: If set to true, convex hulls including mass traces will be reported for all identified features. This increases the output size considerably.
 \end{itemize}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.5\textwidth]{graphics/metabo/minimal_FFM_wf.png}
+  \caption{FeatureFinderMetabo workflow.}
+  \label{fig:minimal_FFM_wf}
+\end{figure}
 
 \noindent The output file .featureXML can be visualized with TOPPView on top of the used .mzML file - in a so called 	\textit{layer} - to look at the identified features.
 \newline
@@ -100,7 +100,7 @@ The workflow can be extended for multi-file analysis, here an \KNIMENODE{Input F
 To facilitate the collection of features corresponding to the same compound ion across different samples, an 
 ment of the samples' feature maps along retention time is often helpful. In addition to local, small-scale elution differences, one can often see constant retention time shifts across large sections between samples. We can use linear transformations to correct for these large scale retention differences. This  brings the majority of corresponding compound ions close to each other. Finding the correct corresponding ions is then faster and easier, as we don't have to search as far around individual features.
 
-\begin{figure}[!htbp]
+\begin{figure}[htb!]
 	\centering
 	\includegraphics[width=\textwidth]{graphics/metabo/align.png}
 	\caption[Map alignment]
@@ -181,17 +181,17 @@ Add an \KNIMENODE{Output Folder} node and configure it with an output directory 
 Run the pipeline and inspect the output.
 \end{itemize}
 
+You should find a single, tab-separated file containing the information on where metabolites were found and with which intensities.
+You can also add \KNIMENODE{Output Folder} nodes at different stages of the workflow and inspect the intermediate results (e.g., identified metabolite features for each input map).
+The complete workflow can be seen in \cref{fig:metabo_part1}.
+In the following section we will try to identify those metabolites.
+
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.85\textwidth]{graphics/metabo/metabo_part1}
   \caption{Label-free quantification workflow for metabolites}
   \label{fig:metabo_part1}
 \end{figure}
-
-You should find a single, tab-separated file containing the information on where metabolites were found and with which intensities.
-You can also add \KNIMENODE{Output Folder} nodes at different stages of the workflow and inspect the intermediate results (e.g., identified metabolite features for each input map).
-The complete workflow can be seen in \cref{fig:metabo_part1}.
-In the following section we will try to identify those metabolites.
 
 \noindent The \KNIMENODE{FeatureLinkerUnlabeledQT} output can be visualized in ToppView on top of the input and output of the \KNIMENODE{FeatureFinderMetabo} (see Fig~\ref{fig:ToppView_5}). 
 
@@ -202,7 +202,7 @@ In the following section we will try to identify those metabolites.
   \label{fig:ToppView_5}
 \end{figure}
 
-\subsection{Identifying metabolites in LC-MS/MS samples}
+\subsection{Basic metabolite identification}
 
 At the current state we found several metabolites in the individual maps but so far don't know what they are.
 To identify metabolites OpenMS provides multiple tools, including search by mass: the \KNIMENODE{AccurateMassSearch} node searches observed masses against the Human Metabolome Database (HMDB)\cite{Wishart2007,Wishart2009,Wishart2013}.
@@ -249,8 +249,7 @@ The complete workflow from this section is shown in \cref{fig:metabo_part2}.
   \label{fig:metabo_part2}
 \end{figure}
 
-
-\subsection{Convert your data into a KNIME table}
+\subsubsection{Convert your data into a KNIME table}
 
 The result from the \KNIMENODE{TextExporter} node as well as the result from the \KNIMENODE{AccurateMassSearch} node are files while standard KNIME nodes display and process only KNIME tables. To convert these files into KNIME tables we need two different nodes.
 For the \KNIMENODE{AccurateMassSearch} results we use the \KNIMENODE{MzTabReader} node (\menu{Community Nodes > OpenMS > Conversion > mzTab}) and its \textit{Small Molecule Section} port. For the result of the \KNIMENODE{TextExporter} we use the \KNIMENODE{ConsensusTextReader} (\menu{Community Nodes > OpenMS > Conversion}).
@@ -266,7 +265,7 @@ The full workflow is shown in \cref{fig:metabo_part3}.
   \label{fig:metabo_part3}
 \end{figure}
 
-\subsubsection{Bonus task: Visualizing data}
+\subsubsection{Visualizing data}
 
 Now that you have your data in KNIME you should try to get a feeling for the capabilities of KNIME.
 
@@ -280,6 +279,71 @@ Have a look at the \KNIMENODE{Column Filter} node to reduce the table to the int
 \begin{task}
 Try to compute and visualize the m/z and retention time error of the different elements of the consensus features.
 \end{task}
+
+\subsubsection{Spectral library search}
+
+Identifying metabolites using only the accurate mass may lead to ambiguous results. In practice, additional information (e.g. the retention time) is used to further narrow down potential candidates. Apart from MS1-based features, tandem mass spectra (MS2) of metabolites provide additional information.
+In this part of the tutorial, we take a look on how metabolite spectra can be identified using a library of previously identified spectra.
+
+Because these libraries tend to be large we don't distribute them with OpenMS. 
+
+\begin{task}
+
+Please copy the spectral library from \\
+\directory{Example\_Data / Metabolomics / databases / MetaboliteSpectralDB.mzML}\\
+on the USB stick into the following directory of your KNIME installation (version numbers and dates may differ slightly):
+\begin{itemize}
+	\item Windows \newline \directory{C: / Program Files / KNIME3.3 / plugins \newline/ de.openms.win32.x86\_64\_2.1.0.201611191105 / payload / share / OpenMS / CHEMISTRY}
+	\item macOS \newline \directory{ Applications/ KNIME 3.3.app / Contents / Eclipse / plugins / \newline 
+de.openms.macosx.x86\_64\_2.1.0.201611191105 / payload / share / OpenMS / CHEMISTRY}
+\end{itemize}
+Now construct the workflow as shown in Fig.~\ref{fig:speclib}.
+Use the file \directory{Example\_Data / Metabolomics / datasets \newline / Metabolite\_ID\_SpectraDB\_positive.mzML} as input for your workflow. It contains tandem spectra that are identified by the \KNIMENODE{MetaboliteSpectralMatcher}. The resulting mzTab file is read back into a KNIME table and stored in an Excel table. Make sure that you connect the MzTabReader port corresponding to the Small Molecule Section to the \KNIMENODE{Excel writer (XLS)}).
+
+\end{task}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{graphics/metabo/speclib.png}
+  \caption{Spectral library identification workflow}
+  \label{fig:speclib}
+\end{figure}
+
+Run the workflow and inspect the output.
+
+\subsubsection{Manual validation}
+
+In metabolomics, matches between tandem spectra and spectral libraries are manually validated. Several commercial and free online resources exist which help in that task. Some examples are:
+
+\begin{itemize}
+\item mzCloud contains only spectra from Thermo Orbitrap instruments. The webpage requires Microsoft Silverlight which currently does not work in modern browsers (see \url{https://www.mzcloud.org/DataViewer}).
+\item MassBank North America (MoNA) has spectra from different instruments but falls short in in number of spectra (compared to Metlin and mzCloud) \url{http://mona.fiehnlab.ucdavis.edu/spectra/display/KNA00122}
+\item METLIN includes 961,829 molecules ranging from lipids, steroids, metabolites, small peptides, carbohydrates, exogenous drugs and toxicants. In total over 14,000 metabolites.
+\end{itemize}
+
+Here, we will use METLIN to manually validate metabolites.
+
+\begin{task}
+Open the mzML file in TOPPView and inspect some of your top hits. Select the tandem spectrum of Glutathione, but do not close TOPPView, yet.
+\end{task}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\textwidth]{graphics/metabo/glutathioneTV.png}
+  \caption{Tandem spectrum of glutathione. Visualized in TOPPView.}
+  \label{fig:consensusid}
+\end{figure}
+
+\begin{task}
+On the METLIN homepage search for \menu{Compound Name} Glutathione using the \menu{Advanced Search} (\url{https://metlin.scripps.edu/landing_page.php?pgcontent=advanced_search}). Note that free registration is required. Which collision energy (and polarity) gives the best (visual) match to your experimental spectrum in TOPPView?
+\end{task}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\textwidth]{graphics/metabo/glutathioneMetlin.png}
+  \caption{Tandem spectrum of glutathione. Visualized in Metlin. Note that several fragment spectra from varying collision energies are available.}
+  \label{fig:glutathioneMetlin}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Downstream data analysis and reporting}
@@ -385,69 +449,4 @@ It would be more convenient to have only one row for each consensus feature with
 To this end, we use the \KNIMENODE{Column to Grid} node that flattens several rows with the same consensus number into a single one.
 Note that we have to specify the maximum number of columns in the grid so we set this to a large value (e.g. 100).
 We finally export the data to an Excel file (\KNIMENODE{XLS Writer}).
-
-\subsection{Spectral library search}
-
-Identifying metabolites using only the accurate mass may lead to ambiguous results. In practice, additional information (e.g. the retention time) is used to further narrow down potential candidates. Apart from MS1-based features, tandem mass spectra (MS2) of metabolites provide additional information.
-In this part of the tutorial, we take a look on how metabolite spectra can be identified using a library of previously identified spectra.
-
-Because these libraries tend to be large we don't distribute them with OpenMS. 
-
-\begin{task}
-
-Please copy the spectral library from \\
-\directory{Example\_Data / Metabolomics / databases / MetaboliteSpectralDB.mzML}\\
-on the USB stick into the following directory of your KNIME installation (version numbers and dates may differ slightly):
-\begin{itemize}
-	\item Windows \newline \directory{C: / Program Files / KNIME3.3 / plugins \newline/ de.openms.win32.x86\_64\_2.1.0.201611191105 / payload / share / OpenMS / CHEMISTRY}
-	\item macOS \newline \directory{ Applications/ KNIME 3.3.app / Contents / Eclipse / plugins / \newline 
-de.openms.macosx.x86\_64\_2.1.0.201611191105 / payload / share / OpenMS / CHEMISTRY}
-\end{itemize}
-Now construct the workflow as shown in Fig.~\ref{fig:speclib}.
-Use the file \directory{Example\_Data / Metabolomics / datasets \newline / Metabolite\_ID\_SpectraDB\_positive.mzML} as input for your workflow. It contains tandem spectra that are identified by the \KNIMENODE{MetaboliteSpectralMatcher}. The resulting mzTab file is read back into a KNIME table and stored in an Excel table. Make sure that you connect the MzTabReader port corresponding to the Small Molecule Section to the \KNIMENODE{Excel writer (XLS)}).
-
-\end{task}
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.7\textwidth]{graphics/metabo/speclib.png}
-  \caption{Spectral library identification workflow}
-  \label{fig:speclib}
-\end{figure}
-
-Run the workflow and inspect the output.
-
-\subsubsection{Manual validation}
-
-In metabolomics, matches between tandem spectra and spectral libraries are manually validated. Several commercial and free online resources exist which help in that task. Some examples are:
-
-\begin{itemize}
-\item mzCloud contains only spectra from Thermo Orbitrap instruments. The webpage requires Microsoft Silverlight which currently does not work in modern browsers (see \url{https://www.mzcloud.org/DataViewer}).
-\item MassBank North America (MoNA) has spectra from different instruments but falls short in in number of spectra (compared to Metlin and mzCloud) \url{http://mona.fiehnlab.ucdavis.edu/spectra/display/KNA00122}
-\item METLIN includes 961,829 molecules ranging from lipids, steroids, metabolites, small peptides, carbohydrates, exogenous drugs and toxicants. In total over 14,000 metabolites.
-\end{itemize}
-
-Here, we will use METLIN to manually validate metabolites.
-
-\begin{task}
-Open the mzML file in TOPPView and inspect some of your top hits. Select the tandem spectrum of Glutathione, but do not close TOPPView, yet.
-\end{task}
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.85\textwidth]{graphics/metabo/glutathioneTV.png}
-  \caption{Tandem spectrum of glutathione. Visualized in TOPPView.}
-  \label{fig:consensusid}
-\end{figure}
-
-\begin{task}
-On the METLIN homepage search for \menu{Compound Name} Glutathione using the \menu{Advanced Search} (\url{https://metlin.scripps.edu/landing_page.php?pgcontent=advanced_search}). Note that free registration is required. Which collision energy (and polarity) gives the best (visual) match to your experimental spectrum in TOPPView?
-\end{task}
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.85\textwidth]{graphics/metabo/glutathioneMetlin.png}
-  \caption{Tandem spectrum of glutathione. Visualized in Metlin. Note that several fragment spectra from varying collision energies are available.}
-  \label{fig:glutathioneMetlin}
-\end{figure}
 
