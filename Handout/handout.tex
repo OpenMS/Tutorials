@@ -190,8 +190,16 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\KNIMENODE}[1]{\texttt{#1}}
-\newcommand{\OPENMSTOOL}[1]{\texttt{#1}}
+\newcommand*\justify{%
+  \fontdimen2\font=0.4em% interword space
+  \fontdimen3\font=0.2em% interword stretch
+  \fontdimen4\font=0.1em% interword shrink
+  \fontdimen7\font=0.1em% extra space
+  \hyphenchar\font=`\-% allowing hyphenation
+}
+
+\newcommand{\KNIMENODE}[1]{\texttt{\justify{#1}}}
+\newcommand{\OPENMSTOOL}[1]{\texttt{\justify{#1}}}
 
 \usepackage{etoolbox} % simplified if / else checks in latex
 
@@ -231,7 +239,7 @@
 			results of data processing using TOPP can be visualized using TOPPView~\cite{Sturm2009}.
 \item This tutorial was designed for use in a hands-on tutorial session but can also be worked through at home using the online resources. You will become familiar with some of the basic functionalities of OpenMS/TOPP, TOPPView, and KNIME
       and learn how to use a selection of TOPP tools used in the tutorial workflows.
-\item All sample data referenced in this tutorial can be found in the \directory{Example\_Data} folder on the USB stick that came with this tutorial (or released online on our GitHub page
+\item All sample data referenced in this tutorial can be found in the \directory{C: / Example\_Data} folder (or released online on our GitHub page
 \hyperlink{https://github.com/OpenMS/Tutorials/releases}{OpenMS/Tutorials}).
 \end{itemize}
 
