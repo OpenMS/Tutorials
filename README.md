@@ -3,7 +3,7 @@ Handouts and workflows as used in the tutorial session during user meetings.
 
 Build handout:
 - compile PDF from `Handout/handout.tex` using XeLatex and BibTex (for citations) with `Handout` as working directory:
-  `cd Handout && xelatex handout.tex && bibtex handout.tex && xelatex handout.tex && xelatex handout.tex`
+  `cd Handout && xelatex handout && bibtex handout && xelatex handout && xelatex handout`
 
 
 Note:
