@@ -2,7 +2,7 @@
 Handouts and workflows as used in the tutorial session during user meetings. 
 
 Build handout:
-- compile PDF from `./Handouts/handout.tex` using XeLatex
+- compile PDF from `./Handout/handout.tex` using XeLatex
 
 
 Note:
