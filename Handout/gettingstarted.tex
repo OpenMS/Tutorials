@@ -2,16 +2,19 @@
 
 % File names are changed quite often between tutorial so make them configurable at the top.
 % Please escape whitespaces except before and after / as a path separator.
-\newcommand{\WindowsKnimeInstallerName}{Windows / KNIME\ Full\ 3.3.1\ Installer\ (64bit).exe}	
-\newcommand{\WindowsOpenMSInstallerName}{Windows / OpenMS-2.1.0\_Win64\_setup.exe}	
-\newcommand{\WindowsOpenMSPrereqInstallerName}{Windows / OpenMS-2.1-prerequisites-installer.exe}
-\newcommand{\WindowsPrerequisitesLink}{http://sourceforge.net/projects/open-ms/files/OpenMS/OpenMS-1.10/OpenMS-1.10-win32-prerequisites-installer.exe/download}
-\newcommand{\WindowsDefaultPWizFolder}{C: / Program\ Files / OpenMS-2.1.0 / share / OpenMS / THIRDPARTY / pwiz-bin}
-\newcommand{\MacKnimeInstallerName}{Mac / knime-full\_3.3.1.app.macosx.cocoa.x86\_64.dmg}	
-\newcommand{\MacOpenMSInstallerName}{Mac / OpenMS-2.1.0\_Mac.dmg}
-\newcommand{\KnimeUpdateSite}{http://update.knime.org/analytics-platform/3.3}
-\newcommand{\KnimeTrustedSite}{http://tech.knime.org/update/community-contributions/trusted/3.3}
+\newcommand{\WindowsKnimeInstallerName}{Windows / KNIME\ Full\ 3.5.0\ Installer\ (64bit).exe}	
+\newcommand{\WindowsOpenMSInstallerName}{Windows / OpenMS-2.3.0\_Win64\_setup.exe}	
+\newcommand{\WindowsOpenMSPrereqInstallerName}{Windows / OpenMS-2.3-prerequisites-installer.exe}
+\newcommand{\WindowsPrerequisitesLink}{http://sourceforge.net/projects/open-ms/files/OpenMS/OpenMS-2.3/OpenMS-2.3-prerequisites-installer.exe/download}
+\newcommand{\WindowsDefaultPWizFolder}{C: / Program\ Files / OpenMS-2.3.0 / share / OpenMS / THIRDPARTY / pwiz-bin}
+\newcommand{\MacKnimeInstallerName}{Mac / knime\_3.5.0.app.macosx.cocoa.x86\_64.dmg}	
+\newcommand{\MacOpenMSInstallerName}{Mac / OpenMS-2.3.0-Darwin.dmg}
+\newcommand{\KnimeUpdateSite}{http://update.knime.org/analytics-platform/3.5}
+\newcommand{\KnimeTrustedSite}{http://tech.knime.org/update/community-contributions/trusted/3.5}
 \newcommand{\KnimeTrunkSite}{http://tech.knime.org/update/community-contributions/trunk/}
+
+% enable this line if the internal OpenMS update site is used
+%\newcommand{\OpenMSSite}{https://abibuilder.informatik.uni-tuebingen.de/archive/openms/knime-plugin/updateSite/RC/}
 
 \setcounter{equation}{0}
 
@@ -38,8 +41,11 @@ on \textbf{macOS} you call
   \item the KNIME installer: \directory{\MacKnimeInstallerName}
 \end{itemize}
 
-and follow the instructions. For the OpenMS installation on macOS, you need to accept the license drag and drop the OpenMS folder into your Applications folder.
-On \textbf{Linux} you can extract KNIME to a folder of your choice and for TOPPView you need to install OpenMS via your package manager or build it on your own with the instructions under \href{https://www.openms.de/documentation}{www.openms.de/documentation}.
+and follow the instructions. For the OpenMS installation on \textbf{macOS}, you need to accept the license drag and drop the OpenMS folder into your Applications folder.
+\note{Due to increasing security measures for downloaded apps (e.g. path randomization) on \textbf{macOS} you might need to open TOPPView.app and TOPPAS.app while holding \keys{\ctrl} and accept the warning.
+If the app still does not open, you might need to move them from \directory{Applications / OpenMS-2.3.0} to e.g. your Desktop and back.}
+ On \textbf{Linux} you can extract KNIME to a folder of your choice and for TOPPView you need to install OpenMS via your package manager or build it on your own with the instructions under \href{https://www.openms.de/documentation}{www.openms.de/documentation}.
+\note{If you have installed OpenMS on Linux or macOS via your package manager (for instance by installing the \texttt{OpenMS-2.3.0-Linux.deb} package), then you need to set the \texttt{OPENMS\_DATA\_PATH} variable to the directory containing the shared data (normally \texttt{/usr/share/OpenMS}). This must be done prior to running any TOPP tool.}
 
 \subsubsection{Installation from the internet}
 If you are working through this tutorial at home you can get the installers under the following links:
@@ -65,13 +71,20 @@ You can find a small RAW file on the USB stick:
 \directory{Example\_Data / Introduction / datasets / raw}.
 
 \subsubsection{MSConvertGUI}
-MSConvertGUI (see Figure~\ref{fig:MSConvertGUI}) exposes the main parameters for data conversion in a convenient graphical user interface.
+MSConvertGUI (see Fig.~\ref{fig:MSConvertGUI}) exposes the main parameters for data conversion in a convenient graphical user interface.
 
 \begin{figure}
 \centering
 \includegraphics[width=12cm]{graphics/introduction/proteowizard.png}
-\caption{MSConvertGUI (ProteoWizard), allows converting raw files to mzML. Select the raw files you want to convert by clicking on the browse button and then on "Add". Default parameters can usually be kept as-is. To reduce the initial data size, make sure that the peakPicking filter (converts profile data to centroided data) is listed, enabled (true) and applied to all MS levels (parameter "1-"). Start the conversion process by clicking on the "Start" button.}
+\caption{MSConvertGUI (ProteoWizard), allows converting raw files to mzML. Select the raw files you want to convert by clicking on the browse button and then on "Add". Default parameters can usually be kept as-is. To reduce the initial data size, make sure that the peakPicking filter (converts profile data to centroided data (see Fig. ~\ref{fig:ProfileCentroidData})) is listed, enabled (true) and applied to all MS levels (parameter "1-"). Start the conversion process by clicking on the "Start" button.}
 \label{fig:MSConvertGUI}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=12cm]{graphics/introduction/profilecentroided.png}
+\caption{The amount of data in a spectra is reduced by peak picking. Here a profile spectrum (blue) is converted to centroided data (green). Most algorithms  from this point on will work with centroided data.}
+\label{fig:ProfileCentroidData}
 \end{figure}
 
 \subsubsection{msconvert}
@@ -106,15 +119,22 @@ OpenMS provides a convenient viewer for some of the data: \OPENMSTOOL{TOPPView}.
 \end{figure}
 
 We will guide you through some of the basic features of \OPENMSTOOL{TOPPView}. Please familiarize yourself with the key controls and visualization methods.
-We will make use of these later throughout the tutorial. Let's start with a first look at one of the files of our tutorial data set:
+We will make use of these later throughout the tutorial. Let's start with a first look at one of the files of our tutorial data set. Conceptually, there are no differences in visualizing metabolomic or proteomic data. Here, we inspect a simple proteomic measurement:
+
+\begin{figure}[!htb]
+\includegraphics[width=0.75\textwidth]{graphics/introduction/3dview.png}
+\caption{3D representation of the measured spectra, signals of eluting peptides are colored according to the raw peak intensities.}
+\label{fig:toppview_3D}
+\end{figure}
+
 
 \begin{itemize}
-\item Start \OPENMSTOOL{TOPPView} (see Windows' Start-Menu or \directory{Applications/OpenMS} on macOS)
+\item Start \OPENMSTOOL{TOPPView} (see \textbf{Windows}' Start-Menu or \directory{Applications/OpenMS-2.3.0} on \textbf{macOS})
 \item Go to \menu{File > Open File}, navigate to the directory where you copied the contents of the USB stick to,
       and select
       \directory{Example\_Data / Introduction / datasets / small / velos005614.mzML}
-      . This file contains a reduced LC-MS map (only a selected RT and m/z range
-      was extracted using the TOPP tool \OPENMSTOOL{FileFilter}) of a label-free measurement of the human platelet proteome recorded on an Orbitrap velos.
+      . This file contains only a reduced LC-MS map \footnote{only a selected RT and m/z range
+      was extracted using the TOPP tool \OPENMSTOOL{FileFilter}} of a label-free proteomic platelet measurement recorded on an Orbitrap velos.
       The other two mzML files contain technical replicates of this experiment.
       First, we want to obtain a global view on the whole LC-MS map - the default option \textit{Map view 2D} is the correct one and we can click the \menu{Ok} button. 
 \item Play around.
@@ -145,13 +165,22 @@ We will make use of these later throughout the tutorial. Let's start with a firs
         \end{itemize}
     \end{itemize}
 \item Right click on your 2D map and select \menu{Switch to 3D view} and examine your
-			data in 3D mode
+			data in 3D mode (see Fig. ~\ref{fig:toppview_3D})
 \item Go back to the 2D view. In 2D mode, visualize your data in different normalization modes, use linear, percentage and log-view (icons on the upper left tool bar).
 \note{On \textit{macOS}, due to a bug in one of the external libraries used by OpenMS, you will see a small window of the 3D mode when switching to 2D. Close the 3D tab in order to get rid of it.}
 \item In \OPENMSTOOL{TOPPView} you can also execute TOPP tools. Go to
 			\menu{Tools > Apply tool (whole layer)} and choose a TOPP tool (e.g., \OPENMSTOOL{FileInfo}) and
 			inspect the results.
 \end{itemize}
+
+\noindent Dependent on your data MS/MS spectra can be visualized as well (see Fig.\ref{fig:ms2}) . You can do so, by double-click on the MS/MS spectrum shown in scan view.
+\newline
+\begin{figure}[!htb]
+\includegraphics[width=0.75\textwidth]{graphics/introduction/ms2_introduction.png}
+\caption{MS/MS spectrum}
+\label{fig:ms2}
+\end{figure}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -174,7 +203,6 @@ the most important concepts will also be reviewed in this tutorial.
 \subsubsection{Plugin and dependency installation}
 \label{Install_plugins}
 \note{If you chose the KNIME installer that contains all community contributions, or you received the full installer on our USB Stick you can skip this section. This is usually the preferred way but only works for stable releases that were available at the time the full release of KNIME was created. For bleeding edge functionality (as provided through the KNIME nightly community contributions or in the case we cover prereleases of OpenMS) you need to perform the actions below to download the plugin from official update sites.}
-
 Before we can start with the tutorial we need to install all the required extensions for KNIME. Since KNIME 3.2.1 the program automatically
 detects missing plugins when you open a workflow but to make sure that the right source for OpenMS is chosen, please follow the instructions here.
 First, we install some additional extensions that are required by our OpenMS nodes or used in the Tutorials e.g. for visualization and file handling.
@@ -218,7 +246,7 @@ Now you need to decide which OpenMS nodes you want to install. You may choose be
 
 \iftoggle{isprerelease}
 {
- \note{For this tutorial we use the \textbf{bleeding edge, nightly release} version of OpenMS because it corresponds to a prerelease of the new OpenMS version. While not being a full release, it was nevertheless intensively tested to ensure its functionality for this tutorial. For regular use we still recommend using the latest stable OpenMS release. Please also note that some of the workflows shown here require new functionality contained only in the prerelease version of OpenMS. These will likely not work if transferred to the current stable, but older OpenMS version.}
+\note{For this tutorial we use the \textbf{bleeding edge, nightly release} version of OpenMS because it corresponds to a prerelease of the new OpenMS version. While not being a full release, it was nevertheless intensively tested to ensure its functionality for this tutorial. For regular use we still recommend using the latest stable OpenMS release. Please also note that some of the workflows shown here require new functionality contained only in the prerelease version of OpenMS. These will likely not work if transferred to the current stable, but older OpenMS version.}
 
 Instructions for the bleeding edge, nightly release:
 \begin{itemize}
@@ -485,6 +513,37 @@ The \KNIMENODE{ZipLoopEnd} collects the single files that arrive at its input po
 \caption{A minimal workflow calling FileInfo on multiple files in a loop.}
 \label{fig:knime_minimal_loop}
 \end{figure}
+
+\subsubsection{Advanced topic: Working with chemical structures}
+Metabolomics analyses often involve working with chemical structures. Popular cheminformatic toolkits such as RDKit or CDK are available as KNIME plugins and allow us to work with chemical structures directly from within KNIME. In particular, we will use KNIME and RDKit to visualize a list of compounds and filter them by predefined substructures. Chemical structures are often represented as SMILES (\textbf{S}implified \textbf{m}olecular \textbf{i}nput \textbf{l}ine \textbf{e}ntry \textbf{s}pecification), a simple and compact way to describe complex chemical structures as text. For example, the chemical structure of L-alanine can be written as the SMILES string C[C@H](N)C(O)=O. As we will discuss later, all OpenMS tools that perform metabolite identification will report SMILES as part of their result, which can then be further processed and visualized using RDKit and KNIME.\\
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{graphics/metabo/structures_filter_workflow.png}
+\caption{Workflow to visualize a list of SMILES strings and filter them by predefined substructures.}
+\label{fig:structures_filter_workflow}
+\end{figure}
+
+Perform the following steps to build the workflow shown in in Fig.~\ref{fig:structures_filter_workflow}. You will use this workflow to visualize a list of SMILES strings and filter them by predefined substructures:
+
+\begin{itemize}
+\item Add the node \KNIMENODE{File Reader}, open the node configuration dialog and select the file \directory{smiles.csv}. This file has been exported from the Human Metabolome Database (HMDB) and contains the portion of the human metabolome that has been detected and quantified. The file preview on the bottom of the dialog shows that each compound is given by its HMDB accession, compound name, and SMILES string. Click on the column header 'SMILES' to change its properties. Change the column type from 'string' to 'smiles' and close the dialog with \menu{Ok}. Afterwards the SMILES column will be visualized as chemical structures instead of text directly within all KNIME tables.
+
+\item Add the node \KNIMENODE{RDKit From Molecule} and connect it to the  \KNIMENODE{File Reader}. This node will use the provided SMILES strings to add an additional column that is required by RDKit.
+
+\item Add the node \KNIMENODE{RDKit Functional Group Filter} and open the node configuration dialog. You can use this dialog to filter the compounds by any combination of functional groups. In this case we want to find all compounds that contain at least one aromatic carboxylic acid group. To do this, set this group as active and choose '>=' and '1'.
+
+\item Connect the first output port (Molecules passing the filter) to a \KNIMENODE{CSV Writer} node to save the filtered metabolites to a file. Right click \KNIMENODE{RDKit Functional Group Filter} and select the view 'Molecules passing the filter' to inspect the selected compounds in KNIME. How many compounds pass the chosen filter (see Fig.~\ref{fig:structures_filter_results})?
+
+\begin{figure}
+\centering
+\includegraphics[width=0.59\textwidth]{graphics/metabo/structures_filter_results.png}
+\caption{Resulting list of compounds that contains at least one aromatic carboxylic acid group.}
+\label{fig:structures_filter_results}
+\end{figure}
+
+\end{itemize}
+
 
 \subsubsection{Advanced topic: Meta nodes}
 
