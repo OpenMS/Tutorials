@@ -8,6 +8,9 @@
 \hyphenation{TOPPView}
 \hyphenation{KNIME}
 \hyphenation{OpenMS}
+\hyphenation{MSConvert}
+\hyphenation{MSConvertGUI}
+\hyphenation{msconvert}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % We use UBUNTU font for a more professional look.
@@ -27,8 +30,8 @@
   BoldItalicFont=*-BI,
   FontFace={l}{n}{*-L},
   FontFace={l}{it}{*-LI},
-  FontFace={mb}{n}{*-M},
-  FontFace={mb}{it}{*-MI},
+  FontFace={m}{n}{*-M},
+  FontFace={m}{it}{*-MI},
   FontFace={k}{n}{*-B},
   FontFace={k}{it}{*-BI}
 ] {Ubuntu}
@@ -53,6 +56,7 @@
 \usepackage{amsmath,amssymb,amscd,bm,dsfont,wasysym}
 \usepackage{graphicx}
 \usepackage[xetex,
+      unicode,
       colorlinks=false,
       urlcolor=black,       % \href{...}{...} external (URL)
       filecolor=black,     % \href{...} local file
@@ -63,7 +67,7 @@
       pdfsubject={},
       pdfkeywords={},
       pagebackref,
-      pdfpagemode=none,
+      pdfpagemode=UseNone,
       bookmarksopen=true]{hyperref}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -198,8 +202,8 @@
   \hyphenchar\font=`\-% allowing hyphenation
 }
 
-\newcommand{\KNIMENODE}[1]{\texttt{\justify{#1}}}
-\newcommand{\OPENMSTOOL}[1]{\texttt{\justify{#1}}}
+\newcommand{\KNIMENODE}[1]{\texttt{#1}}
+\newcommand{\OPENMSTOOL}[1]{\texttt{#1}}
 
 \usepackage{etoolbox} % simplified if / else checks in latex
 
@@ -230,17 +234,19 @@
 
 \begin{itemize}
 \item This handout will guide you through an introductory tutorial for the OpenMS/TOPP software package~\cite{OpenMS}.
-\item OpenMS~\cite{Sturm2008,rost2016openms} is a versatile open-source library for mass spectrometry data analysis. Based on this library, we offer a collection
-      of command-line tools ready to be used by end users. These so-called TOPP tools (short for ''The OpenMS Proteomics Pipeline'')~\cite{Kohlbacher2007} can be understood as
-      small building blocks of arbitrarily complex data analysis workflows.
-\item In order to facilitate workflow construction, OpenMS was integrated into KNIME~\cite{KNIME}, the Konstanz
-			Information Miner, an open-source integration platform providing a powerful and flexible workflow system
-			combined with advanced data analytics, visualization, and report capabilities. Raw MS data as well as the
-			results of data processing using TOPP can be visualized using TOPPView~\cite{Sturm2009}.
-\item This tutorial was designed for use in a hands-on tutorial session but can also be worked through at home using the online resources. You will become familiar with some of the basic functionalities of OpenMS/TOPP, TOPPView, and KNIME
-      and learn how to use a selection of TOPP tools used in the tutorial workflows.
-\item All sample data referenced in this tutorial can be found in the \directory{C: / Example\_Data} folder, on the USB stick that came with this tutorial , or released online on our GitHub page
-\hyperlink{https://github.com/OpenMS/Tutorials/releases}{OpenMS/Tutorials}).
+\item OpenMS~\cite{Sturm2008,rost2016openms} is a versatile open-source library for mass spectrometry data analysis. Based on this
+	library, we offer a collection of command-line tools ready to be used by end users. These so-called TOPP tools (short for ''The OpenMS Proteomics Pipeline'')~\cite{Kohlbacher2007} can be understood as small building blocks of arbitrarily complex data analysis workflows.
+\item In order to facilitate workflow construction, OpenMS was integrated into \newline
+	KNIME~\cite{KNIME}, the Konstanz
+	Information Miner, an open-source integration platform providing a powerful and flexible workflow system
+	combined with \newline advanced data analytics, visualization, and report capabilities. Raw MS data as well as the
+	results of data processing using TOPP can be visualized using TOPPView~\cite{Sturm2009}.
+\item This tutorial was designed for use in a hands-on tutorial session but can also be worked through at home using the online 
+	resources. You will become familiar with some of the basic functionalities of OpenMS/TOPP, TOPPView, as well as KNIME
+	and learn how to use a selection of TOPP tools used in the tutorial workflows.
+\item All sample data referenced in this tutorial can be found in the \newline
+	\directory{C: / Example\_Data} folder, on the USB stick that came with this tutorial, or released online on our GitHub repository
+	\hyperlink{https://github.com/OpenMS/Tutorials/releases}{OpenMS/Tutorials}).
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -82,7 +82,7 @@
     \thispagestyle{empty}
     \begin{center}
 		\includegraphics[width=0.7\textwidth]{./graphics/assets/OpenMS_5cm_300ppi_transparent.png}\\[0.5cm]
-		\textsc{\LARGE\textbf{User Tutorial}}\\[5cm]		
+		\LARGE\textbf{User Tutorial}\\[5cm]		
 		\vfill
 		%\vspace{2cm}
 		\begin{minipage}{.5\textwidth}
@@ -100,7 +100,7 @@
     \thispagestyle{empty}
 	\vfill
 	\begin{center}
-		\textsc{\Large The OpenMS Developers}\\[1cm]
+		\Large The OpenMS Developers\\[1cm]
 %		presented by: \\
 %		Julianus Pfeuffer, Timo Sachsenberg \\[2cm]
 		% either put here the presenting authors for workshops or all authors
