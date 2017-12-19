@@ -282,8 +282,8 @@ Try to compute and visualize the m/z and retention time error of the different e
 
 Identifying metabolites using only the accurate mass may lead to ambiguous results. In practice, additional information (e.g. the retention time) is used to further narrow down potential candidates. Apart from MS1-based features, tandem mass spectra (MS2) of metabolites provide additional information.
 In this part of the tutorial, we take a look on how metabolite spectra can be identified using a library of previously identified spectra.
-//
-/noindent Because these libraries tend to be large we don't distribute them with OpenMS. 
+
+\noindent Because these libraries tend to be large we don't distribute them with OpenMS. 
 
 \begin{task}
 Construct the workflow as shown in Fig.~\ref{fig:speclib}.
@@ -315,7 +315,7 @@ In metabolomics, matches between tandem spectra and spectral libraries are manua
 Here, we will use METLIN to manually validate metabolites.
 
 \begin{task}
-Check in the .xlsx output from the \KNIMENODE{Excel writer (XLS)} if you can find glutathione. In the last column of the "opt_source_idx", which corresponds to the spectrum in the used mzML file. To have look at the fragment spectrum open the mzML file \directory{Example\_Data / Metabolomics / datasets \newline / Metabolite\_ID\_SpectraDB\_positive.mzML} in  TOPPView. To find the corresponding spectra in TOPPView here the MSMS spectrum with the retention time of 67.6 s can be selected in the scan view. Therefore the MS1 spectrum with the retention time of 66.9 s has to be double clicked and the MSMS spectra in this time frame will show up. Select the tandem spectrum of Glutathione, but do not close TOPPView, yet.
+Check in the .xlsx output from the \KNIMENODE{Excel writer (XLS)} if you can find glutathione. Use the retention time column to find the spectrum in the mzML file. Here open the file in the \directory{Example\_Data / Metabolomics / datasets \newline / Metabolite\_ID\_SpectraDB\_positive.mzML} in  TOPPView. The MSMS spectrum with the retention time of 67.6 s is used as example. The spectrum can be selected based on the retention time in the scan view window. Therefore the MS1 spectrum with the retention time of 66.9 s has to be double clicked and the MSMS spectra recorded in this time frame will show up. Select the tandem spectrum of Glutathione, but do not close TOPPView, yet.
 \end{task} 
 
 \begin{figure}[htbp]
