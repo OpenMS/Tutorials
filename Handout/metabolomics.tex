@@ -37,13 +37,15 @@ Connect a \KNIMENODE{Output Folder} to the output of the \KNIMENODE{FeatureFinde
   \label{fig:minimal_FFM_wf}
 \end{figure}
 
+In the following advanced parameters will be \hl{highlighted}. These parameter can be altered if the \menu{Show advanced parameter} field in the specific tool is activated (right bottom corner - see ~\ref{KNIME_concepts}). 
+
 \begin{center}
 \begin{tabular}{l|l}
 \textbf{parameter} & \textbf{value} \\ \hline
 \textit{algorithm $\rightarrow$ common $\rightarrow$ chrom\_fwhm} & $8.0$ \\
 \textit{algorithm $\rightarrow$ mtd $\rightarrow$ trace\_termination\_criterion} & sample\_rate \\
-\textit{algorithm $\rightarrow$ mtd $\rightarrow$ min\_trace\_length} & $3.0$ \\
-\textit{algorithm $\rightarrow$ mtd $\rightarrow$ max\_trace\_length} & $600.0$ \\
+\hl{\textit{algorithm $\rightarrow$ mtd $\rightarrow$ min\_trace\_length}} & $3.0$ \\
+\hl{\textit{algorithm $\rightarrow$ mtd $\rightarrow$ max\_trace\_length}} & $600.0$\\
 \textit{algorithm $\rightarrow$ epd $\rightarrow$ width\_filtering} & off \\
 \textit{algorithm $\rightarrow$ ffm $\rightarrow$ report\_convex\_hulls} & true
 \end{tabular}
@@ -283,20 +285,13 @@ Try to compute and visualize the m/z and retention time error of the different e
 Identifying metabolites using only the accurate mass may lead to ambiguous results. In practice, additional information (e.g. the retention time) is used to further narrow down potential candidates. Apart from MS1-based features, tandem mass spectra (MS2) of metabolites provide additional information.
 In this part of the tutorial, we take a look on how metabolite spectra can be identified using a library of previously identified spectra.
 
-Because these libraries tend to be large we don't distribute them with OpenMS. 
+\noindent Because these libraries tend to be large we don't distribute them with OpenMS. 
 
 \begin{task}
-
-Please copy the spectral library from \\
-\directory{Example\_Data / Metabolomics / databases / MetaboliteSpectralDB.mzML}\\
-on the USB stick into the following directory of your KNIME installation (version numbers and dates may differ slightly):
-\begin{itemize}
-	\item Windows \newline \directory{C: / Program Files / KNIME3.3 / plugins \newline/ de.openms.win32.x86\_64\_2.1.0.201611191105 / payload / share / OpenMS / CHEMISTRY}
-	\item macOS \newline \directory{ Applications/ KNIME 3.3.app / Contents / Eclipse / plugins / \newline 
-de.openms.macosx.x86\_64\_2.1.0.201611191105 / payload / share / OpenMS / CHEMISTRY}
-\end{itemize}
-Now construct the workflow as shown in Fig.~\ref{fig:speclib}.
-Use the file \directory{Example\_Data / Metabolomics / datasets \newline / Metabolite\_ID\_SpectraDB\_positive.mzML} as input for your workflow. It contains tandem spectra that are identified by the \KNIMENODE{MetaboliteSpectralMatcher}. The resulting mzTab file is read back into a KNIME table and stored in an Excel table. Make sure that you connect the MzTabReader port corresponding to the Small Molecule Section to the \KNIMENODE{Excel writer (XLS)}).
+Construct the workflow as shown in Fig.~\ref{fig:speclib}.
+Use the file \directory{Example\_Data / Metabolomics / datasets \newline / Metabolite\_ID\_SpectraDB\_positive.mzML} as input for your workflow.  You can use the spectral library from \\
+\directory{Example\_Data / Metabolomics / databases / MetaboliteSpectralDB.mzML}\\ as second input. 
+The first input file contains tandem spectra that are identified by the \KNIMENODE{MetaboliteSpectralMatcher}. The resulting mzTab file is read back into a KNIME table and stored in an Excel table. Make sure that you connect the MzTabReader port corresponding to the Small Molecule Section to the \KNIMENODE{Excel writer (XLS)}. Please select the "add column headers" option in the \KNIMENODE{Excel writer (XLS)}).
 
 \end{task}
 
@@ -322,8 +317,8 @@ In metabolomics, matches between tandem spectra and spectral libraries are manua
 Here, we will use METLIN to manually validate metabolites.
 
 \begin{task}
-Open the mzML file in TOPPView and inspect some of your top hits. Select the tandem spectrum of Glutathione, but do not close TOPPView, yet.
-\end{task}
+Check in the .xlsx output from the \KNIMENODE{Excel writer (XLS)} if you can find glutathione. Use the retention time column to find the spectrum in the mzML file. Here open the file in the \directory{Example\_Data / Metabolomics / datasets \newline / Metabolite\_ID\_SpectraDB\_positive.mzML} in  TOPPView. The MSMS spectrum with the retention time of 67.6 s is used as example. The spectrum can be selected based on the retention time in the scan view window. Therefore the MS1 spectrum with the retention time of 66.9 s has to be double clicked and the MSMS spectra recorded in this time frame will show up. Select the tandem spectrum of Glutathione, but do not close TOPPView, yet.
+\end{task} 
 
 \begin{figure}[htbp]
   \centering
@@ -333,7 +328,7 @@ Open the mzML file in TOPPView and inspect some of your top hits. Select the tan
 \end{figure}
 
 \begin{task}
-On the METLIN homepage search for \menu{Compound Name} Glutathione using the \menu{Advanced Search} (\url{https://metlin.scripps.edu/landing_page.php?pgcontent=advanced_search}). Note that free registration is required. Which collision energy (and polarity) gives the best (visual) match to your experimental spectrum in TOPPView?
+On the METLIN homepage search for \menu{Compound Name} Glutathione using the \menu{Advanced Search} (\url{https://metlin.scripps.edu/landing_page.php?pgcontent=advanced_search}). Note that free registration is required. Which collision energy (and polarity) gives the best (visual) match to your experimental spectrum in TOPPView? Here you can compare the fragmentation patterns in both spectra shown by the Intensity or relative Intensity, the m/z of a peak and the distance between peaks. Each distance between two peaks corresponds to a fragment of elemental composition (e.g., NH2 with the charge of one would have mass of two peaks of 16.023 Th).
 \end{task}
 
 \begin{figure}[htbp]
