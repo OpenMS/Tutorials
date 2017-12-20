@@ -37,13 +37,15 @@ Connect a \KNIMENODE{Output Folder} to the output of the \KNIMENODE{FeatureFinde
   \label{fig:minimal_FFM_wf}
 \end{figure}
 
+In the following advanced parameters will be \hl{highlighted}. These parameter can be altered if the \menu{Show advanced parameter} field in the specific tool is activated (right bottom corner - see ~\ref{KNIME_concepts}). 
+
 \begin{center}
 \begin{tabular}{l|l}
 \textbf{parameter} & \textbf{value} \\ \hline
 \textit{algorithm $\rightarrow$ common $\rightarrow$ chrom\_fwhm} & $8.0$ \\
 \textit{algorithm $\rightarrow$ mtd $\rightarrow$ trace\_termination\_criterion} & sample\_rate \\
-\textit{algorithm $\rightarrow$ mtd $\rightarrow$ min\_trace\_length} & $3.0$ \\
-\textit{algorithm $\rightarrow$ mtd $\rightarrow$ max\_trace\_length} & $600.0$ \\
+\hl{\textit{algorithm $\rightarrow$ mtd $\rightarrow$ min\_trace\_length}} & $3.0$ \\
+\hl{\textit{algorithm $\rightarrow$ mtd $\rightarrow$ max\_trace\_length}} & $600.0$\\
 \textit{algorithm $\rightarrow$ epd $\rightarrow$ width\_filtering} & off \\
 \textit{algorithm $\rightarrow$ ffm $\rightarrow$ report\_convex\_hulls} & true
 \end{tabular}

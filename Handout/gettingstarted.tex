@@ -282,6 +282,7 @@ Instructions for the unstable, nightly release:
 }
 
 \subsubsection{KNIME concepts}
+\label{KNIME_concepts}
 
 A \textbf{workflow} is a sequence of computational steps applied to a single or multiple input data to process and analyze the data.
 In KNIME such workflows are implemented graphically by connecting so-called \textbf{nodes}.
@@ -321,8 +322,7 @@ In this case, or if you want to customize the default configuration in general, 
 For all OpenMS nodes you will see a configuration dialog like the one shown in \cref{fig:knime_configure}.
 \note{OpenMS distinguishes between normal parameters and advanced parameters.
 Advanced parameters are by default hidden from the users since they should only rarely be customized.
-In case you want to have a look at the parameters or need to customize them in one of the tutorials you can show them 
-by clicking on the checkbox \menu{Show advanced parameter} in the lower part of the dialog.}
+In case you want to have a look at the parameters or need to customize them in one of the tutorials you can show them by clicking on the checkbox \menu{Show advanced parameter} in the lower part of the dialog. Afterwards the parameters are shown in a light gray color.} 
 The dialog shows the individual parameters, their current value and type, and, in the lower part of the dialog, the 
 documentation for the currently selected parameter. Please also note the tabs on the top of the configuration dialog. 
 In the case of OpenMS nodes, there will be another tab called \textit{OutputTypes}. It contains dropdown menus for 
@@ -514,7 +514,7 @@ The \KNIMENODE{ZipLoopEnd} collects the single files that arrive at its input po
 \label{fig:knime_minimal_loop}
 \end{figure}
 
-\subsubsection{Advanced topic: Working with chemical structures}
+\subsubsection{Digression: Working with chemical structures}
 Metabolomics analyses often involve working with chemical structures. Popular cheminformatic toolkits such as RDKit or CDK are available as KNIME plugins and allow us to work with chemical structures directly from within KNIME. In particular, we will use KNIME and RDKit to visualize a list of compounds and filter them by predefined substructures. Chemical structures are often represented as SMILES (\textbf{S}implified \textbf{m}olecular \textbf{i}nput \textbf{l}ine \textbf{e}ntry \textbf{s}pecification), a simple and compact way to describe complex chemical structures as text. For example, the chemical structure of L-alanine can be written as the SMILES string C[C@H](N)C(O)=O. As we will discuss later, all OpenMS tools that perform metabolite identification will report SMILES as part of their result, which can then be further processed and visualized using RDKit and KNIME.
 
 \begin{figure}
