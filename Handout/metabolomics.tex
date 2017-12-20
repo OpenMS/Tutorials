@@ -290,7 +290,7 @@ In this part of the tutorial, we take a look on how metabolite spectra can be id
 \begin{task}
 Construct the workflow as shown in Fig.~\ref{fig:speclib}.
 Use the file \directory{Example\_Data / Metabolomics / datasets \newline / Metabolite\_ID\_SpectraDB\_positive.mzML} as input for your workflow.  You can use the spectral library from \\
-\directory{Example\_Data / Metabolomics / databases / MetaboliteSpectralDB.mzML}\\ on the USB stick as second input. 
+\directory{Example\_Data / Metabolomics / databases / MetaboliteSpectralDB.mzML}\\ as second input. 
 The first input file contains tandem spectra that are identified by the \KNIMENODE{MetaboliteSpectralMatcher}. The resulting mzTab file is read back into a KNIME table and stored in an Excel table. Make sure that you connect the MzTabReader port corresponding to the Small Molecule Section to the \KNIMENODE{Excel writer (XLS)}. Please select the "add column headers" option in the \KNIMENODE{Excel writer (XLS)}).
 
 \end{task}
@@ -328,7 +328,7 @@ Check in the .xlsx output from the \KNIMENODE{Excel writer (XLS)} if you can fin
 \end{figure}
 
 \begin{task}
-On the METLIN homepage search for \menu{Compound Name} Glutathione using the \menu{Advanced Search} (\url{https://metlin.scripps.edu/landing_page.php?pgcontent=advanced_search}). Note that free registration is required. Which collision energy (and polarity) gives the best (visual) match to your experimental spectrum in TOPPView?Here you can compare the fragmentation patterns in both spectra shown by the Intensity or relative Intensity, the mz of a peak and the distance between peaks. Each distance between two peaks corresponds to a fragment of elemental composition (e.g. NH2 with the charge of one would have mass of two peaks of 16.023 Th).
+On the METLIN homepage search for \menu{Compound Name} Glutathione using the \menu{Advanced Search} (\url{https://metlin.scripps.edu/landing_page.php?pgcontent=advanced_search}). Note that free registration is required. Which collision energy (and polarity) gives the best (visual) match to your experimental spectrum in TOPPView? Here you can compare the fragmentation patterns in both spectra shown by the Intensity or relative Intensity, the m/z of a peak and the distance between peaks. Each distance between two peaks corresponds to a fragment of elemental composition (e.g., NH2 with the charge of one would have mass of two peaks of 16.023 Th).
 \end{task}
 
 \begin{figure}[htbp]
