@@ -243,6 +243,16 @@ You are now ready to install the OpenMS nodes.
   \item Click on \menu{Help > Install New Software...}
 \end{itemize}
 Now you need to decide which OpenMS nodes you want to install. You may choose between the stable, well-tested release or the unstable, nightly release with extended functionality.
+\newline \newline
+Now restart KNIME.
+\newline \newline
+Install R from https://www.r-project.org. Open it and run
+\begin{lstlisting}[aboveskip=8pt]
+install.packages("Rserve")
+source("http://bioconductor.org/biocLite.R")
+biocLite("MSstats")
+\end{lstlisting}
+Then open  KNIME, click on \menu{KNIME > Preferences}, select the category \menu{KNIME > R} and set the "Path to R Home" to your installation path.
 
 \iftoggle{isprerelease}
 {
