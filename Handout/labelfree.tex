@@ -189,7 +189,7 @@ Every row in this table corresponds to a so-called consensus feature, i.e., a pe
     \item In order to verify that the concentration of background peptides is constant in all three runs, you can just copy and paste the three nodes after \KNIMENODE{Row Splitter} and connect the duplicated \KNIMENODE{Column Filter} to the second output port (\textit{Filtered Out}) of \KNIMENODE{Row Splitter}, as shown in Fig. \ref{fig:lfq_data_analysis}. Execute and open the view of your second \KNIMENODE{Box Plot}.
     \item That's it! You have constructed an entire identification and label-free quantification workflow including a simple data analysis using KNIME!
 \end{itemize}
-
+ 
 %The output of the node should now be compatible with most of the nodes of the KNIME base as well as the R nodes, which leaves room for you to play with these.
 %Possible analyses include:
 
@@ -202,6 +202,82 @@ Every row in this table corresponds to a so-called consensus feature, i.e., a pe
 %\begin{task}
 %Plotting of the (cumulative) distribution of q-values, quality scores (of the consensus features) or other peptide hit properties using \KNIMENODE{R View} nodes or the standard KNIME nodes for plotting (which include interactive functionality).
 %\end{task}
+
+\subsubsection{Advanced data analysis in KNIME using MSstats}
+
+For an easy data analysis of quantitative mass spectrometry-based proteomics data the R Tool MSstats can be used. This tool can be combined via KNIME with a OpenMS preprocessing pipeline. 
+In combination with the experimental design in OpenMS all primary information used in MSstats can be obtained from an OpenMS data analysis.
+Here we would like to present the a small example how this can be used.  Due to runtime constrictions only the last step and the downstream analysis of the workflow presented in fig. x. will available as example data.  
+
+The Data ..... explanation
+Cite Publication
+ (https://pubs.acs.org/doi/abs/10.1021/acs.jproteome.6b00881) 
+
+Here experimental design: table 
+E.g. explanation of experimental design:
+
+\begin{table}[]
+\centering
+\caption{Experimental design iPRG}
+\label{Experimental_design}
+\begin{tabular}{lllll}
+Fraction\_Group & Fraction           & Spectra\_Filepath     & Label & Sample \\
+1               & 1                  & Sample1-A             & 1     & 1      \\
+2               & 1                  & Sample1-B             & 1     & 2      \\
+3               & 1                  & Sample1-C             & 1     & 3      \\
+4               & 1                  & Sample2-A             & 1     & 4      \\
+5               & 1                  & Sample2-B             & 1     & 5      \\
+6               & 1                  & Sample2-C             & 1     & 6      \\
+7               & 1                  & Sample3-A             & 1     & 7      \\
+8               & 1                  & Sample3-B             & 1     & 8      \\
+9               & 1                  & Sample3-C             & 1     & 9      \\
+10              & 1                  & Sample4-A             & 1     & 10     \\
+11              & 1                  & Sample4-B             & 1     & 11     \\
+12              & 1                  & Sample4-C             & 1     & 12     \\
+                &                    &                       &       &        \\
+                &                    &                       &       &        \\
+Sample          & MSstats\_Condition & MSstats\_BioReplicate &       &        \\
+1               & 1                  & 1                     &       &        \\
+2               & 1                  & 2                     &       &        \\
+3               & 1                  & 3                     &       &        \\
+4               & 2                  & 4                     &       &        \\
+5               & 2                  & 5                     &       &        \\
+6               & 2                  & 6                     &       &        \\
+7               & 3                  & 7                     &       &        \\
+8               & 3                  & 8                     &       &        \\
+9               & 3                  & 9                     &       &        \\
+10              & 4                  & 10                    &       &        \\
+11              & 4                  & 11                    &       &        \\
+12              & 4                  & 12                    &       &       
+\end{tabular}
+\end{table}
+
+\begin{center}
+\begin{tabular}{l|l}
+\textbf{parameter} & \textbf{value} \\ \hline
+\textit{Fraction\_Group} &  Index used to group fractions and source files.  \\
+\textit{Fraction} & 1st, 2nd, .., fraction. Note: All runs must have the same number of fractions. \\
+\textit{Spectra\_Filepath} & Path to mzML files \\
+\textit{Label} & label-free: always 1 \\
+\textit{} & TMT6Plex: 1...6 \\
+\textit{} & SILAC with light and heavy: 1..2 \\
+\textit{Sample} & Index of sample measured in the specified label X, in fraction Y of fraction group Z. \\
+\textit{Conditions} & Further specification of different conditions \\
+\end{tabular}
+\end{center}
+\end{itemize}
+
+The conditions are highly dependent on the experiment and which kind of analysis you want to use. For the MSstats anaylsis is has to be clear which sample belongs to which condition and if there are biological replicates. This can be specified in further conditions columns as shown in \ref{Experimental_design}.
+
+\\
+How to use the workflow. 
+\\
+Add Figure of complete iPRG workflow 
+\\
+The \KNIMENODE MSstatsConverter can be used to Converter the processed information into the format needed for MSstats analysis (see Fig y).  
+\\
+Description where the data is and how to use it. 
+\\
 
 \note{For further inspiration you might want to take a look at the more advanced KNIME data analysis examples in the metabolomics tutorial.}
 
