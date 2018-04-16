@@ -204,18 +204,18 @@ Every row in this table corresponds to a so-called consensus feature, i.e., a pe
 %Plotting of the (cumulative) distribution of q-values, quality scores (of the consensus features) or other peptide hit properties using \KNIMENODE{R View} nodes or the standard KNIME nodes for plotting (which include interactive functionality).
 %\end{task}
 
-\subsection{Identification \& Quantification of iPRG data with subsequent MSstats analysis}
-Advanced downstream data analysis of quantitative mass spectrometry-based proteomics data can be performed using MSstats ~\cite{Choi2014MSstats}. This tool can be combined with an OpenMS preprocessing pipeline (e.g. in KNIME). MSstats uses the OpenMS experimental design for the analysis. In this tutorial, we would like to present an example how to utilize these resources when working with quantitative label-free data. Therefore, we describe how to use OpenMS and MSstats in the analysis of the iPRG dataset (see below).
+\subsection{Identification \& Quantification of the iPRG2015 data with subsequent MSstats analysis}
+Advanced downstream data analysis of quantitative mass spectrometry-based proteomics data can be performed using MSstats ~\cite{Choi2014MSstats}. This tool can be combined with an OpenMS preprocessing pipeline (e.g. in KNIME). The OpenMS experimental design is used to present the data in an MSstats-conformant way for the analysis. In this tutorial, we would like to present an example how to utilize these resources when working with quantitative label-free data. Therefore, we describe how to use OpenMS and MSstats in the analysis of the iPRG2015 dataset TODO cite (see below).
 
-\noindent Due to runtime constrictions in the tutorial session only the conversion process and the downstream analysis will be presented in  further detail. 
+\noindent TODO make a NOTE BOX: Due to runtime constrictions in the tutorial session only the conversion process and the downstream analysis will be presented in further detail. 
 
 \subsubsection{Excursion MSstats}
-The R package MSstats can be used for statistical relative quantification of proteins and peptides in mass spectrometry-based proteomics. Supported are label-free and label-based experiments in combination with data-dependent, targeted and data-independent acquisition. Basically the inputs can be identified and quantified spectral peaks and the output a list of differentially abundant peptides or proteins, or summaries of  peptide or protein relative abundance. The downstream analysis can be combined with other software used for identification and quantification, such as OpenMS. 
+The R package MSstats can be used for statistical relative quantification of proteins and peptides in mass spectrometry-based proteomics. Supported are label-free as well as labelled experiments in combination with data-dependent, targeted and data-independent acquisition. Basically the inputs can be identified and quantified spectral peaks and the output a list of differentially abundant peptides or proteins, or summaries of peptide or protein relative abundance. The downstream analysis can be combined with other software used for identification and quantification, such as OpenMS. 
 
-\noindent In general MSstats can be used for data processing \& visualization, as well as statistical modeling \& inference, further for statistical experimental design.  Please see ~\cite{Choi2014MSstats} and http://msstats.org/ for further information.
+\noindent In general MSstats can be used for data processing \& visualization, as well as statistical modeling \& inference, further for statistical experimental design. Please see ~\cite{Choi2014MSstats} and http://msstats.org/ for further information.
 
 \subsubsection{Dataset}
-The iPRG (Proteome Informatics Research Group) dataset was used in ~\cite{Choi2017iPRG}. The study aims at the evaluation of the statistical analysis on the accuracy of the results. The data is based on four artificial samples of known composition (background: 200\,ng \emph{S. cerevisiae}), which were spiked with different quantities of individual protein digested (see table \ref{t:dataset_iPRG}).
+The iPRG (Proteome Informatics Research Group) dataset from the study in 2015, as described in ~\cite{Choi2017iPRG}, aims at evaluating the effect of statistical analysis software on the accuracy of results on a label-free quantification experiment on proteins. The data is based on four artificial samples of known composition (background: 200\,ng \emph{S. cerevisiae}), which were spiked with different quantities of individual digested proteins (see table \ref{t:dataset_iPRG}). TODO explain naming of spike-ins.
 
 \begin{table}[!ht]
 \centering
@@ -252,7 +252,7 @@ F & Carbonic Anhydrase       & \textit{Bovine Erythrocytes} & 29KD              
   \label{fig:iPRG_lfq}
 \end{figure}
 
-\noindent The iPRG-lfq workflow (Fig. \ref{fig:iPRG_lfq}) consists of an identification and a quantification part. The identification is achieved by searching the computationally calculated MS2 spectra from a  sequence database (\KNIMENODE{Input File}) against the MS2 from the original data (\KNIMENODE{Input Files}) using the \KNIMENODE{OMSSAAdapter}. Afterwards the results are scored using the \KNIMENODE{FalseDiscoveryRate} and filtered to obtain unique peptides ( \KNIMENODE{IDFilter}). The quantification is achieved by the \KNIMENODE{FeatureFinderCentroided}, which performes feature finding on the maps. In the end the quantification results are combined with the filtered identification results (\KNIMENODE{IDMapper}). Further a linear retention time alignment is preformed  (\KNIMENODE{MapAlignerPoseClustering}), followed by the feature linking process (\KNIMENODE{FeatureLinkerUnlabledQT}). The \KNIMENODE{ConsensusMapNormalizer} is used to normalize the intensities via robust regression over a set of samples (maps) and the \KNIMENODE{IDConfiltResolver} assures that  only one identification (best score) is associated with a feature. The output of this worklfow is a consensusXML file, which can now be converted using the \KNIMENODE{MSstatsConverter} (see \ref{sec:MSstatsConversion}). 
+\noindent The iPRG LFQ workflow (Fig. \ref{fig:iPRG_lfq}) consists of an identification and a quantification part. The identification is achieved by searching the computationally calculated MS2 spectra from a sequence database (\KNIMENODE{Input File}, here with the given database from iPRG) against the MS2 from the original data (\KNIMENODE{Input Files}) using the \KNIMENODE{OMSSAAdapter}. Afterwards the results are scored using the \KNIMENODE{FalseDiscoveryRate} and filtered to obtain only unique peptides (\KNIMENODE{IDFilter} TODO why? restriction of MSstats?). The quantification is achieved by the \KNIMENODE{FeatureFinderCentroided}, which performes feature finding on the maps. In the end the quantification results are combined with the filtered identification results (\KNIMENODE{IDMapper}). Further a linear retention time alignment is performed (\KNIMENODE{MapAlignerPoseClustering}), followed by the feature linking process (\KNIMENODE{FeatureLinkerUnlabledQT}). The \KNIMENODE{ConsensusMapNormalizer} is used to normalize the intensities via robust regression over a set of samples (maps) and the \KNIMENODE{IDConflictResolver} assures that only one identification (best score) is associated with a feature. The output of this worklfow is a consensusXML file, which can now be converted using the \KNIMENODE{MSstatsConverter} (see \ref{sec:MSstatsConversion}). 
 
 \subsubsection{Experimental design}
 \noindent The downstream analysis can be performed using MSstats. In this case an experimental design has to specified for the OpenMS workflow. The structure of the experimental design used in OpenMS in case of the iPRG dataset is specified in table \ref{t:Experimental_design_iPRG}. Further, an explanation of the variables can be found in table \ref{t:Experimental_design_exp}. 
@@ -313,12 +313,12 @@ Sample          & MSstats\_Condition & MSstats\_BioReplicate &       &        \\
 \end{tabularx}
 \end{table}
 
-\noindent The conditions are highly dependent on the experiment and which kind of analysis you want to use. For the MSstats anaylsis is has to be clear which sample belongs to which condition and if there are biological replicates. This can be specified in further conditions columns as shown in table \ref{t:Experimental_design_exp}.
+\noindent The conditions are highly dependent on the experiment and which kind of analysis you want to use. For the MSstats analysis it has to be clear which sample belongs to which condition and if there are biological replicates. This can be specified in further condition columns as shown in table \ref{t:Experimental_design_exp}.
 
 \subsubsection{Conversion and downstream analysis}
 \label{sec:MSstatsConversion}
 
-Coversion and downstream analysis 
+Conversion and downstream analysis 
 blabla workflow, 
 The data can be found in "example data" , "iPRG" called iPRG\_lfq.consensusXML
 \\
