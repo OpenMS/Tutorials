@@ -205,21 +205,37 @@ Every row in this table corresponds to a so-called consensus feature, i.e., a pe
 
 \subsubsection{Advanced data analysis in KNIME using MSstats}
 
-For an easy data analysis of quantitative mass spectrometry-based proteomics data the R Tool MSstats can be used. This tool can be combined via KNIME with a OpenMS preprocessing pipeline. 
-In combination with the experimental design in OpenMS all primary information used in MSstats can be obtained from an OpenMS data analysis.
-Here we would like to present the a small example how this can be used.  Due to runtime constrictions only the last step and the downstream analysis of the workflow presented in fig. x. will available as example data.  
+For an easy data analysis of quantitative mass spectrometry-based proteomics data the R Tool MSstats can be used. This tool can be combined via KNIME with a OpenMS preprocessing pipeline. In combination with the experimental design in OpenMS all primary information used in MSstats can be obtained from an OpenMS data analysis. Here, we would like to present a example how to utilize these resources.  Due to runtime constrictions in the tutorial session only conversion process and the downstream analysis  will be presented in  further detail. 
 
-The Data ..... explanation
-Cite Publication
- (https://pubs.acs.org/doi/abs/10.1021/acs.jproteome.6b00881) 
+Overview workflow (fig)
 
-Here experimental design: table 
-E.g. explanation of experimental design:
+The iPRG (Proteome Informatics Research Group) dataset was used ~\cite{Choi2017iPRG}. The study aims at the evaluation of the statistical analysis on the accuracy of the results. The data is based on four artificial samples of known composition (200 ng \textit{S. cerevisiae}), which were spiked with different quantities individual protein digested (see \ref{t:dataset_iPRG}).
 
 \begin{table}[]
 \centering
+\small
+\caption{Samples (200 ng \textit{S. cerevisiae}) with spike-in in different quantities [fmols]}
+\label{t:dataset_iPRG}
+\begin{tabular}{llllllll}
+  &                          &                              &                                      & \multicolumn{4}{c}{Samples}            \\
+  & \multicolumn{1}{c}{Name} & \multicolumn{1}{c}{Origin}   & \multicolumn{1}{c}{Molecular Weight} & \multicolumn{1}{c}{1} & 2   & 3  & 4   \\
+A & Ovalbumin                & \textit{Chicken Egg White}   & 45KD                                 & 65                    & 55  & 15 & 2   \\
+B & Myoglobin                & \textit{Equine Heart}        & 17KD                                 & 55                    & 15  & 2  & 65  \\
+C & Phosphorylase b          & \textit{Rabbit Muscle}       & 97KD                                 & 15                    & 2   & 65 & 55  \\
+D & Beta-Glactosidase        & \textit{Escherichia Coli}    & 116KD                                & 2                     & 65  & 55 & 15  \\
+  &                          &                              &                                      &                       &     &    &     \\
+E & Bovine Serum Albumin     & \textit{Bovine Serum}        & 66KD                                 & 11                    & 0.6 & 10 & 500 \\
+F & Carbonic Anhydrase       & \textit{Bovine Erythrocytes} & 29KD                                 & 10                    & 500 & 11 & 0.6
+\end{tabular}
+\end{table}
+
+The quantitative analysis can be performed using MSstats. In this case an experimental design has to specified for the OpenMS workflow (see \ref{Experimental_design}).
+  
+\begin{table}[]
+\centering
+\small
 \caption{Experimental design iPRG}
-\label{Experimental_design}
+\label{t:Experimental_design_iPRG}
 \begin{tabular}{lllll}
 Fraction\_Group & Fraction           & Spectra\_Filepath     & Label & Sample \\
 1               & 1                  & Sample1-A             & 1     & 1      \\
@@ -253,6 +269,7 @@ Sample          & MSstats\_Condition & MSstats\_BioReplicate &       &        \\
 \end{table}
 
 \begin{center}
+\small
 \begin{tabular}{l|l}
 \textbf{parameter} & \textbf{value} \\ \hline
 \textit{Fraction\_Group} &  Index used to group fractions and source files.  \\
@@ -265,11 +282,8 @@ Sample          & MSstats\_Condition & MSstats\_BioReplicate &       &        \\
 \textit{Conditions} & Further specification of different conditions \\
 \end{tabular}
 \end{center}
-\end{itemize}
 
 The conditions are highly dependent on the experiment and which kind of analysis you want to use. For the MSstats anaylsis is has to be clear which sample belongs to which condition and if there are biological replicates. This can be specified in further conditions columns as shown in \ref{Experimental_design}.
-
-\\
 How to use the workflow. 
 \\
 Add Figure of complete iPRG workflow 
@@ -278,6 +292,5 @@ The \KNIMENODE MSstatsConverter can be used to Converter the processed informati
 \\
 Description where the data is and how to use it. 
 \\
-
 \note{For further inspiration you might want to take a look at the more advanced KNIME data analysis examples in the metabolomics tutorial.}
 
