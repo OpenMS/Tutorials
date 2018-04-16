@@ -237,9 +237,14 @@ F & Carbonic Anhydrase       & \textit{Bovine Erythrocytes} & 29KD              
 \end{tabular}
 \end{table}
 
-\subsubsection{Workflow\_big}
+\subsubsection{Identification and Quantification}
 
-Overview workflow (fig)
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=1\textwidth]{graphics/labelfree/iPRG/iPRG_lfq.png}
+  \caption{KNIME data analysis of iPRG LFQ data.}
+  \label{fig:iPRG_lfq}
+\end{figure}
 
 
 \noindent The workflow consists of an identification and a quantification part. The identification is achieved by searching the computationally calculated MS2 spectra from a  sequence database (\KNIMENODE{Input File}) against the MS2 from the original data (\KNIMENODE{Input Files}) using the \KNIMENODE{OMSSAAdapter}. Afterwards the results are scored using the \KNIMENODE{FalseDiscoveryRate} and filteres for unique peptides afterwards( \KNIMENODE{IDFilter}). For the quntification \KNIMENODE{FeatureFinderCentroided} performes feature finding on raw maps. In the end the quantification results are mapped on the filtered identification results (\KNIMENODE{IDMapper}). Further the a linear retention time alignment is preformed  (\KNIMENODE{MapAlignerPoseClustering}) before the feature linking process (\KNIMENODE{FeatureLinkerUnlabledQT}). The \KNIMENODE{ConsensusMapNormalizer} is used to normalize the intensities via robust regression over a set of samples (maps) and the \KNIMENODE{IDConfiltResolver} assures that  only one identification (best score) is associated with a feature. The output of this worklfow is a consensusXML file, which can now be converted using the \KNIMENODE{MSstatsConverter}. Here, an experimental design sheet and the consensusXML from before has to be specified. The generated tsv ouput can now be analyises using MSstats. 
