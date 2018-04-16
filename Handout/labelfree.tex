@@ -205,7 +205,7 @@ Every row in this table corresponds to a so-called consensus feature, i.e., a pe
 
 \subsubsection{Advanced data analysis in KNIME using MSstats}
 
-For an easy data analysis of quantitative mass spectrometry-based proteomics data the R Tool MSstats can be used. This tool can be combined via KNIME with a OpenMS preprocessing pipeline. In combination with the experimental design in OpenMS all primary information used in MSstats can be obtained from an OpenMS data analysis. Here, we would like to present a example how to utilize these resources.  Due to runtime constrictions in the tutorial session only conversion process and the downstream analysis  will be presented in  further detail. 
+Advanced downstream data analysis of quantitative mass spectrometry-based proteomics data can be performed using MSstats ~\cite{Choi2014MSstats}. This tool can be combined via KNIME with an OpenMS preprocessing pipeline. By using the experimental design in OpenMS all primary information needed for MSstats analysis can be obtained from OpenMS. Here, we would like to present an example how to utilize these resources.  Due to runtime constrictions in the tutorial session only conversion process and the downstream analysis  will be presented in  further detail. 
 
 Overview workflow (fig)
 
@@ -216,18 +216,27 @@ The iPRG (Proteome Informatics Research Group) dataset was used ~\cite{Choi2017i
 \small
 \caption{Samples (200 ng \textit{S. cerevisiae}) with spike-in in different quantities [fmols]}
 \label{t:dataset_iPRG}
-\begin{tabular}{llllllll}
+\begin{tabular}{llll|llll}
   &                          &                              &                                      & \multicolumn{4}{c}{Samples}            \\
+\hline 
   & \multicolumn{1}{c}{Name} & \multicolumn{1}{c}{Origin}   & \multicolumn{1}{c}{Molecular Weight} & \multicolumn{1}{c}{1} & 2   & 3  & 4   \\
+\hline
 A & Ovalbumin                & \textit{Chicken Egg White}   & 45KD                                 & 65                    & 55  & 15 & 2   \\
+\hline
 B & Myoglobin                & \textit{Equine Heart}        & 17KD                                 & 55                    & 15  & 2  & 65  \\
+\hline
 C & Phosphorylase b          & \textit{Rabbit Muscle}       & 97KD                                 & 15                    & 2   & 65 & 55  \\
+\hline
 D & Beta-Glactosidase        & \textit{Escherichia Coli}    & 116KD                                & 2                     & 65  & 55 & 15  \\
-  &                          &                              &                                      &                       &     &    &     \\
+\hline
+\hline
 E & Bovine Serum Albumin     & \textit{Bovine Serum}        & 66KD                                 & 11                    & 0.6 & 10 & 500 \\
-F & Carbonic Anhydrase       & \textit{Bovine Erythrocytes} & 29KD                                 & 10                    & 500 & 11 & 0.6
+\hline
+F & Carbonic Anhydrase       & \textit{Bovine Erythrocytes} & 29KD                                 & 10                    & 500 & 11 & 0.6 \\
+\hline
 \end{tabular}
 \end{table}
+
 
 The quantitative analysis can be performed using MSstats. In this case an experimental design has to specified for the OpenMS workflow (see \ref{Experimental_design}).
   
