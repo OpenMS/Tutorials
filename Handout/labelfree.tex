@@ -203,15 +203,15 @@ Every row in this table corresponds to a so-called consensus feature, i.e., a pe
 %Plotting of the (cumulative) distribution of q-values, quality scores (of the consensus features) or other peptide hit properties using \KNIMENODE{R View} nodes or the standard KNIME nodes for plotting (which include interactive functionality).
 %\end{task}
 
-\subsubsection{Advanced data analysis in KNIME using MSstats}
-
+\subsection{Identification \& Quantification of iPRG data with subsequent MSstats data analysis}
 Advanced downstream data analysis of quantitative mass spectrometry-based proteomics data can be performed using MSstats ~\cite{Choi2014MSstats}. This tool can be combined via KNIME with an OpenMS preprocessing pipeline. By using the experimental design in OpenMS all primary information needed for MSstats analysis can be obtained from OpenMS. Here, we would like to present an example how to utilize these resources.  Due to runtime constrictions in the tutorial session only conversion process and the downstream analysis  will be presented in  further detail. 
 
-Overview workflow (fig)
+\subsubsection{Excursion MSstats}
 
-The iPRG (Proteome Informatics Research Group) dataset was used ~\cite{Choi2017iPRG}. The study aims at the evaluation of the statistical analysis on the accuracy of the results. The data is based on four artificial samples of known composition (200 ng \textit{S. cerevisiae}), which were spiked with different quantities individual protein digested (see \ref{t:dataset_iPRG}).
+\subsubsection{Dataset}
+The iPRG (Proteome Informatics Research Group) dataset was used ~\cite{Choi2017iPRG}. The study aims at the evaluation of the statistical analysis on the accuracy of the results. The data is based on four artificial samples of known composition (200 ng \textit{S. cerevisiae}), which were spiked with different quantities of individual protein digested (see \ref{t:dataset_iPRG}).
 
-\begin{table}[]
+\begin{table}[!ht]
 \centering
 \small
 \caption{Samples (200 ng \textit{S. cerevisiae}) with spike-in in different quantities [fmols]}
@@ -237,10 +237,19 @@ F & Carbonic Anhydrase       & \textit{Bovine Erythrocytes} & 29KD              
 \end{tabular}
 \end{table}
 
+\subsubsection{Workflow\_big}
 
-The quantitative analysis can be performed using MSstats. In this case an experimental design has to specified for the OpenMS workflow (see \ref{Experimental_design}).
-  
-\begin{table}[]
+Overview workflow (fig)
+
+
+\noindent The workflow consists of an identification and a quantification part. The identification is achieved by searching the computationally calculated MS2 spectra from a  sequence database (\KNIMENODE{Input File}) against the MS2 from the original data (\KNIMENODE{Input Files}) using the \KNIMENODE{OMSSAAdapter}. Afterwards the results are scored using the \KNIMENODE{FalseDiscoveryRate} and filteres for unique peptides afterwards( \KNIMENODE{IDFilter}). For the quntification \KNIMENODE{FeatureFinderCentroided} performes feature finding on raw maps. In the end the quantification results are mapped on the filtered identification results (\KNIMENODE{IDMapper}). Further the a linear retention time alignment is preformed  (\KNIMENODE{MapAlignerPoseClustering}) before the feature linking process (\KNIMENODE{FeatureLinkerUnlabledQT}). The \KNIMENODE{ConsensusMapNormalizer} is used to normalize the intensities via robust regression over a set of samples (maps) and the \KNIMENODE{IDConfiltResolver} assures that  only one identification (best score) is associated with a feature. The output of this worklfow is a consensusXML file, which can now be converted using the \KNIMENODE{MSstatsConverter}. Here, an experimental design sheet and the consensusXML from before has to be specified. The generated tsv ouput can now be analyises using MSstats. 
+
+
+
+\subsubsection{Experimental design}
+\noindent The quantitative analysis can be performed using MSstats. In this case an experimental design has to specified for the OpenMS workflow. Structure of the experimental design used in OpenMS based on the iPRG dataset (see table \ref{t:Experimental_design_iPRG}). An explanation of the used variables can be found \ref{t:Experimental_design_exp}. 
+
+\begin{table}[!ht]
 \centering
 \small
 \caption{Experimental design iPRG}
@@ -277,10 +286,14 @@ Sample          & MSstats\_Condition & MSstats\_BioReplicate &       &        \\
 \end{tabular}
 \end{table}
 
-\begin{center}
+\begin{table}[!ht]
+\centering
 \small
+\caption{Experimental design explanation}
+\label{t:Experimental_design_exp}
 \begin{tabular}{l|l}
-\textbf{parameter} & \textbf{value} \\ \hline
+\textbf{variables} & \textbf{value} \\ 
+\hline \\
 \textit{Fraction\_Group} &  Index used to group fractions and source files.  \\
 \textit{Fraction} & 1st, 2nd, .., fraction. Note: All runs must have the same number of fractions. \\
 \textit{Spectra\_Filepath} & Path to mzML files \\
@@ -290,9 +303,16 @@ Sample          & MSstats\_Condition & MSstats\_BioReplicate &       &        \\
 \textit{Sample} & Index of sample measured in the specified label X, in fraction Y of fraction group Z. \\
 \textit{Conditions} & Further specification of different conditions \\
 \end{tabular}
-\end{center}
+\end{table}
 
-The conditions are highly dependent on the experiment and which kind of analysis you want to use. For the MSstats anaylsis is has to be clear which sample belongs to which condition and if there are biological replicates. This can be specified in further conditions columns as shown in \ref{Experimental_design}.
+\noindent The conditions are highly dependent on the experiment and which kind of analysis you want to use. For the MSstats anaylsis is has to be clear which sample belongs to which condition and if there are biological replicates. This can be specified in further conditions columns as shown in \ref{Experimental_design}.
+
+\subsubsection{Conversion and downstream analysis}
+
+Coversion and downstream analysis 
+blabla workflow, 
+The data can be found in "example data" , "iPRG" called iPRG_lfq.consensusXML
+
 How to use the workflow. 
 \\
 Add Figure of complete iPRG workflow 
