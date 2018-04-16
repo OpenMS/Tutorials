@@ -1,3 +1,4 @@
+
 %!TEX root = handout.tex
 
 \newpage
@@ -203,25 +204,30 @@ Every row in this table corresponds to a so-called consensus feature, i.e., a pe
 %Plotting of the (cumulative) distribution of q-values, quality scores (of the consensus features) or other peptide hit properties using \KNIMENODE{R View} nodes or the standard KNIME nodes for plotting (which include interactive functionality).
 %\end{task}
 
-\subsection{Identification \& Quantification of iPRG data with subsequent MSstats data analysis}
-Advanced downstream data analysis of quantitative mass spectrometry-based proteomics data can be performed using MSstats ~\cite{Choi2014MSstats}. This tool can be combined via KNIME with an OpenMS preprocessing pipeline. By using the experimental design in OpenMS all primary information needed for MSstats analysis can be obtained from OpenMS. Here, we would like to present an example how to utilize these resources.  Due to runtime constrictions in the tutorial session only conversion process and the downstream analysis  will be presented in  further detail. 
+\subsection{Identification \& Quantification of iPRG data with subsequent MSstats analysis}
+Advanced downstream data analysis of quantitative mass spectrometry-based proteomics data can be performed using MSstats ~\cite{Choi2014MSstats}. This tool can be combined with an OpenMS preprocessing pipeline (e.g. in KNIME). MSstats uses the OpenMS experimental design for the analysis. In this tutorial, we would like to present an example how to utilize these resources when working with quantitative label-free data. Therefore, we describe how to use OpenMS and MSstats in the analysis of the iPRG dataset (see below).
+
+\noindent Due to runtime constrictions in the tutorial session only the conversion process and the downstream analysis will be presented in  further detail. 
 
 \subsubsection{Excursion MSstats}
+The R package MSstats can be used for statistical relative quantification of proteins and peptides in mass spectrometry-based proteomics. Supported are label-free and label-based experiments in combination with data-dependent, targeted and data-independent acquisition. Basically the inputs can be identified and quantified spectral peaks and the output a list of differentially abundant peptides or proteins, or summaries of  peptide or protein relative abundance. The downstream analysis can be combined with other software used for identification and quantification, such as OpenMS. 
+
+\noindent In general MSstats can be used for data processing \& visualization, as well as statistical modeling \& inference, further for statistical experimental design.  Please see ~\cite{Choi2014MSstats} and http://msstats.org/ for further information.
 
 \subsubsection{Dataset}
-The iPRG (Proteome Informatics Research Group) dataset was used ~\cite{Choi2017iPRG}. The study aims at the evaluation of the statistical analysis on the accuracy of the results. The data is based on four artificial samples of known composition (200 ng \textit{S. cerevisiae}), which were spiked with different quantities of individual protein digested (see \ref{t:dataset_iPRG}).
+The iPRG (Proteome Informatics Research Group) dataset was used in ~\cite{Choi2017iPRG}. The study aims at the evaluation of the statistical analysis on the accuracy of the results. The data is based on four artificial samples of known composition (background: 200\,ng \emph{S. cerevisiae}), which were spiked with different quantities of individual protein digested (see table \ref{t:dataset_iPRG}).
 
 \begin{table}[!ht]
 \centering
 \small
-\caption{Samples (200 ng \textit{S. cerevisiae}) with spike-in in different quantities [fmols]}
+\caption{Samples (background: 200\,ng \emph{S. cerevisiae}) with spike-in in different quantities [fmols]}
 \label{t:dataset_iPRG}
 \begin{tabular}{llll|llll}
   &                          &                              &                                      & \multicolumn{4}{c}{Samples}            \\
 \hline 
   & \multicolumn{1}{c}{Name} & \multicolumn{1}{c}{Origin}   & \multicolumn{1}{c}{Molecular Weight} & \multicolumn{1}{c}{1} & 2   & 3  & 4   \\
 \hline
-A & Ovalbumin                & \textit{Chicken Egg White}   & 45KD                                 & 65                    & 55  & 15 & 2   \\
+A & Ovalbumin                & \textit{Egg White}   & 45KD                                 & 65                    & 55  & 15 & 2   \\
 \hline
 B & Myoglobin                & \textit{Equine Heart}        & 17KD                                 & 55                    & 15  & 2  & 65  \\
 \hline
@@ -246,13 +252,10 @@ F & Carbonic Anhydrase       & \textit{Bovine Erythrocytes} & 29KD              
   \label{fig:iPRG_lfq}
 \end{figure}
 
-
-\noindent The workflow consists of an identification and a quantification part. The identification is achieved by searching the computationally calculated MS2 spectra from a  sequence database (\KNIMENODE{Input File}) against the MS2 from the original data (\KNIMENODE{Input Files}) using the \KNIMENODE{OMSSAAdapter}. Afterwards the results are scored using the \KNIMENODE{FalseDiscoveryRate} and filteres for unique peptides afterwards( \KNIMENODE{IDFilter}). For the quntification \KNIMENODE{FeatureFinderCentroided} performes feature finding on raw maps. In the end the quantification results are mapped on the filtered identification results (\KNIMENODE{IDMapper}). Further the a linear retention time alignment is preformed  (\KNIMENODE{MapAlignerPoseClustering}) before the feature linking process (\KNIMENODE{FeatureLinkerUnlabledQT}). The \KNIMENODE{ConsensusMapNormalizer} is used to normalize the intensities via robust regression over a set of samples (maps) and the \KNIMENODE{IDConfiltResolver} assures that  only one identification (best score) is associated with a feature. The output of this worklfow is a consensusXML file, which can now be converted using the \KNIMENODE{MSstatsConverter}. Here, an experimental design sheet and the consensusXML from before has to be specified. The generated tsv ouput can now be analyises using MSstats. 
-
-
+\noindent The iPRG-lfq workflow (Fig. \ref{fig:iPRG_lfq}) consists of an identification and a quantification part. The identification is achieved by searching the computationally calculated MS2 spectra from a  sequence database (\KNIMENODE{Input File}) against the MS2 from the original data (\KNIMENODE{Input Files}) using the \KNIMENODE{OMSSAAdapter}. Afterwards the results are scored using the \KNIMENODE{FalseDiscoveryRate} and filtered to obtain unique peptides ( \KNIMENODE{IDFilter}). The quantification is achieved by the \KNIMENODE{FeatureFinderCentroided}, which performes feature finding on the maps. In the end the quantification results are combined with the filtered identification results (\KNIMENODE{IDMapper}). Further a linear retention time alignment is preformed  (\KNIMENODE{MapAlignerPoseClustering}), followed by the feature linking process (\KNIMENODE{FeatureLinkerUnlabledQT}). The \KNIMENODE{ConsensusMapNormalizer} is used to normalize the intensities via robust regression over a set of samples (maps) and the \KNIMENODE{IDConfiltResolver} assures that  only one identification (best score) is associated with a feature. The output of this worklfow is a consensusXML file, which can now be converted using the \KNIMENODE{MSstatsConverter} (see \ref{sec:MSstatsConversion}). 
 
 \subsubsection{Experimental design}
-\noindent The quantitative analysis can be performed using MSstats. In this case an experimental design has to specified for the OpenMS workflow. Structure of the experimental design used in OpenMS based on the iPRG dataset (see table \ref{t:Experimental_design_iPRG}). An explanation of the used variables can be found \ref{t:Experimental_design_exp}. 
+\noindent The downstream analysis can be performed using MSstats. In this case an experimental design has to specified for the OpenMS workflow. The structure of the experimental design used in OpenMS in case of the iPRG dataset is specified in table \ref{t:Experimental_design_iPRG}. Further, an explanation of the variables can be found in table \ref{t:Experimental_design_exp}. 
 
 \begin{table}[!ht]
 \centering
@@ -279,15 +282,15 @@ Sample          & MSstats\_Condition & MSstats\_BioReplicate &       &        \\
 1               & 1                  & 1                     &       &        \\
 2               & 1                  & 2                     &       &        \\
 3               & 1                  & 3                     &       &        \\
-4               & 2                  & 4                     &       &        \\
-5               & 2                  & 5                     &       &        \\
-6               & 2                  & 6                     &       &        \\
-7               & 3                  & 7                     &       &        \\
-8               & 3                  & 8                     &       &        \\
-9               & 3                  & 9                     &       &        \\
-10              & 4                  & 10                    &       &        \\
-11              & 4                  & 11                    &       &        \\
-12              & 4                  & 12                    &       &       
+4               & 2                  & 1                     &       &        \\
+5               & 2                  & 2                     &       &        \\
+6               & 2                  & 3                     &       &        \\
+7               & 3                  & 1                     &       &        \\
+8               & 3                  & 2                     &       &        \\
+9               & 3                  & 3                     &       &        \\
+10              & 4                  & 1                    &       &        \\
+11              & 4                  & 2                   &       &        \\
+12              & 4                  & 3                    &       &       
 \end{tabular}
 \end{table}
 
@@ -296,7 +299,7 @@ Sample          & MSstats\_Condition & MSstats\_BioReplicate &       &        \\
 \small
 \caption{Experimental design explanation}
 \label{t:Experimental_design_exp}
-\begin{tabular}{l|l}
+\begin{tabularx}{\textwidth}{l|X}
 \textbf{variables} & \textbf{value} \\ 
 \hline \\
 \textit{Fraction\_Group} &  Index used to group fractions and source files.  \\
@@ -306,18 +309,19 @@ Sample          & MSstats\_Condition & MSstats\_BioReplicate &       &        \\
 \textit{} & TMT6Plex: 1...6 \\
 \textit{} & SILAC with light and heavy: 1..2 \\
 \textit{Sample} & Index of sample measured in the specified label X, in fraction Y of fraction group Z. \\
-\textit{Conditions} & Further specification of different conditions \\
-\end{tabular}
+\textit{Conditions} & Further specification of different conditions (e.g. MSstats\_Condition; MSstats\_BioReplicate) \\
+\end{tabularx}
 \end{table}
 
-\noindent The conditions are highly dependent on the experiment and which kind of analysis you want to use. For the MSstats anaylsis is has to be clear which sample belongs to which condition and if there are biological replicates. This can be specified in further conditions columns as shown in \ref{Experimental_design}.
+\noindent The conditions are highly dependent on the experiment and which kind of analysis you want to use. For the MSstats anaylsis is has to be clear which sample belongs to which condition and if there are biological replicates. This can be specified in further conditions columns as shown in table \ref{t:Experimental_design_exp}.
 
 \subsubsection{Conversion and downstream analysis}
+\label{sec:MSstatsConversion}
 
 Coversion and downstream analysis 
 blabla workflow, 
-The data can be found in "example data" , "iPRG" called iPRG_lfq.consensusXML
-
+The data can be found in "example data" , "iPRG" called iPRG\_lfq.consensusXML
+\\
 How to use the workflow. 
 \\
 Add Figure of complete iPRG workflow 
