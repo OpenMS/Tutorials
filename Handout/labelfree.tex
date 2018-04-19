@@ -322,17 +322,17 @@ Sample          & MSstats\_Condition & MSstats\_BioReplicate &       &        \\
 \subsubsection{Conversion and downstream analysis}
 \label{sec:MSstatsConversion}
 
-Conversion and downstream analysis 
-blabla workflow, 
-The data can be found in "example data" , "iPRG" called iPRG\_lfq.consensusXML
-\\
-How to use the workflow. 
-\\
-Add Figure of complete iPRG workflow 
-\\
-The \KNIMENODE MSstatsConverter can be used to Converter the processed information into the format needed for MSstats analysis (see Fig y).  
-\\
-Description where the data is and how to use it. 
-\\
-\note{For further inspiration you might want to take a look at the more advanced KNIME data analysis examples in the metabolomics tutorial.}
+Conversion of the OpenMS-internal consensusXML format (which is an aggregation of quantified and possibly identified features across several MS-maps) to a table (in MSstats-conformant CSV format) is very easy. Let's create a new KNIME workflow for that first. Then, just run the \KNIMENODE{MSstatsConverter} node with a consensusXML and the manually created (e.g. in Excel) experimental design as inputs (loaded via \KNIMENODE{Input File} nodes). Data can be found under \directory{\IPRGFOLDER / MSstats}, first input is \textit{iPRG\_lfq.consensusXML} which was generated for you by a long run of the \textit{iPRG\_lfq.knwf} workflow (seen in Fig.~\ref{fig:iPRG_lfq}), second input is the \textit{iPRG\_experimental\_design\_raw.tsv} TODO why is it called raw? and remember to fix the spelling error in design. Put in the following parameters to match the given experimental design file and to use a simple summing for duplicate features.
+\begin{center}
+	\begin{tabular}{l|l}
+		\textbf{parameter} & \textbf{value} \\ \hline
+		\textit{msstats\_bioreplicate} & MSstats\_Bioreplicate \\
+		\textit{msstats\_condition} & MSstats\_Condition \\
+		\textit{labeled\_reference\_peptides} & false \\
+		\hl{\textit{retention\_time\_summarization\_method}} & sum\\
+	\end{tabular}
+\end{center}
+
+TODO explain KNIME scripts inside the analysis workflow and how to chain them.
+TODO one or two plots with interpretation
 
