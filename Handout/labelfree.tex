@@ -212,7 +212,7 @@ Advanced downstream data analysis of quantitative mass spectrometry-based proteo
 \subsubsection{Excursion MSstats}
 The R package MSstats can be used for statistical relative quantification of proteins and peptides in mass spectrometry-based proteomics. Supported are label-free as well as labeled experiments in combination with data-dependent, targeted and data-independent acquisition. Inputs can be identified and quantified entities (peptides or proteins) and the output is a list of differentially abundant entities, or summaries of their relative abundance. It depends on accurate feature detection, identification and quantification which can be performed e.g. by an OpenMS workflow. 
 
-\noindent In general MSstats can be used for data processing \& visualization, as well as statistical modeling \& inference. Please see ~\cite{Choi2014MSstats} and http://msstats.org/ for further information.
+\noindent In general MSstats can be used for data processing \& visualization, as well as statistical modeling \& inference. Please see ~\cite{Choi2014MSstats} and \url{http://msstats.org} for further information.
 
 \subsubsection{Dataset}
 The iPRG (Proteome Informatics Research Group) dataset from the study in 2015, as described in ~\cite{Choi2017iPRG}, aims at evaluating the effect of statistical analysis software on the accuracy of results on a label-free quantification experiment on proteins. The data is based on four artificial samples of known composition (background: 200\,ng \emph{S. cerevisiae}), which were spiked with different quantities of individual digested proteins, whose identifiers were masked for the competition as yeast proteins in the provided database (see table \ref{t:dataset_iPRG}).
@@ -333,6 +333,39 @@ Conversion of the OpenMS-internal consensusXML format (which is an aggregation o
 	\end{tabular}
 \end{center}
 
-TODO explain KNIME scripts inside the analysis workflow and how to chain them.
-TODO one or two plots with interpretation
+The downstream analysis of the peptide ions with MSstats is performed in several
+steps. These steps are reflected several KNIME R nodes, which consume
+the output of \KNIMENODE{MSstatsConverter}.
+
+\paragraph{Preprocessing}
+The first node performs preprocessing on the input data. The command
+\begin{lstlisting}
+quant <- OpenMStoMSstatsFormat(data, removeProtein_with1Feature = FALSE)
+\end{lstlisting}
+allows further preparation of the data produced by \KNIMENODE{MSstatsConverter} before the actual analysis is performed. In this example, the 
+lines with proteins, which were identified with only one feature, were retained. They could be removed as an alternative.
+
+Most importantly, the following line:
+\begin{lstlisting}
+processed.quant <- dataProcess(quant, censoredInt = 'NA')
+\end{lstlisting}
+transforms the data into a format that is understood by MSstats.
+\texttt{dataProcess} is one of the most important functions that the
+R package provides. 
+
+
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.45\textwidth]{graphics/labelfree/msstats/c2_c1.pdf}
+	\qquad
+	\includegraphics[width=0.45\textwidth]{graphics/labelfree/msstats/c3_c2.pdf}
+	\caption{Volcano plots produced by the Group Comparison in MSstats}
+	\label{fig:msstats_1}
+\end{figure}
+
+
+
+
+
 
