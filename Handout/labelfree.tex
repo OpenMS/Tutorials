@@ -424,6 +424,58 @@ We can generate such a matrix in R using the following code snippet:
 Here, we assemble each row in turn, concatenate them at the end, and provide row names for labeling
 the rows with the respective condition.
 
+In MSstats, the group comparison is then performed with the following line:
+\begin{lstlisting}
+	test.MSstats <- groupComparison(contrast.matrix=comparison, data=processed.quant)
+\end{lstlisting}
+No more parameters need to be set for performing the comparison.
+
+\paragraph{Result Processing}
+In the next node, the results are being processed. The following code snippet:
+\begin{lstlisting}
+	test.MSstats.cr <- test.MSstats$ComparisonResult
+	
+	# Rename spiked ins to A,B,C....
+	pnames <- c("A", "B", "C", "D", "E", "F")
+	names(pnames) <- c(
+	"sp|P44015|VAC2_YEAST",
+	"sp|P55752|ISCB_YEAST",
+	"sp|P44374|SFG2_YEAST",
+	"sp|P44983|UTR6_YEAST",
+	"sp|P44683|PGA4_YEAST",
+	"sp|P55249|ZRT4_YEAST"
+	)
+	
+	test.MSstats.cr.spikedins <- bind_rows(
+	test.MSstats.cr[grep("P44015", test.MSstats.cr$Protein),],
+	test.MSstats.cr[grep("P55752", test.MSstats.cr$Protein),],
+	test.MSstats.cr[grep("P44374", test.MSstats.cr$Protein),],
+	test.MSstats.cr[grep("P44683", test.MSstats.cr$Protein),],
+	test.MSstats.cr[grep("P44983", test.MSstats.cr$Protein),],
+	test.MSstats.cr[grep("P55249", test.MSstats.cr$Protein),]
+	)
+	# Rename Proteins
+	test.MSstats.cr.spikedins$Protein <- sapply(test.MSstats.cr.spikedins$Protein, function(x) {pnames[as.character(x)]})
+	test.MSstats.cr$Protein <- sapply(test.MSstats.cr$Protein, function(x) {
+	
+	x <- as.character(x)
+	
+	if (x %in% names(pnames)) {
+	
+	return(pnames[as.character(x)]) 
+	} else {
+	return("")
+	}
+	})
+\end{lstlisting}
+will rename the spiked-in proteins to A,B,C,D,E, and F and remove the name of other proteins, which will be beneficial for the subsequent visualization.
+
+
+\paragraph{Export}
+The last two snippets will export the results to a textual representation and volcano plots for further inspection.
+
+\subsubsection{Result}
+An excerpt of the main result of the group comparison can be seen in Figure~\ref{fig:msstats_1}.
 
 \begin{figure}[htbp]
 	\centering
@@ -434,18 +486,24 @@ the rows with the respective condition.
 	\label{fig:msstats_1}
 \end{figure}
 
-In MSstats, the group comparison is then performed with the following line:
-\begin{lstlisting}
-	test.MSstats <- groupComparison(contrast.matrix=comparison, data=processed.quant)
-\end{lstlisting}
-No more parameters need to be set for performing the comparison.
+The Volcano plots show differently expressed spiked-in proteins. In the left plot, which shows
+the fold-change C2-C1, we
+can see the proteins D and F (\texttt{sp|P44983|UTR6\_YEAST}
+and \texttt{sp|P55249|ZRT4\_YEAST}) are significantly over-expressed in C2, while
+ the proteins B,C, and E (\texttt{sp|P55752|ISCB\_YEAST}, \texttt{sp|P55752|ISCB\_YEAST},
+ and \texttt{sp|P44683|PGA4\_YEAST}) are under-expressed.
+ In the right plot, which shows the fold-change ratio of C3 vs. C2, we
+ can see the proteins E and C (\texttt{sp|P44683|PGA4\_YEAST} and \texttt{sp|P44374|SFG2\_YEAST})
+ over-expressed and the proteins A and F (\texttt{sp|P44015|VAC2\_YEAST} and
+ \texttt{sp|P55249|ZRT4\_YEAST}) under-expressed.
 
-\paragraph{Group Comparison}
 
-
-
-%test.MSstats <- groupComparison(contrast.matrix=comparison, data=processed.quant)
-
+%"sp|P44015|VAC2_YEAST",
+%"sp|P55752|ISCB_YEAST",
+%"sp|P44374|SFG2_YEAST",
+%"sp|P44983|UTR6_YEAST",
+%"sp|P44683|PGA4_YEAST",
+%"sp|P55249|ZRT4_YEAST"
 
 
 
