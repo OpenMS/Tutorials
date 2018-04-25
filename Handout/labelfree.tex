@@ -286,15 +286,15 @@ Sample          & MSstats\_Condition & MSstats\_BioReplicate &       &        \\
 1               & 1                  & 1                     &       &        \\
 2               & 1                  & 2                     &       &        \\
 3               & 1                  & 3                     &       &        \\
-4               & 2                  & 1                     &       &        \\
-5               & 2                  & 2                     &       &        \\
-6               & 2                  & 3                     &       &        \\
-7               & 3                  & 1                     &       &        \\
-8               & 3                  & 2                     &       &        \\
-9               & 3                  & 3                     &       &        \\
-10              & 4                  & 1                    &       &        \\
-11              & 4                  & 2                   &       &        \\
-12              & 4                  & 3                    &       &       
+4               & 2                  & 4                     &       &        \\
+5               & 2                  & 5                     &       &        \\
+6               & 2                  & 6                     &       &        \\
+7               & 3                  & 7                     &       &        \\
+8               & 3                  & 8                     &       &        \\
+9               & 3                  & 9                     &       &        \\
+10              & 4                  & 10                    &       &        \\
+11              & 4                  & 11                    &       &        \\
+12              & 4                  & 12                    &       &       
 \end{tabular}
 \end{table}
 
@@ -376,7 +376,52 @@ R package provides. The function performs the following steps:
 	\item
 	Run-level summarization
 \end{enumerate}
-In this example here, we just state that missing intensity values are represented by the NA string.
+In this example here, we just state that missing intensity values are represented by the NA string. 
+
+
+\paragraph{Group Comparison}
+The goal of the analysis is the determination of differentially-expressed
+proteins among the different conditions C1-C4.
+We can specify the comparisons that we want to make in a
+\emph{comparison matrix}. For this, let's consider the following example:
+\begin{equation}
+	\begin{pmatrix}
+	-1 & 1  & 0 & 0 \\
+	-1 & 0  & 1 & 0 \\
+	-1 & 0  & 0 & 1 \\
+	 0 & -1 & 0 & 1 \\
+	 0 & 0  & -1 & 1 \\
+	\end{pmatrix}
+\end{equation}
+This matrix has the following properties:
+\begin{itemize}
+	\item
+	The number of rows equals the number of comparisons that we want to
+	perform, the number of columns equals the number of conditions
+	(here, column 1 refers to C1, column 2 to C2 and so forth).
+	\item 
+	The entries of each row consist of exactly one 1 and one -1, the
+	rest must be 0.
+	\item 
+	The condition with the entry 1 constitutes the enumerator
+	of the log2 fold-change. The one with entry -1 denotes the 
+	denominator.
+	Hence, the first row states that we want calculate
+	$\log \frac{\text{C}_2}{\text{C}_1}$.
+\end{itemize}
+
+We can generate such a matrix in R using the following code snippet:
+\begin{lstlisting}
+	comparison1<-matrix(c(-1,1,0,0),nrow=1)
+	comparison2<-matrix(c(-1,0,1,0),nrow=1)
+	comparison3<-matrix(c(-1,0,0,1),nrow=1)
+	comparison4<-matrix(c(0,-1,1,0),nrow=1)
+	comparison5<-matrix(c(0,-1,0,1),nrow=1)
+	comparison6<-matrix(c(0,0,-1,1),nrow=1)
+	comparison <- rbind(comparison1, comparison2, comparison3, comparison4, comparison5, comparison6)
+	row.names(comparison)<-c("C2-C1","C3-C1","C4-C1","C3-C2","C4-C2","C4-C3")
+\end{lstlisting}
+
 
 
 
@@ -390,7 +435,11 @@ In this example here, we just state that missing intensity values are represente
 \end{figure}
 
 
+# call more functions
 
+
+
+%test.MSstats <- groupComparison(contrast.matrix=comparison, data=processed.quant)
 
 
 
