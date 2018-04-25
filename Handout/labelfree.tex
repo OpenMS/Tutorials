@@ -421,8 +421,8 @@ We can generate such a matrix in R using the following code snippet:
 	comparison <- rbind(comparison1, comparison2, comparison3, comparison4, comparison5, comparison6)
 	row.names(comparison)<-c("C2-C1","C3-C1","C4-C1","C3-C2","C4-C2","C4-C3")
 \end{lstlisting}
-
-
+Here, we assemble each row in turn, concatenate them at the end, and provide row names for labeling
+the rows with the respective condition.
 
 
 \begin{figure}[htbp]
@@ -434,8 +434,13 @@ We can generate such a matrix in R using the following code snippet:
 	\label{fig:msstats_1}
 \end{figure}
 
+In MSstats, the group comparison is then performed with the following line:
+\begin{lstlisting}
+	test.MSstats <- groupComparison(contrast.matrix=comparison, data=processed.quant)
+\end{lstlisting}
+No more parameters need to be set for performing the comparison.
 
-# call more functions
+\paragraph{Group Comparison}
 
 
 
