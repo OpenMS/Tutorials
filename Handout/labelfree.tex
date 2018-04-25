@@ -301,7 +301,7 @@ Sample          & MSstats\_Condition & MSstats\_BioReplicate &       &        \\
 \begin{table}[!ht]
 \centering
 \small
-\caption{Experimental design explanation}
+\caption{Explanation of the column of the experimental design table}
 \label{t:Experimental_design_exp}
 \begin{tabularx}{\textwidth}{l|X}
 \textbf{variables} & \textbf{value} \\ 
@@ -317,7 +317,7 @@ Sample          & MSstats\_Condition & MSstats\_BioReplicate &       &        \\
 \end{tabularx}
 \end{table}
 
-\noindent The conditions are highly dependent on the experiment and which kind of analysis you want to use. For the MSstats analysis it has to be clear which sample belongs to which condition and if there are biological replicates. This can be specified in further condition columns as shown in Table~\ref{t:Experimental_design_exp}. For a detailed description of the MSstats-specific
+\noindent The conditions are highly dependent on the experiment and which kind of analysis you want to use. For the MSstats analysis it has to be clear which sample belongs to which condition and if there are biological replicates. This can be specified in further condition columns as explained in Table~\ref{t:Experimental_design_exp}. For a detailed description of the MSstats-specific
 terminology, see their documentation e.g. in the R vignette.
 
 \subsubsection{Conversion and downstream analysis}
@@ -343,8 +343,7 @@ seen in Figure~\ref{fig:msstats_workflow}.
 	\centering
 	\includegraphics[width=0.9\textwidth]{graphics/labelfree/msstats/MSstats.png}
 	\caption{MSstats analysis using KNIME. The individual steps (Preprocessing,
-	Group Comparisons, Result Data Wrangling, and Export) are split
-among several consecutive nodes.}
+	Group Comparisons, Result Data Renaming, and Export) are split among several consecutive nodes.}
 	\label{fig:msstats_workflow}
 \end{figure}
 
@@ -364,7 +363,7 @@ Most importantly, the following line:
 processed.quant <- dataProcess(quant, censoredInt = 'NA')
 \end{lstlisting}
 transforms the data into a format that is understood by MSstats.
-\texttt{dataProcess} is one of the most important functions that the
+Here, \texttt{dataProcess} is one of the most important functions that the
 R package provides. The function performs the following steps:
 \begin{enumerate}
 	\item
@@ -378,7 +377,7 @@ R package provides. The function performs the following steps:
 	\item
 	Run-level summarization
 \end{enumerate}
-In this example here, we just state that missing intensity values are represented by the NA string. 
+In this example here, we just state that missing intensity values are represented by the 'NA' string. 
 
 
 \paragraph{Group Comparison}
@@ -470,11 +469,30 @@ In the next node, the results are being processed. The following code snippet:
 	}
 	})
 \end{lstlisting}
-will rename the spiked-in proteins to A,B,C,D,E, and F and remove the name of other proteins, which will be beneficial for the subsequent visualization.
+will rename the spiked-in proteins to A,B,C,D,E, and F and remove the names of other proteins, which will be beneficial for the subsequent visualization, as
+for example performed in Figure~\ref{fig:msstats_1}.
 
 
 \paragraph{Export}
-The last two snippets will export the results to a textual representation and volcano plots for further inspection.
+The last four nodes will export the results to a textual representation and volcano plots for further inspection. Also, quality control can be
+performed with the following snippet:
+\begin{lstlisting}
+	qcplot <- dataProcessPlots(processed.quant, type="QCplot", 
+	ylimDown=0, 
+	which.Protein = 'allonly',
+	width=7, height=7, address=F)
+\end{lstlisting}
+The code for this snippet is embedded in the first output node
+of the workflow. The resulting boxplots show the log2 intensity distribution
+across the MS runs.
+
+The second node (Volcano plot) displays differentially expressed
+proteins between conditions C2 vs. C1. This described in more detail in
+the following Result section.
+
+The last two nodes export the MSstats results as CSV files.
+This output can be used for more downstream analysis.
+
 
 \subsubsection{Result}
 An excerpt of the main result of the group comparison can be seen in Figure~\ref{fig:msstats_1}.
@@ -484,7 +502,8 @@ An excerpt of the main result of the group comparison can be seen in Figure~\ref
 	\includegraphics[width=0.45\textwidth]{graphics/labelfree/msstats/c2_c1.pdf}
 	\qquad
 	\includegraphics[width=0.45\textwidth]{graphics/labelfree/msstats/c3_c2.pdf}
-	\caption{Volcano plots produced by the Group Comparison in MSstats}
+	\caption{Volcano plots produced by the Group Comparison in MSstats
+	The dotted line indicates an adjusted p-value threshold}
 	\label{fig:msstats_1}
 \end{figure}
 
@@ -497,7 +516,13 @@ and \texttt{sp|P55249|ZRT4\_YEAST}) are significantly over-expressed in C2, whil
  In the right plot, which shows the fold-change ratio of C3 vs. C2, we
  can see the proteins E and C (\texttt{sp|P44683|PGA4\_YEAST} and \texttt{sp|P44374|SFG2\_YEAST})
  over-expressed and the proteins A and F (\texttt{sp|P44015|VAC2\_YEAST} and
- \texttt{sp|P55249|ZRT4\_YEAST}) under-expressed.
+ \texttt{sp|P55249|ZRT4\_YEAST}) under-expressed. 
+The plots also show further differentially-expressed proteins,
+which do not belong to the spiked-in proteins.
+
+
+
+
 
 
 %"sp|P44015|VAC2_YEAST",
@@ -507,7 +532,8 @@ and \texttt{sp|P55249|ZRT4\_YEAST}) are significantly over-expressed in C2, whil
 %"sp|P44683|PGA4_YEAST",
 %"sp|P55249|ZRT4_YEAST"
 
-A complete premade workflow can be found under \directory{Workflows/ MSstats\_statPostProcessing\_iPRG2015.knwf}.
+A complete premade workflow can be found under\\
+\directory{Workflows/ MSstats\_statPostProcessing\_iPRG2015.knwf}.
 
 
 
