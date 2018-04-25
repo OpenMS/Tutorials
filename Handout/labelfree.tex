@@ -323,7 +323,7 @@ terminology, see their documentation e.g. in the R vignette.
 \subsubsection{Conversion and downstream analysis}
 \label{sec:MSstatsConversion}
 
-Conversion of the OpenMS-internal consensusXML format (which is an aggregation of quantified and possibly identified features across several MS-maps) to a table (in MSstats-conformant CSV format) is very easy. Let's create a new KNIME workflow for that first. Then, just run the \KNIMENODE{MSstatsConverter} node with a consensusXML and the manually created (e.g. in Excel) experimental design as inputs (loaded via \KNIMENODE{Input File} nodes). All following data can be found under \directory{Example\_Data / iPRG2015}: first input is \directory{openmsLFQResults / iPRG\_lfq.consensusXML} which was generated for you by a long run of the \directory{ workflows/ openmsLFQ\_iPRG2015.knwf} workflow (seen in Fig.~\ref{fig:iPRG_lfq}), second input is the \textit{experimental\_design.tsv}. Put in the following parameters in the config dialog of the converter to match the given experimental design file and to use a simple summing for peptides that elude in multiple features (with the same charge state, i.e. m/z value).
+Conversion of the OpenMS-internal consensusXML format (which is an aggregation of quantified and possibly identified features across several MS-maps) to a table (in MSstats-conformant CSV format) is very easy. Let's create a new KNIME workflow for that first. Then, just run the \KNIMENODE{MSstatsConverter} node with a consensusXML and the manually created (e.g. in Excel) experimental design as inputs (loaded via \KNIMENODE{Input File} nodes). First input is \directory{Example\_Data / iPRG2015 / openmsLFQResults / iPRG\_lfq.consensusXML} which was generated for you by a long run of the \directory{ Workflows/ openmsLFQ\_iPRG2015.knwf} workflow (seen in Fig.~\ref{fig:iPRG_lfq}), second input is the \directory{Example\_Data / iPRG2015 /experimental\_design.tsv}. Put in the following parameters in the config dialog of the converter to match the given experimental design file and to use a simple summing for peptides that elude in multiple features (with the same charge state, i.e. m/z value).
 \begin{center}
 	\begin{tabular}{l|l}
 		\textbf{parameter} & \textbf{value} \\ \hline
@@ -507,6 +507,7 @@ and \texttt{sp|P55249|ZRT4\_YEAST}) are significantly over-expressed in C2, whil
 %"sp|P44683|PGA4_YEAST",
 %"sp|P55249|ZRT4_YEAST"
 
+A complete premade workflow can be found under \directory{Workflows/ MSstats\_statPostProcessing\_iPRG2015.knwf}.
 
 
 
