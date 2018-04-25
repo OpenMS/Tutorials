@@ -336,7 +336,18 @@ Conversion of the OpenMS-internal consensusXML format (which is an aggregation o
 
 The downstream analysis of the peptide ions with MSstats is performed in several
 steps. These steps are reflected several KNIME R nodes, which consume
-the output of \KNIMENODE{MSstatsConverter}.
+the output of \KNIMENODE{MSstatsConverter}. The outline of the workflow can be
+seen in Figure~\ref{fig:msstats_workflow}.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.9\textwidth]{graphics/labelfree/msstats/MSstats.png}
+	\label{fig:msstats_workflow}
+	\caption{MSstats analysis using KNIME. The individual steps (Preprocessing,
+	Group Comparisons, Result Data Wrangling, and Export) are split
+among several consecutive nodes.}
+\end{figure}
+
 
 \paragraph{Preprocessing}
 The first node performs preprocessing on the input data. The command
@@ -352,7 +363,20 @@ processed.quant <- dataProcess(quant, censoredInt = 'NA')
 \end{lstlisting}
 transforms the data into a format that is understood by MSstats.
 \texttt{dataProcess} is one of the most important functions that the
-R package provides. 
+R package provides. The function performs the following steps:
+\begin{enumerate}
+	\item
+	Logarithm transformation of the intensities
+	\item
+	Normalization
+	\item
+	Feature selection
+	\item
+	Missing value imputation
+	\item
+	Run-level summarization
+\end{enumerate}
+In this example here, we just state that missing intensity values are represented by the NA string.
 
 
 
@@ -364,6 +388,9 @@ R package provides.
 	\caption{Volcano plots produced by the Group Comparison in MSstats}
 	\label{fig:msstats_1}
 \end{figure}
+
+
+
 
 
 
