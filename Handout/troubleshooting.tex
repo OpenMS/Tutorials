@@ -21,7 +21,7 @@ with as much information as you can. In an ideal case, that would be:
 \item \textbf{KNIME:} Start with the normal log on the bottom right of KNIME. In general all warnings and errors will be
 listed there. If the output is not helpful enough, try to set the logging verbosity to the highest (DEBUG) under
 Preferences -> KNIME -> Log file log level.
-\item \textbf{OpenMS nodes:} The first step should also be the log of KNIME. You can view the output and the errors of our
+\item \textbf{OpenMS nodes:} The first step should also be the log of KNIME. Additionally, you can view the output and the errors of our
 tools by right-clicking on the node and selecting\\
 \menu{View: NODENAME Std Output/Error}. This shows you the output of the OpenMS executable that was called by that 
 node. For advanced users, you can try 
@@ -45,7 +45,8 @@ You can also specify a log file there, to save the log output of a specific node
 
 \subsubsection{General}
 \textbf{Q:} Can I add my own modifications to the Unimod.xml?\\
-\textbf{A:} Unfortunately not very easy. This is an open issue.
+\textbf{A:} Unfortunately not very easy. This is an open issue since the selections are
+hard-coded during creation of the tools. We included 10 places for dummy modifications that can be entered in our Unimod.xml and selected in KNIME.
 \\\\
 \textbf{Q:} I have problem XYZ but it also occurs with other nodes or generally in the KNIME environment/GUI, what should I do?\\
 \textbf{A:} This sounds like a general KNIME bug and we advise to search help directly at the KNIME developers. They also provide a \href{https://tech.knime.org/
@@ -85,18 +86,17 @@ GTK bug. See the KNIME forum (e.g. \href{https://tech.knime.org/forum/knime-gene
 \\\\
 \textbf{Windows}\\
 \textbf{Q:} KNIME has problems getting the requirements for some of the OpenMS nodes on Windows, what can I do?\\
-\textbf{A:} Get the prerequisites installer \href{\WindowsPrerequisitesLink}{here} or install NET3.5, NET4 and VCRedist10.0 (potentially also 12.0) yourself.\\
+\textbf{A:} Get the prerequisites installer \href{\WindowsPrerequisitesLink}{here} or install .NET3.5, .NET4 and VCRedist10.0 and 12.0 yourself.\\
 \subsubsection{Nodes}
 \textbf{Q:} Why is my XTandemAdapter printing empty or VERY few results, although I did not use an e-value cutoff?\\
 \textbf{A:} Due to a bug in OpenMS 2.0.1 the XTandemAdapter requires a default parameter file. Give it the default configuration in\\
 \menu{YOURKNIMEFOLDER/plugins/de.openms.platform.architecture.version/payload/share/}\\
-\menu{CHEMISTRY/XTandem\_default\_input.xml} as a third input file. This should be resolved in newer versions though, such that it automatically uses this file if the optional inputs is empty.
+\menu{CHEMISTRY/XTandem\_default\_input.xml} as a third input file. This should be resolved in newer versions though, such that it automatically uses this file if the optional inputs is empty. This should be solved in newer versions.
 \\\\
-\textbf{Q:} Do MSGFPlusAdapter and LuciphorAdapter generally behave different/unexpected?\\
+\textbf{Q:} Do MSGFPlusAdapter, LuciphorAdapter or SiriusAdapter generally behave different/unexpected?\\
 \textbf{A:} These are Java processes that are started underneath. For example they can not be killed during 
 cancellation of the node.
-This should not affect its performance, however. In rare cases they might require changes to the configuration under 
-which your Java VM is running. Also MSGFPlus is creating several auxiliary files and accesses them during execution. 
+This should not affect its performance, however. Make sure you set the Java memory parameter in these nodes to a reasonable value. Also MSGFPlus is creating several auxiliary files and accesses them during execution. 
 Some users therefore experienced problems when executing several instances at the same time.
 \subsection{Sources of support}
 If your questions could not be answered by the FAQ, please feel free to turn to our developers via one of the following means:

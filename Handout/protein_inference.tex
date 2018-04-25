@@ -34,7 +34,7 @@ which usually results in rather low numbers of quantified proteins.
 \item In this example, however, we have performed protein inference using Fido and used the resulting protein 
 grouping information to also quantify
 indistinguishable proteins. In fact, we also used a greedy method in FidoAdapter (parameter 
-\texttt{greedy\_group\_resolution} to uniquely assign the peptides of a group to the most probable protein(s) in the 
+\texttt{greedy\_group\_resolution}) to uniquely assign the peptides of a group to the most probable protein(s) in the 
 respective group. This boosts the number of quantifications but slightly raises the chances to yield distorted protein quantities.
 \item As a prerequisite for using FidoAdapter, we have added an \KNIMENODE{IDPosteriorErrorProbability} node within 
 the \KNIMENODE{ID} meta node, between the
