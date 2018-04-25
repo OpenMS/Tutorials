@@ -254,7 +254,7 @@ F & Carbonic Anhydrase       & \textit{Bovine Erythrocytes} & 29 KD             
   \label{fig:iPRG_lfq}
 \end{figure}
 
-\noindent The iPRG LFQ workflow (Fig. \ref{fig:iPRG_lfq}) consists of an identification and a quantification part. The identification is achieved by searching the computationally calculated MS2 spectra from a sequence database (\KNIMENODE{Input File} node, here with the given database from iPRG, \directory{\IPRGFOLDER / database / iPRG2015\_target\_decoy\_nocontaminants.fasta}) against the MS2 from the original data (\KNIMENODE{Input Files} node with all mzMLs following \directory{\IPRGFOLDER / datasets / JD\_06232014\_sample*.mzML}) using the \KNIMENODE{OMSSAAdapter}.
+\noindent The iPRG LFQ workflow (Fig. \ref{fig:iPRG_lfq}) consists of an identification and a quantification part. The identification is achieved by searching the computationally calculated MS2 spectra from a sequence database (\KNIMENODE{Input File} node, here with the given database from iPRG, \directory{Example\_Data / iPRG2015 / database / iPRG2015\_target\_decoy\_nocontaminants.fasta}) against the MS2 from the original data (\KNIMENODE{Input Files} node with all mzMLs following \directory{Example\_Data / iPRG2015 / datasets / JD\_06232014\_sample*.mzML}) using the \KNIMENODE{OMSSAAdapter}.
 \note{If you reproduce at home, you have to download the iPRG data in mzML format and perform Peakpicking on it. Or convert and pick the raw data with msconvert.}
 Afterwards the results are scored using the \KNIMENODE{FalseDiscoveryRate} and filtered to obtain only unique peptides (\KNIMENODE{IDFilter}) since MSstats does not support shared peptides yet. The quantification is achieved by the \KNIMENODE{FeatureFinderCentroided}, which performs feature finding on the maps. In the end the quantification results are combined with the filtered identification results (\KNIMENODE{IDMapper}). Further a linear retention time alignment is performed (\KNIMENODE{MapAlignerPoseClustering}), followed by the feature linking process (\KNIMENODE{FeatureLinkerUnlabledQT}). The \KNIMENODE{ConsensusMapNormalizer} is used to normalize the intensities via robust regression over a set of samples (maps) and the \KNIMENODE{IDConflictResolver} assures that only one identification (best score) is associated with a feature. The output of this workflow is a consensusXML file, which can now be converted using the \KNIMENODE{MSstatsConverter} (see \ref{sec:MSstatsConversion}). 
 
@@ -323,7 +323,7 @@ terminology, see their documentation e.g. in the R vignette.
 \subsubsection{Conversion and downstream analysis}
 \label{sec:MSstatsConversion}
 
-Conversion of the OpenMS-internal consensusXML format (which is an aggregation of quantified and possibly identified features across several MS-maps) to a table (in MSstats-conformant CSV format) is very easy. Let's create a new KNIME workflow for that first. Then, just run the \KNIMENODE{MSstatsConverter} node with a consensusXML and the manually created (e.g. in Excel) experimental design as inputs (loaded via \KNIMENODE{Input File} nodes). Data can be found under \directory{\IPRGFOLDER / MSstats}, first input is \textit{iPRG\_lfq.consensusXML} which was generated for you by a long run of the \textit{iPRG\_lfq.knwf} workflow (seen in Fig.~\ref{fig:iPRG_lfq}), second input is the \textit{iPRG\_experimental\_design\_raw.tsv}. Put in the following parameters to match the given experimental design file and to use a simple summing for peptides that elude in multiple features (with the same charge state, i.e. m/z value).
+Conversion of the OpenMS-internal consensusXML format (which is an aggregation of quantified and possibly identified features across several MS-maps) to a table (in MSstats-conformant CSV format) is very easy. Let's create a new KNIME workflow for that first. Then, just run the \KNIMENODE{MSstatsConverter} node with a consensusXML and the manually created (e.g. in Excel) experimental design as inputs (loaded via \KNIMENODE{Input File} nodes). All following data can be found under \directory{Example\_Data / iPRG2015}: first input is \directory{openmsLFQResults / iPRG\_lfq.consensusXML} which was generated for you by a long run of the \directory{ workflows/ openmsLFQ\_iPRG2015.knwf} workflow (seen in Fig.~\ref{fig:iPRG_lfq}), second input is the \textit{experimental\_design.tsv}. Put in the following parameters in the config dialog of the converter to match the given experimental design file and to use a simple summing for peptides that elude in multiple features (with the same charge state, i.e. m/z value).
 \begin{center}
 	\begin{tabular}{l|l}
 		\textbf{parameter} & \textbf{value} \\ \hline
@@ -335,7 +335,7 @@ Conversion of the OpenMS-internal consensusXML format (which is an aggregation o
 \end{center}
 
 The downstream analysis of the peptide ions with MSstats is performed in several
-steps. These steps are reflected several KNIME R nodes, which consume
+steps. These steps are reflected by several KNIME R nodes, which consume
 the output of \KNIMENODE{MSstatsConverter}. The outline of the workflow can be
 seen in Figure~\ref{fig:msstats_workflow}.
 
@@ -348,9 +348,11 @@ among several consecutive nodes.}
 	\label{fig:msstats_workflow}
 \end{figure}
 
+We load the file resulting from \KNIMENODE{MSStatsConverter} either by saving it with an \KNIMENODE{Output File} node and reloading it with the File Reader. Or for advanced users,
+you can use a \KNIMENODE{URI Port to Variable} node and use the variable in the \KNIMENODE{File Reader} config dialog (v=? button) to read from the temporary file.
 
 \paragraph{Preprocessing}
-The first node performs preprocessing on the input data. The command
+The first \KNIMENODE{Table to R} node performs preprocessing on the input data. The command
 \begin{lstlisting}
 quant <- OpenMStoMSstatsFormat(data, removeProtein_with1Feature = FALSE)
 \end{lstlisting}
@@ -440,7 +442,7 @@ In MSstats, the group comparison is then performed with the following line:
 \end{lstlisting}
 No more parameters need to be set for performing the comparison.
 
-\paragraph{Group Comparison}
+\paragraph{Rename results}
 
 
 
