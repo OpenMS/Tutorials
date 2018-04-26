@@ -49,7 +49,7 @@ Then select the newly added modification to open the drop down list where you ca
 A common step in analyis is to search not only against a regular protein database, but to also search against a decoy database for FDR estimation.
 The fasta file we used before already contains such a decoy database.
 For OpenMS to know which OMSSA PSM came from which part of the file (i.e. target versus decoy), we have to index the results.
-Therefore, extend the workflow with a \KNIMENODE{PeptideIndexer} node \menu{Community Nodes > OpenMS > ID Processing}.
+To this end, extend the workflow with a \KNIMENODE{PeptideIndexer} node \menu{Community Nodes > OpenMS > ID Processing}.
 This node needs the idXML as input as well as the database file.
 \note{You can direct the files of an \KNIMENODE{Input File} node to more than just one destination port.}
 \item
@@ -205,7 +205,7 @@ Every row in this table corresponds to a so-called consensus feature, i.e., a pe
 %\end{task}
 
 \subsection{Identification \& Quantification of the iPRG2015 data with subsequent MSstats analysis}
-Advanced downstream data analysis of quantitative mass spectrometry-based proteomics data can be performed using MSstats ~\cite{Choi2014MSstats}. This tool can be combined with an OpenMS preprocessing pipeline (e.g. in KNIME). The OpenMS experimental design is used to present the data in an MSstats-conformant way for the analysis. In this tutorial, we would like to present an example how to utilize these resources when working with quantitative label-free data. Therefore, we describe how to use OpenMS and MSstats in the analysis of the ABRF iPRG2015 dataset~\cite{Choi2017iPRG}.
+Advanced downstream data analysis of quantitative mass spectrometry-based proteomics data can be performed using MSstats ~\cite{Choi2014MSstats}. This tool can be combined with an OpenMS preprocessing pipeline (e.g. in KNIME). The OpenMS experimental design is used to present the data in an MSstats-conformant way for the analysis. In this tutorial, we would like to present an example how to utilize these resources when working with quantitative label-free data. We will now describe how to use OpenMS and MSstats for the analysis of the ABRF iPRG2015 dataset~\cite{Choi2017iPRG}.
 
 \note{Reanalysing the full dataset from scratch would take too long. We will, thus, only focus on the conversion process and the downstream analysis in this tutorial session.}
 
