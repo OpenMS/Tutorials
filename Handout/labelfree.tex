@@ -207,7 +207,7 @@ Every row in this table corresponds to a so-called consensus feature, i.e., a pe
 \subsection{Identification \& Quantification of the iPRG2015 data with subsequent MSstats analysis}
 Advanced downstream data analysis of quantitative mass spectrometry-based proteomics data can be performed using MSstats ~\cite{Choi2014MSstats}. This tool can be combined with an OpenMS preprocessing pipeline (e.g. in KNIME). The OpenMS experimental design is used to present the data in an MSstats-conformant way for the analysis. In this tutorial, we would like to present an example how to utilize these resources when working with quantitative label-free data. Therefore, we describe how to use OpenMS and MSstats in the analysis of the ABRF iPRG2015 dataset~\cite{Choi2017iPRG}.
 
-\note{Due to runtime constrictions in the tutorial session only the conversion process and the downstream analysis will be presented in further detail.}
+\note{Reanalysing the full dataset from scratch would take too long. We will, thus, only focus on the conversion process and the downstream analysis in this tutorial session.}
 
 \subsubsection{Excursion MSstats}
 The R package MSstats can be used for statistical relative quantification of proteins and peptides in mass spectrometry-based proteomics. Supported are label-free as well as labeled experiments in combination with data-dependent, targeted and data-independent acquisition. Inputs can be identified and quantified entities (peptides or proteins) and the output is a list of differentially abundant entities, or summaries of their relative abundance. It depends on accurate feature detection, identification and quantification which can be performed e.g. by an OpenMS workflow. 
