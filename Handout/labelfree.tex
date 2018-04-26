@@ -215,33 +215,26 @@ The R package MSstats can be used for statistical relative quantification of pro
 \noindent In general MSstats can be used for data processing \& visualization, as well as statistical modeling \& inference. Please see ~\cite{Choi2014MSstats} and \url{http://msstats.org} for further information.
 
 \subsubsection{Dataset}
-The iPRG (Proteome Informatics Research Group) dataset from the study in 2015, as described in ~\cite{Choi2017iPRG}, aims at evaluating the effect of statistical analysis software on the accuracy of results on a label-free quantification experiment on proteins. The data is based on four artificial samples of known composition (background: 200\,ng \emph{S. cerevisiae}), which were spiked with different quantities of individual digested proteins, whose identifiers were masked for the competition as yeast proteins in the provided database (see Table \ref{t:dataset_iPRG}).
+The iPRG (Proteome Informatics Research Group) dataset from the study in 2015, as described in ~\cite{Choi2017iPRG}, aims at evaluating the effect of statistical analysis software on the accuracy of results on a label-free quantification experiment on proteins. The data is based on four artificial samples of known composition (background: 200\,ng \species{S.~cerevisiae}), which were spiked with different quantities of individual digested proteins, whose identifiers were masked for the competition as yeast proteins in the provided database (see Table \ref{t:dataset_iPRG}).
 
-\renewcommand{\arraystretch}{1.2} %% increase row height a little
 \begin{table}[!ht]
 \centering
 \small
-\caption{Samples (background: 200\,ng \emph{S. cerevisiae}) with spiked-in proteins in different quantities [fmols]}
+\caption{Samples (background: 200\,ng \species{S.~cerevisiae}) with spiked-in proteins in different quantities [fmols]}
 \label{t:dataset_iPRG}
-\begin{tabular}{llll|llll}
+\begin{tabular}{llllrrrr}
+\toprule
   &                          &                              &                                      & \multicolumn{4}{c}{Samples}            \\
-\hline 
+\midrule
   & \multicolumn{1}{c}{Name} & \multicolumn{1}{c}{Origin}   & \multicolumn{1}{c}{Molecular Weight} & \multicolumn{1}{c}{1} & 2   & 3  & 4   \\
-\hline
-\hline
-A & Ovalbumin                & \textit{Egg White}   & 45 KD                                 & 65                    & 55  & 15 & 2   \\
-\hline
-B & Myoglobin                & \textit{Equine Heart}        & 17 KD                                 & 55                    & 15  & 2  & 65  \\
-\hline
-C & Phosphorylase b          & \textit{Rabbit Muscle}       & 97 KD                                 & 15                    & 2   & 65 & 55  \\
-\hline
-D & Beta-Glactosidase        & \textit{Escherichia Coli}    & 116 KD                                & 2                     & 65  & 55 & 15  \\
-\hline
-\hline
-E & Bovine Serum Albumin     & \textit{Bovine Serum}        & 66 KD                                 & 11                    & 0.6 & 10 & 500 \\
-\hline
-F & Carbonic Anhydrase       & \textit{Bovine Erythrocytes} & 29 KD                                 & 10                    & 500 & 11 & 0.6 \\
-\hline
+\midrule
+A & Ovalbumin                & \species{Egg White}   & 45 KD                                 & 65                    & 55  & 15 & 2   \\
+B & Myoglobin                & \species{Equine Heart}        & 17 KD                                 & 55                    & 15  & 2  & 65  \\
+C & Phosphorylase b          & \species{Rabbit Muscle}       & 97 KD                                 & 15                    & 2   & 65 & 55  \\
+D & Beta-Glactosidase        & \species{Escherichia Coli}    & 116 KD                                & 2                     & 65  & 55 & 15  \\
+E & Bovine Serum Albumin     & \species{Bovine Serum}        & 66 KD                                 & 11                    & 0.6 & 10 & 500 \\
+F & Carbonic Anhydrase       & \species{Bovine Erythrocytes} & 29 KD                                 & 10                    & 500 & 11 & 0.6 \\
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -254,7 +247,11 @@ F & Carbonic Anhydrase       & \textit{Bovine Erythrocytes} & 29 KD             
   \label{fig:iPRG_lfq}
 \end{figure}
 
-\noindent The iPRG LFQ workflow (Fig. \ref{fig:iPRG_lfq}) consists of an identification and a quantification part. The identification is achieved by searching the computationally calculated MS2 spectra from a sequence database (\KNIMENODE{Input File} node, here with the given database from iPRG, \directory{Example\_Data / iPRG2015 / database / iPRG2015\_target\_decoy\_nocontaminants.fasta}) against the MS2 from the original data (\KNIMENODE{Input Files} node with all mzMLs following \directory{Example\_Data / iPRG2015 / datasets / JD\_06232014\_sample*.mzML}) using the \KNIMENODE{OMSSAAdapter}.
+\noindent The iPRG LFQ workflow (Fig.~\ref{fig:iPRG_lfq}) consists of an identification and a quantification part. The identification is achieved by searching the computationally calculated MS2 spectra from a sequence database (\KNIMENODE{Input File} node, here with the given database from iPRG:
+\begin{center}
+\directory{Example\_Data / iPRG2015 / database / iPRG2015\_target\_decoy\_nocontaminants.fasta})
+\end{center}
+against the MS2 from the original data (\KNIMENODE{Input Files} node with all mzMLs following \directory{Example\_Data / iPRG2015 / datasets / JD\_06232014\_sample*.mzML}) using the \KNIMENODE{OMSSAAdapter}.
 \note{If you reproduce at home, you have to download the iPRG data in mzML format and perform Peakpicking on it. Or convert and pick the raw data with msconvert.}
 Afterwards the results are scored using the \KNIMENODE{FalseDiscoveryRate} and filtered to obtain only unique peptides (\KNIMENODE{IDFilter}) since MSstats does not support shared peptides yet. The quantification is achieved by the \KNIMENODE{FeatureFinderCentroided}, which performs feature finding on the maps. In the end the quantification results are combined with the filtered identification results (\KNIMENODE{IDMapper}). Further a linear retention time alignment is performed (\KNIMENODE{MapAlignerPoseClustering}), followed by the feature linking process (\KNIMENODE{FeatureLinkerUnlabledQT}). The \KNIMENODE{ConsensusMapNormalizer} is used to normalize the intensities via robust regression over a set of samples (maps) and the \KNIMENODE{IDConflictResolver} assures that only one identification (best score) is associated with a feature. The output of this workflow is a consensusXML file, which can now be converted using the \KNIMENODE{MSstatsConverter} (see \ref{sec:MSstatsConversion}). 
 
@@ -303,9 +300,10 @@ Sample          & MSstats\_Condition & MSstats\_BioReplicate &       &        \\
 \small
 \caption{Explanation of the column of the experimental design table}
 \label{t:Experimental_design_exp}
-\begin{tabularx}{\textwidth}{l|X}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
 \textbf{variables} & \textbf{value} \\ 
-\hline \\
+\midrule
 \textit{Fraction\_Group} &  Index used to group fractions and source files.  \\
 \textit{Fraction} & 1st, 2nd, .., fraction. Note: All runs must have the same number of fractions. \\
 \textit{Spectra\_Filepath} & Path to mzML files \\
@@ -314,6 +312,7 @@ Sample          & MSstats\_Condition & MSstats\_BioReplicate &       &        \\
 \textit{} & SILAC with light and heavy: 1..2 \\
 \textit{Sample} & Index of sample measured in the specified label X, in fraction Y of fraction group Z. \\
 \textit{Conditions} & Further specification of different conditions (e.g. MSstats\_Condition; MSstats\_BioReplicate) \\
+\bottomrule
 \end{tabularx}
 \end{table}
 
@@ -323,14 +322,25 @@ terminology, see their documentation e.g. in the R vignette.
 \subsubsection{Conversion and downstream analysis}
 \label{sec:MSstatsConversion}
 
-Conversion of the OpenMS-internal consensusXML format (which is an aggregation of quantified and possibly identified features across several MS-maps) to a table (in MSstats-conformant CSV format) is very easy. Let's create a new KNIME workflow for that first. Then, just run the \KNIMENODE{MSstatsConverter} node with a consensusXML and the manually created (e.g. in Excel) experimental design as inputs (loaded via \KNIMENODE{Input File} nodes). First input is \directory{Example\_Data / iPRG2015 / openmsLFQResults / iPRG\_lfq.consensusXML} which was generated for you by a long run of the \directory{ Workflows/ openmsLFQ\_iPRG2015.knwf} workflow (seen in Fig.~\ref{fig:iPRG_lfq}), second input is the \directory{Example\_Data / iPRG2015 /experimental\_design.tsv}. Put in the following parameters in the config dialog of the converter to match the given experimental design file and to use a simple summing for peptides that elude in multiple features (with the same charge state, i.e. m/z value).
+Conversion of the OpenMS-internal consensusXML format (which is an aggregation of quantified and possibly identified features across several MS-maps) to a table (in MSstats-conformant CSV format) is very easy. Let's create a new KNIME workflow for that first. Then, just run the \KNIMENODE{MSstatsConverter} node with a consensusXML and the manually created (e.g. in Excel) experimental design as inputs (loaded via \KNIMENODE{Input File} nodes). First input is
 \begin{center}
-	\begin{tabular}{l|l}
-		\textbf{parameter} & \textbf{value} \\ \hline
+	\directory{Example\_Data / iPRG2015 / openmsLFQResults / iPRG\_lfq.consensusXML} 
+\end{center}
+ which was generated for you by a long run of the \directory{ Workflows/ openmsLFQ\_iPRG2015.knwf} workflow (seen in Fig.~\ref{fig:iPRG_lfq}), second input is the
+ \begin{center}
+ \directory{Example\_Data / iPRG2015 /experimental\_design.tsv}.	
+ \end{center}
+ Put in the following parameters in the config dialog of the converter to match the given experimental design file and to use a simple summing for peptides that elude in multiple features (with the same charge state, i.e. m/z value).
+\begin{center}
+	\begin{tabular}{ll}
+		\toprule
+		\textbf{parameter} & \textbf{value} \\ 
+		\midrule
 		\textit{msstats\_bioreplicate} & MSstats\_Bioreplicate \\
 		\textit{msstats\_condition} & MSstats\_Condition \\
 		\textit{labeled\_reference\_peptides} & false \\
-		\hl{\textit{retention\_time\_summarization\_method}} & sum\\
+		\textit{retention\_time\_summarization\_method} & sum\\
+		\bottomrule
 	\end{tabular}
 \end{center}
 
