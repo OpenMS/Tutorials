@@ -394,7 +394,7 @@ Inspect the nodes of this section. Customize your visualization and possibly try
 
 \subsubsection{Advanced visualization}
 \label{sec:metaboR}
-R Dependencies: This section requires that the R packages ggplot2 and ggfortify are both installed. ggplot2 is part of the \textit{KNIME R Statistics Integration (Windows Binaries)} which should already be installed via the full KNIME installer, ggfortify however is not.
+R Dependencies: This section requires that the R packages \texttt{ggplot2} and \texttt{ggfortify} are both installed. \texttt{ggplot2} is part of the \textit{KNIME R Statistics Integration (Windows Binaries)} which should already be installed via the full KNIME installer, \texttt{ggfortify} however is not.
 In case that you use an R installation where one or both of them are not yet installed, add an \KNIMENODE{R Snippet} node and double-click to configure. In the \textit{R Script} text editor, enter the following code:
 \begin{lstlisting}
 #Include the next line if you also have to install ggplot2:
@@ -404,7 +404,7 @@ install.packages("ggfortify")
 library(ggplot2)
 library(ggfortify)
 \end{lstlisting}
-Press \menu{Eval script} to execute the script.\newline
+You can remove the \texttt{install.packages} commands once it was successfully installed.
 
 Even though the basic capabilities for (interactive) plots in KNIME are valuable for initial data exploration, professional looking depiction of analysis results often relies on dedicated plotting libraries. The statistics language R supports the addition of a large variety of packages, including packages providing extensive plotting capabilities. This part of the workflow shows how to use R nodes in KNIME to visualize more advanced figures. Specifically, we make use of different plotting packages to realize heatmaps.
 
