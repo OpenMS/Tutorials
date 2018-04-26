@@ -49,7 +49,7 @@ Then select the newly added modification to open the drop down list where you ca
 A common step in analyis is to search not only against a regular protein database, but to also search against a decoy database for FDR estimation.
 The fasta file we used before already contains such a decoy database.
 For OpenMS to know which OMSSA PSM came from which part of the file (i.e. target versus decoy), we have to index the results.
-Therefore, extend the workflow with a \KNIMENODE{PeptideIndexer} node \menu{Community Nodes > OpenMS > ID Processing}.
+To this end, extend the workflow with a \KNIMENODE{PeptideIndexer} node \menu{Community Nodes > OpenMS > ID Processing}.
 This node needs the idXML as input as well as the database file.
 \note{You can direct the files of an \KNIMENODE{Input File} node to more than just one destination port.}
 \item
@@ -205,9 +205,10 @@ Every row in this table corresponds to a so-called consensus feature, i.e., a pe
 %\end{task}
 
 \subsection{Identification \& Quantification of the iPRG2015 data with subsequent MSstats analysis}
-Advanced downstream data analysis of quantitative mass spectrometry-based proteomics data can be performed using MSstats ~\cite{Choi2014MSstats}. This tool can be combined with an OpenMS preprocessing pipeline (e.g. in KNIME). The OpenMS experimental design is used to present data in a MSstats-conformant. In this tutorial, we would like to present an example of how to utilize these resources when working with quantitative label-free data. To this end, we describe how to use OpenMS and MSstats in the analysis of the ABRF iPRG2015 dataset~\cite{Choi2017iPRG}.
 
-\note{Due to  runtime constrains in the tutorial session only the conversion process and the downstream analysis will be presented in further detail t. The runtime for the full dataset is around two hours.}
+Advanced downstream data analysis of quantitative mass spectrometry-based proteomics data can be performed using MSstats ~\cite{Choi2014MSstats}. This tool can be combined with an OpenMS preprocessing pipeline (e.g. in KNIME). The OpenMS experimental design is used to present the data in an MSstats-conformant way for the analysis. In this tutorial, we would like to present an example how to utilize these resources when working with quantitative label-free data. We will now describe how to use OpenMS and MSstats for the analysis of the ABRF iPRG2015 dataset~\cite{Choi2017iPRG}.
+\note{Reanalysing the full dataset from scratch would take too long. We will, thus, only focus on the conversion process and the downstream analysis in this tutorial session.}
+
 
 \subsubsection{Excursion MSstats}
 The R package MSstats can be used for statistical relative quantification of proteins and peptides in mass spectrometry-based proteomics. Supported are label-free as well as labeled experiments in combination with data-dependent, targeted and data-independent acquisition. Inputs can be identified and quantified entities (peptides or proteins) and the output is a list of differentially abundant entities, or summaries of their relative abundance. It depends on accurate feature detection, identification and quantification which can be performed e.g. by an OpenMS workflow. 
@@ -215,33 +216,27 @@ The R package MSstats can be used for statistical relative quantification of pro
 \noindent In general MSstats can be used for data processing \& visualization, as well as statistical modeling \& inference. Please see ~\cite{Choi2014MSstats} and \url{http://msstats.org} for further information.
 
 \subsubsection{Dataset}
+
 The iPRG (Proteome Informatics Research Group) dataset from the study in 2015, as described in ~\cite{Choi2017iPRG}, aims at evaluating the effect of statistical analysis software on the accuracy of results on a proteomics label-free quantification experiment. The data is based on four artificial samples with known composition (background: 200\,ng \emph{S. cerevisiae}). These were spiked with different quantities of individual digested proteins, whose identifiers were masked for the competition as yeast proteins in the provided database (see Table \ref{t:dataset_iPRG}).
 
-\renewcommand{\arraystretch}{1.2} %% increase row height a little
 \begin{table}[!ht]
 \centering
 \small
-\caption{Samples (background: 200\,ng \emph{S. cerevisiae}) with spiked-in proteins in different quantities [fmols]}
+\caption{Samples (background: 200\,ng \species{S.~cerevisiae}) with spiked-in proteins in different quantities [fmols]}
 \label{t:dataset_iPRG}
-\begin{tabular}{llll|llll}
+\begin{tabular}{llllrrrr}
+\toprule
   &                          &                              &                                      & \multicolumn{4}{c}{Samples}            \\
-\hline 
+\midrule
   & \multicolumn{1}{c}{Name} & \multicolumn{1}{c}{Origin}   & \multicolumn{1}{c}{Molecular Weight} & \multicolumn{1}{c}{1} & 2   & 3  & 4   \\
-\hline
-\hline
-A & Ovalbumin                & \textit{Egg White}   & 45 KD                                 & 65                    & 55  & 15 & 2   \\
-\hline
-B & Myoglobin                & \textit{Equine Heart}        & 17 KD                                 & 55                    & 15  & 2  & 65  \\
-\hline
-C & Phosphorylase b          & \textit{Rabbit Muscle}       & 97 KD                                 & 15                    & 2   & 65 & 55  \\
-\hline
-D & Beta-Glactosidase        & \textit{Escherichia Coli}    & 116 KD                                & 2                     & 65  & 55 & 15  \\
-\hline
-\hline
-E & Bovine Serum Albumin     & \textit{Bovine Serum}        & 66 KD                                 & 11                    & 0.6 & 10 & 500 \\
-\hline
-F & Carbonic Anhydrase       & \textit{Bovine Erythrocytes} & 29 KD                                 & 10                    & 500 & 11 & 0.6 \\
-\hline
+\midrule
+A & Ovalbumin                & \species{Egg White}   & 45 KD                                 & 65                    & 55  & 15 & 2   \\
+B & Myoglobin                & \species{Equine Heart}        & 17 KD                                 & 55                    & 15  & 2  & 65  \\
+C & Phosphorylase b          & \species{Rabbit Muscle}       & 97 KD                                 & 15                    & 2   & 65 & 55  \\
+D & Beta-Glactosidase        & \species{Escherichia Coli}    & 116 KD                                & 2                     & 65  & 55 & 15  \\
+E & Bovine Serum Albumin     & \species{Bovine Serum}        & 66 KD                                 & 11                    & 0.6 & 10 & 500 \\
+F & Carbonic Anhydrase       & \species{Bovine Erythrocytes} & 29 KD                                 & 10                    & 500 & 11 & 0.6 \\
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -254,9 +249,13 @@ F & Carbonic Anhydrase       & \textit{Bovine Erythrocytes} & 29 KD             
   \label{fig:iPRG_lfq}
 \end{figure}
 
-\noindent The iPRG LFQ workflow (Fig. \ref{fig:iPRG_lfq}) consists of an identification and a quantification part. The identification is achieved by searching the computationally calculated MS2 spectra from a sequence database (\KNIMENODE{Input File} node, here with the given database from iPRG, \directory{Example\_Data / iPRG2015 / database / iPRG2015\_target\_decoy\_nocontaminants.fasta}) against the MS2 from the original data (\KNIMENODE{Input Files} node with all mzMLs following \directory{Example\_Data / iPRG2015 / datasets / JD\_06232014\_sample*.mzML}) using the \KNIMENODE{OMSSAAdapter}.
-\note{If you would like reproduce the results at home, you have to download the iPRG2015 data in mzML format and perform peakpicking on it. Or convert and pick the raw data with msconvert.}
-Afterwards the results are scored using the \KNIMENODE{FalseDiscoveryRate} and filtered to obtain only unique peptides (\KNIMENODE{IDFilter}) since MSstats does currently not support shared peptides. The quantification is achieved by the \KNIMENODE{FeatureFinderCentroided}, which performs feature finding on the maps. In the end the quantification results are combined with the filtered identification results (\KNIMENODE{IDMapper}). Further a linear retention time alignment is performed (\KNIMENODE{MapAlignerPoseClustering}), followed by the feature linking process (\KNIMENODE{FeatureLinkerUnlabledQT}). The \KNIMENODE{ConsensusMapNormalizer} is used to normalize the intensities via robust regression over a set of samples (maps) and the \KNIMENODE{IDConflictResolver} assures that only one identification (best score) is associated with a feature. The output of this workflow is a consensusXML file, which can now be converted using the \KNIMENODE{MSstatsConverter} (see \ref{sec:MSstatsConversion}). 
+\noindent The iPRG LFQ workflow (Fig.~\ref{fig:iPRG_lfq}) consists of an identification and a quantification part. The identification is achieved by searching the computationally calculated MS2 spectra from a sequence database (\KNIMENODE{Input File} node, here with the given database from iPRG:
+\begin{center}
+\directory{Example\_Data / iPRG2015 / database / iPRG2015\_target\_decoy\_nocontaminants.fasta})
+\end{center}
+against the MS2 from the original data (\KNIMENODE{Input Files} node with all mzMLs following \directory{Example\_Data / iPRG2015 / datasets / JD\_06232014\_sample*.mzML}) using the \KNIMENODE{OMSSAAdapter}.
+\note{If you want to reproduce the results at home, you have to download the iPRG data in mzML format and perform Peakpicking on it. Or convert and pick the raw data with msconvert.}
+Afterwards the results are scored using the \KNIMENODE{FalseDiscoveryRate} and filtered to obtain only unique peptides (\KNIMENODE{IDFilter}) since MSstats does not support shared peptides, yet. The quantification is achieved by the \KNIMENODE{FeatureFinderCentroided}, which performs the feature detection on the maps. In the end the quantification results are combined with the filtered identification results (\KNIMENODE{IDMapper}). In addition, a linear retention time alignment is performed (\KNIMENODE{MapAlignerPoseClustering}), followed by the feature linking process (\KNIMENODE{FeatureLinkerUnlabledQT}). The \KNIMENODE{ConsensusMapNormalizer} is used to normalize the intensities via robust regression over a set of samples (maps) and the \KNIMENODE{IDConflictResolver} assures that only one identification (best score) is associated with a feature. The output of this workflow is a consensusXML file, which can now be converted using the \KNIMENODE{MSstatsConverter} (see section \ref{sec:MSstatsConversion}). 
 
 \subsubsection{Experimental design}
 \noindent As mentioned before, the downstream analysis can be performed using MSstats. In this case an experimental design has to be specified for the OpenMS workflow. The structure of the experimental design used in OpenMS in case of the iPRG dataset is specified in Table~\ref{t:Experimental_design_iPRG}. Further, an explanation of the variables can be found in Table~\ref{t:Experimental_design_exp}. 
@@ -264,7 +263,7 @@ Afterwards the results are scored using the \KNIMENODE{FalseDiscoveryRate} and f
 \begin{table}[!ht]
 \centering
 \small
-\caption{OpenMS Experimental design for the iPRG2015 dataset. Caution, in the original filenames, the first sample had a hyphen "-" as a separator between sample and biological replicate, the rest of the files had an underscore "\_". The common prefix and the file extension was omitted.}
+\caption{OpenMS Experimental design for the iPRG2015 dataset. Note: in the original filenames, the first sample had a hyphen "-" as a separator between sample and biological replicate, the rest of the files had an underscore "\_". We corrected this mistake. The common prefix and the file extension was omitted.}
 \label{t:Experimental_design_iPRG}
 \begin{tabular}{lllll}
 Fraction\_Group & Fraction           & Spectra\_Filepath     & Label & Sample \\
@@ -303,9 +302,10 @@ Sample          & MSstats\_Condition & MSstats\_BioReplicate &       &        \\
 \small
 \caption{Explanation of the column of the experimental design table}
 \label{t:Experimental_design_exp}
-\begin{tabularx}{\textwidth}{l|X}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
 \textbf{variables} & \textbf{value} \\ 
-\hline \\
+\midrule
 \textit{Fraction\_Group} &  Index used to group fractions and source files.  \\
 \textit{Fraction} & 1st, 2nd, .., fraction. Note: All runs must have the same number of fractions. \\
 \textit{Spectra\_Filepath} & Path to mzML files \\
@@ -314,22 +314,36 @@ Sample          & MSstats\_Condition & MSstats\_BioReplicate &       &        \\
 \textit{} & SILAC with light and heavy: 1..2 \\
 \textit{Sample} & Index of sample measured in the specified label X, in fraction Y of fraction group Z. \\
 \textit{Conditions} & Further specification of different conditions (e.g. MSstats\_Condition; MSstats\_BioReplicate) \\
+\bottomrule
 \end{tabularx}
 \end{table}
+
 
 \noindent The conditions are highly dependent on the type of experiment and on which kind of analysis you want to perform. For the MSstats analysis the information which sample belongs to which condition and if there are biological replicates are mandatory. This can be specified in further condition columns as explained in Table~\ref{t:Experimental_design_exp}. For a detailed description of the MSstats-specific terminology, see their documentation e.g. in the R vignette.
 
 \subsubsection{Conversion and downstream analysis}
 \label{sec:MSstatsConversion}
 
-Conversion of the OpenMS-internal consensusXML format (which is an aggregation of quantified and possibly identified features across several MS-maps) to a table (in MSstats-conformant CSV format) is very easy. First, create a new KNIME workflow. Then, run the \KNIMENODE{MSstatsConverter} node with a consensusXML and the manually created (e.g. in Excel) experimental design as inputs (loaded via \KNIMENODE{Input File} nodes). The first input can be found in \directory{Example\_Data / iPRG2015 / openmsLFQResults / iPRG\_lfq.consensusXML}. This file was generated by using the \directory{ Workflows/ openmsLFQ\_iPRG2015.knwf} workflow (seen in Fig.~\ref{fig:iPRG_lfq}). The second input is specified in  \directory{Example\_Data / iPRG2015 /experimental\_design.tsv}. Adjust the parameters in the config dialog of the converter to match the given experimental design file and to use a simple summing for peptides that elude in multiple features (with the same charge state, i.e. m/z value).
+Conversion of the OpenMS-internal consensusXML format (which is an aggregation of quantified and possibly identified features across several MS-maps) to a table (in MSstats-conformant CSV format) is very easy. First, create a new KNIME workflow. Then, run the \KNIMENODE{MSstatsConverter} node with a consensusXML and the manually created (e.g. in Excel) experimental design as inputs (loaded via \KNIMENODE{Input File} nodes). The first input can be found in
 \begin{center}
-	\begin{tabular}{l|l}
-		\textbf{parameter} & \textbf{value} \\ \hline
+	\directory{Example\_Data / iPRG2015 / openmsLFQResults / iPRG\_lfq.consensusXML} 
+\end{center}
+ This file was generated by using the \directory{ Workflows/ openmsLFQ\_iPRG2015.knwf} workflow (seen in Fig.~\ref{fig:iPRG_lfq}).  The second input is specified in
+ \begin{center}
+ \directory{Example\_Data / iPRG2015 /experimental\_design.tsv}.	
+ \end{center}
+Adjust the parameters in the config dialog of the converter to match the given experimental design file and to use a simple summing for peptides that elude in multiple features (with the same charge state, i.e. m/z value).
+
+\begin{center}
+	\begin{tabular}{ll}
+		\toprule
+		\textbf{parameter} & \textbf{value} \\ 
+		\midrule
 		\textit{msstats\_bioreplicate} & MSstats\_Bioreplicate \\
 		\textit{msstats\_condition} & MSstats\_Condition \\
 		\textit{labeled\_reference\_peptides} & false \\
-		\hl{\textit{retention\_time\_summarization\_method}} & sum\\
+		\textit{retention\_time\_summarization\_method} & sum\\
+		\bottomrule
 	\end{tabular}
 \end{center}
 
