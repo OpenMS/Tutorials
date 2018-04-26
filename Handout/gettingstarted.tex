@@ -202,9 +202,8 @@ the most important concepts will also be reviewed in this tutorial.
 
 \subsubsection{Plugin and dependency installation}
 \label{Install_plugins}
-\note{If you chose the KNIME installer that contains all community contributions, or you received the full installer on our USB Stick you can skip this section. This is usually the preferred way but only works for stable releases that were available at the time the full release of KNIME was created. For bleeding edge functionality (as provided through the KNIME nightly community contributions or in the case we cover prereleases of OpenMS) you need to perform the actions below to download the plugin from official update sites.}
 Before we can start with the tutorial we need to install all the required extensions for KNIME. Since KNIME 3.2.1 the program automatically
-detects missing plugins when you open a workflow but to make sure that the right source for OpenMS is chosen, please follow the instructions here.
+detects missing plugins when you open a workflow but to make sure that the right source for the OpenMS plugin is chosen, please follow the instructions here.
 First, we install some additional extensions that are required by our OpenMS nodes or used in the Tutorials e.g. for visualization and file handling.
 \begin{enumerate}
 \item Click on \menu{Help > Install New Software...}
@@ -225,26 +224,21 @@ First, we install some additional extensions that are required by our OpenMS nod
 %    \begin{itemize}
 %    \item ChemAxon/Infocom Marvin Extensions Feature
 %    \end{itemize}
-\item Click on "next" and follow the instructions (you may but don't need to restart KNIME now)
+\item Click on \menu{Next} and follow the instructions (you may but don't need to restart KNIME now)
 \item Click again on \menu{Help > Install New Software...}
 \item From the \menu{Work with:} drop-down list select \\\menu{\KnimeTrustedSite}
 \item Now select the following plugin from the "KNIME Community Contributions - Cheminformatics" category 	
     \begin{itemize}
     \item     RDKit KNIME integration
     \end{itemize}	
-\item Click on "next" and follow the instructions and after a restart of KNIME the dependencies will be installed.
+\item Click on \menu{Next} and follow the instructions and after a restart of KNIME the dependencies will be installed.
 \end{enumerate}
 
-You are now ready to install the OpenMS nodes.
-
-\begin{itemize}
-  \item Open KNIME.
-  \item Click on \menu{Help > Install New Software...}
-\end{itemize}
 %Now you need to decide which OpenMS nodes you want to install. You may choose between the stable, well-tested release or the unstable, nightly release with extended functionality.
-In addition, we need to install R for the statistical downstream analysis. Choose the directory that matches your operating system, double-click the R installer and follow the instructions. We recommend to use the default settings whenever possible. On macOS you also need to install XQuartz from the same directory.
 
-Afterwards open your R installation. If you use Windows, you will find an "R x64 3.4.3" icon on your desktop. If you use macOS, you will find R in your Applications folder. In R type the following lines (you might also copy them from the file \directory{R / install\_R\_packages.R} folder on the USB stick):
+\noindent In addition, we need to install R for the statistical downstream analysis. Choose the directory that matches your operating system, double-click the R installer and follow the instructions. We recommend to use the default settings whenever possible. On macOS you also need to install XQuartz from the same directory.\\
+
+\noindent Afterwards open your R installation. If you use Windows, you will find an "R x64 3.4.3" icon on your desktop. If you use macOS, you will find R in your Applications folder. In R type the following lines (you might also copy them from the file \directory{R / install\_R\_packages.R} folder on the USB stick):
 \begin{lstlisting}[aboveskip=8pt]
   install.packages("Rserve")
   install.packages("Cairo")
@@ -255,51 +249,56 @@ Afterwards open your R installation. If you use Windows, you will find an "R x64
   install_github("MeenaChoi/MSstats")
 \end{lstlisting}
 
-In KNIME, click on \menu{KNIME > Preferences}, select the category \menu{KNIME > R} and set the "Path to R Home" to your installation path. You can use the following settings, if you installed R as described above:
+\noindent In KNIME, click on \menu{KNIME > Preferences}, select the category \menu{KNIME > R} and set the "Path to R Home" to your installation path. You can use the following settings, if you installed R as described above:
 \begin{itemize}
 \item Windows: C: \textbackslash Program Files \textbackslash R \textbackslash R-3.4.3 
 \item macOS: /Library/Frameworks/R.framework/Versions/3.4/Resources 
 \end{itemize}
 
-\iftoggle{isprerelease}
-{
-\note{For this tutorial we use the \textbf{bleeding edge, nightly release} version of OpenMS because it corresponds to a prerelease of the new OpenMS version. While not being a full release, it was nevertheless intensively tested to ensure its functionality for this tutorial. For regular use we still recommend using the latest stable OpenMS release. Please also note that some of the workflows shown here require new functionality contained only in the prerelease version of OpenMS. These will likely not work if transferred to the current stable, but older OpenMS version.}
+\noindent You are now ready to install the OpenMS nodes.
 
-Instructions for the bleeding edge, nightly release:
+\begin{itemize}
+	\item Open KNIME.
+	\item Click on \menu{Help > Install New Software...}
+\end{itemize}
+%\iftoggle{isprerelease}
+%{
+%\note{For this tutorial we use the \textbf{bleeding edge, nightly release} version of OpenMS because it corresponds to a prerelease of the new OpenMS version. While not being a full release, it was nevertheless intensively tested to ensure its functionality for this tutorial. For regular use we still recommend using the latest stable OpenMS release. Please also note that some of the workflows shown here require new functionality contained only in the prerelease version of OpenMS. These will likely not work if transferred to the current stable, but older OpenMS version.}
+%
+%Instructions for the bleeding edge, nightly release:
+%\begin{itemize}
+% % If you base the tutorial on the nightly contributions (not recommended - more of a emergency measure)
+%  \item \label{it:add_site} In the now open dialog choose \menu{Add...} (in the upper right corner of the dialog) to define a new update site. In the opening dialog enter the following details. \\
+%  \textit{Name:} \texttt{Trunk Community Contributions} \\
+%  \textit{Location:} \menu{\KnimeTrunkSite}
+%  \item \label{it:select_site} After pressing \keys{OK} KNIME will show you all the contents of the added Update Site.
+%  \item \textbf{Note:} From now on, you can use this repository for plugins in the \menu{Work with:} drop-down list.
+%  \item Select the \textbf{OpenMS} nodes in the category: \\ "KNIME Community Contributions - Bioinformatics \& NGS" and click \keys{Next}.
+%  \item Follow the instructions and after a restart of KNIME the OpenMS nodes will be available in the Node repository under “Community Nodes”.
+%\end{itemize}
+%}
+%{
+%Instructions for the stable release (recommended):
+%\begin{itemize}
+%  \item From the \menu{Work with:} drop-down list select the \\ \menu{\KnimeTrustedSite}
+%  \item Select the \textbf{OpenMS} nodes in the category: \\ "KNIME Community Contributions - Bioinformatics \& NGS" and click \keys{Next}.
+%  \item Follow the instructions and after a restart of KNIME the OpenMS nodes will be available in the Node repository under “Community Nodes”.
+%\end{itemize}
+
 \begin{itemize}
  % If you base the tutorial on the nightly contributions (not recommended - more of a emergency measure)
   \item \label{it:add_site} In the now open dialog choose \menu{Add...} (in the upper right corner of the dialog) to define a new update site. In the opening dialog enter the following details. \\
-  \textit{Name:} \texttt{Trunk Community Contributions} \\
-  \textit{Location:} \menu{\KnimeTrunkSite}
-  \item \label{it:select_site} After pressing \keys{OK} KNIME will show you all the contents of the added Update Site.
-  \item \textbf{Note:} From now on, you can use this repository for plugins in the \menu{Work with:} drop-down list.
-  \item Select the \textbf{OpenMS} nodes in the category: \\ "KNIME Community Contributions - Bioinformatics \& NGS" and click \keys{Next}.
-  \item Follow the instructions and after a restart of KNIME the OpenMS nodes will be available in the Node repository under “Community Nodes”.
-\end{itemize}
-}
-{
-Instructions for the stable release (recommended):
-\begin{itemize}
-  \item From the \menu{Work with:} drop-down list select the \\ \menu{\KnimeTrustedSite}
-  \item Select the \textbf{OpenMS} nodes in the category: \\ "KNIME Community Contributions - Bioinformatics \& NGS" and click \keys{Next}.
-  \item Follow the instructions and after a restart of KNIME the OpenMS nodes will be available in the Node repository under “Community Nodes”.
-\end{itemize}
-
-Instructions for the unstable, nightly release:
-\begin{itemize}
- % If you base the tutorial on the nightly contributions (not recommended - more of a emergency measure)
-  \item \label{it:add_site} In the now open dialog choose \menu{Add...} (in the upper right corner of the dialog) to define a new update site. In the opening dialog enter the following details. \\
-  \textit{Name:} \texttt{Trunk Community Contributions} \\
+  \textit{Name:} \texttt{OpenMS MayInstitute UpdateSite} \\
   \textit{Location:} 
 \end{itemize}  
   \menu{\KnimeTrunkSite}
 \begin{itemize}
   \item \label{it:select_site} After pressing \keys{OK} KNIME will show you all the contents of the added Update Site.
   \item \textbf{Note:} From now on, you can use this repository for plugins in the \menu{Work with:} drop-down list.
-  \item Select the \textbf{OpenMS} nodes in the category: \\ "KNIME Community Contributions - Bioinformatics \& NGS" and click \keys{Next}.
+  \item Select the \textbf{OpenMS} nodes in the "Uncategorized" category and click \keys{Next}.
   \item Follow the instructions and after a restart of KNIME the OpenMS nodes will be available in the Node repository under “Community Nodes”.
 \end{itemize}
-}
+%}
 
 \subsubsection{KNIME concepts}
 \label{KNIME_concepts}
