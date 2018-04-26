@@ -242,9 +242,8 @@ You are now ready to install the OpenMS nodes.
   \item Click on \menu{Help > Install New Software...}
 \end{itemize}
 %Now you need to decide which OpenMS nodes you want to install. You may choose between the stable, well-tested release or the unstable, nightly release with extended functionality.
-In addition, we need to install R for the statistical downstream analysis. Choose the directory that matches your operating system, double-click the R installer and follow the instructions. We recommend to use the default settings whenever possible. On macOS you also need to install XQuartz from the same directory.
-
-Afterwards open your R installation. If you use Windows, you will find an "R x64 3.4.3" icon on your desktop. If you use macOS, you will find R in your Applications folder. In R type the following lines (you might also copy them from the file \directory{R / install\_R\_packages.R} folder on the USB stick):
+In addition, we need to install R for the statistical downstream analysis. Choose the directory that matches your operating system, double-click the R installer and follow the instructions. We recommend to use the default settings whenever possible. On macOS you also need to install XQuartz from the same directory. \\
+\noindent Afterwards open your R installation. If you use Windows, you will find an "R x64 3.4.3" icon on your desktop. If you use macOS, you will find R in your Applications folder. In R type the following lines (you might also copy them from the file \directory{R / install\_R\_packages.R} folder on the USB stick):
 \begin{lstlisting}[aboveskip=8pt]
   install.packages("Rserve")
   install.packages("Cairo")
@@ -255,7 +254,7 @@ Afterwards open your R installation. If you use Windows, you will find an "R x64
   install_github("MeenaChoi/MSstats")
 \end{lstlisting}
 
-In KNIME, click on \menu{KNIME > Preferences}, select the category \menu{KNIME > R} and set the "Path to R Home" to your installation path. You can use the following settings, if you installed R as described above:
+\noindent In KNIME, click on \menu{KNIME > Preferences}, select the category \menu{KNIME > R} and set the "Path to R Home" to your installation path. You can use the following settings, if you installed R as described above:
 \begin{itemize}
 \item Windows: C: \textbackslash Program Files \textbackslash R \textbackslash R-3.4.3 
 \item macOS: /Library/Frameworks/R.framework/Versions/3.4/Resources 
