@@ -205,9 +205,10 @@ Every row in this table corresponds to a so-called consensus feature, i.e., a pe
 %\end{task}
 
 \subsection{Identification \& Quantification of the iPRG2015 data with subsequent MSstats analysis}
-Advanced downstream data analysis of quantitative mass spectrometry-based proteomics data can be performed using MSstats ~\cite{Choi2014MSstats}. This tool can be combined with an OpenMS preprocessing pipeline (e.g. in KNIME). The OpenMS experimental design is used to present the data in an MSstats-conformant way for the analysis. In this tutorial, we would like to present an example how to utilize these resources when working with quantitative label-free data. We will now describe how to use OpenMS and MSstats for the analysis of the ABRF iPRG2015 dataset~\cite{Choi2017iPRG}.
 
+Advanced downstream data analysis of quantitative mass spectrometry-based proteomics data can be performed using MSstats ~\cite{Choi2014MSstats}. This tool can be combined with an OpenMS preprocessing pipeline (e.g. in KNIME). The OpenMS experimental design is used to present the data in an MSstats-conformant way for the analysis. In this tutorial, we would like to present an example how to utilize these resources when working with quantitative label-free data. We will now describe how to use OpenMS and MSstats for the analysis of the ABRF iPRG2015 dataset~\cite{Choi2017iPRG}.
 \note{Reanalysing the full dataset from scratch would take too long. We will, thus, only focus on the conversion process and the downstream analysis in this tutorial session.}
+
 
 \subsubsection{Excursion MSstats}
 The R package MSstats can be used for statistical relative quantification of proteins and peptides in mass spectrometry-based proteomics. Supported are label-free as well as labeled experiments in combination with data-dependent, targeted and data-independent acquisition. Inputs can be identified and quantified entities (peptides or proteins) and the output is a list of differentially abundant entities, or summaries of their relative abundance. It depends on accurate feature detection, identification and quantification which can be performed e.g. by an OpenMS workflow. 
@@ -215,7 +216,8 @@ The R package MSstats can be used for statistical relative quantification of pro
 \noindent In general MSstats can be used for data processing \& visualization, as well as statistical modeling \& inference. Please see ~\cite{Choi2014MSstats} and \url{http://msstats.org} for further information.
 
 \subsubsection{Dataset}
-The iPRG (Proteome Informatics Research Group) dataset from the study in 2015, as described in ~\cite{Choi2017iPRG}, aims at evaluating the effect of statistical analysis software on the accuracy of results on a label-free quantification experiment on proteins. The data is based on four artificial samples of known composition (background: 200\,ng \species{S.~cerevisiae}), which were spiked with different quantities of individual digested proteins, whose identifiers were masked for the competition as yeast proteins in the provided database (see Table \ref{t:dataset_iPRG}).
+
+The iPRG (Proteome Informatics Research Group) dataset from the study in 2015, as described in ~\cite{Choi2017iPRG}, aims at evaluating the effect of statistical analysis software on the accuracy of results on a proteomics label-free quantification experiment. The data is based on four artificial samples with known composition (background: 200\,ng \emph{S. cerevisiae}). These were spiked with different quantities of individual digested proteins, whose identifiers were masked for the competition as yeast proteins in the provided database (see Table \ref{t:dataset_iPRG}).
 
 \begin{table}[!ht]
 \centering
@@ -316,21 +318,22 @@ Sample          & MSstats\_Condition & MSstats\_BioReplicate &       &        \\
 \end{tabularx}
 \end{table}
 
-\noindent The conditions are highly dependent on the experiment and which kind of analysis you want to use. For the MSstats analysis it has to be clear which sample belongs to which condition and if there are biological replicates. This can be specified in further condition columns as explained in Table~\ref{t:Experimental_design_exp}. For a detailed description of the MSstats-specific
-terminology, see their documentation in the R vignette.
+
+\noindent The conditions are highly dependent on the type of experiment and on which kind of analysis you want to perform. For the MSstats analysis the information which sample belongs to which condition and if there are biological replicates are mandatory. This can be specified in further condition columns as explained in Table~\ref{t:Experimental_design_exp}. For a detailed description of the MSstats-specific terminology, see their documentation e.g. in the R vignette.
 
 \subsubsection{Conversion and downstream analysis}
 \label{sec:MSstatsConversion}
 
-Conversion of the OpenMS-internal consensusXML format (which is an aggregation of quantified and possibly identified features across several MS-maps) to a table (in MSstats-conformant CSV format) is very easy. Let's create a new KNIME workflow for that first. Then, just run the \KNIMENODE{MSstatsConverter} node with a consensusXML and the manually created (e.g. in Excel) experimental design as inputs (loaded via \KNIMENODE{Input File} nodes). First input is
+Conversion of the OpenMS-internal consensusXML format (which is an aggregation of quantified and possibly identified features across several MS-maps) to a table (in MSstats-conformant CSV format) is very easy. First, create a new KNIME workflow. Then, run the \KNIMENODE{MSstatsConverter} node with a consensusXML and the manually created (e.g. in Excel) experimental design as inputs (loaded via \KNIMENODE{Input File} nodes). The first input can be found in
 \begin{center}
 	\directory{Example\_Data / iPRG2015 / openmsLFQResults / iPRG\_lfq.consensusXML} 
 \end{center}
- which was generated for you by a long run of the \directory{ Workflows/ openmsLFQ\_iPRG2015.knwf} workflow (seen in Fig.~\ref{fig:iPRG_lfq}), second input is the
+ This file was generated by using the \directory{ Workflows/ openmsLFQ\_iPRG2015.knwf} workflow (seen in Fig.~\ref{fig:iPRG_lfq}).  The second input is specified in
  \begin{center}
  \directory{Example\_Data / iPRG2015 /experimental\_design.tsv}.	
  \end{center}
- Put in the following parameters in the config dialog of the converter to match the given experimental design file and to use a simple summing for peptides that elude in multiple features (with the same charge state, i.e. m/z value).
+Adjust the parameters in the config dialog of the converter to match the given experimental design file and to use a simple summing for peptides that elude in multiple features (with the same charge state, i.e. m/z value).
+
 \begin{center}
 	\begin{tabular}{ll}
 		\toprule
@@ -344,10 +347,9 @@ Conversion of the OpenMS-internal consensusXML format (which is an aggregation o
 	\end{tabular}
 \end{center}
 
-The downstream analysis of the peptide ions with MSstats is performed in several
+\noindent The downstream analysis of the peptide ions with MSstats is performed in several
 steps. These steps are reflected by several KNIME R nodes, which consume
-the output of \KNIMENODE{MSstatsConverter}. The outline of the workflow can be
-seen in Figure~\ref{fig:msstats_workflow}.
+the output of \KNIMENODE{MSstatsConverter}. The outline of the workflow is shown in Figure~\ref{fig:msstats_workflow}.
 
 \begin{figure}[htbp]
 	\centering
@@ -357,18 +359,18 @@ seen in Figure~\ref{fig:msstats_workflow}.
 	\label{fig:msstats_workflow}
 \end{figure}
 
-We load the file resulting from \KNIMENODE{MSStatsConverter} either by saving it with an \KNIMENODE{Output File} node and reloading it with the File Reader. Or for advanced users,
+\noindent We load the file resulting from \KNIMENODE{MSStatsConverter} either by saving it with an \KNIMENODE{Output File} node and reloading it with the File Reader. Or for advanced users,
 you can use a \KNIMENODE{URI Port to Variable} node and use the variable in the \KNIMENODE{File Reader} config dialog (v=? button) to read from the temporary file.
 
-\paragraph{Preprocessing}
-The first \KNIMENODE{Table to R} node performs preprocessing on the input data. The command
+\paragraph{Preprocessing} \mbox{}\newline
+\noindent The first node ( \KNIMENODE{Table to R}) performs a preprocessing step on the input data. The command
 \begin{lstlisting}
 quant <- OpenMStoMSstatsFormat(data, removeProtein_with1Feature = FALSE)
 \end{lstlisting}
 allows further preparation of the data produced by \KNIMENODE{MSstatsConverter} before the actual analysis is performed. In this example, the 
-lines with proteins, which were identified with only one feature, were retained. They could be removed as an alternative.
-
-Most importantly, the following line:
+lines with proteins, which were identified with only one feature, were retained. Alternatively they could be removed.
+\newline
+\noindent Most importantly, the following line:
 \begin{lstlisting}
 processed.quant <- dataProcess(quant, censoredInt = 'NA')
 \end{lstlisting}
@@ -390,8 +392,8 @@ R package provides. The function performs the following steps:
 In this example here, we just state that missing intensity values are represented by the 'NA' string. 
 
 
-\paragraph{Group Comparison}
-The goal of the analysis is the determination of differentially-expressed
+\paragraph{Group Comparison}\mbox{}\newline
+\noindent The goal of the analysis is the determination of differentially-expressed
 proteins among the different conditions C1-C4.
 We can specify the comparisons that we want to make in a
 \emph{comparison matrix}. For this, let's consider the following example:
@@ -404,7 +406,7 @@ We can specify the comparisons that we want to make in a
 	 0 & 0  & -1 & 1 \\
 	\end{pmatrix}
 \end{equation}
-This matrix has the following properties:
+\noindent This matrix has the following properties:
 \begin{itemize}
 	\item
 	The number of rows equals the number of comparisons that we want to
@@ -412,7 +414,7 @@ This matrix has the following properties:
 	(here, column 1 refers to C1, column 2 to C2 and so forth).
 	\item 
 	The entries of each row consist of exactly one 1 and one -1, the
-	rest must be 0.
+	others must be 0.
 	\item 
 	The condition with the entry 1 constitutes the enumerator
 	of the log2 fold-change. The one with entry -1 denotes the 
@@ -421,7 +423,7 @@ This matrix has the following properties:
 	$\log \frac{\text{C}_2}{\text{C}_1}$.
 \end{itemize}
 
-We can generate such a matrix in R using the following code snippet:
+\noindent We can generate such a matrix in R using the following code snippet:
 \begin{lstlisting}
 	comparison1<-matrix(c(-1,1,0,0),nrow=1)
 	comparison2<-matrix(c(-1,0,1,0),nrow=1)
@@ -435,14 +437,14 @@ We can generate such a matrix in R using the following code snippet:
 Here, we assemble each row in turn, concatenate them at the end, and provide row names for labeling
 the rows with the respective condition.
 
-In MSstats, the group comparison is then performed with the following line:
+\noindent In MSstats, the group comparison is then performed with the following line:
 \begin{lstlisting}
 	test.MSstats <- groupComparison(contrast.matrix=comparison, data=processed.quant)
 \end{lstlisting}
 No more parameters need to be set for performing the comparison.
 
-\paragraph{Result Processing}
-In the next node, the results are being processed. The following code snippet:
+\paragraph{Result Processing}\mbox{}\newline
+\noindent In the next node, the results are being processed. The following code snippet:
 \begin{lstlisting}
 	test.MSstats.cr <- test.MSstats$ComparisonResult
 	
@@ -483,8 +485,8 @@ will rename the spiked-in proteins to A,B,C,D,E, and F and remove the names of o
 for example performed in Figure~\ref{fig:msstats_1}.
 
 
-\paragraph{Export}
-The last four nodes will export the results to a textual representation and volcano plots for further inspection. Also, quality control can be
+\paragraph{Export}\mbox{}\newline
+\noindent The last four nodes will export the results to a textual representation and volcano plots for further inspection. Also, quality control can be
 performed with the following snippet:
 \begin{lstlisting}
 	qcplot <- dataProcessPlots(processed.quant, type="QCplot", 
@@ -496,11 +498,11 @@ The code for this snippet is embedded in the first output node
 of the workflow. The resulting boxplots show the log2 intensity distribution
 across the MS runs.
 
-The second node (Volcano plot) displays differentially expressed
+\noindent The second node (Volcano plot) displays differentially expressed
 proteins between conditions C2 vs. C1. This described in more detail in
 the following Result section.
 
-The last two nodes export the MSstats results as CSV files.
+\noindent The last two nodes export the MSstats results as CSV files.
 This output can be used for more downstream analysis.
 
 
@@ -517,7 +519,7 @@ An excerpt of the main result of the group comparison can be seen in Figure~\ref
 	\label{fig:msstats_1}
 \end{figure}
 
-The Volcano plots show differently expressed spiked-in proteins. In the left plot, which shows
+\noindent The Volcano plots show differently expressed spiked-in proteins. In the left plot, which shows
 the fold-change C2-C1, we
 can see the proteins D and F (\texttt{sp|P44983|UTR6\_YEAST}
 and \texttt{sp|P55249|ZRT4\_YEAST}) are significantly over-expressed in C2, while
@@ -528,12 +530,7 @@ and \texttt{sp|P55249|ZRT4\_YEAST}) are significantly over-expressed in C2, whil
  over-expressed and the proteins A and F (\texttt{sp|P44015|VAC2\_YEAST} and
  \texttt{sp|P55249|ZRT4\_YEAST}) under-expressed. 
 The plots also show further differentially-expressed proteins,
-which do not belong to the spiked-in proteins.
-
-
-
-
-
+which do not belong to the spiked-in proteins. \\
 
 %"sp|P44015|VAC2_YEAST",
 %"sp|P55752|ISCB_YEAST",
@@ -542,9 +539,5 @@ which do not belong to the spiked-in proteins.
 %"sp|P44683|PGA4_YEAST",
 %"sp|P55249|ZRT4_YEAST"
 
-A complete premade workflow can be found under\\
+\noindent The full analysis workflow can be found under\\
 \directory{Workflows/ MSstats\_statPostProcessing\_iPRG2015.knwf}.
-
-
-
-
