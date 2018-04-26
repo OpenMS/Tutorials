@@ -261,7 +261,7 @@ Afterwards the results are scored using the \KNIMENODE{FalseDiscoveryRate} and f
 \begin{table}[!ht]
 \centering
 \small
-\caption{OpenMS Experimental design for the iPRG2015 dataset. Caution, in the original filenames, the first sample had a hyphen "-" as a separator between sample and biological replicate, the rest of the files had an underscore "\_". The common prefix and the file extension was omitted.}
+\caption{OpenMS Experimental design for the iPRG2015 dataset. Note: in the original filenames, the first sample had a hyphen "-" as a separator between sample and biological replicate, the rest of the files had an underscore "\_". We corrected this mistake. The common prefix and the file extension was omitted.}
 \label{t:Experimental_design_iPRG}
 \begin{tabular}{lllll}
 Fraction\_Group & Fraction           & Spectra\_Filepath     & Label & Sample \\
@@ -317,7 +317,7 @@ Sample          & MSstats\_Condition & MSstats\_BioReplicate &       &        \\
 \end{table}
 
 \noindent The conditions are highly dependent on the experiment and which kind of analysis you want to use. For the MSstats analysis it has to be clear which sample belongs to which condition and if there are biological replicates. This can be specified in further condition columns as explained in Table~\ref{t:Experimental_design_exp}. For a detailed description of the MSstats-specific
-terminology, see their documentation e.g. in the R vignette.
+terminology, see their documentation in the R vignette.
 
 \subsubsection{Conversion and downstream analysis}
 \label{sec:MSstatsConversion}
