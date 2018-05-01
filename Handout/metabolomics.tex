@@ -97,8 +97,7 @@ The parameters change the behavior of \KNIMENODE{FeatureFinderMetabo} as follows
 
 The workflow can be extended for multi-file analysis, here an \KNIMENODE{Input Files} is to be used instead of the \KNIMENODE{Input File}.  In front of the \KNIMENODE{FeatureFinderMetabo} a \KNIMENODE{Ziploop Start} and behind \KNIMENODE{Ziploop End} has to be used, since FeatureFinderMetabo will analyis on file to file bases. 
 \newline
-To facilitate the collection of features corresponding to the same compound ion across different samples, an 
-ment of the samples' feature maps along retention time is often helpful. In addition to local, small-scale elution differences, one can often see constant retention time shifts across large sections between samples. We can use linear transformations to correct for these large scale retention differences. This  brings the majority of corresponding compound ions close to each other. Finding the correct corresponding ions is then faster and easier, as we don't have to search as far around individual features.
+To facilitate the collection of features corresponding to the same compound ion across different samples, an alignment of the samples' feature maps along retention time is often helpful. In addition to local, small-scale elution differences, one can often see constant retention time shifts across large sections between samples. We can use linear transformations to correct for these large scale retention differences. This  brings the majority of corresponding compound ions close to each other. Finding the correct corresponding ions is then faster and easier, as we don't have to search as far around individual features.
 
 \begin{figure}[!htbp]
 	\centering
