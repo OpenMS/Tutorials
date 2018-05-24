@@ -95,6 +95,8 @@ We can connect this to the \KNIMENODE{PeptideIndexer} and go along with our exis
 \note{By default, X!Tandem takes additional enzyme cutting rules into consideration (besides the specified tryptic digest). Thus for the tutorial files, you have to set PeptideIndexer's \textit{enzyme $\rightarrow$ specificity} parameter to \texttt{none} to accept X!Tandems non-tryptic identifications as well.}
 \end{itemize}
 
+\noindent In the end the ID processing part of the workflow can be collapsed into a Meta node to keep the structure clean (see Figure~\ref{fig:consensusid}).
+
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{graphics/labelfree/PepConsensusId.png}
