@@ -122,6 +122,10 @@
 \usepackage{subcaption}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Nicer tables
+\usepackage{booktabs}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % boxes with notes
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{tikz}
@@ -205,6 +209,8 @@
 \newcommand{\KNIMENODE}[1]{\texttt{#1}}
 \newcommand{\OPENMSTOOL}[1]{\texttt{#1}}
 
+\newcommand*{\species}[1]{\textit{#1}}
+
 \usepackage{etoolbox} % simplified if / else checks in latex
 
 % define that this tutorial is based on a prerelease of OpenMS (will output some additional notes)
@@ -226,6 +232,7 @@
 \definecolor{lightgray}{RGB}{190,190,190}
 \sethlcolor{lightgray}
 
+\usepackage{tabularx}
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -264,11 +271,11 @@
 
 \include{metabolomics}
 
-\include{openswath}
+%\include{openswath}
 
-\include{pyopenms}
+%\include{pyopenms}
 
-\include{qualitycontrol}
+%\include{qualitycontrol}
 
 \include{troubleshooting}
 

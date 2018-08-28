@@ -97,8 +97,7 @@ The parameters change the behavior of \KNIMENODE{FeatureFinderMetabo} as follows
 
 The workflow can be extended for multi-file analysis, here an \KNIMENODE{Input Files} is to be used instead of the \KNIMENODE{Input File}.  In front of the \KNIMENODE{FeatureFinderMetabo} a \KNIMENODE{Ziploop Start} and behind \KNIMENODE{Ziploop End} has to be used, since FeatureFinderMetabo will analyis on file to file bases. 
 \newline
-To facilitate the collection of features corresponding to the same compound ion across different samples, an 
-ment of the samples' feature maps along retention time is often helpful. In addition to local, small-scale elution differences, one can often see constant retention time shifts across large sections between samples. We can use linear transformations to correct for these large scale retention differences. This  brings the majority of corresponding compound ions close to each other. Finding the correct corresponding ions is then faster and easier, as we don't have to search as far around individual features.
+To facilitate the collection of features corresponding to the same compound ion across different samples, an alignment of the samples' feature maps along retention time is often helpful. In addition to local, small-scale elution differences, one can often see constant retention time shifts across large sections between samples. We can use linear transformations to correct for these large scale retention differences. This  brings the majority of corresponding compound ions close to each other. Finding the correct corresponding ions is then faster and easier, as we don't have to search as far around individual features.
 
 \begin{figure}[!htbp]
 	\centering
@@ -394,7 +393,7 @@ Inspect the nodes of this section. Customize your visualization and possibly try
 
 \subsubsection{Advanced visualization}
 \label{sec:metaboR}
-R Dependencies: This section requires that the R packages ggplot2 and ggbiplot are both installed. ggplot2 is part of the \textit{KNIME R Statistics Integration (Windows Binaries)} which should already be installed via the full KNIME installer, ggbiplot however is not.
+R Dependencies: This section requires that the R packages \texttt{ggplot2} and \texttt{ggfortify} are both installed. \texttt{ggplot2} is part of the \textit{KNIME R Statistics Integration (Windows Binaries)} which should already be installed via the full KNIME installer, \texttt{ggfortify} however is not.
 In case that you use an R installation where one or both of them are not yet installed, add an \KNIMENODE{R Snippet} node and double-click to configure. In the \textit{R Script} text editor, enter the following code:
 \begin{lstlisting}
 #Include the next line if you also have to install ggplot2:
@@ -404,7 +403,7 @@ install.packages("ggfortify")
 library(ggplot2)
 library(ggfortify)
 \end{lstlisting}
-Press \menu{Eval script} to execute the script.\newline
+You can remove the \texttt{install.packages} commands once it was successfully installed.
 
 Even though the basic capabilities for (interactive) plots in KNIME are valuable for initial data exploration, professional looking depiction of analysis results often relies on dedicated plotting libraries. The statistics language R supports the addition of a large variety of packages, including packages providing extensive plotting capabilities. This part of the workflow shows how to use R nodes in KNIME to visualize more advanced figures. Specifically, we make use of different plotting packages to realize heatmaps.
 
