@@ -35,8 +35,8 @@ In the next step, we will tweak the parameters of OMSSA to better reflect the in
 \begin{itemize}
 \item
 Open the configuration dialog of \KNIMENODE{OMSSAAdapter}.
-The dataset was recorded using an LTQ Orbitrap XL mass spectrometer, so we can set the precursor mass tolerance to a smaller value, say 10 ppm.
-Set \textit{precursor\textunderscore mass\textunderscore tolerance} to 10 and \\ \textit{precursor\textunderscore error\textunderscore units} to \textit{ppm}.
+The dataset was recorded using an LTQ Orbitrap XL mass spectrometer, so we can set the precursor mass tolerance to a smaller value, say 5 ppm.
+Set \textit{precursor\textunderscore mass\textunderscore tolerance} to 5 and \\ \textit{precursor\textunderscore error\textunderscore units} to \textit{ppm}.
 \note{Whenever you change the configuration of a node, the node as well as all its successors will be reset to the Configured state (all node results are discarded and need to be recalculated by executing the nodes again).}
 \item
 Set \textit{max\_precursor\_charge} to 5, in order to also search for peptides with charges up to 5.
