@@ -337,6 +337,35 @@ On the METLIN homepage search for \menu{Compound Name} Glutathione using the \me
   \label{fig:glutathioneMetlin}
 \end{figure}
 
+\subsubsection{De novo identification}
+
+Another method for identification of metabolites using the MS2 spectra is de-novo identification. 
+This can be used in addition to the other methods (accurate mass search, spectral library search) or individually if no spectral spectral library is available. In this part of the tutorial, we take a look on how metabolite spectra can be identified using de-novo tools. To this end, the tool SIRIUS and CSI:FingerID (\cite{Bocker2009,Bocker2016,Duhrkop2015}) was integrated in the OpenMS Framework as SiriusAdapter. SIRIUS uses isotope pattern analysis for detecting the molecular formula and further analyses the fragmentation pattern of a compound using fragmentation treesCSI:FingerID  is a method for searching a tandem mass spectrum of a small molecule (metabolite) in a database of molecular structures.
+
+The is able to work in different modes depending on the provided input. 
+\begin{itemize}
+\item Input: mzML - SiriusAdapter will use the MS1 and MS2 information provided and search all MS2 spectra in a map.  
+\item Input: mzML, featureXML (FeatureFinderMetabo) - SiriusAdapter can use the provided feature information to reduce the search space to valid Features with MS2 spectra. Additional it can use the Isotope trace information. 
+\item Input: mzML, featureXML (FeatureFinderMetabo and MetaboliteAdductDecharger) - SiriusAdapter can use the feature information as mentioned above. Further adduct information of the feature is provided by using adduct grouping. 
+\end{itemize}
+
+The last method is the preferred one, since SIRIUS gains a lot of additional information by using the OpenMS preprocessing. 
+
+\begin{task}
+Construct the workflow as shown in Fig.~\ref{fig:denovoid}.
+Use the file \directory{Example\_Data / Metabolomics / datasets \newline / Metabolite\_DeNovoID\.mzML} as input for your workflow.  
+\end{task}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\textwidth]{graphics/metabo/denovoid.png}
+  \caption{De novo identification workflow}
+  \label{fig:denovoid}
+\end{figure}
+
+Run the workflow and inspect the output.
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Downstream data analysis and reporting}
 In this part of the metabolomics session we take a look at more advanced downstream analysis and the use of the statistical programming language R. As laid out in the introduction we try to detect a set of spike-in compounds against a complex blood background. As there are many ways to perform this type of analysis we provide a complete workflow.
