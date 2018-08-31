@@ -339,21 +339,21 @@ On the METLIN homepage search for \menu{Compound Name} Glutathione using the \me
 
 \subsubsection{De novo identification}
 
-Another method for identification of metabolites using the MS2 spectra is de-novo identification. 
-This can be used in addition to the other methods (accurate mass search, spectral library search) or individually if no spectral spectral library is available. In this part of the tutorial, we take a look on how metabolite spectra can be identified using de-novo tools. To this end, the tool SIRIUS and CSI:FingerID (\cite{Bocker2009,Bocker2016,Duhrkop2015}) was integrated in the OpenMS Framework as SiriusAdapter. SIRIUS uses isotope pattern analysis for detecting the molecular formula and further analyses the fragmentation pattern of a compound using fragmentation treesCSI:FingerID  is a method for searching a tandem mass spectrum of a small molecule (metabolite) in a database of molecular structures.
+Another method for identification of metabolites using MS2 spectra is de-novo identification. It can be used in addition to other methods (accurate mass search, spectral library search) or individually if no spectral library is available. In this part of the tutorial, we take a look at how metabolite spectra can be identified using de-novo tools. To this end, the tools SIRIUS and CSI:FingerID (\cite{Bocker2009,Bocker2016,Duhrkop2015}) were integrated in the OpenMS Framework as \KNIMENODE{SiriusAdapter}. SIRIUS uses isotope pattern analysis for detecting the molecular formula and further analyses the fragmentation pattern of a compound using fragmentation trees. CSI:FingerID is a method for searching a tandem mass spectrum of a small molecule (metabolite) in a database of molecular structures. \\
 
-The is able to work in different modes depending on the provided input. 
+\noindent The \KNIMENODE{SiriusAdapter} has different modes depending on the provided input. 
+
 \begin{itemize}
-\item Input: mzML - SiriusAdapter will use the MS1 and MS2 information provided and search all MS2 spectra in a map.  
-\item Input: mzML, featureXML (FeatureFinderMetabo) - SiriusAdapter can use the provided feature information to reduce the search space to valid Features with MS2 spectra. Additional it can use the Isotope trace information. 
-\item Input: mzML, featureXML (FeatureFinderMetabo and MetaboliteAdductDecharger) - SiriusAdapter can use the feature information as mentioned above. Further adduct information of the feature is provided by using adduct grouping. 
+\item Input: mzML - \KNIMENODE{SiriusAdapter} will use the MS1 and MS2 information provided and search all MS2 spectra in a map.  
+\item Input: mzML, featureXML (FeatureFinderMetabo) -  \KNIMENODE{SiriusAdapter}  can use the provided feature information to reduce the search space to valid features with isotope traces and the MS2 spectra in their proximity.
+\item Input: mzML, featureXML (FeatureFinderMetabo and MetaboliteAdductDecharger) -  \KNIMENODE{SiriusAdapter}  can use the feature information as mentioned above. Further adduct information of the feature is provided by using adduct grouping. 
 \end{itemize}
 
-The last method is the preferred one, since SIRIUS gains a lot of additional information by using the OpenMS preprocessing. 
+\noindent The last method is the preferred one, since SIRIUS gains a lot of additional information by using the OpenMS preprocessing. 
 
 \begin{task}
-Construct the workflow as shown in Fig.~\ref{fig:denovoid}.
-Use the file \directory{Example\_Data / Metabolomics / datasets \newline / Metabolite\_DeNovoID\.mzML} as input for your workflow.  
+Construct the workflow as shown in Fig.~\ref{fig:denovoid}. \\
+Use the file \directory{Example\_Data / Metabolomics / datasets \newline / Metabolite\_DeNovoID.mzML} as input for your workflow.  
 \end{task}
 
 \begin{figure}[htbp]
@@ -363,8 +363,11 @@ Use the file \directory{Example\_Data / Metabolomics / datasets \newline / Metab
   \label{fig:denovoid}
 \end{figure}
 
-Run the workflow and inspect the output.
+Run the workflow and inspect the output. \\
 
+\noindent The output consists of two mzTab files . One for the SIRIUS and the other for the CSI:FingerID summary. These provide information about the sumformula, adduct and the possible compound structure. The information is referenced to the spectrum used in the analysis. Additional information can be extracted by using the \KNIMENODE{SiriusAdapter} debug output. Here the SIRIUS workspace will be provided after the calculation has finished. The folder contains information about annotated fragments for each successfully explained compound.  
+
+The debug folder can be found by selecting the \KNIMENODE{SiriusAdapter} after the workflow has finished and using its \menu{View: SiriusAdapter Std Output}. Here the path found in \menu{Keeping temporary files in directory}can be copied to your file manger - this will be simplified in the next OpenMS release.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Downstream data analysis and reporting}
