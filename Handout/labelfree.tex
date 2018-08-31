@@ -364,14 +364,16 @@ the output of \KNIMENODE{MSstatsConverter}. The outline of the workflow is shown
 you can use a \KNIMENODE{URI Port to Variable} node and use the variable in the \KNIMENODE{File Reader} config dialog (v=? button) to read from the temporary file.
 
 \paragraph{Preprocessing} \mbox{}\newline
-\noindent The first node ( \KNIMENODE{Table to R}) performs a preprocessing step on the input data. The command
+\noindent The first node ( \KNIMENODE{Table to R}) loads MSstats plus the data from the previous KNIME node and performs a preprocessing step on the input data. The inline R script (that needs to be pasted into the config dialog of the node)
 \begin{lstlisting}
+library(MSStats)
+data <- knime.in
 quant <- OpenMStoMSstatsFormat(data, removeProtein_with1Feature = FALSE)
 \end{lstlisting}
 allows further preparation of the data produced by \KNIMENODE{MSstatsConverter} before the actual analysis is performed. In this example, the 
 lines with proteins, which were identified with only one feature, were retained. Alternatively they could be removed.
 \newline
-\noindent Most importantly, the following line:
+\noindent In the same node, most importantly, the following line:
 \begin{lstlisting}
 processed.quant <- dataProcess(quant, censoredInt = 'NA')
 \end{lstlisting}
@@ -424,7 +426,8 @@ We can specify the comparisons that we want to make in a
 	$\log \frac{\text{C}_2}{\text{C}_1}$.
 \end{itemize}
 
-\noindent We can generate such a matrix in R using the following code snippet:
+\noindent We can generate such a matrix in R using the following code snippet in (for example) a new \KNIMENODE{R to R} node
+that takes over the R workspace from the previous node with all its variables:
 \begin{lstlisting}
 	comparison1<-matrix(c(-1,1,0,0),nrow=1)
 	comparison2<-matrix(c(-1,0,1,0),nrow=1)
@@ -445,7 +448,7 @@ the rows with the respective condition.
 No more parameters need to be set for performing the comparison.
 
 \paragraph{Result Processing}\mbox{}\newline
-\noindent In the next node, the results are being processed. The following code snippet:
+\noindent In a next \KNIMENODE{R to R} node, the results are being processed. The following code snippet:
 \begin{lstlisting}
 	test.MSstats.cr <- test.MSstats$ComparisonResult
 	
@@ -487,7 +490,7 @@ for example performed in Figure~\ref{fig:msstats_1}.
 
 
 \paragraph{Export}\mbox{}\newline
-\noindent The last four nodes will export the results to a textual representation and volcano plots for further inspection. Also, quality control can be
+\noindent The last four nodes, each connected and making use of the same workspace from the last node, will export the results to a textual representation and volcano plots for further inspection. Firstly, quality control can be
 performed with the following snippet:
 \begin{lstlisting}
 	qcplot <- dataProcessPlots(processed.quant, type="QCplot", 
@@ -499,12 +502,24 @@ The code for this snippet is embedded in the first output node
 of the workflow. The resulting boxplots show the log2 intensity distribution
 across the MS runs.
 
-\noindent The second node (Volcano plot) displays differentially expressed
-proteins between conditions C2 vs. C1. This described in more detail in
-the following Result section.
+\noindent The second node is an \KNIMENODE{R View (Workspace)} node that returns a Volcano plot which displays differentially expressed
+proteins between conditions C2 vs. C1. The plot is described in more detail in the following Result section. This is how you generate it:
+\begin{lstlisting}
+groupComparisonPlots(data=test.MSstats.cr, type="VolcanoPlot",
+                     width=12, height=12,dot.size = 2,ylimUp = 7,
+                     which.Comparison = "C2-C1",
+                     address=F)
+\end{lstlisting}
 
-\noindent The last two nodes export the MSstats results as CSV files.
-This output can be used for more downstream analysis.
+\noindent The last two nodes export the MSstats results as a KNIME table for potential further analysis or for writing it to a (e.g. csv) file. Note that you could also write output inside the Rscript if you are familiar with it.
+Use the following for an \KNIMENODE{R to Table} node exporting all results:
+\begin{lstlisting}
+  knime.out <- test.MSstats.cr
+\end{lstlisting}
+And this for an \KNIMENODE{R to Table} node exporting only results for the spike-ins:
+\begin{lstlisting}
+  knime.out <- test.MSstats.cr.spikedins
+\end{lstlisting}
 
 
 \subsubsection{Result}
