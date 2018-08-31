@@ -276,7 +276,7 @@ Check out the \KNIMENODE{Molecule Type Cast}  node (\menu{Chemistry > Translator
 Have a look at the \KNIMENODE{Column Filter} node to reduce the table to the interesting columns, e.g., only the Ids, chemical formula, and intensities.
 \end{task}
 \begin{task}
-Try to compute and visualize the m/z and retention time error of the different elements of the consensus features.
+Try to compute and visualize the m/z and retention time error of the different feature elements (from the input maps) of each consensus feature. Hint: A nicely configured \KNIMENODE{Math Formula (Multi Column)} node should suffice.
 \end{task}
 
 \subsubsection{Spectral library search}
@@ -417,8 +417,7 @@ Even though the basic capabilities for (interactive) plots in KNIME are valuable
 Following the identification, quantification and statistical analysis our data is merged and formatted for reporting.
 First we want to discard our normalized and logarithmized intensity values in favor of the original ones.
 To this end we first remove the intensity columns (\KNIMENODE{Column Filter}) and add the original intensities back (\KNIMENODE{Joiner}).
-Note that we use an \textit{Inner Join} \footnote{\textit{Inner Join} is a technical term that describes how database tables are merged.}.
-Combining ID and Quantification table into a single table is again achieved using a \KNIMENODE{Joiner} node.
+For that we use an \textit{Inner Join} \footnote{\textit{Inner Join} is a technical term that describes how database tables are merged.} with the \KNIMENODE{Joiner} node. In the dialog of the node we add two entries for the Joining Columns and for the first column we pick "retention_time" from the top input (i.e. the AccurateMassSearch output) and "rt_cf" (the retention time of the consensus features) for the bottom input (the result from the quantification). For the second column you should choose "exp_mass_to_charge" and "mz_cf" respectively to make the joining unique. Note that the workflow needs to be executed up to the previous nodes for the possible selections of columns to appear.
 
 \begin{figure}[htbp]
   \centering
