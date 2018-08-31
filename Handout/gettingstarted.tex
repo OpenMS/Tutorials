@@ -431,7 +431,7 @@ Those \textit{knwf} files can again be imported by selecting \menu{File > Import
 
 \note{For your convenience we added all workflows discussed in this tutorial to the \directory{Workflows} folder on the USB Stick. Additionally, the
 workflow files can be found on our \href{https://github.com/OpenMS/Tutorials}{GitHub repository}.
-If you want to check your own workflow by comparing it to the solution or got stuck, simply import the full workflow from the corresponding \textit{knwf} file.}
+If you want to check your own workflow by comparing it to the solution or got stuck, simply import the full workflow from the corresponding \textit{knwf} file and after that double-click it in your KNIME Workflow repository to open it.}
 
 \subsubsection{Duplicating workflows}
 \label{sec:duplicate-wf}
@@ -534,7 +534,7 @@ The \KNIMENODE{ZipLoopEnd} collects the single files that arrive at its input po
 \end{figure}
 
 \subsubsection{Digression: Working with chemical structures}
-Metabolomics analyses often involve working with chemical structures. Popular cheminformatic toolkits such as RDKit or CDK are available as KNIME plugins and allow us to work with chemical structures directly from within KNIME. In particular, we will use KNIME and RDKit to visualize a list of compounds and filter them by predefined substructures. Chemical structures are often represented as SMILES (\textbf{S}implified \textbf{m}olecular \textbf{i}nput \textbf{l}ine \textbf{e}ntry \textbf{s}pecification), a simple and compact way to describe complex chemical structures as text. For example, the chemical structure of L-alanine can be written as the SMILES string C[C@H](N)C(O)=O. As we will discuss later, all OpenMS tools that perform metabolite identification will report SMILES as part of their result, which can then be further processed and visualized using RDKit and KNIME.
+Metabolomics analyses often involve working with chemical structures. Popular cheminformatic toolkits such as RDKit~\cite{rdkit} or CDK~\cite{cdk} are available as KNIME plugins and allow us to work with chemical structures directly from within KNIME. In particular, we will use KNIME and RDKit to visualize a list of compounds and filter them by predefined substructures. Chemical structures are often represented as SMILES (\textbf{S}implified \textbf{m}olecular \textbf{i}nput \textbf{l}ine \textbf{e}ntry \textbf{s}pecification), a simple and compact way to describe complex chemical structures as text. For example, the chemical structure of L-alanine can be written as the SMILES string C[C@H](N)C(O)=O. As we will discuss later, all OpenMS tools that perform metabolite identification will report SMILES as part of their result, which can then be further processed and visualized using RDKit and KNIME.
 
 \begin{figure}
 \centering
