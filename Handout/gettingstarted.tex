@@ -13,9 +13,6 @@
 \newcommand{\KnimeTrustedSite}{http://update.knime.com/community-contributions/trusted/3.6}
 \newcommand{\KnimeTrunkSite}{https://abibuilder.informatik.uni-tuebingen.de/archive/openms/knime-plugin/updateSite/RC/2.4.0/}
 
-% enable this line if the internal OpenMS update site is used
-%\newcommand{\OpenMSSite}{https://abibuilder.informatik.uni-tuebingen.de/archive/openms/knime-plugin/updateSite/RC/}
-
 \setcounter{equation}{0}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -43,9 +40,9 @@ on \textbf{macOS} you call
 
 and follow the instructions. For the OpenMS installation on \textbf{macOS}, you need to accept the license drag and drop the OpenMS folder into your Applications folder.
 \note{Due to increasing security measures for downloaded apps (e.g. path randomization) on \textbf{macOS} you might need to open TOPPView.app and TOPPAS.app while holding \keys{\ctrl} and accept the warning.
-If the app still does not open, you might need to move them from \directory{Applications / OpenMS-2.3.0} to e.g. your Desktop and back.}
+If the app still does not open, you might need to move them from \directory{Applications / OpenMS-2.4.0} to e.g. your Desktop and back.}
  On \textbf{Linux} you can extract KNIME to a folder of your choice and for TOPPView you need to install OpenMS via your package manager or build it on your own with the instructions under \href{https://www.openms.de/documentation}{www.openms.de/documentation}.
-\note{If you have installed OpenMS on Linux or macOS via your package manager (for instance by installing the \texttt{OpenMS-2.3.0-Linux.deb} package), then you need to set the \texttt{OPENMS\_DATA\_PATH} variable to the directory containing the shared data (normally \texttt{/usr/share/OpenMS}). This must be done prior to running any TOPP tool.}
+\note{If you have installed OpenMS on Linux or macOS via your package manager (for instance by installing the \texttt{OpenMS-2.4.0-Linux.deb} package), then you need to set the \texttt{OPENMS\_DATA\_PATH} variable to the directory containing the shared data (normally \texttt{/usr/share/OpenMS}). This must be done prior to running any TOPP tool.}
 
 \subsubsection{Installation from the internet}
 If you are working through this tutorial at home you can get the installers under the following links:
@@ -129,7 +126,7 @@ We will make use of these later throughout the tutorial. Let's start with a firs
 
 
 \begin{itemize}
-\item Start \OPENMSTOOL{TOPPView} (see \textbf{Windows}' Start-Menu or \directory{Applications/OpenMS-2.3.0} on \textbf{macOS})
+\item Start \OPENMSTOOL{TOPPView} (see \textbf{Windows}' Start-Menu or \directory{Applications/OpenMS-2.4.0} on \textbf{macOS})
 \item Go to \menu{File > Open File}, navigate to the directory where you copied the contents of the USB stick to,
       and select
       \directory{Example\_Data / Introduction / datasets / small / velos005614.mzML}
@@ -238,7 +235,7 @@ First, we install some additional extensions that are required by our OpenMS nod
 
 \noindent In addition, we need to install R for the statistical downstream analysis. Choose the directory that matches your operating system, double-click the R installer and follow the instructions. We recommend to use the default settings whenever possible. On macOS you also need to install XQuartz from the same directory.\\
 
-\noindent Afterwards open your R installation. If you use Windows, you will find an "R x64 3.4.3" icon on your desktop. If you use macOS, you will find R in your Applications folder. In R type the following lines (you might also copy them from the file \directory{R / install\_R\_packages.R} folder on the USB stick):
+\noindent Afterwards open your R installation. If you use Windows, you will find an "R x64 3.5.X" icon on your desktop. If you use macOS, you will find R in your Applications folder. In R type the following lines (you might also copy them from the file \directory{R / install\_R\_packages.R} folder on the USB stick):
 \begin{lstlisting}[aboveskip=8pt]
   install.packages("Rserve")
   install.packages("Cairo")
@@ -251,8 +248,8 @@ First, we install some additional extensions that are required by our OpenMS nod
 
 \noindent In KNIME, click on \menu{KNIME > Preferences}, select the category \menu{KNIME > R} and set the "Path to R Home" to your installation path. You can use the following settings, if you installed R as described above:
 \begin{itemize}
-\item Windows: C: \textbackslash Program Files \textbackslash R \textbackslash R-3.4.3 
-\item macOS: /Library/Frameworks/R.framework/Versions/3.4/Resources 
+\item Windows: C: \textbackslash Program Files \textbackslash R \textbackslash R-3.5.X (where X is the version you used to install the above libraries)
+\item macOS: /Library/Frameworks/R.framework/Versions/3.5/Resources 
 \end{itemize}
 
 \noindent You are now ready to install the OpenMS nodes.
@@ -288,7 +285,7 @@ First, we install some additional extensions that are required by our OpenMS nod
 \begin{itemize}
  % If you base the tutorial on the nightly contributions (not recommended - more of a emergency measure)
   \item \label{it:add_site} In the now open dialog choose \menu{Add...} (in the upper right corner of the dialog) to define a new update site. In the opening dialog enter the following details. \\
-  \textit{Name:} \texttt{OpenMS MayInstitute UpdateSite} \\
+  \textit{Name:} \texttt{OpenMS RC 2.4 UpdateSite} \\
   \textit{Location:} 
 \end{itemize}  
   \menu{\KnimeTrunkSite}
