@@ -245,8 +245,8 @@ First, we install some additional extensions that are required by our OpenMS nod
   install.packages("devtools")
   install.packages("ggplot2")
   install.packages("ggfortify")
-  library(devtools)
-  install_github("MeenaChoi/MSstats")
+  source("https://bioconductor.org/biocLite.R")
+  biocLite("msstats")
 \end{lstlisting}
 
 \noindent In KNIME, click on \menu{KNIME > Preferences}, select the category \menu{KNIME > R} and set the "Path to R Home" to your installation path. You can use the following settings, if you installed R as described above:
