@@ -12,6 +12,7 @@
 \newcommand{\KnimeUpdateSite}{http://update.knime.com/analytics-platform/3.6}
 \newcommand{\KnimeTrustedSite}{http://update.knime.com/community-contributions/trusted/3.6}
 \newcommand{\KnimeTrunkSite}{https://abibuilder.informatik.uni-tuebingen.de/archive/openms/knime-plugin/updateSite/RC/2.4.0/}
+\newcommand{\KnimeUSBUpdateSite}{jar:file:/E:/KNIMEUpdateSite/2.4.0.jar!/}
 
 \setcounter{equation}{0}
 
@@ -281,6 +282,24 @@ First, we install some additional extensions that are required by our OpenMS nod
 %  \item Select the \textbf{OpenMS} nodes in the category: \\ "KNIME Community Contributions - Bioinformatics \& NGS" and click \keys{Next}.
 %  \item Follow the instructions and after a restart of KNIME the OpenMS nodes will be available in the Node repository under “Community Nodes”.
 %\end{itemize}
+
+We included a custom KNIME update site to install the OpenMS KNIME plugins from the USB stick.
+
+\begin{itemize}
+ % If you base the tutorial on the nightly contributions (not recommended - more of a emergency measure)
+  \item \label{it:add_site} In the now open dialog choose \menu{Add...} (in the upper right corner of the dialog) to define a new update site. In the opening dialog enter the following details. \\
+  \textit{Name:} \texttt{OpenMS RC 2.4 UpdateSite} \\
+  \textit{Location:} 
+\end{itemize}  
+  \menu{\KnimeUSBUpdateSite}
+\begin{itemize}
+  \item \label{it:select_site} After pressing \keys{OK} KNIME will show you all the contents of the added Update Site.
+  \item \textbf{Note:} From now on, you can use this repository for plugins in the \menu{Work with:} drop-down list.
+  \item Select the \textbf{OpenMS} nodes in the "Uncategorized" category and click \keys{Next}.
+  \item Follow the instructions and after a restart of KNIME the OpenMS nodes will be available in the Node repository under “Community Nodes”.
+\end{itemize}
+
+Alternatively, you can try these steps that will install the OpenMS KNIME plugins from the internet. Note that download can be slow.
 
 \begin{itemize}
  % If you base the tutorial on the nightly contributions (not recommended - more of a emergency measure)
