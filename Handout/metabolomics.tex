@@ -278,8 +278,8 @@ Metabolites commonly co-elute as ions with different adducts (e.g., glutathione+
 
 \noindent Options to respect or replace ion charges or adducts allow for example:
 \begin{itemize}
-\item Heuristic but faster, iterative adduct grouping (\textbf{MetaboliteAdductDecharger \_ MetaboliteFeatureDeconvolution $\rightarrow$ q\_try set to “feature”}) by chaining multiple \KNIMENODE{MetaboliteAdductDecharger} with growing adduct sets, charge ranges or otherwise relaxed tolerances.
-\item More specific feature linking (\textbf{ FeatureLinkerUnlabeledQT \_ algorithm $\rightarrow$ ignore\_adduct set to “false”})
+\item Heuristic but faster, iterative adduct grouping (\textbf{MetaboliteAdductDecharger $\rightarrow$ MetaboliteFeatureDeconvolution $\rightarrow$ q\_try} set to “feature”) by chaining multiple \KNIMENODE{MetaboliteAdductDecharger} with growing adduct sets, charge ranges or otherwise relaxed tolerances.
+\item More specific feature linking (\textbf{ FeatureLinkerUnlabeledQT $\rightarrow$ algorithm $\rightarrow$ ignore\_adduct} set to “false”)
 \end{itemize}
 
 \begin{figure}[htbp]
@@ -290,7 +290,7 @@ Metabolites commonly co-elute as ions with different adducts (e.g., glutathione+
 \end{figure}
 
 \begin{task}
-A modified metabolomics workflow with exemplary \KNIMENODE{MetaboliteAdductDecharger} use and parameters is provided in \directory{Workflows / Metabolite\_Adduct\_Grouping.knwf}. Run the workflow, inspect tool outputs and compare \KNIMENODE{AccurateMassSearch} results with and without adduct grouping.
+A modified metabolomics workflow with exemplary \KNIMENODE{MetaboliteAdductDecharger} use and parameters is provided in\\ \directory{Workflows / Metabolite\_Adduct\_Grouping.knwf}. Run the workflow, inspect tool outputs and compare \KNIMENODE{AccurateMassSearch} results with and without adduct grouping.
 \end{task}
 
 \subsubsection{Visualizing data}
