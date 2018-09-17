@@ -264,6 +264,35 @@ The full workflow is shown in \cref{fig:metabo_part3}.
   \label{fig:metabo_part3}
 \end{figure}
 
+\subsubsection{Adduct grouping}
+
+Metabolites commonly co-elute as ions with different adducts (e.g., glutathione+H, glutathione+Na) or with charge-neutral modifications (e.g., water loss). Grouping such related ions allows to leverage information across features. For example, a low-intensity, single trace feature could still be assigned a charge and adduct due to a matching high-quality feature. Such information can then be used by several OpenMS tools, such as \KNIMENODE{AccurateMassSearch}, for example to narrow down candidates for identification.
+
+\noindent For this grouping task, we provide the \KNIMENODE{MetaboliteAdductDecharger} node. Its method explores the combinatorial space of all adduct combinations in a charge range for optimal explanations. Using defined adduct probabilities, it assigns co-eluting features having suitable mass shifts and charges those adduct combinations which maximize overall ion probabilities.
+
+\noindent The tool works natively with featureXML data, allowing the use of reported convex hulls. On such a single-sample level, co-elution settings can be chosen more stringently, as ionization-based adducts should not influence the elution time: Instead, elution differences of related ions should be due to slightly differently estimated times for their feature centroids.
+
+\noindent Alternatively, consensusXML data from feature linking can be converted for use, though with less chromatographic information. Here, the elution time averaging for features linked across samples, motivates wider co-elution tolerances.
+
+\noindent The two main tool outputs are a consensusXML file with compound groups of related input ions, and a featureXML containing the input file but annotated with inferred adduct information and charges.
+
+\noindent Options to respect or replace ion charges or adducts allow for example:
+\begin{itemize}
+\item Heuristic but faster, iterative adduct grouping (\textbf{MetaboliteAdductDecharger \_ MetaboliteFeatureDeconvolution $\rightarrow$ q\_try set to “feature”}) by chaining multiple \KNIMENODE{MetaboliteAdductDecharger} with growing adduct sets, charge ranges or otherwise relaxed tolerances.
+\item More specific feature linking (\textbf{ FeatureLinkerUnlabeledQT \_ algorithm $\rightarrow$ ignore\_adduct set to “false”})
+\end{itemize}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{graphics/metabo/mad.png}
+  \caption{Metabolite Adduct Decharger adduct grouping workflow}
+  \label{fig:mad}
+\end{figure}
+
+\begin{task}
+A modified metabolomics workflow with exemplary \KNIMENODE{MetaboliteAdductDecharger} use and parameters is provided in \directory{Workflows / Metabolite\_Adduct\_Grouping.knwf}. Run the workflow, inspect tool outputs and compare \KNIMENODE{AccurateMassSearch} results with and without adduct grouping.
+\end{task}
+
 \subsubsection{Visualizing data}
 
 Now that you have your data in KNIME you should try to get a feeling for the capabilities of KNIME.
@@ -337,19 +366,19 @@ On the METLIN homepage search for \menu{Compound Name} Glutathione using the \me
   \label{fig:glutathioneMetlin}
 \end{figure}
 
-\subsubsection{De novo identification}
+\subsubsection{\protect\textit{De novo} identification}
 
-Another method for identification of metabolites using the MS2 spectra is de-novo identification. 
-This can be used in addition to the other methods (accurate mass search, spectral library search) or individually if no spectral spectral library is available. In this part of the tutorial, we take a look on how metabolite spectra can be identified using de-novo tools. To this end, the tool SIRIUS and CSI:FingerID (\cite{Bocker2009,Bocker2016,Duhrkop2015}) was integrated in the OpenMS Framework as SiriusAdapter. SIRIUS uses isotope pattern analysis for detecting the molecular formula and further analyses the fragmentation pattern of a compound using fragmentation treesCSI:FingerID  is a method for searching a tandem mass spectrum of a small molecule (metabolite) in a database of molecular structures.
+Another method for MS2 spectra-based metabolite identification is \textit{de novo} identification. 
+This approach can be used in addition to the other methods (accurate mass search, spectral library search) or individually if no spectral library is available. In this part of the tutorial, we discuss how metabolite spectra can be identified using \textit{de novo} tools. To this end, the tools SIRIUS and CSI:FingerID (\cite{Bocker2009,Bocker2016,Duhrkop2015}) were integrated in the OpenMS Framework as SiriusAdapter. SIRIUS uses isotope pattern analysis to detect the molecular formula and further analyses the fragmentation pattern of a compound using fragmentation trees. CSI:FingerID  is a method for searching a tandem mass spectrum of a small molecule (metabolite) in a molecular structure database.
 
-The is able to work in different modes depending on the provided input. 
+The node is able to work in different modes depending on the provided input. 
 \begin{itemize}
-\item Input: mzML - SiriusAdapter will use the MS1 and MS2 information provided and search all MS2 spectra in a map.  
-\item Input: mzML, featureXML (FeatureFinderMetabo) - SiriusAdapter can use the provided feature information to reduce the search space to valid Features with MS2 spectra. Additional it can use the Isotope trace information. 
-\item Input: mzML, featureXML (FeatureFinderMetabo and MetaboliteAdductDecharger) - SiriusAdapter can use the feature information as mentioned above. Further adduct information of the feature is provided by using adduct grouping. 
+\item Input: mzML - SiriusAdapter will search all MS2 spectra in a map.  
+\item Input: mzML, featureXML (FeatureFinderMetabo) - SiriusAdapter can use the provided feature information to reduce the search space to valid features with MS2 spectra. Additionally it can use the isotopic trace information. 
+\item Input: mzML, featureXML (FeatureFinderMetabo and MetaboliteAdductDecharger) - SiriusAdapter can use the feature information as mentioned above together with feature adduct information from adduct grouping. 
 \end{itemize}
 
-The last method is the preferred one, since SIRIUS gains a lot of additional information by using the OpenMS preprocessing. 
+The last approach is the preferred one, as SIRIUS gains a lot of additional information by using the OpenMS tools for preprocessing. 
 
 \begin{task}
 Construct the workflow as shown in Fig.~\ref{fig:denovoid}. \\
@@ -359,13 +388,13 @@ Use the file \directory{Example\_Data / Metabolomics / datasets \newline / Metab
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.85\textwidth]{graphics/metabo/denovoid.png}
-  \caption{De novo identification workflow}
+  \caption{\protect\textit{De novo} identification workflow}
   \label{fig:denovoid}
 \end{figure}
 
 Run the workflow and inspect the output. \\
 
-\noindent The output consists of two mzTab files . One for the SIRIUS and the other for the CSI:FingerID summary. These provide information about the sumformula, adduct and the possible compound structure. The information is referenced to the spectrum used in the analysis. Additional information can be extracted by using the \KNIMENODE{SiriusAdapter} debug output. Here the SIRIUS workspace will be provided after the calculation has finished. The folder contains information about annotated fragments for each successfully explained compound.  
+\noindent The output consists of two mzTab files . One for the SIRIUS and the other for the CSI:FingerID summary. These provide information about the sumformula, adduct and the possible compound structure. The information is referenced to the spectrum used in the analysis. Additional information can be extracted from the \KNIMENODE{SiriusAdapter} debug output. Here the SIRIUS workspace will be provided after the calculation has finished. This workspace contains information about annotated fragments for each successfully explained compound.  
 
 The debug folder can be found by selecting the \KNIMENODE{SiriusAdapter} after the workflow has finished and using its \menu{View: SiriusAdapter Std Output}. Here the path found in \menu{Keeping temporary files in directory}can be copied to your file manger - this will be simplified in the next OpenMS release.
 
