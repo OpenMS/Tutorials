@@ -106,7 +106,7 @@
 		% either put here the presenting authors for workshops or all authors
 %       \textsc{\Large License}\\[1cm]
 		\vfill
-		\date
+		\today 
 		\textbf{Creative Commons Attribution 4.0 International (CC BY 4.0)}\\
 	\end{center}
 	\newpage
