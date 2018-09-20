@@ -107,8 +107,10 @@
 %       \textsc{\Large License}\\[1cm]
 		\vfill
 		\today 
-		~\\ 
-		\textbf{Creative Commons Attribution 4.0 International (CC BY 4.0)}\\
+		~\\ %hard space
+		\textbf{Creative Commons Attribution 4.0 International}
+		~\\ %hard space
+		\textbf{(CC BY 4.0)}\\
 	\end{center}
 	\newpage
 } % end titlepage
