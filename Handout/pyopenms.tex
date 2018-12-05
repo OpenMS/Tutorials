@@ -4,58 +4,119 @@
 \section{An introduction to pyOpenMS}
 
 \subsection{Introduction}
-pyOpenMS provides Python bindings for a large part of the OpenMS library for mass spectrometry based proteomics. It thus provides access to a feature-rich, open-source algorithm library for mass-spectrometry based proteomics analysis. These Python bindings allow raw access to the data-structures and algorithms implemented in {OpenMS, specifically those for file access (mzXML, mzML, TraML, mzIdentML among others), basic signal processing (smoothing, filtering, de-isotoping and peak-picking) and complex data analysis (including label-free, SILAC, iTRAQ and SWATH analysis tools).\\
+pyOpenMS provides Python bindings for a large part of the OpenMS library for mass spectrometry based proteomics and metabolomics. It thus provides access to a feature-rich, open-source algorithm library for mass-spectrometry based LC-MS analysis. These Python bindings allow raw access to the data-structures and algorithms implemented in {OpenMS, specifically those for file access (mzXML, mzML, TraML, mzIdentML among others), basic signal processing (smoothing, filtering, de-isotoping and peak-picking) and complex data analysis (including label-free, SILAC, iTRAQ and SWATH analysis tools).\\
 
-pyOpenMS is integrated into OpenMS starting from version 1.11. This tutorial is addressed to people already familiar with Python. If you are new to Python, we suggest to start with a Python tutorial (\url{http://en.wikibooks.org/wiki/Non-Programmer%27s_Tutorial_for_Python_2.6}).
+\noindent pyOpenMS is integrated into OpenMS starting from version 1.11. This tutorial is addressed to people already familiar with Python. If you are new to Python, we suggest to start with a Python tutorial (\url{https://en.wikibooks.org/wiki/Non-Programmer%27s_Tutorial_for_Python_3}).
 
 \subsection{Installation}
-One basic requirement for the installation of python packages, in particular pyOpenMS, is a package manager for
-python. There are two commonly used ones: \textit{easy\_install} (\url{https://pypi.python.org/pypi/setuptools}) and the newer \textit{pip} (\url{https://pypi.python.org/pypi/pip}). For Windows and Mac we
-already provide a package for \textit{pip} (and suggest to use it to get the newest version of pyOpenMS). For Linux you will have to use \textit{easy\_install}.
+One basic requirement for the installation of python packages, in particular pyOpenMS, is a package manager for python. We provide a package for \textit{pip} (\url{https://pypi.python.org/pypi/pip}).
+
 \subsubsection{Windows}
 \begin{enumerate}
-  \item Install Python 2.7 (\url{http://www.python.org/download/})
+  \item Install Python 3.7 (\url{http://www.python.org/download/})
   \item Install NumPy (\url{http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy})
   \item Install pip (see above)
   \item On the command line:
     \begin{lstlisting}
     python -m pip install -U pip
-	python -m pip install -U wheel
-	python -m pip install pyopenms
+    python -m pip install -U numpy
+    python -m pip install pyopenms
     \end{lstlisting}
 \end{enumerate}
 
-\subsubsection{Mac OS X 10.10}
-Using the preinstalled python of the system 
+\subsubsection{MacOS}
+We suggest do use a virtual environment for the Python 3 installation on mac. 
+Here you can install miniconda. \\
+
 \begin{enumerate}
-  \item Install pip (\textit{easy\_install} should be included on Mac)
+  \item Create new conda python environment
     \begin{lstlisting}
-    sudo easy_install pip
+    conda create -n py37 python=3.7 anaconda
     \end{lstlisting} 
-    If you encounter problems, install pip as described on their homepage
-    (\url{https://pypi.python.org/pypi/pip}) using their script.
+    \item Activate py37 environment
+    \begin{lstlisting}
+    source activate py37
+    \end{lstlisting} 
   \item On the Terminal:
     \begin{lstlisting}
     pip install -U pip
-	pip install -U wheel
-	pip install pyopenms
+    pip install -U numpy
+    pip install pyopenms
     \end{lstlisting}
 \end{enumerate}
 
 \subsubsection{Linux}
 Use your package manager apt-get or yum, where possible.
 \begin{enumerate}
-  \item Install Python 2.6 or 2.7 (Debian: python-dev, RedHat: python-devel)
+  \item Install Python 3.7 (Debian: python-dev, RedHat: python-devel)
   \item Install NumPy (Debian / RedHat: python-numpy)
   \item Install setuptools (Debian / RedHat: python-setuptools)
   \item On the Terminal:
     \begin{lstlisting}
-    easy_install pyopenms
+    pip install pyopenms
     \end{lstlisting}
 \end{enumerate}
 
 \subsection{Build instructions}
-Instructions on how to build pyOpenMS can be found online (\url{http://ftp.mi.fu-berlin.de/OpenMS/release-documentation/html/pyOpenMS.html}).
+Instructions on how to build pyOpenMS can be found online (\url{https://pyopenms.readthedocs.io/en/release_2.4.0/build_from_source.html}).
+
+\subsection{Scripting with pyOpenMS}
+A big advantage of pyOpenMS are its scripting possibilities (beyond its application in tool development). Most of the OpenMS datastructure can be accessed using python (\url{https://abibuilder.informatik.uni-tuebingen.de/archive/openms/Documentation/nightly/html/index.html}). Here we would like to give some examples on how pyopenms can be used for simple scripting task, such as peptide mass calculation and peptide/protein digestion. 
+
+ isotopen muster 
+Calculation of the monoisotopic and average mass of a peptide sequence 
+\begin{lstlisting}
+from pyopenms import *
+
+seq = AASequence.fromString("DFPIANGER")
+
+mono_mass = seq.getMonoWeight(Residue.ResidueType.Full, 0)
+average_mass = seq.getAverageWeight(Residue.ResidueType.Full, 0)
+
+print("Different masses of the peptide sequence " + seq.toString().decode('utf-8') + " are:")
+print("mono: " + str(mono_mass))
+print("average: "+ str(average_mass))
+\end{lstlisting}
+
+Enzymatic digest of a peptide/protein sequence 
+\begin{lstlisting}
+enzyme = "Trypsin"
+to_digest = AASequence.fromString("MKWVTFISLLLLFSSAYSRGVFRRDTHKSEIAHRFKDLGE")
+after_digest = []
+
+EnzymaticDigest = EnzymaticDigestionLogModel()
+EnzymaticDigest.setEnzyme(enzyme)
+EnzymaticDigest.digest(to_digest, after_digest)
+
+print("The peptide " + to_digest.toString().decode('utf-8') + " was digested using " + str(EnzymaticDigest.getEnzymeName().decode('utf-8')) + " to:")
+
+for element in after_digest:
+    print(element.toString().decode('utf-8'))
+\end{lstlisting}
+
+Use empirical formula to calculate the isotope distribution 
+\begin{lstlisting}
+from pyopenms import *
+
+methanol = EmpiricalFormula("CH3OH")
+water = EmpiricalFormula("H2O")
+wm = EmpiricalFormula(water.toString().decode('utf-8') + methanol.toString().decode('utf-8'))
+print(wm.toString().decode('utf-8'))
+print(wm.getElementalComposition())
+
+isotopes = wm.getIsotopeDistribution( CoarseIsotopePatternGenerator(3) )
+for iso in isotopes.getContainer():
+    print (iso.getMZ(), ":", iso.getIntensity())
+\end{lstlisting}
+
+\noindent For further examples and a look at the OpenMS\/pyOpenMS datastructure please see \url{https://pyopenms.readthedocs.io/en/release_2.4.0/datastructures.html}. 
+
+
+%TO add construct new tool, which reads a fasta database and digest the proteins 
+% choose enzyme 
+% input fasta 
+% output ? 
+% similar to Digestor (?)
 
 \subsection{Your first pyOpenMS tool: pyOpenSwathFeatureXMLToTSV}
 The first tool that you are going to re-implement is a TOPP tool called OpenSwathFeatureXMLToTSV. Take a look at the help of the tool:

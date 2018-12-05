@@ -14,9 +14,9 @@ OpenSWATH has been fully integrated since OpenMS 1.10 \cite{Kohlbacher2007,Sturm
 \subsection{Installation of mProphet}
 mProphet (\url{http://www.mprophet.org/}) \cite{Reiter2011MProphet} is available as standalone script in \directory{External\_Tools/mProphet/}. 
 R (\url{http://www.r-project.org/}) and the package MASS (\url{http://cran.r-project.org/web/packages/MASS/}) are further required to execute mProphet. 
-Please obtain a version for either Windows, Mac or Linux directly from CRAN.
+Please obtain a version for either Windows, Mac or Linux directly from CRAN. \\
 
-pyprophet, a much faster reimplementation of the mProphet algorithm is available from PyPI (\url{https://pypi.python.org/pypi/pyprophet/}). The usage of pyprophet instead of mProphet is suggested for large-scale applications, but the installation requires more dependencies and therefore, for this tutorial the application of mProphet is described.
+\noindent PyProphet, a much faster reimplementation of the mProphet algorithm is available from PyPI (\url{https://pypi.python.org/pypi/pyprophet/}). The usage of pyprophet instead of mProphet is suggested for large-scale applications, but the installation requires more dependencies and therefore, for this tutorial the application of mProphet is described.
 
 \subsection{Generating the Assay Library}
 \subsubsection{Generating TraML from transition lists}
@@ -25,65 +25,61 @@ OpenSWATH requires the assay libraries to be supplied in the TraML format \cite{
 The header of the transition list contains the following variables (with example values in brackets):
 
 \begin{description}
+  \item[Required Columns:]
   \item[\texttt{PrecursorMz}] \hfill \\
   The mass-to-charge (m/z) of the precursor ion. (728.88)
   \item[\texttt{ProductMz}] \hfill \\
   The mass-to-charge (m/z) of the product or fragment ion. (924.539)
-  \item[\texttt{Tr\_recalibrated}] \hfill \\
-  The \textbf{normalized} retention time (or iRT) \cite{Escher2012Using} of the peptide. (26.5)
-  \item[\texttt{transition\_name}] \hfill \\
-  A \textbf{unique} identifier for the transition.\\
-  (AQUA4SWATH\_HMLangeA\_ADSTGTLVITDPTR(UniMod:267)/2\_y8)
-  \item[\texttt{CE}] \hfill \\
-  The collision energy that should be used for the acquisition. (27)\\
-  \texttt{Optional} (not used by OpenSWATH)
-  \item[\texttt{LibraryIntensity}] \hfill \\
+   \item[\texttt{LibraryIntensity}] \hfill \\
   The relative intensity of the transition. (3305.3)
-  \item[\texttt{transition\_group\_id}] \hfill \\
-  A \textbf{unique} identifier for the transition group.\\
-  (AQUA4SWATH\_HMLangeA\_ADSTGTLVITDPTR(UniMod:267)/2)
-  \item[\texttt{decoy}] \hfill \\
-  A binary value whether the transition is target or decoy (target:0, decoy:1). (0)
+  \item[\texttt{NormalizedRetentionTime}] \hfill \\
+  The \textbf{normalized} retention time (or iRT) \cite{Escher2012Using} of the peptide. (26.5)
+  \newline
+  \item[Targeted Proteomics Columns:]
+  \item[\texttt{ProteinId}] \hfill \\
+  A unique identifier for the protein. (AQUA4SWATH\_HMLangeA)
   \item[\texttt{PeptideSequence}] \hfill \\
   The unmodified peptide sequence. (ADSTGTLVITDPTR)
-  \item[\texttt{ProteinName}] \hfill \\
-  A unique identifier for the protein. (AQUA4SWATH\_HMLangeA)
-  \item[\texttt{Annotation}] \hfill \\
-  The fragment ion annotation. (y8)\\
-  \texttt{Optional} (not used by OpenSWATH)
-  \item[\texttt{FullUniModPeptideName}] \hfill \\
+  \item[\texttt{ModifiedPeptideSequence}] \hfill \\
   The peptide sequence with UniMod modifications. (ADSTGTLVITDPTR(UniMod:267))
-  \item[\texttt{MissedCleavages}] \hfill \\
-  The number of missed cleavages during enzymatic digestion. (0)\\
-  \texttt{Optional} (not used by OpenSWATH)
-  \item[\texttt{Replicates}] \hfill \\
-  The number of replicates. (0)\\
-  \texttt{Optional} (not used by OpenSWATH)
-  \item[\texttt{NrModifications}] \hfill \\
-  The number of modifications. (0)\\
-  \texttt{Optional} (not used by OpenSWATH)
   \item[\texttt{PrecursorCharge}] \hfill \\
   The precursor ion charge. (2)
-  \item[\texttt{GroupLabel}] \hfill \\
-  The stable isotope label. (light)\\
-  \texttt{Optional} (not used by OpenSWATH)
-  \item[\texttt{UniprotID}] \hfill \\
-  The Uniprot ID of the protein. ()\\
-  \texttt{Optional} (not used by OpenSWATH)
+  \item[\texttt{ProductCharge}] \hfill \\
+  The product ion charge. (2)
+  \newline
+  \item[Grouping Columns:]
+  \item[\texttt{TransitionGroupId}] \hfill \\
+  A \textbf{unique} identifier for the transition group.\\
+  (AQUA4SWATH\_HMLangeA\_ADSTGTLVITDPTR(UniMod:267)/2)
+  \item[\texttt{TransitionId}] \hfill \\
+  A \textbf{unique} identifier for the transition.\\
+  (AQUA4SWATH\_HMLangeA\_ADSTGTLVITDPTR(UniMod:267)/2\_y8)
+  \item[\texttt{Decoy}] \hfill \\
+  A binary value whether the transition is target or decoy (target:0, decoy:1). (0)
+  \item[\texttt{PeptideGroupLabel}] \hfill \\
+  Which label group the peptide belongs to. \\
+  \item[\texttt{DetectingTransition}] \hfill \\
+  Use transition for peak group detection. (1)\\
+  \item[\texttt{IdentifyingTransition}] \hfill \\
+  Use transition for peptidoform inference using IPF. (1)\\
+  \item[\texttt{QuantifyingTransition}] \hfill \\
+  Use transition to quantify peak group. (1)\\
 \end{description}
 
-To convert transitions lists to TraML, use \OPENMSTOOL{ConvertTSVToTraML}:\\
+\noindent For further instructions about generic transition list and assay library generation please see \url{http://openswath.org/en/latest/docs/generic.html}.
+\newline
+\noindent To convert transitions lists to TraML, use \OPENMSTOOL{ConvertTSVToTraML}:\\
 
 \begin{description}
   \item[Linux or Mac] \hfill \\
     On the Terminal:
     \begin{lstlisting}
-  ConvertTSVToTraML -in OpenSWATH_SGS_AssayLibrary.csv -out OpenSWATH_SGS_AssayLibrary.TraML
+  TargetedFileConverter -in OpenSWATH_SGS_AssayLibrary.tsv -out OpenSWATH_SGS_AssayLibrary.TraML
   \end{lstlisting}
   \item[Windows] \hfill \\
     On the TOPP command line:
     \begin{lstlisting}
-  ConvertTSVToTraML.exe -in OpenSWATH_SGS_AssayLibrary.csv -out OpenSWATH_SGS_AssayLibrary.TraML
+  TargetedFileConverter.exe -in OpenSWATH_SGS_AssayLibrary.tsv -out OpenSWATH_SGS_AssayLibrary.TraML
   \end{lstlisting}
 \end{description}
 
@@ -94,16 +90,14 @@ In addition to the target assays, OpenSWATH further requires decoy assays in the
   \item[Linux or Mac] \hfill \\
     On the Terminal:
     \begin{lstlisting}
-  OpenSwathDecoyGenerator -in OpenSWATH_SGS_AssayLibrary.TraML -out OpenSWATH_SGS_AssayLibrary_with_Decoys.TraML -method shuffle -append -exclude_similar -remove_unannotated
+  OpenSwathDecoyGenerator -in OpenSWATH_SGS_AssayLibrary.TraML -out OpenSWATH_SGS_AssayLibrary_with_Decoys.TraML -method shuffle
   \end{lstlisting}
   \item[Windows] \hfill \\
     On the TOPP command line:
     \begin{lstlisting}
-  OpenSwathDecoyGenerator.exe -in OpenSWATH_SGS_AssayLibrary.TraML -out OpenSWATH_SGS_AssayLibrary_with_Decoys.TraML -method shuffle -append -exclude_similar -remove_unannotated
+  OpenSwathDecoyGenerator.exe -in OpenSWATH_SGS_AssayLibrary.TraML -out OpenSWATH_SGS_AssayLibrary_with_Decoys.TraML -method shuffle
   \end{lstlisting}
 \end{description}
-
-The flag \texttt{-append} generates an output TraML with the complete set of decoy and target assays. The flag \texttt{-exclude\_similar} is used to exclude decoys which are very similar to the target assays.  
 
 \subsection{OpenSWATH KNIME}
 An example KNIME workflow for OpenSWATH is supplied in \directory{Workflows/} (Fig.~\ref{fig:openswath}). The example dataset can be used for this workflow (filenames in brackets):
@@ -134,12 +128,14 @@ with statistical information available in\\
 Please note that due to the semi-supervised machine learning approach of mProphet the results differ slightly when mProphet is executed several times.
 
 \begin{figure}[htbp]
-  \includegraphics[width=\textwidth]{graphics/OpenSwath}
+  \includegraphics[width=0.7\textwidth]{graphics/openswath/OpenSWATHWF.png}
   \caption{OpenSWATH KNIME Workflow.}
   \label{fig:openswath}
 \end{figure}
 
+Additionally the chromatrogam output (.mzML) can be visualized for inspection with \OPENMSTOOL{TOPPView}.
+
 \subsection{From the example dataset to real-life applications}
 The sample dataset used in this tutorial is part of the larger SWATH MS Gold Standard (SGS) dataset which is described in the publication of Roest et al.~\cite{Rost2014fd}.
-It contains one of 90 SWATH-MS runs with significant data reduction (peak picking of the raw, profile data) to make file transfer and working with it easier. Usually SWATH-MS datasets are huge with several gigabyte per run. Especially when complex samples in combination with large assay libraries are analyzed, the TOPP tool based workflow requires a lot of computational resources. For this reason, an integrated tool (\OPENMSTOOL{OpenSwathWorkflow}) has been developed, combining all the steps shown in the KNIME-Workflow into a single executable. It is shipped with OpenMS 2.0.0. Instructions on how to use this tool can be found on \url{http://www.openswath.org}.
+It contains one of 90 SWATH-MS runs with significant data reduction (peak picking of the raw, profile data) to make file transfer and working with it easier. Usually SWATH-MS datasets are huge with several gigabyte per run. Especially when complex samples in combination with large assay libraries are analyzed, the TOPP tool based workflow requires a lot of computational resources. Additional information and instruction can be found at \url{http://openswath.org/en/latest/}.
 
