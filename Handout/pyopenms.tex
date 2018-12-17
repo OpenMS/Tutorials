@@ -182,6 +182,42 @@ if __name__ == '__main__':
 
 The function pyopenms.FeatureMap() initializes an OpenMS FeatureMap data structure. The function pyopenms.FileHandler() prepares a filehandler with the variable name fh and fh.loadFeatures(options.infile, features) takes the filename and imports the featureXML into the FeatureMap data structure.
 
+Just like every python method you can inspect arguments and documentation of pyopenms methods using dir and help if you need more information:
+
+\begin{lstlisting}
+>>>dir(pyopenms.FileHandler())
+['__class__', '__delattr__', '__doc__', '__format__', '__getattribute__', '__hash__', '__init__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '_init_0', '_init_1', 'computeFileHash', 'getOptions', 'getType', 'getTypeByContent', 'getTypeByFileName', 'hasValidExtension', 'isSupported', 'loadExperiment', 'loadFeatures', 'setOptions', 'storeExperiment']
+
+>>>help(pyopenms.FileHandler())
+Help on FileHandler object:
+
+class FileHandler(__builtin__.object)
+ |  Cython implementation of _FileHandler
+ |  
+ |  Methods defined here:
+ |  
+ |  __init__(...)
+ |      - Cython signature: void FileHandler()
+ |      - Cython signature: void FileHandler(FileHandler)
+ |  
+ |  getOptions(...)
+ |      Cython signature: PeakFileOptions getOptions()
+ |  
+ |  loadExperiment(...)
+ |      Cython signature: bool loadExperiment(libcpp_string, MSExperiment &)
+ |  
+ |  loadFeatures(...)
+ |      Cython signature: bool loadFeatures(libcpp_string, FeatureMap &)
+ |  
+ |  setOptions(...)
+ |      Cython signature: void setOptions(PeakFileOptions)
+ |  
+ |  storeExperiment(...)
+ |      Cython signature: void storeExperiment(libcpp_string, MSExperiment)
+ |  
+(...)
+\end{lstlisting}
+
 In the next step, we're accessing the keys using the function getKeys() and printing them to stdout:
 
 \begin{lstlisting}
