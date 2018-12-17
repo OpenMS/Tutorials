@@ -84,7 +84,7 @@ OpenSWATH requires an assay library to be supplied in the TraML format \cite{Deu
   \end{lstlisting}
 \end{description}
 
-\subsubsection{Appending decoys to a TraML}
+\subsubsection{Appending decoys to a TraML file}
 In addition to the target assays, OpenSWATH further requires decoy assays in the library which are later used for classification and error rate estimation. For the decoy generation it is crucial that the decoys represent the targets in a realistic but unnatural manner without interfering with the targets. The methods for decoy generation implemented in OpenSWATH include 'shuffle', 'pseudo-reverse', 'reverse' and 'shift'. To append decoys to a TraML, the TOPP tool \OPENMSTOOL{OpenSwathDecoyGenerator} can be used:
 
 \begin{description}
@@ -96,7 +96,7 @@ In addition to the target assays, OpenSWATH further requires decoy assays in the
   \item[Windows] \hfill \\
     On the TOPP command line:
     \begin{lstlisting}
-  OpenSwathDecoyGenerator.exe -in OpenSWATH_SGS_AssayLibrary.TraML -out OpenSWATH_SGS_AssayLibrary_with_Decoys.TraML -method shuffle -switchKR false
+  OpenSwathDecoyGenerator.exe -in OpenSWATH_SGS_AssayLibrary_woDecoy.TraML -out OpenSWATH_SGS_AssayLibrary.TraML -method shuffle -switchKR false
   \end{lstlisting}
 \end{description}
 
@@ -104,29 +104,29 @@ In addition to the target assays, OpenSWATH further requires decoy assays in the
 An example KNIME workflow for OpenSWATH is supplied in \directory{Workflows/} (Fig.~\ref{fig:openswath}). The example dataset can be used for this workflow (filenames in brackets):
 
 \begin{enumerate}
-  \item Open \directory{Workflows / OpenSWATH / OpenSWATH.zip} in KNIME: \menu{File > Import KNIME Workflow...}.
+  \item Open \directory{Workflows /OpenSWATH.knwf} in KNIME: \menu{File > Import KNIME Workflow...}.
   \item Select the normalized retention time (iRT) assay library in TraML format by double-clicking on node \menu{Input File > iRT Assay Library}.\\
-  (\directory{OpenSWATH/assay/OpenSWATH\_iRT\_AssayLibrary.TraML})
+  (\directory{Example\_Data/OpenSWATH/assay/OpenSWATH\_iRT\_AssayLibrary.TraML})
   \item Select the SWATH MS data in mzML format as input by double-clicking on node \menu{Input File > SWATH-MS files}.\\
-  (\directory{OpenSWATH/data/split\_napedro\_L120420\_010\_SW-*.nf.pp.mzML})
+  (\directory{Example\_Data/OpenSWATH/data/split\_napedro\_L120420\_010\_SW-*.nf.pp.mzML})
   \item Select the target peptide assay library in TraML format  as input by double-clicking on node \menu{Input Files > Assay Library}.\\
-  (\directory{OpenSWATH/assay/OpenSWATH\_SGS\_AssayLibrary.TraML})
+  (\directory{Example\_Data/OpenSWATH/assay/OpenSWATH\_SGS\_AssayLibrary.TraML})
   \item Set the output destination by double-clicking on node \menu{Output File}.\\
   \item Run the workflow.
 \end{enumerate}
 
-The resulting output can be found at your selected path, which will be used as input for mProphet. Execute the script on the Terminal (Linux or Mac) or cmd.exe (Windows) in \directory{OpenSWATH/result}:
+\noindent The resulting output can be found at your selected path, which will be used as input for mProphet. Execute the script on the Terminal (Linux or Mac) or cmd.exe (Windows) in \directory{OpenSWATH/result}:
 
 \begin{lstlisting}
 R --slave --args bin_dir=../../../External_Tools/mProphet/ mquest=OpenSWATH_output.csv workflow=LABEL_FREE num_xval=5 run_log=FALSE write_classifier=1 write_all_pg=1 < ../../../External_Tools/mProphet/mProphet.R
 \end{lstlisting}
 
-The main output will be called\\
+\noindent The main output will be called\\
 \directory{OpenSWATH/result/mProphet\_all\_peakgroups.xls}\\
 with statistical information available in\\
 \directory{OpenSWATH/result/mProphet.pdf}.\\
 
-Please note that due to the semi-supervised machine learning approach of mProphet the results differ slightly when mProphet is executed several times.
+\noindent Please note that due to the semi-supervised machine learning approach of mProphet the results differ slightly when mProphet is executed several times.
 
 \begin{figure}[htbp]
   \includegraphics[width=0.7\textwidth]{graphics/openswath/OpenSWATHWF.png}
@@ -134,7 +134,7 @@ Please note that due to the semi-supervised machine learning approach of mProphe
   \label{fig:openswath}
 \end{figure}
 
-Additionally the chromatrogam output (.mzML) can be visualized for inspection with \OPENMSTOOL{TOPPView}.
+\noindent Additionally the chromatrogam output (.mzML) can be visualized for inspection with \OPENMSTOOL{TOPPView}.
 
 \subsection{From the example dataset to real-life applications}
 The sample dataset used in this tutorial is part of the larger SWATH MS Gold Standard (SGS) dataset which is described in the publication of Roest et al.~\cite{Rost2014fd}.
