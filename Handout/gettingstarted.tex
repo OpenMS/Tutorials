@@ -2,17 +2,17 @@
 
 % File names are changed quite often between tutorial so make them configurable at the top.
 % Please escape whitespaces except before and after / as a path separator.
-\newcommand{\WindowsKnimeInstallerName}{Windows / KNIME\ 3.6.0\ Installer\ (64bit).exe}	
+\newcommand{\WindowsKnimeInstallerName}{Windows / KNIME\ 3.7.0\ Installer\ (64bit).exe}	
 \newcommand{\WindowsOpenMSInstallerName}{Windows / OpenMS-2.4.0-Win64.exe}	
 \newcommand{\WindowsOpenMSPrereqInstallerName}{Windows / OpenMS-2.4-prerequisites-installer.exe}
 \newcommand{\WindowsPrerequisitesLink}{http://sourceforge.net/projects/open-ms/files/OpenMS/OpenMS-2.4/OpenMS-2.4-prerequisites-installer.exe/download}
 \newcommand{\WindowsDefaultPWizFolder}{C: / Program\ Files / OpenMS-2.4.0 / share / OpenMS / THIRDPARTY / pwiz-bin}
-\newcommand{\MacKnimeInstallerName}{Mac / knime\_3.6.0.app.macosx.cocoa.x86\_64.dmg}	
+\newcommand{\MacKnimeInstallerName}{Mac / knime\_3.7.0.app.macosx.cocoa.x86\_64.dmg}	
 \newcommand{\MacOpenMSInstallerName}{Mac / OpenMS-2.4.0-Darwin.dmg}
-\newcommand{\KnimeUpdateSite}{http://update.knime.com/analytics-platform/3.6}
-\newcommand{\KnimeTrustedSite}{http://update.knime.com/community-contributions/trusted/3.6}
+\newcommand{\KnimeUpdateSite}{http://update.knime.com/analytics-platform/3.7}
+\newcommand{\KnimeTrustedSite}{http://update.knime.com/community-contributions/trusted/3.7}
 \newcommand{\KnimeTrunkSite}{https://abibuilder.informatik.uni-tuebingen.de/archive/openms/knime-plugin/updateSite/RC/2.4.0/}
-\newcommand{\KnimeUSBUpdateSite}{jar:file:/E:/KNIMEUpdateSite/2.4.0.jar!/}
+\newcommand{\KnimeUSBUpdateSite}{file:/KNIMEUpdateSite/2.4.0/}
 
 \setcounter{equation}{0}
 
@@ -191,8 +191,8 @@ be created conveniently in a graphical user interface. The parameters of all inv
 tools can be edited within the application and are also saved as part of the workflow.
 Furthermore, KNIME interactively performs validity checks during the workflow editing
 process, in order to make it more difficult to create an invalid workflow.
-
-Throughout most parts of this tutorial you will use KNIME to create and
+\newline
+\noindent Throughout most parts of this tutorial you will use KNIME to create and
 execute workflows. The first step is to make yourself familiar with KNIME. Additional
 information on basic usage of KNIME can be found on the KNIME
 \href{https://tech.knime.org/knime}{Getting Started page}. However,
@@ -288,11 +288,8 @@ We included a custom KNIME update site to install the OpenMS KNIME plugins from 
 \begin{itemize}
  % If you base the tutorial on the nightly contributions (not recommended - more of a emergency measure)
   \item \label{it:add_site} In the now open dialog choose \menu{Add...} (in the upper right corner of the dialog) to define a new update site. In the opening dialog enter the following details. \\
-  \textit{Name:} \texttt{OpenMS RC 2.4 UpdateSite} \\
-  \textit{Location:} 
-\end{itemize}  
-  \menu{\KnimeUSBUpdateSite}
-\begin{itemize}
+  \textit{Name:} \texttt{OpenMS 2.4 UpdateSite} \\
+  \textit{Location:}  \KnimeUSBUpdateSite \\
   \item \label{it:select_site} After pressing \keys{OK} KNIME will show you all the contents of the added Update Site.
   \item \textbf{Note:} From now on, you can use this repository for plugins in the \menu{Work with:} drop-down list.
   \item Select the \textbf{OpenMS} nodes in the "Uncategorized" category and click \keys{Next}.
@@ -304,7 +301,7 @@ Alternatively, you can try these steps that will install the OpenMS KNIME plugin
 \begin{itemize}
  % If you base the tutorial on the nightly contributions (not recommended - more of a emergency measure)
   \item \label{it:add_site} In the now open dialog choose \menu{Add...} (in the upper right corner of the dialog) to define a new update site. In the opening dialog enter the following details. \\
-  \textit{Name:} \texttt{OpenMS RC 2.4 UpdateSite} \\
+  \textit{Name:} \texttt{OpenMS 2.4 UpdateSite} \\
   \textit{Location:} 
 \end{itemize}  
   \menu{\KnimeTrunkSite}

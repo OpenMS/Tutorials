@@ -62,13 +62,25 @@ If you don't have python installed or don't want to modify your native installat
 
 \noindent Please execute the installer for your respective platform located in the respective directory for your platform and follow the installation instructions. \\
 
-\noindent After installation the ANACONDA Navigator should be available. Please start the application. To install pyopenms please choose the button "Environments" and click the play symbol of the base environment and "Open Terminal". \\
+\noindent After installation the ANACONDA Navigator (Anaconda 3) should be available. Please start the application. To install pyopenms please choose the button "Environments" and click the play symbol of the base environment and "Open Terminal". \\
 
-\noindent  Update pip and install pyopenms:
+\noindent  Update pip and install pyopenms (MacOS, Linux):
 \begin{lstlisting}
 pip install -U pip
 pip install -U pyopenms
 \end{lstlisting}
+
+\noindent  Update pip and install pyopenms (Windows):
+\begin{lstlisting}
+python -m pip install -U pip
+python -m pip install -U pyopenms
+\end{lstlisting}
+
+\noindent To install a local available package please use (with the package depending on your platform):
+\begin{lstlisting}
+pip install pyopenms-2.4.0-cp37*.whl
+\end{lstlisting}
+    
     
 \noindent  Now launch "Spyder" (python IDE) in the home menu.
 

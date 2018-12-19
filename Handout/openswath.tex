@@ -16,7 +16,7 @@ mProphet (\url{http://www.mprophet.org/}) \cite{Reiter2011MProphet} is available
 R (\url{http://www.r-project.org/}) and the package MASS (\url{http://cran.r-project.org/web/packages/MASS/}) are further required to execute mProphet. 
 Please obtain a version for either Windows, Mac or Linux directly from CRAN. \\
 
-\noindent PyProphet, a much faster reimplementation of the mProphet algorithm is available from PyPI (\url{https://pypi.python.org/pypi/pyprophet/}). The usage of pyprophet instead of mProphet is suggested for large-scale applications, but the installation requires more dependencies and therefore, for this tutorial the application of mProphet is described.
+\noindent PyProphet, a much faster reimplementation of the mProphet algorithm is available from PyPI (\url{https://pypi.python.org/pypi/pyprophet/}). The usage of pyprophet instead of mProphet is suggested for large-scale applications. For furhter installtion instruction please have a look below. 
 
 \subsection{Generating the Assay Library}
 \subsubsection{Generating TraML from transition lists}
@@ -118,8 +118,25 @@ An example KNIME workflow for OpenSWATH is supplied in \directory{Workflows/} (F
 \noindent The resulting output can be found at your selected path, which will be used as input for mProphet. Execute the script on the Terminal (Linux or Mac) or cmd.exe (Windows) in \directory{OpenSWATH/result}:
 
 \begin{lstlisting}
-R --slave --args bin_dir=../../../External_Tools/mProphet/ mquest=OpenSWATH_output.csv workflow=LABEL_FREE num_xval=5 run_log=FALSE write_classifier=1 write_all_pg=1 < ../../../External_Tools/mProphet/mProphet.R
+R --slave --args bin_dir=../../../External_Tools/mProphet/ mquest=OpenSWATH_quant.tsv workflow=LABEL_FREE num_xval=5 run_log=FALSE write_classifier=1 write_all_pg=1 < ../../../External_Tools/mProphet/mProphet.R
 \end{lstlisting}
+or for windows \\
+\begin{lstlisting}
+"C:\Program Files\R\R-3.5.1\bin\x86\R.exe" --slave --args bin_dir=../../../External_Tools/mProphet/ mquest=OpenSWATH_quant.tsv workflow=LABEL_FREE num_xval=5 run_log=FALSE write_classifier=1 write_all_pg=1 < ../../../External_Tools/mProphet/mProphet.R
+\end{lstlisting}
+\noindent If you have a valid python installation, the newer pyProphet can be used instead of mProphet. Further instruction on how to install python can be found in the pyOpenMS section. 
+
+\noindent Installation of the current stable version:
+\begin{lstlisting}
+pip install pyprophet
+\end{lstlisting}
+
+\noindent The following command should provide similar results to the mProphet script:
+\begin{lstlisting}
+pyprophet score --in OpenSWATH_quant.tsv --out OpenSWATH_quant_scoring.tsv --group_id transition_group_id --pi0_lambda 1e-6 1e-2 1e-6
+\end{lstlisting}
+
+\noindent For further instructions please have a look at the PyProphet Legacy Workflow \url{http://openswath.org/en/latest/docs/pyprophet_legacy.html}. If you want to use the SQLite-based workflow in you lab in the future, please have a look here: \url{http://openswath.org/en/latest/docs/pyprophet.html}. The SQLite-based workflow will not be part of the tutorial. 
 
 \noindent The main output will be called\\
 \directory{OpenSWATH/result/mProphet\_all\_peakgroups.xls}\\
