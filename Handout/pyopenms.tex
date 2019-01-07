@@ -58,7 +58,7 @@ Use your package manager apt-get or yum, where possible.
 \end{enumerate}
 
 \subsubsection{IDE with Anaconda integration}
-If you don't have python installed or don't want to modify your native installation, another possibility is to use an IDE (integrated development environment) with Anaconda integration. Here, we recommend spyder (\url{https://www.spyder-ide.org/}). It comes with Anaconda, which is a package and environment manager. Thus the IDE should be able to run a specific environment independent of your systems python installation. \\
+If you do not have python installed or do not want to modify your native installation, another possibility is to use an IDE (integrated development environment) with Anaconda integration. Here, we recommend spyder (\url{https://www.spyder-ide.org/}). It comes with Anaconda, which is a package and environment manager. Thus the IDE should be able to run a specific environment independent of your systems python installation. \\
 
 \noindent Please execute the installer for your respective platform located in the respective directory for your platform and follow the installation instructions. \\
 
@@ -67,20 +67,24 @@ If you don't have python installed or don't want to modify your native installat
 \noindent  Update pip and install pyopenms (MacOS, Linux):
 \begin{lstlisting}
 pip install -U pip
+pip install -U numpy
 pip install -U pyopenms
 \end{lstlisting}
 
 \noindent  Update pip and install pyopenms (Windows):
 \begin{lstlisting}
 python -m pip install -U pip
+python -m pip install -U numpy
 python -m pip install -U pyopenms
 \end{lstlisting}
 
-\noindent To install a local available package please use (with the package depending on your platform):
+\noindent Install a local available package:
 \begin{lstlisting}
+pip install numpy-1.15.4-cp37*.whl
 pip install pyopenms-2.4.0-cp37*.whl
 \end{lstlisting}
-    
+
+\noindent The local available packages can be found in the directory corresponding to your operating system. 
     
 \noindent  Now launch "Spyder" (python IDE) in the home menu.
 
@@ -88,7 +92,7 @@ pip install pyopenms-2.4.0-cp37*.whl
 Instructions on how to build pyOpenMS can be found online (\url{https://pyopenms.readthedocs.io/en/release_2.4.0/build_from_source.html}).
 
 \subsection{Scripting with pyOpenMS}
-A big advantage of pyOpenMS are its scripting capabilities (beyond its application in tool development). Most of the OpenMS datastructure can be accessed using python (\url{https://abibuilder.informatik.uni-tuebingen.de/archive/openms/Documentation/nightly/html/index.html}). Here we would like to give some examples on how pyopenms can be used for simple scripting task, such as peptide mass calculation and peptide/protein digestion as well as isotope distribution calculation. \\
+A big advantage of pyOpenMS are its scripting capabilities (beyond its application in tool development). Most of the OpenMS datastructure can be accessed using python (\url{https://abibuilder.informatik.uni-tuebingen.de/archive/openms/Documentation/nightly/html/index.html}). Here we would like to give some examples on how pyOpenMS can be used for simple scripting task, such as peptide mass calculation and peptide/protein digestion as well as isotope distribution calculation. \\
 
 \noindent Calculation of the monoisotopic and average mass of a peptide sequence 
 \begin{lstlisting}

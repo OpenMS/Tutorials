@@ -16,13 +16,14 @@ mProphet (\url{http://www.mprophet.org/}) \cite{Reiter2011MProphet} is available
 R (\url{http://www.r-project.org/}) and the package MASS (\url{http://cran.r-project.org/web/packages/MASS/}) are further required to execute mProphet. 
 Please obtain a version for either Windows, Mac or Linux directly from CRAN. \\
 
-\noindent PyProphet, a much faster reimplementation of the mProphet algorithm is available from PyPI (\url{https://pypi.python.org/pypi/pyprophet/}). The usage of pyprophet instead of mProphet is suggested for large-scale applications. For furhter installtion instruction please have a look below. 
+\noindent PyProphet, a much faster reimplementation of the mProphet algorithm is available from PyPI (\url{https://pypi.python.org/pypi/pyprophet/}). The usage of pyprophet instead of mProphet is suggested for large-scale applications. \\ %For furhter installtion instruction please have a look below. 
+\newline \noindent mProphet will be used in this tutorial.
 
 \subsection{Generating the Assay Library}
 \subsubsection{Generating TraML from transition lists}
-OpenSWATH requires an assay library to be supplied in the TraML format \cite{Deutsch2012TraMLA}. To enable manual editing of transition lists, the TOPP tool \OPENMSTOOL{TargetedFileConverter} is available that uses tab separated files as input. Example datasets are provided in \directory{OpenSWATH/assay/}. Please note that the transition lists need to be named \texttt{.tsv}.
+OpenSWATH requires an assay library to be supplied in the TraML format \cite{Deutsch2012TraMLA}. To enable manual editing of transition lists, the TOPP tool \OPENMSTOOL{TargetedFileConverter} is available, which uses tab separated files as input. Example datasets are provided in \directory{Example\_Data/OpenSWATH/assay/}. Please note that the transition lists need to be named \texttt{.tsv}.
 
-\noindent The header of the transition list contains the following variables (with example values in brackets):
+\newline \noindent The header of the transition list contains the following variables (with example values in brackets):
 
 \begin{description}
   \item[Required Columns:]
@@ -67,7 +68,6 @@ OpenSWATH requires an assay library to be supplied in the TraML format \cite{Deu
 \end{description}
 
 \noindent For further instructions about generic transition list and assay library generation please see \url{http://openswath.org/en/latest/docs/generic.html}. \\
-\newline
 
 \noindent To convert transitions lists to TraML, use the \OPENMSTOOL{TargetedFileConverter}: \\
 
@@ -85,7 +85,7 @@ OpenSWATH requires an assay library to be supplied in the TraML format \cite{Deu
 \end{description}
 
 \subsubsection{Appending decoys to a TraML file}
-In addition to the target assays, OpenSWATH further requires decoy assays in the library which are later used for classification and error rate estimation. For the decoy generation it is crucial that the decoys represent the targets in a realistic but unnatural manner without interfering with the targets. The methods for decoy generation implemented in OpenSWATH include 'shuffle', 'pseudo-reverse', 'reverse' and 'shift'. To append decoys to a TraML, the TOPP tool \OPENMSTOOL{OpenSwathDecoyGenerator} can be used:
+In addition to the target assays, OpenSWATH requires decoy assays in the library which are later used for classification and error rate estimation. For the decoy generation it is crucial that the decoys represent the targets in a realistic but unnatural manner without interfering with the targets. The methods for decoy generation implemented in OpenSWATH include 'shuffle', 'pseudo-reverse', 'reverse' and 'shift'. To append decoys to a TraML, the TOPP tool \OPENMSTOOL{OpenSwathDecoyGenerator} can be used:
 
 \begin{description}
   \item[Linux or Mac] \hfill \\
@@ -115,16 +115,18 @@ An example KNIME workflow for OpenSWATH is supplied in \directory{Workflows/} (F
   \item Run the workflow.
 \end{enumerate}
 
-\noindent The resulting output can be found at your selected path, which will be used as input for mProphet. Execute the script on the Terminal (Linux or Mac) or cmd.exe (Windows) in \directory{OpenSWATH/result}:
+\noindent The resulting output can be found at your selected path, which will be used as input for mProphet. Execute the script on the Terminal (Linux or Mac) or cmd.exe (Windows) in \directory{Example\_Data/OpenSWATH/result}:
 
 \begin{lstlisting}
 R --slave --args bin_dir=../../../External_Tools/mProphet/ mquest=OpenSWATH_quant.tsv workflow=LABEL_FREE num_xval=5 run_log=FALSE write_classifier=1 write_all_pg=1 < ../../../External_Tools/mProphet/mProphet.R
 \end{lstlisting}
-or for windows \\
+or for windows
 \begin{lstlisting}
 "C:\Program Files\R\R-3.5.1\bin\x86\R.exe" --slave --args bin_dir=../../../External_Tools/mProphet/ mquest=OpenSWATH_quant.tsv workflow=LABEL_FREE num_xval=5 run_log=FALSE write_classifier=1 write_all_pg=1 < ../../../External_Tools/mProphet/mProphet.R
 \end{lstlisting}
-\noindent If you have a valid python installation, the newer pyProphet can be used instead of mProphet. Further instruction on how to install python can be found in the pyOpenMS section. 
+
+\begin{comment}
+\noindent If you have a valid python installation, pyProphet can be used. Further instructions the installation of python can be found in the pyOpenMS section. 
 
 \noindent Installation of the current stable version:
 \begin{lstlisting}
@@ -135,23 +137,25 @@ pip install pyprophet
 \begin{lstlisting}
 pyprophet score --in OpenSWATH_quant.tsv --out OpenSWATH_quant_scoring.tsv --group_id transition_group_id --pi0_lambda 1e-6 1e-2 1e-6
 \end{lstlisting}
-
-\noindent For further instructions please have a look at the PyProphet Legacy Workflow \url{http://openswath.org/en/latest/docs/pyprophet_legacy.html}. If you want to use the SQLite-based workflow in you lab in the future, please have a look here: \url{http://openswath.org/en/latest/docs/pyprophet.html}. The SQLite-based workflow will not be part of the tutorial. 
+\end{comment}
+\newline
 
 \noindent The main output will be called\\
 \directory{OpenSWATH/result/mProphet\_all\_peakgroups.xls}\\
 with statistical information available in\\
 \directory{OpenSWATH/result/mProphet.pdf}.\\
 
-\noindent Please note that due to the semi-supervised machine learning approach of mProphet the results differ slightly when mProphet is executed several times.
+\noindent Please note that due to the semi-supervised machine learning approach of mProphet the results differ slightly when mProphet is executed several times. \\
 
-\begin{figure}[htbp]
+\begin{figure}[!ht]
   \includegraphics[width=0.7\textwidth]{graphics/openswath/OpenSWATHWF.png}
   \caption{OpenSWATH KNIME Workflow.}
   \label{fig:openswath}
 \end{figure}
 
-\noindent Additionally the chromatrogam output (.mzML) can be visualized for inspection with \OPENMSTOOL{TOPPView}.
+\noindent Additionally the chromatrogam output (.mzML) can be visualized for inspection with \OPENMSTOOL{TOPPView}. \\
+
+\noindent For additional instructions on how to use pyProphet instead of mProphet please have a look at the PyProphet Legacy Workflow \url{http://openswath.org/en/latest/docs/pyprophet_legacy.html}. If you want to use the SQLite-based workflow in your lab in the future, please have a look here: \url{http://openswath.org/en/latest/docs/pyprophet.html}. The SQLite-based workflow will not be part of the tutorial. \\
 
 \subsection{From the example dataset to real-life applications}
 The sample dataset used in this tutorial is part of the larger SWATH MS Gold Standard (SGS) dataset which is described in the publication of Roest et al.~\cite{Rost2014fd}.
