@@ -82,9 +82,12 @@ python -m pip install -U pyopenms
 \begin{lstlisting}
 pip install numpy-1.15.4-cp37*.whl
 pip install pyopenms-2.4.0-cp37*.whl
+or (in case of windows)
+python -m pip install -U numpy-1.15.4-cp37*.whl
+python -m pip install -U pyopenms-2.4.0-cp37*.whl
 \end{lstlisting}
 
-\noindent The local available packages can be found in the directory corresponding to your operating system. 
+\noindent The local available packages can be found in the directory corresponding to your operating system. Please use the absolute path to the packages for the installation.
     
 \noindent  Now launch "Spyder" (python IDE) in the home menu.
 
@@ -142,7 +145,7 @@ for iso in isotopes.getContainer():
 \noindent For further examples and the pyOpenMS datastructure please see \url{https://pyopenms.readthedocs.io/en/release_2.4.0/datastructures.html}. 
 
 \subsection{Tool development with pyOpenMS}
-Scripting is one side of pyOpenMS, the other is the ability to create Tools using the C++ OpenMS library in the background.  In the following section we will create a "ProteinDigestor" pyOpenMS Tool. It should be able to read in a fasta file. Digest the proteins with a specific enzyme (e.g. Trypsin) and export an idXML output file.
+Scripting is one side of pyOpenMS, the other is the ability to create Tools using the C++ OpenMS library in the background.  In the following section we will create a "ProteinDigestor" pyOpenMS Tool. It should be able to read in a fasta file. Digest the proteins with a specific enzyme (e.g. Trypsin) and export an idXML output file. Please see  \directory{Example\_Data/pyopenms} for code snippets.
 
 \begin{lstlisting}
 usage: ProteinDigestor.py [-h] [-in INFILE] [-out OUTFILE] [-enzyme ENZYME]
@@ -195,7 +198,7 @@ if __name__ == '__main__':
     main(options)
 \end{lstlisting}
 
-\noindent Execute this code in the example script.
+\noindent Open the Anaconda Terminal and change into the \directory{Example\_Data/pyopenms} directory. Execute the example script. 
 \begin{lstlisting}
 python ProteinDigestor_argparse.py -h
 \end{lstlisting}
@@ -314,7 +317,7 @@ def main(options):
 \subsubsection{Putting things together}
 The paramter input and the functions can be used to construct the program we are looking for. If you are struggling please have a look in the example data section ProteinDigestor.py 
 
-\noindent Now you can run your tool:
+\noindent Now you can run your tool in the Anaconda Terminal ( \directory{Example\_Data/pyopenms}): 
 \begin{lstlisting}
 python ProteinDigestor.py -in mini_example.fasta -out mini_example_out.idXML -enzyme Trypsin -min_length 6 -max_length 40 -missed_cleavages 1
 \end{lstlisting}
