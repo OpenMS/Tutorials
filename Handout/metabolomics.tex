@@ -369,13 +369,13 @@ On the METLIN homepage search for \menu{Compound Name} Glutathione using the \me
 \subsubsection{\protect\textit{De novo} identification}
 
 Another method for MS2 spectra-based metabolite identification is \textit{de novo} identification. 
-This approach can be used in addition to the other methods (accurate mass search, spectral library search) or individually if no spectral library is available. In this part of the tutorial, we discuss how metabolite spectra can be identified using \textit{de novo} tools. To this end, the tools SIRIUS and CSI:FingerID (\cite{Bocker2009,Bocker2016,Duhrkop2015}) were integrated in the OpenMS Framework as SiriusAdapter. SIRIUS uses isotope pattern analysis to detect the molecular formula and further analyses the fragmentation pattern of a compound using fragmentation trees. CSI:FingerID  is a method for searching a tandem mass spectrum of a small molecule (metabolite) in a molecular structure database.
+This approach can be used in addition to the other methods (accurate mass search, spectral library search) or individually if no spectral library is available. In this part of the tutorial, we discuss how metabolite spectra can be identified using \textit{de novo} tools. To this end, the tools SIRIUS and CSI:FingerID (\cite{Bocker2009,Bocker2016,Duhrkop2015}) were integrated in the OpenMS Framework as SiriusAdapter. SIRIUS uses isotope pattern analysis to detect the molecular formula and further analyses the fragmentation pattern of a compound using fragmentation trees. CSI:FingerID  is a method for searching a fingerprint of a small molecule (metabolite) in a molecular structure database.
 
 The node is able to work in different modes depending on the provided input. 
 \begin{itemize}
 \item Input: mzML - SiriusAdapter will search all MS2 spectra in a map.  
 \item Input: mzML, featureXML (FeatureFinderMetabo) - SiriusAdapter can use the provided feature information to reduce the search space to valid features with MS2 spectra. Additionally it can use the isotopic trace information. 
-\item Input: mzML, featureXML (FeatureFinderMetabo and MetaboliteAdductDecharger) - SiriusAdapter can use the feature information as mentioned above together with feature adduct information from adduct grouping. 
+\item Input: mzML, featureXML (FeatureFinderMetabo / MetaboliteAdductDecharger / AccurateMassSearch) - SiriusAdapter can use the feature information as mentioned above together with feature adduct information from adduct grouping or previous identification.
 \end{itemize}
 
 The last approach is the preferred one, as SIRIUS gains a lot of additional information by using the OpenMS tools for preprocessing. 
@@ -394,9 +394,7 @@ Use the file \directory{Example\_Data / Metabolomics / datasets \newline / Metab
 
 Run the workflow and inspect the output. \\
 
-\noindent The output consists of two mzTab files . One for the SIRIUS and the other for the CSI:FingerID summary. These provide information about the sumformula, adduct and the possible compound structure. The information is referenced to the spectrum used in the analysis. Additional information can be extracted from the \KNIMENODE{SiriusAdapter} debug output. Here the SIRIUS workspace will be provided after the calculation has finished. This workspace contains information about annotated fragments for each successfully explained compound.  
-
-The debug folder can be found by selecting the \KNIMENODE{SiriusAdapter} after the workflow has finished and using its \menu{View: SiriusAdapter Std Output}. Here the path found in \menu{Keeping temporary files in directory}can be copied to your file manger - this will be simplified in the next OpenMS release.
+\noindent The output consists of two mzTab files and an internal .ms file. One mzTab for SIRIUS and the other for the CSI:FingerID. These provide information about the sumformula, adduct and the possible compound structure. The information is referenced to the spectrum used in the analysis. Additional information can be extracted from the \KNIMENODE{SiriusAdapter} by setting an "out_workspace_directory". Here the SIRIUS workspace will be provided after the calculation has finished. This workspace contains information about annotated fragments for each successfully explained compound.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Downstream data analysis and reporting}
