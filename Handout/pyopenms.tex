@@ -4,90 +4,168 @@
 \section{An introduction to pyOpenMS}
 
 \subsection{Introduction}
-pyOpenMS provides Python bindings for a large part of the OpenMS library for mass spectrometry based proteomics. It thus provides access to a feature-rich, open-source algorithm library for mass-spectrometry based proteomics analysis. These Python bindings allow raw access to the data-structures and algorithms implemented in {OpenMS, specifically those for file access (mzXML, mzML, TraML, mzIdentML among others), basic signal processing (smoothing, filtering, de-isotoping and peak-picking) and complex data analysis (including label-free, SILAC, iTRAQ and SWATH analysis tools).\\
+pyOpenMS provides Python bindings for a large part of the OpenMS library for mass spectrometry based proteomics and metabolomics. It thus provides access to a feature-rich, open-source algorithm library for mass-spectrometry based LC-MS analysis. These Python bindings allow raw access to the data-structures and algorithms implemented in {OpenMS, specifically those for file access (mzXML, mzML, TraML, mzIdentML among others), basic signal processing (smoothing, filtering, de-isotoping and peak-picking) and complex data analysis (including label-free, SILAC, iTRAQ and SWATH analysis tools).\\
 
-pyOpenMS is integrated into OpenMS starting from version 1.11. This tutorial is addressed to people already familiar with Python. If you are new to Python, we suggest to start with a Python tutorial (\url{http://en.wikibooks.org/wiki/Non-Programmer%27s_Tutorial_for_Python_2.6}).
+\noindent pyOpenMS is integrated into OpenMS starting from version 1.11. This tutorial is addressed to people already familiar with Python. If you are new to Python, we suggest to start with a Python tutorial (\url{https://en.wikibooks.org/wiki/Non-Programmer%27s_Tutorial_for_Python_3}).
 
 \subsection{Installation}
-One basic requirement for the installation of python packages, in particular pyOpenMS, is a package manager for
-python. There are two commonly used ones: \textit{easy\_install} (\url{https://pypi.python.org/pypi/setuptools}) and the newer \textit{pip} (\url{https://pypi.python.org/pypi/pip}). For Windows and Mac we
-already provide a package for \textit{pip} (and suggest to use it to get the newest version of pyOpenMS). For Linux you will have to use \textit{easy\_install}.
+One basic requirement for the installation of python packages, in particular pyOpenMS, is a package manager for python. We provide a package for \textit{pip} (\url{https://pypi.python.org/pypi/pip}).
+
 \subsubsection{Windows}
 \begin{enumerate}
-  \item Install Python 2.7 (\url{http://www.python.org/download/})
+  \item Install Python 3.7 (\url{http://www.python.org/download/})
   \item Install NumPy (\url{http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy})
   \item Install pip (see above)
   \item On the command line:
     \begin{lstlisting}
     python -m pip install -U pip
-	python -m pip install -U wheel
-	python -m pip install pyopenms
+    python -m pip install -U numpy
+    python -m pip install pyopenms
     \end{lstlisting}
 \end{enumerate}
 
-\subsubsection{Mac OS X 10.10}
-Using the preinstalled python of the system 
+\subsubsection{MacOS}
+We suggest do use a virtual environment for the Python 3 installation on Mac. 
+Here you can install miniconda and follow the further instructions. \\
+
 \begin{enumerate}
-  \item Install pip (\textit{easy\_install} should be included on Mac)
+  \item Create new conda python environment
     \begin{lstlisting}
-    sudo easy_install pip
+    conda create -n py37 python=3.7 anaconda
     \end{lstlisting} 
-    If you encounter problems, install pip as described on their homepage
-    (\url{https://pypi.python.org/pypi/pip}) using their script.
+    \item Activate py37 environment
+    \begin{lstlisting}
+    source activate py37
+    \end{lstlisting} 
   \item On the Terminal:
     \begin{lstlisting}
     pip install -U pip
-	pip install -U wheel
-	pip install pyopenms
+    pip install -U numpy
+    pip install pyopenms
     \end{lstlisting}
 \end{enumerate}
 
 \subsubsection{Linux}
 Use your package manager apt-get or yum, where possible.
 \begin{enumerate}
-  \item Install Python 2.6 or 2.7 (Debian: python-dev, RedHat: python-devel)
+  \item Install Python 3.7 (Debian: python-dev, RedHat: python-devel)
   \item Install NumPy (Debian / RedHat: python-numpy)
   \item Install setuptools (Debian / RedHat: python-setuptools)
   \item On the Terminal:
     \begin{lstlisting}
-    easy_install pyopenms
+    pip install pyopenms
     \end{lstlisting}
 \end{enumerate}
 
-\subsection{Build instructions}
-Instructions on how to build pyOpenMS can be found online (\url{http://ftp.mi.fu-berlin.de/OpenMS/release-documentation/html/pyOpenMS.html}).
+\subsubsection{IDE with Anaconda integration}
+If you do not have python installed or do not want to modify your native installation, another possibility is to use an IDE (integrated development environment) with Anaconda integration. Here, we recommend spyder (\url{https://www.spyder-ide.org/}). It comes with Anaconda, which is a package and environment manager. Thus the IDE should be able to run a specific environment independent of your systems python installation. \\
 
-\subsection{Your first pyOpenMS tool: pyOpenSwathFeatureXMLToTSV}
-The first tool that you are going to re-implement is a TOPP tool called OpenSwathFeatureXMLToTSV. Take a look at the help of the tool:
+\noindent Please execute the installer for your respective platform located in the respective directory for your platform and follow the installation instructions. \\
 
+\noindent After installation the ANACONDA Navigator (Anaconda 3) should be available. Please start the application. To install pyopenms please choose the button "Environments" and click the play symbol of the base environment and "Open Terminal". \\
+
+\noindent  Update pip and install pyopenms (MacOS, Linux):
 \begin{lstlisting}
-OpenSwathFeatureXMLToTSV --help
-
-OpenSwathFeatureXMLToTSV -- Converts a featureXML to a mProphet tsv.
-Version: 2.0.0 Apr 11 2015, 02:02:58, Revision: 66a7739
-
-Usage:
-  OpenSwathFeatureXMLToTSV <options>
-
-Options (mandatory options marked with '*'):
-  -in <files>*                     Input files separated by blank (valid formats: 'featureXML')
-  -tr <file>*                      TraML transition file (valid formats: 'traML')
-  -out <file>*                     Tsv output file (mProphet compatible) (valid formats: 'csv')
-  -short_format                    Whether to write short (one peptide per line) or long format (one transition per line).
-  -best_scoring_peptide <varname>  If only the best scoring feature per peptide should be printed, give the variable name
-                                   
-Common TOPP options:
-  -ini <file>                      Use the given TOPP INI file
-  -threads <n>                     Sets the number of threads allowed to be used by the TOPP tool (default: '1')
-  -write_ini <file>                Writes the default configuration file
-  --help                           Shows options
-  --helphelp                       Shows all options (including advanced)
+pip install -U pip
+pip install -U numpy
+pip install -U pyopenms
 \end{lstlisting}
 
-OpenSwathFeatureXMLToTSV converts a featureXML file to a tab-separated value text file. This example will teach you how to use pyOpenMS in combination with Python to implement such a tool very quickly.
+\noindent  Update pip and install pyopenms (Windows):
+\begin{lstlisting}
+python -m pip install -U pip
+python -m pip install -U numpy
+python -m pip install -U pyopenms
+\end{lstlisting}
+
+\noindent Install a local available package:
+\begin{lstlisting}
+pip install numpy-1.15.4-cp37*.whl
+pip install pyopenms-2.4.0-cp37*.whl
+or (in case of windows)
+python -m pip install -U numpy-1.15.4-cp37*.whl
+python -m pip install -U pyopenms-2.4.0-cp37*.whl
+\end{lstlisting}
+
+\noindent The local available packages can be found in the directory corresponding to your operating system. Please use the absolute path to the packages for the installation.
+    
+\noindent  Now launch "Spyder" (python IDE) in the home menu.
+
+\subsection{Build instructions}
+Instructions on how to build pyOpenMS can be found online (\url{https://pyopenms.readthedocs.io/en/release_2.4.0/build_from_source.html}).
+
+\subsection{Scripting with pyOpenMS}
+A big advantage of pyOpenMS are its scripting capabilities (beyond its application in tool development). Most of the OpenMS datastructure can be accessed using python (\url{https://abibuilder.informatik.uni-tuebingen.de/archive/openms/Documentation/nightly/html/index.html}). Here we would like to give some examples on how pyOpenMS can be used for simple scripting task, such as peptide mass calculation and peptide/protein digestion as well as isotope distribution calculation. \\
+
+\noindent Calculation of the monoisotopic and average mass of a peptide sequence 
+\begin{lstlisting}
+from pyopenms import *
+
+seq = AASequence.fromString("DFPIANGER")
+
+mono_mass = seq.getMonoWeight(Residue.ResidueType.Full, 0)
+average_mass = seq.getAverageWeight(Residue.ResidueType.Full, 0)
+
+print("The masses of the peptide sequence " + seq.toString().decode('utf-8') + " are:")
+print("mono: " + str(mono_mass))
+print("average: "+ str(average_mass))
+\end{lstlisting}
+
+\noindent Enzymatic digest of a peptide/protein sequence 
+\begin{lstlisting}
+enzyme = "Trypsin"
+to_digest = AASequence.fromString("MKWVTFISLLLLFSSAYSRGVFRRDTHKSEIAHRFKDLGE")
+after_digest = []
+
+EnzymaticDigest = EnzymaticDigestionLogModel()
+EnzymaticDigest.setEnzyme(enzyme)
+EnzymaticDigest.digest(to_digest, after_digest)
+
+print("The peptide " + to_digest.toString().decode('utf-8') + " was digested using " + str(EnzymaticDigest.getEnzymeName().decode('utf-8')) + " to:")
+
+for element in after_digest:
+    print(element.toString().decode('utf-8'))
+\end{lstlisting}
+
+\noindent Use empirical formula to calculate the isotope distribution 
+\begin{lstlisting}
+from pyopenms import *
+
+methanol = EmpiricalFormula("CH3OH")
+water = EmpiricalFormula("H2O")
+wm = EmpiricalFormula(water.toString().decode('utf-8') + methanol.toString().decode('utf-8'))
+print(wm.toString().decode('utf-8'))
+print(wm.getElementalComposition())
+
+isotopes = wm.getIsotopeDistribution( CoarseIsotopePatternGenerator(3) )
+for iso in isotopes.getContainer():
+    print (iso.getMZ(), ":", iso.getIntensity())
+\end{lstlisting}
+
+\noindent For further examples and the pyOpenMS datastructure please see \url{https://pyopenms.readthedocs.io/en/release_2.4.0/datastructures.html}. 
+
+\subsection{Tool development with pyOpenMS}
+Scripting is one side of pyOpenMS, the other is the ability to create Tools using the C++ OpenMS library in the background.  In the following section we will create a "ProteinDigestor" pyOpenMS Tool. It should be able to read in a fasta file. Digest the proteins with a specific enzyme (e.g. Trypsin) and export an idXML output file. Please see  \directory{Example\_Data/pyopenms} for code snippets.
+
+\begin{lstlisting}
+usage: ProteinDigestor.py [-h] [-in INFILE] [-out OUTFILE] [-enzyme ENZYME]
+                          [-min_length MIN_LENGTH] [-max_length MAX_LENGTH]
+                          [-missed_cleavages MISSED_CLEAVAGES]
+
+ProteinDigestor −− In silico digestion of proteins.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -in INFILE            An input file containing amino acid sequences [fasta]
+  -out OUTFILE          Output digested sequences in idXML format [idXML]
+  -enzyme ENZYME        Enzyme used for digestion
+  -min_length MIN_LENGTH		Minimum length of peptide
+  -max_length MAX_LENGTH		Maximum length of peptide
+  -missed_cleavages MISSED_CLEAVAGES			The number of allowed missed cleavages
+\end{lstlisting}
 
 \subsubsection{Basics}
-The first task that your tool needs to be able to do is to read the parameters from the command line and provide a main routine. This is all standard Python and no pyOpenMS is needed so far:
+First, your tool needs to be able to read parameters from the command line and provide a main routine. Here standard Python can be used (no pyOpenMS is required so far).
 
 \begin{lstlisting}
 #!/usr/bin/env python
@@ -96,18 +174,21 @@ import sys
 def main(options):
 
     # test parameter handling
-    print options.infile, options.traml_in, options.outfile
+    print(options.infile, options.outfile, options.enzyme, options.min_length, options.max_length, options.missed_cleavages)
 
 def handle_args():
     import argparse
 
     usage = ""
-    usage += "\nOpenSwathFeatureXMLToTSV −− Converts a featureXML to a mProphet tsv."
+    usage += "\nProteinDigestor −− In silico digestion of proteins."
 
-    parser = argparse.ArgumentParser(description = usage )
-    parser.add_argument('-in', dest='infile', help = 'An input file containing features [featureXML]')
-    parser.add_argument('-tr', dest='traml_in', help='An input file containing the transitions [TraML]')
-    parser.add_argument('-out', dest='outfile', help='Output mProphet TSV file [tsv]')
+    parser = argparse.ArgumentParser(description = usage)
+    parser.add_argument('-in', dest='infile', help='An input file containing amino acid sequences [fasta]')
+    parser.add_argument('-out', dest='outfile', help='Output digested sequences in idXML format [idXML]')
+    parser.add_argument('-enzyme', dest='enzyme', help='Enzyme used for digestion')
+    parser.add_argument('-min_length', type=int, dest='min_length', help ='Minimum length of peptide')
+    parser.add_argument('-max_length', type=int, dest='max_length', help='Maximum length of peptide')
+    parser.add_argument('-missed_cleavages', type=int, dest='missed_cleavages', help='The number of allowed missed cleavages')
 
     args = parser.parse_args(sys.argv[1:])
     return args
@@ -117,161 +198,129 @@ if __name__ == '__main__':
     main(options)
 \end{lstlisting}
 
-Execute this code in the example script
-
-\begin{center}
-\texttt{./pyOpenMS/OpenSwathFeatureXMLToTSV\_basics.py}
-\end{center}
-
+\noindent Open the Anaconda Terminal and change into the \directory{Example\_Data/pyopenms} directory. Execute the example script. 
 \begin{lstlisting}
-python OpenSwathFeatureXMLToTSV_basics.py --help
-usage: OpenSwathFeatureXMLToTSV_basics.py [-h] [-in INFILE] [-tr TRAML_IN]
-                                          [-out OUTFILE]
-
-OpenSwathFeatureXMLToTSV −− Converts a featureXML to a mProphet tsv.
-
-optional arguments:
-  -h, --help    show this help message and exit
-  -in INFILE    An input file containing features [featureXML]
-  -tr TRAML_IN  An input file containing the transitions [TraML]
-  -out OUTFILE  Output mProphet TSV file [tsv]
+python ProteinDigestor_argparse.py -h
 \end{lstlisting}
 
 \begin{lstlisting}
-python OpenSwathFeatureXMLToTSV_basics.py -in data/example.featureXML -tr assay/OpenSWATH_SGS_AssayLibrary.TraML -out example.tsv  
-data/example.featureXML assay/OpenSWATH_SGS_AssayLibrary.TraML example.tsv
+python ProteinDigestor_argparse.py -in mini_example.fasta -out mini_example_out.idXML -enzyme Trypsin -min_length 6 -max_length 40 -missed_cleavages 1
 \end{lstlisting}
 
-The parameters are being read from the command line by the function handle\_args() and given to the main() function of the script, which prints the different variables.
+\noindent The parameters are being read from the command line by the function handle\_args() and given to the main() function of the script, which prints the different variables.
+
+\noindent OpenMS has a ProteaseDB  class containing a list of enzymes which can be used for digestion of proteins. You can add this to the argparse code to be able to see the usable enzymes. From this point onward pyOpenMS is required. 
+\begin{lstlisting}
+    # from here pyopenms is needed
+    # get available enzymes from ProteaseDB
+    all_enzymes = []
+    p_db=ProteaseDB().getAllNames(all_enzymes)
+    
+    # concatenate them to the enzyme argument.
+    parser.add_argument('-enzyme', dest='enzyme', help='Enzymes which can be used for digestion: '+ ', '.join(map(bytes.decode, all_enzymes)))
+\end{lstlisting}
 
 \subsubsection{Loading data structures with pyOpenMS}
-Now we're going to import the pyOpenMS module with \texttt{import pyopenms} in the header of the script and load the featureXML:
+We already scripted enzymatic digestion with the AASequence and EnzymaticDigest (see above). To make this even easier, we can use an existing class in OpenMS, called ProteaseDigestion.
 
 \begin{lstlisting}
-#!/usr/bin/env python
-import pyopenms
-import sys
+    # Use the ProteaseDigestion class
+    # set the enzyme used for digestion and the number of missed cleavages
+    digestor = ProteaseDigestion()
+    digestor.setEnzyme(options.enzyme)
+    digestor.setMissedCleavages(options.missed_cleavages)
+    
+    # call the ProteaseDigestion::digest function
+    # which will return the number of discarded digestions products  
+    # and fill the current_digest list with digestes peptide sequences
+    digestor.digest(aaseq.fromString(fe.sequence), current_digest, options.min_length, options.max_length)
+\end{lstlisting}
 
+\noindent The next step is to use FASTAFile class to read the fasta input:
+\begin{lstlisting}
+    # construct a FASTAFile Object and read the input file
+    ff = FASTAFile()
+    ff.readStart(options.infile)
+    
+    # construct and FASTAEntry Object 
+    fe = FASTAEntry()
+    
+    # loop over the entry in the fasta while using while
+    while(ff.readNext(fe)): 
+\end{lstlisting}
+
+\noindent The output idXML needs the information about protein and peptide level, which can be saved in the ProteinIdentification and PeptideIdentification classes. 
+\begin{lstlisting}
+    idxml = IdXMLFile()
+    idxml.store(options.outfile, protein_identifications, peptide_identifications)
+\end{lstlisting}
+
+\noindent This is the part of the program which unifies the snippets provided above. Please have a closer look how the protein and peptide datastructure is incorporated in the program. 
+
+\begin{lstlisting}
 def main(options):
-    #  load featureXML
-    features = pyopenms.FeatureMap()
-    fh = pyopenms.FileHandler()
-    fh.loadFeatures(options.infile, features)
-    keys = []
-    features[0].getKeys(keys)
-    print keys
+    # read fasta file  
+    ff = FASTAFile()
+    ff.readStart(options.infile)
+    fe = FASTAEntry()
 
-def handle_args():
-    import argparse
+    # use ProteaseDigestion class 
+    digestor = ProteaseDigestion()
+    digestor.setEnzyme(options.enzyme)
+    digestor.setMissedCleavages(options.missed_cleavages)
 
-    usage = ""
-    usage += "\nOpenSwathFeatureXMLToTSV −− Converts a featureXML to a mProphet tsv."
+    # protein and peptide datastructure
+    protein_identifications = []
+    peptide_identifications = []
+    protein_identification = ProteinIdentification()
+    protein_identifications.append(protein_identification)
+    temp_pe = PeptideEvidence()
 
-    parser = argparse.ArgumentParser(description = usage )
-    parser.add_argument('-in', dest='infile', help = 'An input file containing features [featureXML]')
-    parser.add_argument('-tr', dest='traml_in', help='An input file containing the transitions [TraML]')
-    parser.add_argument('-out', dest='outfile', help='Output mProphet TSV file [tsv]')
+    # number of dropped peptides due to length restriction
+    dropped_by_length = 0
 
-    args = parser.parse_args(sys.argv[1:])
-    return args
+    while(ff.readNext(fe)):  
+        # construct ProteinHit and fill it with sequence information
+        temp_protein_hit = ProteinHit()
+        temp_protein_hit.setSequence(fe.sequence)
+        temp_protein_hit.setAccession(fe.identifier)
 
-if __name__ == '__main__':
-    options = handle_args()
-    main(options)
+        # save the ProteinHit in a ProteinIdentification Object 
+        protein_identification.insertHit(temp_protein_hit)
+       
+        # construct a PeptideHit and save the ProteinEvidence (Mapping) for the specific 
+        # current protein
+        temp_peptide_hit = PeptideHit()
+        temp_pe.setProteinAccession(fe.identifier);
+        temp_peptide_hit.setPeptideEvidences([temp_pe])
+
+        # digestion 
+        current_digest = []
+        aaseq = AASequence()
+        if (options.enzyme == "none"):
+            current_digest.append(aaseq.fromString(fe.sequence))
+        else:
+            dropped_by_length += digestor.digest(aaseq.fromString(fe.sequence), current_digest, options.min_length, options.max_length)
+
+        for seq in current_digest:
+            # fill the PeptideHit and PeptideIdentification datastructure
+            peptide_identification = PeptideIdentification() 
+            temp_peptide_hit.setSequence(seq)
+            peptide_identification.insertHit(temp_peptide_hit)
+            peptide_identifications.append(peptide_identification)
+
+    print(str(dropped_by_length) + " peptides have been dropped due to the length restriction.")
+    idxml = IdXMLFile()
+    idxml.store(options.outfile, protein_identifications, peptide_identifications)
 \end{lstlisting}
-
-The function pyopenms.FeatureMap() initializes an OpenMS FeatureMap data structure. The function pyopenms.FileHandler() prepares a filehandler with the variable name fh and fh.loadFeatures(options.infile, features) takes the filename and imports the featureXML into the FeatureMap data structure.
-
-In the next step, we're accessing the keys using the function getKeys() and printing them to stdout:
-
-\begin{lstlisting}
-python OpenSwathFeatureXMLToTSV_datastructures1.py -in data/example.featureXML -tr assay/OpenSWATH_SGS_AssayLibrary.TraML -out example.tsv
-['PeptideRef', 'leftWidth', 'rightWidth', 'total_xic', 'peak_apices_sum', 'var_xcorr_coelution', 'var_xcorr_coelution_weighted ', 'var_xcorr_shape', 'var_xcorr_shape_weighted', 'var_library_corr', 'var_library_rmsd', 'var_library_manhattan', 'var_library_dotprod', 'delta_rt', 'assay_rt', 'norm_RT', 'rt_score', 'var_norm_rt_score', 'var_intensity_score', 'nr_peaks', 'sn_ratio', 'var_log_sn_score', 'var_elution_model_fit_score', 'xx_lda_prelim_score', 'var_isotope_correlation_score', 'var_isotope_overlap_score', 'var_massdev_score', 'var_massdev_score_weighted', 'var_bseries_score', 'var_yseries_score', 'var_dotprod_score', 'var_manhatt_score', 'main_var_xx_swath_prelim_score', 'PrecursorMZ', 'xx_swath_prelim_score']
-\end{lstlisting}
-
-In the next task, please load the TraML into an OpenMS TargetedExperiment data structure, analogously to the featureXML. You might want to consult the pyOpenMS manual (\url{http://proteomics.ethz.ch/pyOpenMS_Manual.pdf}), which provides an overview of all functionality. If you have trouble reading the TraML, search for TraMLFile(). If you can't solve the task, take a look at OpenSwathFeatureXMLToTSV\_datastructures2.py
-
-\subsubsection{Converting data in the featureXML to a TSV}
-Now that all data structures are populated, we need to access the data using the provided API and store it in something that is directly accessible from Python. We prepared two functions for you: get\_header() \& convert\_to\_row():
-
-\begin{lstlisting}
-def get_header(features):
-    keys = []
-    features[0].getKeys(keys)
-    header = [
-        "transition_group_id",
-        "run_id",
-        "filename",
-        "RT",
-        "id",
-        "Sequence" ,
-        "FullPeptideName",
-        "Charge",
-        "m/z",
-        "Intensity",
-        "ProteinName",
-        "decoy"]
-    header.extend(keys)
-    return header
-\end{lstlisting}
-
-get\_header() takes as input a FeatureMap and uses the getKeys() function that you have seen before to extend a predefined header list based on the contents of the FeatureMap. The return variable is a native Python list.
-
-\begin{lstlisting}
-def convert_to_row(first, targ, run_id, keys, filename):
-    peptide_ref = first.getMetaValue("PeptideRef")
-    pep = targ.getPeptideByRef(peptide_ref)
-    full_peptide_name = "NA"
-    if (pep.metaValueExists("full_peptide_name")):
-        full_peptide_name = pep.getMetaValue("full_peptide_name")
-
-    decoy = "0"
-    peptidetransitions = [t for t in targ.getTransitions() if t.getPeptideRef() == peptide_ref]
-    if len(peptidetransitions) > 0:
-        if peptidetransitions[0].getDecoyTransitionType() == pyopenms.DecoyTransitionType().DECOY:
-            decoy = "1"
-        elif peptidetransitions[0].getDecoyTransitionType() == pyopenms.DecoyTransitionType().TARGET:
-            decoy = "0"
-
-    protein_name = "NA"
-    if len(pep.protein_refs) > 0:
-        protein_name = pep.protein_refs[0]
-
-    row = [
-        first.getMetaValue("PeptideRef"),
-        run_id,
-        filename,
-        first.getRT(),
-        first.getUniqueId(),
-        pep.sequence,
-        full_peptide_name,
-        pep.getChargeState(),
-        first.getMetaValue("PrecursorMZ"),
-        first.getIntensity(),
-        protein_name,
-        decoy
-    ]
-
-    for k in keys:
-        row.append(first.getMetaValue(k))
-
-    return row
-\end{lstlisting}
-
-convert\_to\_row() is a bit more complicated and takes as first input a Feature OpenMS class. From this, we access stored values using the provided functions (getRT(), getUniqueId(), etc). It further takes a TargetedExperiment to access information from the TraML with the provided routines. This data is then stored in a standard Python list with the variable name row and returned.
 
 \subsubsection{Putting things together}
+The paramter input and the functions can be used to construct the program we are looking for. If you are struggling please have a look in the example data section ProteinDigestor.py 
 
-Now put these two functions into the header of 
-
-\begin{center}
-\texttt{OpenSwathFeatureXMLToTSV\_datastructures2.py}. 
-\end{center}
-
-Your final goal is to implement the conversion functionality into the main function using get\_header() \& convert\_to\_row() and to write a TSV using the standard csv module from Python \url{http://docs.python.org/2/library/csv.html}. 
-Compare the results with \texttt{./result/example.tsv}. Are the results identical? Congratulations to your first pyOpenMS tool!\\
-
-Hint: If you struggle at any point, take a look at OpenSwathFeatureXMLToTSV\_solution.py.
+\noindent Now you can run your tool in the Anaconda Terminal ( \directory{Example\_Data/pyopenms}): 
+\begin{lstlisting}
+python ProteinDigestor.py -in mini_example.fasta -out mini_example_out.idXML -enzyme Trypsin -min_length 6 -max_length 40 -missed_cleavages 1
+\end{lstlisting}
 
 \subsubsection{Bonus task}
 
