@@ -9,6 +9,7 @@
 
 In this chapter, we will build a workflow with OpenMS / KNIME to quantify a label-free experiment. 
 Label-free quantification is a method aiming to compare the relative amounts of proteins or peptides in two or more samples.
+%TODO: section minimal workflow check maybe reference back
 We will start from the minimal workflow of the last chapter and, step-by-step, build a label-free quantification workflow.
 
 \subsection{Peptide Identification}
@@ -25,9 +26,10 @@ As a start, we will extend the minimal workflow so that it performs a peptide id
 \item The result of a single OMSSA run is basically a number of peptide-spectrum-matches (PSM) with a score each, and these will be stored in an idXML file. Now we can run the pipeline and after execution is finished, we can have a first look at the results: just open the input files folder with a file browser and from there open an mzML file in \OPENMSTOOL{TOPPView}.
 \item Here, you can annotate this spectrum data file with the peptide identification results. Choose \menu{Tools > Annotate with identification} from the menu and select the idXML file that \KNIMENODE{OMSSAAdapter} generated (it is located within the output directory that you specified when starting the pipeline).
 \item On the right, select the tab \menu{Identification view}. Using this view, you can see all identified peptides and browse the corresponding MS2 spectra.
+%TODO Different results TOPPView and IDTable (IDTextReader) - Alexey 
 \note{Opening the output file of \KNIMENODE{OMSSAAdapter} (the idXML file) directly is also possible, but the direct visualization of an idXML file is less useful.}
 \item The search results stored in the idXML file can also be read back into a KNIME table for inspection and subsequent analyses: Add a \KNIMENODE{TextExporter} node from \menu{Community Nodes > OpenMS > File Handling} to your workflow and connect the output port of your \KNIMENODE{OMSSAAdapter} (the same port your \KNIMENODE{ZipLoopEnd} is connected to) to its input port. This tool will convert the idXML file to a more human-readable text file which can also be read into a KNIME table using the \KNIMENODE{IDTextReader} node. Add an \KNIMENODE{IDTextReader} node (\menu{Community Nodes > OpenMS > Conversion}) after \KNIMENODE{TextExporter} and execute it. Now you can right-click \KNIMENODE{IDTextReader} and select \menu{ID Table} to browse your peptide identifications.
-\item From here, you can use all the tools KNIME offers for analyzing the data in this table. As a simple example, you could add a \KNIMENODE{Histogram} node (from category \menu{Data Views}) node after \KNIMENODE{IDTextReader}, double-click it, select \textit{peptide\_charge} as binning column, hit \menu{OK}, and execute it. Right-clicking and selecting \menu{View: Histogram view} will open a plot showing the charge state distribution of your identifications.
+\item From here, you can use all the tools KNIME offers for analyzing the data in this table. As a simple example, you could add a \KNIMENODE{Histogram (local)} node (from category \menu{Views - Local (Swing )}) node after \KNIMENODE{IDTextReader}, double-click it, select \textit{peptide\_charge} as Histogram column, hit \menu{OK}, and execute it. Right-clicking and selecting \menu{Interactive View: Histogram view} will open a plot showing the charge state distribution of your identifications.
 \end{itemize}
 
 In the next step, we will tweak the parameters of OMSSA to better reflect the instrument's accuracy. Also, we will extend our pipeline with a false discovery rate (FDR) filter to retain only those identifications that will yield an FDR of $<$ 1 \%.
@@ -50,13 +52,13 @@ A common step in analyis is to search not only against a regular protein databas
 The fasta file we used before already contains such a decoy database.
 For OpenMS to know which OMSSA PSM came from which part of the file (i.e. target versus decoy), we have to index the results.
 To this end, extend the workflow with a \KNIMENODE{PeptideIndexer} node \menu{Community Nodes > OpenMS > ID Processing}.
-This node needs the idXML as input as well as the database file.
+%Ref to Fig
+This node needs the idXML as input as well as the database file (see Fig fig:id_fdr).
 \note{You can direct the files of an \KNIMENODE{Input File} node to more than just one destination port.}
 \item
 The decoys in the database are prefixed with ``DECOY\_'', so we have to set \textit{decoy\_string} to \textit{DECOY\_} and \textit{decoy\_string\_position} to \textit{prefix} in the configuration dialog of \KNIMENODE{PeptideIndexer}.
 \item
 Now we can go for the FDR estimation, which the \KNIMENODE{FalseDiscoveryRate} node will calculate for us (you will find it in \menu{Community Nodes > OpenMS > ID Processing}).
-As we have a combined search database and thus only one idXML per mzML we will only use the \textit{in} port of the \KNIMENODE{FalseDiscoveryRate} node.
 \item
 In order to set the FDR level to $1\%$, we need an \KNIMENODE{IDFilter} node from \menu{Community Nodes > OpenMS > ID Processing}.
 Configuring its parameter \textit{score $\rightarrow$ pep} to $0.01$ will do the trick.
@@ -64,9 +66,9 @@ The FDR calculations (embedded in the idXML) from the \KNIMENODE{FalseDiscoveryR
 \item
 Execute your workflow and inspect the results using \KNIMENODE{IDTextReader} like you did before.
 How many peptides did you identify at this FDR threshold?
-\note{The finished identification workflow is now sufficiently complex that we might want to encapsulate it in a Meta node.
-For this, select all nodes inside the ZipLoop (including the \KNIMENODE{Input File} node) and right-click to select \menu{Collapse into Meta node} and name it ID.
-Meta nodes are useful when you construct even larger workflows and want to keep an overview.}
+\note{The finished identification workflow is now sufficiently complex that we might want to encapsulate it in a Metanode.
+For this, select all nodes inside the ZipLoop (including the \KNIMENODE{Input File} node) and right-click to select \menu{Collapse into Metanode} and name it ID.
+Metanodes are useful when you construct even larger workflows and want to keep an overview.}
 \end{itemize}
 
 \begin{figure}[htbp]
@@ -95,7 +97,7 @@ We can connect this to the \KNIMENODE{PeptideIndexer} and go along with our exis
 \note{By default, X!Tandem takes additional enzyme cutting rules into consideration (besides the specified tryptic digest). Thus for the tutorial files, you have to set PeptideIndexer's \textit{enzyme $\rightarrow$ specificity} parameter to \texttt{none} to accept X!Tandems non-tryptic identifications as well.}
 \end{itemize}
 
-\noindent In the end the ID processing part of the workflow can be collapsed into a Meta node to keep the structure clean (see Figure~\ref{fig:consensusid}).
+\noindent In the end the ID processing part of the workflow can be collapsed into a Metanode to keep the structure clean (see Figure~\ref{fig:consensusid}).
 
 \begin{figure}[htbp]
   \centering
@@ -112,7 +114,7 @@ Now that we have successfully constructed a peptide identification pipeline, we 
 
 \begin{itemize}
 \item
-Add a \KNIMENODE{FeatureFinderCentroided} node from \menu{Community Nodes > OpenMS > Quantitation} which gets input from the first output port of the \KNIMENODE{ZipLoopStart} node. Also, add an \KNIMENODE{IDMapper} node (from \menu{Community Nodes > OpenMS > ID Processing}) which receives input from the \KNIMENODE{FeatureFinderCentroided} node and the ID Meta node (or \KNIMENODE{IDFilter} node if you haven't used the Meta node).
+Add a \KNIMENODE{FeatureFinderCentroided} node from \menu{Community Nodes > OpenMS > Quantitation} which gets input from the first output port of the \KNIMENODE{ZipLoopStart} node. Also, add an \KNIMENODE{IDMapper} node (from \menu{Community Nodes > OpenMS > ID Processing}) which receives input from the \KNIMENODE{FeatureFinderCentroided} node (Port 1) and the ID Metanode (or \KNIMENODE{IDFilter} node (Port 0) if you haven't used the Metanode).
 The output of the \KNIMENODE{IDMapper} is then connected to an \textit{in} port of the \KNIMENODE{ZipLoopEnd} node.
 \item
 \KNIMENODE{FeatureFinderCentroided} finds and quantifies peptide ion signals contained in the MS1 data.
@@ -120,9 +122,11 @@ It reduces the entire signal, i.e., all peaks explained by one and the same pept
 \item
 \KNIMENODE{FeatureFinderCentroided} produces a featureXML file as output, containing only quantitative information of so-far unidentified peptide signals.
 In order to annotate these with the corresponding ID information, we need the \KNIMENODE{IDMapper} node.
+%TODO: Add store IDMapper output to open in identification view - reference to figure.
 \item Run your pipeline and inspect the results of the \KNIMENODE{IDMapper} node in TOPPView. Open the mzML file of your data to display the raw peak intensities.
 \item To assess how well the feature finding worked, you can project the features contained in the featureXML file on the raw data contained in the mzML file. To this end, open the featureXML file in TOPPView by clicking on \menu{File > Open file} and add it to a new layer (\menu{Open in > New layer}). The features are now visualized on top of your raw data. If you zoom in on a small region, you should be able to see the individual boxes around features that have been detected (see Fig.~\ref{fig:ff_featurexml}). If you hover over the the feature centroid (small circle indicating the chromatographic apex of monoisotopic trace) additional information of the feature is displayed.
 
+%TODO: show annotated features and explain difference between green and blue boxes 
 \begin{figure}[!htbp]
   \centering
   \includegraphics[width=0.85\textwidth]{graphics/labelfree/featureXML.png}
@@ -182,13 +186,14 @@ Every row in this table corresponds to a so-called consensus feature, i.e., a pe
     \item \KNIMENODE{Row Splitter} produces two output tables: the first one contains all rows from the input table matching the filter criterion, and the second table contains all other rows. You can inspect the tables by right-clicking and selecting \textit{Filtered} and \textit{Filtered Out}. The former table should now only contain peptides with a human accession, whereas the latter should contain all remaining peptides (including unidentified ones).
     \item Now, since we only want to plot intensities, we can add a \KNIMENODE{Column Filter} node \\ \menu{Data Manipulation > Column > Filter}, connect its input port to the \textit{Filtered} output port of the \KNIMENODE{Row Filter}, and open its configuration dialog. We could either manually select the columns we want to keep, or, more elegantly, select \textit{Wildcard/Regex Selection} and enter \textit{intensity\_?} as the pattern. KNIME will interactively show you which columns your pattern applies to while you're typing.
     \item Since we want to plot log intensities, we will now compute the log of all intensity values in our table. The easiest way to do this in KNIME is a small piece of R code. Add an \KNIMENODE{R Snippet} node \menu{R} after \KNIMENODE{Column Filter} and double-click to configure. In the \textit{R Script} text editor, enter the following code:
+    %TODO: check if minues stays the same after compiling
         \begin{lstlisting}
             x <- knime.in       # store copy of input table in x
             x[x == 0] <- NA     # replace all zeros by NA (= missing value)
             x <- log10(x)       # compute log of all values
             knime.out <- x      # write result to output table
         \end{lstlisting}
-    \item Now we are ready to plot! Add a \KNIMENODE{Box Plot} node \menu{Views} after the \KNIMENODE{R Snippet} node, execute it, and open its view. If everything went well, you should see a significant fold change of your human peptide intensities across the three runs.
+    \item Now we are ready to plot! Add a \KNIMENODE{Box Plot (local)} node \menu{Views - Swing (local)} after the \KNIMENODE{R Snippet} node, execute it, and open its view. If everything went well, you should see a significant fold change of your human peptide intensities across the three runs.
     \item In order to verify that the concentration of background peptides is constant in all three runs, you can just copy and paste the three nodes after \KNIMENODE{Row Splitter} and connect the duplicated \KNIMENODE{Column Filter} to the second output port (\textit{Filtered Out}) of \KNIMENODE{Row Splitter}, as shown in Fig. \ref{fig:lfq_data_analysis}. Execute and open the view of your second \KNIMENODE{Box Plot}.
     \item That's it! You have constructed an entire identification and label-free quantification workflow including a simple data analysis using KNIME!
 \end{itemize}
@@ -251,9 +256,7 @@ F & Carbonic Anhydrase       & \species{Bovine Erythrocytes} & 29 KD            
 \end{figure}
 
 \noindent The iPRG LFQ workflow (Fig.~\ref{fig:iPRG_lfq}) consists of an identification and a quantification part. The identification is achieved by searching the computationally calculated MS2 spectra from a sequence database (\KNIMENODE{Input File} node, here with the given database from iPRG:
-\begin{center}
 \directory{Example\_Data / iPRG2015 / database / iPRG2015\_target\_decoy\_nocontaminants.fasta})
-\end{center}
 against the MS2 from the original data (\KNIMENODE{Input Files} node with all mzMLs following \directory{Example\_Data / iPRG2015 / datasets / JD\_06232014\_sample*.mzML}) using the \KNIMENODE{OMSSAAdapter}.
 \note{If you want to reproduce the results at home, you have to download the iPRG data in mzML format and perform Peakpicking on it. Or convert and pick the raw data with msconvert.}
 Afterwards the results are scored using the \KNIMENODE{FalseDiscoveryRate} node and filtered to obtain only unique peptides (\KNIMENODE{IDFilter}) since MSstats does not support shared peptides, yet. The quantification is achieved by the \KNIMENODE{FeatureFinderCentroided}, which performs the feature detection on the samples (maps). In the end the quantification results are combined with the filtered identification results (\KNIMENODE{IDMapper}). In addition, a linear retention time alignment is performed (\KNIMENODE{MapAlignerPoseClustering}), followed by the feature linking process (\KNIMENODE{FeatureLinkerUnlabledQT}). The \KNIMENODE{ConsensusMapNormalizer} is used to normalize the intensities via robust regression over a set of maps and the \KNIMENODE{IDConflictResolver} assures that only one identification (best score) is associated with a feature. The output of this workflow is a consensusXML file, which can now be converted using the \KNIMENODE{MSstatsConverter} (see section \ref{sec:MSstatsConversion}). 

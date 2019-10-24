@@ -4,7 +4,7 @@
 \section{Label-free quantification of metabolites}
 
 \subsection{Introduction}
-Quantitation and identification of chemical compounds are basic tasks in metabolomic studies. In this tutorial session we construct a UPLC-MS based, label-free quantitation and identification workflow. Following quantitation and identification we then perform statistical downstream analysis to detect quantitation values that differ significantly between two conditions. This approach can, for example, be used to detect biomarkers. Here, we use two spike-in conditions of a dilution series (0.5 mg/l and 10.0 mg/l, male blood background, measured in triplicates) comprising seven isotopically labeled compounds. The goal of this tutorial is to detect and quantify these differential spike-in compounds against the complex background.
+Quantification and identification of chemical compounds are basic tasks in metabolomic studies. In this tutorial session we construct a UPLC-MS based, label-free quantification and identification workflow. Following quantification and identification we then perform statistical downstream analysis to detect quantification values that differ significantly between two conditions. This approach can, for example, be used to detect biomarkers. Here, we use two spike-in conditions of a dilution series (0.5 mg/l and 10.0 mg/l, male blood background, measured in triplicates) comprising seven isotopically labeled compounds. The goal of this tutorial is to detect and quantify these differential spike-in compounds against the complex background.
 
 %\begin{figure}[htbp]
 %  \centering
@@ -17,6 +17,7 @@ Quantitation and identification of chemical compounds are basic tasks in metabol
 
 For the metabolite quantification we choose an approach similar to the one used for peptides, but this time based on the OpenMS \KNIMENODE{FeatureFinderMetabo} method. This feature finder again collects peak picked data into individual mass traces. The reason why we need a different feature finder for metabolites lies in the step after trace detection: the aggregation of isotopic traces belonging to the same compound ion into the same feature. Compared to peptides with their averagine model, small molecules have very different isotopic distributions. To group small molecule mass traces correctly, an aggregation model tailored to small molecules is thus needed. 
 
+%TODO: rearrange parameters and figures - above connect output folder? 
 \begin{itemize}
 \item
 Create a new workflow called for instance "Metabolomics".
@@ -29,7 +30,7 @@ For an optimal result adjust the following settings.
 Please note that some of these are advanced parameters.
 \item
 Connect a \KNIMENODE{Output Folder} to the output of the \KNIMENODE{FeatureFinderMetabo} (see Fig.~\ref{fig:minimal_FFM_wf}).
-
+%TODO: FFM error - features and chromatograms - disable chrom_out
 \begin{figure}[!htbp]
   \centering
   \includegraphics[width=0.5\textwidth]{graphics/metabo/minimal_FFM_wf.png}
@@ -43,7 +44,7 @@ In the following advanced parameters will be \hl{highlighted}. These parameter c
 \begin{tabular}{l|l}
 \textbf{parameter} & \textbf{value} \\ \hline
 \textit{algorithm $\rightarrow$ common $\rightarrow$ chrom\_fwhm} & $8.0$ \\
-\textit{algorithm $\rightarrow$ mtd $\rightarrow$ trace\_termination\_criterion} & sample\_rate \\
+\hl{\textit{algorithm $\rightarrow$ mtd $\rightarrow$ trace\_termination\_criterion}} & sample\_rate \\
 \hl{\textit{algorithm $\rightarrow$ mtd $\rightarrow$ min\_trace\_length}} & $3.0$ \\
 \hl{\textit{algorithm $\rightarrow$ mtd $\rightarrow$ max\_trace\_length}} & $600.0$\\
 \textit{algorithm $\rightarrow$ epd $\rightarrow$ width\_filtering} & off \\
@@ -65,12 +66,12 @@ The parameters change the behavior of \KNIMENODE{FeatureFinderMetabo} as follows
 \noindent The output file .featureXML can be visualized with TOPPView on top of the used .mzML file - in a so called 	\textit{layer} - to look at the identified features.
 \newline
  
-\noindent First start TOPPView and open the example .mzML file (see Fig.~\ref{fig:ToppView_1}). Afterwards open the .featureXML output as new layer (see Fig.~\ref{fig:ToppView_2}). The overlay is depcied in Figure~\ref{fig:ToppView_3}. The zoom of the .mzML - .featureXML overlay shows the individual mass traces and the assembly of those in a feature (see Fig.~\ref{fig:ToppView_4}).
+\noindent First start TOPPView and open the example .mzML file (see Fig.~\ref{fig:ToppView_1}). Afterwards open the .featureXML output as new layer (see Fig.~\ref{fig:ToppView_2}). The overlay is depicted in Figure~\ref{fig:ToppView_3}. The zoom of the .mzML - .featureXML overlay shows the individual mass traces and the assembly of those in a feature (see Fig.~\ref{fig:ToppView_4}).
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{graphics/metabo/ToppView_1.png}
-  \caption{Openend .mzML in TOPPView.}
+  \caption{Opened .mzML in TOPPView.}
   \label{fig:ToppView_1}
 \end{figure}
 
@@ -95,7 +96,7 @@ The parameters change the behavior of \KNIMENODE{FeatureFinderMetabo} as follows
   \label{fig:ToppView_4}
 \end{figure}
 
-The workflow can be extended for multi-file analysis, here an \KNIMENODE{Input Files} is to be used instead of the \KNIMENODE{Input File}.  In front of the \KNIMENODE{FeatureFinderMetabo} a \KNIMENODE{Ziploop Start} and behind \KNIMENODE{Ziploop End} has to be used, since FeatureFinderMetabo will analyis on file to file bases. 
+The workflow can be extended for multi-file analysis, here an \KNIMENODE{Input Files} is to be used instead of the \KNIMENODE{Input File}.  In front of the \KNIMENODE{FeatureFinderMetabo} a \KNIMENODE{ZipLoopStart} and behind \KNIMENODE{ZipLoopEnd} has to be used, since FeatureFinderMetabo will analyis on file to file bases. 
 \newline
 To facilitate the collection of features corresponding to the same compound ion across different samples, an alignment of the samples' feature maps along retention time is often helpful. In addition to local, small-scale elution differences, one can often see constant retention time shifts across large sections between samples. We can use linear transformations to correct for these large scale retention differences. This  brings the majority of corresponding compound ions close to each other. Finding the correct corresponding ions is then faster and easier, as we don't have to search as far around individual features.
 
@@ -112,6 +113,8 @@ To facilitate the collection of features corresponding to the same compound ion 
 \begin{itemize}
 \item
 After the \KNIMENODE{ZipLoopEnd} node add a \KNIMENODE{MapAlignerPoseClustering} node (\menu{Community Nodes > OpenMS > Map Alignment}), set its Output Type to featureXML, and adjust the following settings
+
+%TODO: Check where settings are depicted 
 
 \begin{center}
 \begin{tabular}{l|l}
@@ -241,6 +244,7 @@ Add an \KNIMENODE{Output Folder} node and connect the first output port of the \
 The result of the \KNIMENODE{AccurateMassSearch} node is in the mzTab format \cite{Griss2014} so you can easily open it in a text editor or import it into Excel or KNIME, which we will do in the next section.
 The complete workflow from this section is shown in \cref{fig:metabo_part2}.
 
+%TODO: cosmetic use output folder after AccurateMassSearch in fig
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.85\textwidth]{graphics/metabo/metabo_part2.png}
@@ -251,6 +255,7 @@ The complete workflow from this section is shown in \cref{fig:metabo_part2}.
 \subsubsection{Convert your data into a KNIME table}
 
 The result from the \KNIMENODE{TextExporter} node as well as the result from the \KNIMENODE{AccurateMassSearch} node are files while standard KNIME nodes display and process only KNIME tables. To convert these files into KNIME tables we need two different nodes.
+%TODO reformulate to use output prot for MzTabReader - Maybe when MzTabReader is put to other nodes further down. 
 For the \KNIMENODE{AccurateMassSearch} results we use the \KNIMENODE{MzTabReader} node (\menu{Community Nodes > OpenMS > Conversion > mzTab}) and its \textit{Small Molecule Section} port. For the result of the \KNIMENODE{TextExporter} we use the \KNIMENODE{ConsensusTextReader} (\menu{Community Nodes > OpenMS > Conversion}).
 
 When executed, both nodes will import the OpenMS files and provide access to the data as KNIME tables.
