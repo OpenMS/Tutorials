@@ -346,7 +346,7 @@ Adjust the parameters in the config dialog of the converter to match the given e
 		\textit{msstats\_bioreplicate} & MSstats\_Bioreplicate \\
 		\textit{msstats\_condition} & MSstats\_Condition \\
 		\textit{labeled\_reference\_peptides} & false \\
-		\textit{retention\_time\_summarization\_method} & sum\\
+		\textit{retention\_time\_summarization\_method (advanced)} & sum\\
 		\bottomrule
 	\end{tabular}
 \end{center}
@@ -364,12 +364,12 @@ the output of \KNIMENODE{MSstatsConverter}. The outline of the workflow is shown
 \end{figure}
 
 \noindent We load the file resulting from \KNIMENODE{MSStatsConverter} either by saving it with an \KNIMENODE{Output File} node and reloading it with the File Reader. Or for advanced users,
-you can use a \KNIMENODE{URI Port to Variable} node and use the variable in the \KNIMENODE{File Reader} config dialog (v=? button) to read from the temporary file.
+you can use a \KNIMENODE{URI Port to Variable} node and use the variable in the \KNIMENODE{File Reader} config dialog (V button - located on the right of the "Browse..." button) to read from the temporary file.
 
 \paragraph{Preprocessing} \mbox{}\newline
-\noindent The first node ( \KNIMENODE{Table to R}) loads MSstats plus the data from the previous KNIME node and performs a preprocessing step on the input data. The inline R script (that needs to be pasted into the config dialog of the node)
+\noindent The first node (\KNIMENODE{Table to R}) loads MSstats as well as the data from the previous KNIME node and performs a preprocessing step on the input data. The inline R script (that needs to be pasted into the config dialog of the node)
 \begin{lstlisting}
-library(MSStats)
+library(MSstats)
 data <- knime.in
 quant <- OpenMStoMSstatsFormat(data, removeProtein_with1Feature = FALSE)
 \end{lstlisting}
@@ -395,7 +395,7 @@ R package provides. The function performs the following steps:
 	\item
 	Run-level summarization
 \end{enumerate}
-In this example here, we just state that missing intensity values are represented by the 'NA' string. 
+In this example, we just state that missing intensity values are represented by the 'NA' string. 
 
 
 \paragraph{Group Comparison}\mbox{}\newline

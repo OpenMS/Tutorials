@@ -258,9 +258,7 @@ The result from the \KNIMENODE{TextExporter} node as well as the result from the
 %TODO reformulate to use output prot for MzTabReader - Maybe when MzTabReader is put to other nodes further down. 
 For the \KNIMENODE{AccurateMassSearch} results we use the \KNIMENODE{MzTabReader} node (\menu{Community Nodes > OpenMS > Conversion > mzTab}) and its \textit{Small Molecule Section} port. For the result of the \KNIMENODE{TextExporter} we use the \KNIMENODE{ConsensusTextReader} (\menu{Community Nodes > OpenMS > Conversion}).
 
-When executed, both nodes will import the OpenMS files and provide access to the data as KNIME tables.
-You can now easily combine both tables using the \KNIMENODE{Joiner} node (\menu{Manipulation > Column > Split \& Combine}) and configure it to match the m/z and retention time values of the respective tables.
-The full workflow is shown in \cref{fig:metabo_part3}.
+When executed, both nodes will import the OpenMS files and provide access to the data as KNIME tables. The retention time values are exported as a list using the \KNIMENODE{MzTabReader} based on the current PSI-Standard. This has to be parsed using the \KNIMENODE{SplitCollectionColumn}, which outputs a "Split Value 1" based on the first entry in the rention time list, which has to be renamed to retention time using the \KNIMENODE{ColumnRename}. You can now combine both tables using the \KNIMENODE{Joiner} node (\menu{Manipulation > Column > Split \& Combine}) and configure it to match the m/z and retention time values of the respective tables. The full workflow is shown in \cref{fig:metabo_part3}.
 
 \begin{figure}[htbp]
   \centering
@@ -324,7 +322,8 @@ In this part of the tutorial, we take a look on how metabolite spectra can be id
 Construct the workflow as shown in Fig.~\ref{fig:speclib}.
 Use the file \directory{Example\_Data / Metabolomics / datasets \newline / Metabolite\_ID\_SpectraDB\_positive.mzML} as input for your workflow.  You can use the spectral library from \\
 \directory{Example\_Data / Metabolomics / databases / MetaboliteSpectralDB.mzML}\\ as second input. 
-The first input file contains tandem spectra that are identified by the \KNIMENODE{MetaboliteSpectralMatcher}. The resulting mzTab file is read back into a KNIME table and stored in an Excel table. Make sure that you connect the MzTabReader port corresponding to the Small Molecule Section to the \KNIMENODE{Excel writer (XLS)}. Please select the "add column headers" option in the \KNIMENODE{Excel writer (XLS)}).
+The first input file contains tandem spectra that are identified by the \KNIMENODE{MetaboliteSpectralMatcher}. The resulting mzTab file is read back into a KNIME table
+The retention time values are exported as a list based on the current PSI-Standard. This has to be parsed using the \KNIMENODE{SplitCollectionColumn}, which outputs a "Split Value 1" based on the first entry in the rention time list, which has to be renamed to retention time using the \KNIMENODE{ColumnRename} before it is stored in an Excel table. Make sure that you connect the MzTabReader port corresponding to the Small Molecule Section to the \KNIMENODE{Excel writer (XLS)}. Please select the "add column headers" option in the \KNIMENODE{Excel writer (XLS)}).
 
 \end{task}
 
@@ -343,7 +342,7 @@ In metabolomics, matches between tandem spectra and spectral libraries are manua
 
 \begin{itemize}
 \item mzCloud contains only spectra from Thermo Orbitrap instruments. The webpage requires Microsoft Silverlight which currently does not work in modern browsers (see \url{https://www.mzcloud.org/DataViewer}).
-\item MassBank North America (MoNA) has spectra from different instruments but falls short in in number of spectra (compared to Metlin and mzCloud) \url{http://mona.fiehnlab.ucdavis.edu/spectra/display/KNA00122}
+\item MassBank North America (MoNA) has spectra from different instruments but falls short in number of spectra (compared to Metlin and mzCloud) \url{http://mona.fiehnlab.ucdavis.edu/spectra/display/KNA00122}
 \item METLIN includes 961,829 molecules ranging from lipids, steroids, metabolites, small peptides, carbohydrates, exogenous drugs and toxicants. In total over 14,000 metabolites.
 \end{itemize}
 
@@ -361,7 +360,7 @@ Check in the .xlsx output from the \KNIMENODE{Excel writer (XLS)} if you can fin
 \end{figure}
 
 \begin{task}
-On the METLIN homepage search for \menu{Compound Name} Glutathione using the \menu{Advanced Search} (\url{https://metlin.scripps.edu/landing_page.php?pgcontent=advanced_search}). Note that free registration is required. Which collision energy (and polarity) gives the best (visual) match to your experimental spectrum in TOPPView? Here you can compare the fragmentation patterns in both spectra shown by the Intensity or relative Intensity, the m/z of a peak and the distance between peaks. Each distance between two peaks corresponds to a fragment of elemental composition (e.g., NH2 with the charge of one would have mass of two peaks of 16.023 Th).
+On the METLIN homepage search for \menu{Name} Glutathione using the \menu{Advanced Search} (\url{https://metlin.scripps.edu/landing_page.php?pgcontent=advanced_search}). Note that free registration is required. Which collision energy (and polarity) gives the best (visual) match to your experimental spectrum in TOPPView? Here you can compare the fragmentation patterns in both spectra shown by the Intensity or relative Intensity, the m/z of a peak and the distance between peaks. Each distance between two peaks corresponds to a fragment of elemental composition (e.g., NH2 with the charge of one would have mass of two peaks of 16.023 Th).
 \end{task}
 
 \begin{figure}[htbp]
@@ -387,7 +386,7 @@ The last approach is the preferred one, as SIRIUS gains a lot of additional info
 
 \begin{task}
 Construct the workflow as shown in Fig.~\ref{fig:denovoid}. \\
-Use the file \directory{Example\_Data / Metabolomics / datasets \newline / Metabolite\_DeNovoID\.mzML} as input for your workflow.  
+Use the file \directory{Example\_Data / Metabolomics / datasets \newline / Metabolite\_DeNovoID.mzML} as input for your workflow.  
 \end{task}
 
 \begin{figure}[htbp]
@@ -399,7 +398,7 @@ Use the file \directory{Example\_Data / Metabolomics / datasets \newline / Metab
 
 Run the workflow and inspect the output. \\
 
-\noindent The output consists of two mzTab files and an internal .ms file. One mzTab for SIRIUS and the other for the CSI:FingerID. These provide information about the sumformula, adduct and the possible compound structure. The information is referenced to the spectrum used in the analysis. Additional information can be extracted from the \KNIMENODE{SiriusAdapter} by setting an "out\_workspace\_directory". Here the SIRIUS workspace will be provided after the calculation has finished. This workspace contains information about annotated fragments for each successfully explained compound.
+\noindent The output consists of two mzTab files and an internal .ms file. One mzTab for SIRIUS and the other for the CSI:FingerID. These provide information about the chemical formula, adduct and the possible compound structure. The information is referenced to the spectrum used in the analysis. Additional information can be extracted from the \KNIMENODE{SiriusAdapter} by setting an "out\_workspace\_directory". Here the SIRIUS workspace will be provided after the calculation has finished. This workspace contains information about annotated fragments for each successfully explained compound.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Downstream data analysis and reporting}
@@ -432,7 +431,7 @@ After we linked features across all maps, we want to identify features that are 
 
 \item Open the \KNIMENODE{Box Plot} connected to the normalization node and compare it to the box plot connected to the log scaling node to examine the effect of the median normalization.
 
-\item To perform the t-test we defined the two groups we want to compare. Then we call the t-test for every consensus feature unless it has missing values. Finally we save the p-values and fold-changes in two new columns named p-value and FC.
+\item To perform the t-test we defined the two groups we want to compare. Finally we save the p-values and fold-changes in two new columns named p-value and FC.
 
 \item The \KNIMENODE{Numeric Row Splitter} is used to filter less interesting parts of the data. In this case we only keep columns where the fold-change is $\geq$ 2.
 
@@ -448,8 +447,8 @@ figures with data dependent customization can be easily realized using basic KNI
 \begin{itemize}
 \item We first log-transform fold changes and p-values in the \KNIMENODE{R Snippet} node. We then append columns noting interesting features (concerning fold change and p-value).
 \item With this information, we can use various Manager nodes (\menu{Views > Property}) to emphasize interesting data points. The configuration dialogs allow us to select columns to change color, shape or size of data points dependent on the column values.
-\item The \KNIMENODE{Scatter Plot} node (\menu{Views}) enables interactive visualization of the logarithmized values as a volcano plot: the log-transformed values can be chosen in the `Column Selection' tab of the plot view. Data points can be selected in the plot and HiLited via the menu option. HiLiteing transfers to all other interactive nodes connected to the same data table. In our case, selection and HiLiteing will also occur in the \KNIMENODE{Interactive Table} node (\menu{Views}).
-\item Output of the interactive table can then be filtered via the HiLite menu tab. For example, we could restrict shown rows to points HiLited in the volcano plot.
+\item The \KNIMENODE{Scatter Plot} node (\menu{Views}) enables interactive visualization of the logarithmized values as a volcano plot: the log-transformed values can be chosen in the `Column Selection' tab of the plot view. Data points can be selected in the plot and highlighted via the menu option. The highlighting transfers to all other interactive nodes connected to the same data table. In our case, selection and the highlighting will also occur in the \KNIMENODE{Interactive Table} node (\menu{Views}).
+\item Output of the interactive table can then be filtered via the "HiLite" menu tab. For example, we could restrict shown rows to points highlighted in the volcano plot.
 \end{itemize}
 \begin{task}
 Inspect the nodes of this section. Customize your visualization and possibly try to visualize other aspects of your data.
@@ -473,7 +472,7 @@ Even though the basic capabilities for (interactive) plots in KNIME are valuable
 
 
 \begin{itemize}
-\item The used \KNIMENODE{RView (Table)} nodes combine the possibility to write R snippet code with visualization capabilities inside KNIME. Resulting images can be looked at in the output RView, or saved via the \KNIMENODE{Image Port Writer} node.
+\item The used \KNIMENODE{RView (Table)} nodes combine the possibility to write R snippet code with visualization capabilities inside KNIME. Resulting images can be looked at in the output RView, or saved via the \KNIMENODE{Image Writer (Port)} node.
 \item The heatmap nodes make use of the gplots libary, which is by default part of the R Windows binaries (for full KNIME version 3.1.1 or higher). We again use regular expressions to extract all measured intensity columns for plotting. For clarity, feature names are only shown in the heatmap after filtering by fold changes.
 \end{itemize}
 
