@@ -52,7 +52,6 @@ A common step in analyis is to search not only against a regular protein databas
 The fasta file we used before already contains such a decoy database.
 For OpenMS to know which OMSSA PSM came from which part of the file (i.e. target versus decoy), we have to index the results.
 To this end, extend the workflow with a \KNIMENODE{PeptideIndexer} node \menu{Community Nodes > OpenMS > ID Processing}.
-%Ref to Fig
 This node needs the idXML as input as well as the database file (see Fig fig:id_fdr).
 \note{You can direct the files of an \KNIMENODE{Input File} node to more than just one destination port.}
 \item

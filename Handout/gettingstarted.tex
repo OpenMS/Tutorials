@@ -553,7 +553,7 @@ The \KNIMENODE{ZipLoopEnd} collects the single files that arrive at its input po
 \subsubsection{Digression: Working with chemical structures}
 Metabolomics analyses often involve working with chemical structures. Popular cheminformatic toolkits such as RDKit~\cite{rdkit} or CDK~\cite{cdk} are available as KNIME plugins and allow us to work with chemical structures directly from within KNIME. In particular, we will use KNIME and RDKit to visualize a list of compounds and filter them by predefined substructures. Chemical structures are often represented as SMILES (\textbf{S}implified \textbf{m}olecular \textbf{i}nput \textbf{l}ine \textbf{e}ntry \textbf{s}pecification), a simple and compact way to describe complex chemical structures as text. For example, the chemical structure of L-alanine can be written as the SMILES string C[C@H](N)C(O)=O. As we will discuss later, all OpenMS tools that perform metabolite identification will report SMILES as part of their result, which can then be further processed and visualized using RDKit and KNIME.
 
-\begin{figure}s
+\begin{figure}
 \centering
 \includegraphics[width=\textwidth]{graphics/metabo/structures_filter_workflow.png}
 \caption{Workflow to visualize a list of SMILES strings and filter them by predefined substructures.}
