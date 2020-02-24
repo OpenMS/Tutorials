@@ -1,3 +1,4 @@
+
 %!TEX root = handout.tex
 
 % File names are changed quite often between tutorial so make them configurable at the top.
@@ -164,7 +165,8 @@ We will make use of these later throughout the tutorial. Let's start with a firs
     \end{itemize}
 \item Right click on your 2D map and select \menu{Switch to 3D view} and examine your
 			data in 3D mode (see Fig. ~\ref{fig:toppview_3D})
-\item Go back to the 2D view. In 2D mode, visualize your data in different normalization modes, use linear, percentage and log-view (icons on the upper left tool bar).
+			%TODO: Inconsitent buttons 2D 1D 3D
+\item Go back to the 2D view. In 2D mode, visualize your data in different intensity normalization modes, use linear , percentage, snap and log-view (icons on the upper left tool bar). You can hover over the icons for additional information. 
 \note{On \textit{macOS}, due to a bug in one of the external libraries used by OpenMS, you will see a small window of the 3D mode when switching to 2D. Close the 3D tab in order to get rid of it.}
 \item In \OPENMSTOOL{TOPPView} you can also execute TOPP tools. Go to
 			\menu{Tools > Apply tool (whole layer)} and choose a TOPP tool (e.g., \OPENMSTOOL{FileInfo}) and
@@ -238,13 +240,15 @@ First, we install some additional extensions that are required by our OpenMS nod
 
 \noindent Afterwards open your R installation. If you use Windows, you will find an "R x64 3.5.X" icon on your desktop. If you use macOS, you will find R in your Applications folder. In R type the following lines (you might also copy them from the file \directory{R / install\_R\_packages.R} folder on the USB stick):
 \begin{lstlisting}[aboveskip=8pt]
-  install.packages("Rserve")
+  install.packages('Rserve',,"http://rforge.net/",type="source")
   install.packages("Cairo")
   install.packages("devtools")
   install.packages("ggplot2")
   install.packages("ggfortify")
-  source("https://bioconductor.org/biocLite.R")
-  biocLite("MSstats")
+  if (!requireNamespace("BiocManager", quietly = TRUE))
+	install.packages("BiocManager")
+  BiocManager::install()
+  BiocManager::install(c("MSstats"))
 \end{lstlisting}
 
 \noindent In KNIME, click on \menu{KNIME > Preferences}, select the category \menu{KNIME > R} and set the "Path to R Home" to your installation path. You can use the following settings, if you installed R as described above:
@@ -283,7 +287,7 @@ First, we install some additional extensions that are required by our OpenMS nod
 %  \item Follow the instructions and after a restart of KNIME the OpenMS nodes will be available in the Node repository under “Community Nodes”.
 %\end{itemize}
 
-We included a custom KNIME update site to install the OpenMS KNIME plugins from the USB stick.
+We included a custom KNIME update site to install the OpenMS KNIME plugins from the USB stick. If you do not have a stick available, please see below.
 
 \begin{itemize}
  % If you base the tutorial on the nightly contributions (not recommended - more of a emergency measure)
@@ -577,26 +581,28 @@ Metabolomics analyses often involve working with chemical structures. Popular ch
 \end{itemize}
 
 
-\subsubsection{Advanced topic: Meta nodes}
+\subsubsection{Advanced topic: Metanodes}
 
 Workflows can get rather complex and may contain dozens or even hundreds of nodes. KNIME provides a simple way to improve handling and clarity of large workflows:
 
-\KNIMENODE{Meta Nodes} allow to bundle several nodes into a single \KNIMENODE{Meta Node}.
+\KNIMENODE{Metanodes} allow to bundle several nodes into a single \KNIMENODE{Metanode}.
 
 \begin{task}
-Select multiple nodes (e.g. all nodes of the ZipLoop including the start and end node). To select a set of nodes, draw a rectangle around them with the left mouse button or hold \keys{Ctrl} to add/remove single nodes from the selection. \textbf{Pro-tip:} There is a \menu{Select Loop} option when you right-click a node in a loop, that does exactly that for you. Then, open the context menu (right-click on a node in the selection) and select \menu{Collapse into Meta Node}. Enter a caption for the \KNIMENODE{Meta Node}. The previously selected nodes are now contained in the \KNIMENODE{Meta Node}. Double-clicking on the \KNIMENODE{Meta Node} will display the contained nodes in a new tab window. 
+Select multiple nodes (e.g. all nodes of the ZipLoop including the start and end node). To select a set of nodes, draw a rectangle around them with the left mouse button or hold \keys{Ctrl} to add/remove single nodes from the selection. \textbf{Pro-tip:} There is a \menu{Select Loop} option when you right-click a node in a loop, that does exactly that for you. Then, open the context menu (right-click on a node in the selection) and select \menu{Create Metanode}. Enter a caption for the \KNIMENODE{Metanode}. The previously selected nodes are now contained in the \KNIMENODE{Metanode}. Double-clicking on the \KNIMENODE{Metanode} will display the contained nodes in a new tab window. 
 \end{task}
 
+%TODO: Check what is going on here with Metanode options! Wrap, ceate, freeze
+%TODO: Check component 
 \begin{task}
-Freeze/wrap the meta node to let it behave like an encapsulated single node. First select the \KNIMENODE{Meta Node}, 
-open the context menu (right-click) and select \menu{Meta Node > Wrap}. The differences between Meta Nodes and their 
+Create the Metanode to let it behave like an encapsulated single node. First select the \KNIMENODE{Metanode}, 
+open the context menu (right-click) and select \menu{Metanode > Wrap}. The differences between Metanodes and their 
 wrapped counterparts are marginal (and only apply when exposing user inputs and workflow variables). Therefore we 
-suggest to use standard meta nodes to clean up your workflow and cluster common subparts until you actually notice 
+suggest to use standard Metanodes to clean up your workflow and cluster common subparts until you actually notice 
 their limits.
 \end{task}
 
 \begin{task}
-Undo the packaging. First select the \KNIMENODE{(Wrapped) Meta Node}, open the context menu (right-click) and select \menu{(Wrapped) Meta Node > Expand}.
+Undo the packaging. First select the \KNIMENODE{(Wrapped) Metanode}, open the context menu (right-click) and select \menu{(Wrapped) Metanode > Expand}.
 \end{task}
 
 \subsubsection{Advanced topic: R integration}
@@ -639,7 +645,7 @@ The table provided as input to the \KNIMENODE{R View (Table)} node is available 
 \texttt{knime.in}. Columns (also listed on the left side of the R View window) can be accessed in the usual R way by 
 first specifying the \texttt{data.frame} name and then the column name (e.g. \texttt{knime.in\$Universe\_0\_0}).
 \texttt{plot} is the plotting function we use to generate the image. We tell it to use the data in column 
-\texttt{Universe\_0\_0} of the dataframe object \texttt{knime.in} (denoted as \texttt{knime.in\$Universe\_0\_1}) as 
+\texttt{Universe\_0\_0} of the dataframe object \texttt{knime.in} (denoted as \texttt{knime.in\$Universe\_0\_0}) as 
 x-coordinate and the other column \texttt{knime.in\$Universe\_0\_1} as y-coordinate in the plot. \texttt{main} is 
 simply the main title of the plot and \texttt{col} the column that is used to determine the color (in this case it is 
 the \texttt{Cluster Membership} column).
