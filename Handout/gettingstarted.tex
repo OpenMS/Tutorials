@@ -3,17 +3,17 @@
 
 % File names are changed quite often between tutorial so make them configurable at the top.
 % Please escape whitespaces except before and after / as a path separator.
-\newcommand{\WindowsKnimeInstallerName}{Windows / KNIME\ 3.7.2\ Installer\ (64bit).exe}	
-\newcommand{\WindowsOpenMSInstallerName}{Windows / OpenMS-2.4.0-Win64.exe}	
-\newcommand{\WindowsOpenMSPrereqInstallerName}{Windows / OpenMS-2.4-prerequisites-installer.exe}
-\newcommand{\WindowsPrerequisitesLink}{http://sourceforge.net/projects/open-ms/files/OpenMS/OpenMS-2.4/OpenMS-2.4-prerequisites-installer.exe/download}
-\newcommand{\WindowsDefaultPWizFolder}{C: / Program\ Files / OpenMS-2.4.0 / share / OpenMS / THIRDPARTY / pwiz-bin}
-\newcommand{\MacKnimeInstallerName}{Mac / knime\_3.7.2.app.macosx.cocoa.x86\_64.dmg}	
-\newcommand{\MacOpenMSInstallerName}{Mac / OpenMS-2.4.0-macOS.dmg}
-\newcommand{\KnimeUpdateSite}{http://update.knime.com/analytics-platform/3.7}
-\newcommand{\KnimeTrustedSite}{http://update.knime.com/community-contributions/trusted/3.7}
+\newcommand{\WindowsKnimeInstallerName}{Windows / KNIME\ 4.1.1\ Installer\ (64bit).exe}	
+\newcommand{\WindowsOpenMSInstallerName}{Windows / OpenMS-2.5.0-Win64.exe}	
+\newcommand{\WindowsOpenMSPrereqInstallerName}{Windows / OpenMS-2.5-prerequisites-installer.exe}
+\newcommand{\WindowsPrerequisitesLink}{https://abibuilder.informatik.uni-tuebingen.de/archive/openms/OpenMSInstaller/PrerequisitesInstaller/OpenMS-2.5-prerequisites-installer.exe}
+\newcommand{\WindowsDefaultPWizFolder}{C: / Program\ Files / OpenMS-2.5.0 / share / OpenMS / THIRDPARTY / pwiz-bin}
+\newcommand{\MacKnimeInstallerName}{Mac / knime\_4.1.0.app.macosx.cocoa.x86\_64.dmg}	
+\newcommand{\MacOpenMSInstallerName}{Mac / OpenMS-2.5.0-macOS.dmg}
+\newcommand{\KnimeUpdateSite}{http://update.knime.com/analytics-platform/4.1}
+\newcommand{\KnimeTrustedSite}{http://update.knime.com/community-contributions/trusted/4.1}
 \newcommand{\KnimeTrunkSite}{https://abibuilder.informatik.uni-tuebingen.de/archive/openms/knime-plugin/updateSite/nightly/}
-\newcommand{\KnimeUSBUpdateSite}{file:/KNIMEUpdateSite/2.4.0/}
+\newcommand{\KnimeUSBUpdateSite}{file:/KNIMEUpdateSite/2.5.0/}
 
 \setcounter{equation}{0}
 
@@ -42,9 +42,9 @@ on \textbf{macOS} you call
 
 and follow the instructions. For the OpenMS installation on \textbf{macOS}, you need to accept the license drag and drop the OpenMS folder into your Applications folder.
 \note{Due to increasing security measures for downloaded apps (e.g. path randomization) on \textbf{macOS} you might need to open TOPPView.app and TOPPAS.app while holding \keys{\ctrl} and accept the warning.
-If the app still does not open, you might need to move them from \directory{Applications / OpenMS-2.4.0} to e.g. your Desktop and back.}
+If the app still does not open, you might need to move them from \directory{Applications / OpenMS-2.5.0} to e.g. your Desktop and back.}
  On \textbf{Linux} you can extract KNIME to a folder of your choice and for TOPPView you need to install OpenMS via your package manager or build it on your own with the instructions under \href{https://www.openms.de/documentation}{www.openms.de/documentation}.
-\note{If you have installed OpenMS on Linux or macOS via your package manager (for instance by installing the \texttt{OpenMS-2.4.0-Linux.deb} package), then you need to set the \texttt{OPENMS\_DATA\_PATH} variable to the directory containing the shared data (normally \texttt{/usr/share/OpenMS}). This must be done prior to running any TOPP tool.}
+\note{If you have installed OpenMS on Linux or macOS via your package manager (for instance by installing the \texttt{OpenMS-2.5.0-Linux.deb} package), then you need to set the \texttt{OPENMS\_DATA\_PATH} variable to the directory containing the shared data (normally \texttt{/usr/share/OpenMS}). This must be done prior to running any TOPP tool.}
 
 \subsubsection{Installation from the internet}
 If you are working through this tutorial at home you can get the installers under the following links:
@@ -238,7 +238,7 @@ First, we install some additional extensions that are required by our OpenMS nod
 
 \noindent In addition, we need to install R for the statistical downstream analysis. Choose the directory that matches your operating system, double-click the R installer and follow the instructions. We recommend to use the default settings whenever possible. On macOS you also need to install XQuartz from the same directory.\\
 
-\noindent Afterwards open your R installation. If you use Windows, you will find an "R x64 3.5.X" icon on your desktop. If you use macOS, you will find R in your Applications folder. In R type the following lines (you might also copy them from the file \directory{R / install\_R\_packages.R} folder on the USB stick):
+\noindent Afterwards open your R installation. If you use Windows, you will find an "R x64 3.6.X" icon on your desktop. If you use macOS, you will find R in your Applications folder. In R type the following lines (you might also copy them from the file \directory{R / install\_R\_packages.R} folder on the USB stick):
 \begin{lstlisting}[aboveskip=8pt]
   install.packages('Rserve',,"http://rforge.net/",type="source")
   install.packages("Cairo")
@@ -253,8 +253,8 @@ First, we install some additional extensions that are required by our OpenMS nod
 
 \noindent In KNIME, click on \menu{KNIME > Preferences}, select the category \menu{KNIME > R} and set the "Path to R Home" to your installation path. You can use the following settings, if you installed R as described above:
 \begin{itemize}
-\item Windows: C: \textbackslash Program Files \textbackslash R \textbackslash R-3.5.X (where X is the version you used to install the above libraries)
-\item macOS: /Library/Frameworks/R.framework/Versions/3.5/Resources 
+\item Windows: C: \textbackslash Program Files \textbackslash R \textbackslash R-3.6.X (where X is the version you used to install the above libraries)
+\item macOS: /Library/Frameworks/R.framework/Versions/3.6/Resources 
 \end{itemize}
 
 \noindent You are now ready to install the OpenMS nodes.
@@ -305,7 +305,7 @@ Alternatively, you can try these steps that will install the OpenMS KNIME plugin
 \begin{itemize}
  % If you base the tutorial on the nightly contributions (not recommended - more of a emergency measure)
   \item \label{it:add_site} In the now open dialog choose \menu{Add...} (in the upper right corner of the dialog) to define a new update site. In the opening dialog enter the following details. \\
-  \textit{Name:} \texttt{OpenMS 2.4 UpdateSite} \\
+  \textit{Name:} \texttt{OpenMS 2.5 UpdateSite} \\
   \textit{Location:} 
 \end{itemize}  
   \menu{\KnimeTrunkSite}
