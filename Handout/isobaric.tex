@@ -45,7 +45,9 @@ the additional sources of variation coming from runs of different \textit{mixtur
 peptide quantities (from reporter ions) to the different \textit{channels} of the labeling kit.
 In this example we can omit the "TechRepMixture" column since every mixture was only analysed once on
 the mass spectrometer. As there is only one "Condition" column allowed for MSstats, we use a concatenated
-identifier for the combinations of time and treatment.
+identifier for the combinations of time and treatment. We use "Norm" as a value to indicate channels
+used for normalization (e.g. pooled channels). "Empty" could be used for empty channels (in case you had
+more channels than samples).
 For a great explanation of the different columns and the reasons for their existence,
 see the following introductory video to MSstatsTMT:
 \url{https://youtu.be/3CDnrQxGLbA}
