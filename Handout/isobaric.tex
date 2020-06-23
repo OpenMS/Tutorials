@@ -27,10 +27,12 @@ compatible version. Here, the R package MSstatsTMT can be used for further proce
 \subsubsection{Excursion MSstatsTMT}
 The R package MSstatsTMT can be used for protein significance analysis in shotgun mass spectrometry-based proteomic experiments with tandem mass tag (TMT) labeling. MSstatsTMT provides functionality for two types of analysis: Protein summarization based on peptide quantification data and visualization and Model-based group comparison to detect significant changes in abundance. It depends on accurate feature detection, identification and quantification which can be performed e.g. by an OpenMS workflow. 
 
-\noindent In general MSstatsTMT can be used for data processing \& visualization, as well as statistical modeling. Please see~\cite{Huang2020} and \url{http://msstats.org/msstatstmt/} for further information.
+\noindent In general MSstatsTMT can be used for data processing \& visualization, as well as statistical modeling. Please see ~\cite{Huang2020} and \url{http://msstats.org/msstatstmt/} for further information.
+
+\noindent There is also a very nice online lecture and tutorial for MSstatsTMT from the May Institute Workshop 2020. Please see \url{https://youtu.be/3CDnrQxGLbA}
 
 \subsubsection{Dataset}
-We will illustrate the experimental design and the analysis on a subset of the Plubell 2017 dataset (~\cite{Plubell2017}; PRIDE: \url{https://www.ebi.ac.uk/pride/archive/projects/PXD005953}), which is a 10-plexed TMT labeling experiment to determine age and high fat diets specific proteome changes in mouse epididymal adipose tissue. It is a fairly complex multiplexing experiment with one technical replicate of 3 different TMT mixtures having 9 fractions each. 
+We will illustrate the experimental design and the analysis on a subset of the Plubell 2017 dataset (~\cite{Plubell2017}; PRIDE: \url{https://www.ebi.ac.uk/pride/archive/projects/PXD005953}), which is a multiplexed TMT labeling experiment to determine age and high fat diets specific proteome changes in mouse epididymal adipose tissue. It is fairly complex multiplexing 3 TMT experiments with 10 channels each (9 fractions each). 
 
 \begin{figure}[htbp]
   \centering
@@ -39,23 +41,13 @@ We will illustrate the experimental design and the analysis on a subset of the P
   \label{fig:isobaric_dataset_plubell}
 \end{figure}
 
-\subsection{Experimental Design (isobaric labeling)}
-The experimental design for an isobaric labeling experiment is more complex than an LFQ experiment due to
-the additional sources of variation coming from runs of different \textit{mixtures} which assign
-peptide quantities (from reporter ions) to the different \textit{channels} of the labeling kit.
-In this example we can omit the "TechRepMixture" column since every mixture was only analysed once on
-the mass spectrometer. As there is only one "Condition" column allowed for MSstats, we use a concatenated
-identifier for the combinations of time and treatment. We use "Norm" as a value to indicate channels
-used for normalization (e.g. pooled channels). "Empty" could be used for empty channels (in case you had
-more channels than samples).
-For a great explanation of the different columns and the reasons for their existence,
-see the following introductory video to MSstatsTMT:
-\url{https://youtu.be/3CDnrQxGLbA}
+\subsection{Experimental Design (TMT)}
+The experimental design for a TMT experiment is similar to a LFQ experiment. The difference is in the available channels and possible Mixtures. 
 
 \begin{table}[!ht]
 \centering
 \small
-\begin{tabular}{0.95\textwidth}{lllll}
+\begin{tabular*}{0.95\textwidth}{lllll}
 Spectra\_Filepath                         & Fraction           & Label                 & Fraction\_Group  & Sample    \\
 PAMI-176\_Mouse\_A-J\_TMT\_14pctACN.mzML  & 1                  & 1                     & 1                & 1         \\
 PAMI-176\_Mouse\_A-J\_TMT\_14pctACN.mzML  & 1                  & 2                     & 1                & 2         \\
@@ -87,12 +79,13 @@ PAMI-194\_Mouse\_U-Dd\_TMT\_14pctACN.mzML & 1                  & 7              
 PAMI-194\_Mouse\_U-Dd\_TMT\_14pctACN.mzML & 1                  & 8                     & 3                & 28        \\
 PAMI-194\_Mouse\_U-Dd\_TMT\_14pctACN.mzML & 1                  & 9                     & 3                & 29        \\
 PAMI-194\_Mouse\_U-Dd\_TMT\_14pctACN.mzML & 1                  & 10                    & 3                & 30        \\
-\end{tabular}
+\end{tabular*}
 \end{table}
+
 \begin{table}[!ht]
 \centering
 \small
-\begin{tabular}{0.95\textwidth}{lllll}
+\begin{tabular*}{0.95\textwidth}{lllll}
 Sample                                    & MSstats\_Condition & MSstats\_BioReplicate & MSstats\_Mixture & LabelName \\
 1                                         & Long\_LF           & 1                     & 1                & 126       \\
 2                                         & Long\_LF           & 2                     & 1                & 127N      \\
@@ -124,6 +117,5 @@ Sample                                    & MSstats\_Condition & MSstats\_BioRep
 28                                        & Long\_HF           & 28                    & 3                & 130N      \\
 29                                        & Norm               & 29                    & 3                & 130C      \\
 30                                        & Short\_LF          & 30                    & 3                & 131      
-\end{tabular}
+\end{tabular*}
 \end{table}
-
