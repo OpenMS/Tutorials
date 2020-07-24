@@ -6,10 +6,10 @@ We would like to present an automated DIA/SWATH analysis workflow for metabolomi
 
 The workflow follows multiple steps (see Fig. \ref{fig:pipline_overview}). 
 
-\subsubsection{Candidate identification} Feature detection, adduct grouping and accurate mass search are applied on DDA data. 
-\subsubsection{Library construction}  The knowledge determined from the DDA data, about  compound identification, its potential adduct and the corresponding fragment spectra are used to perform fragment annotation via compositional fragmentation trees \cite{Duhrkop2019}. Afterwards transitions, which are the reference of a precursor to its fragment ions are stored in a so-called assay library. Assay libraries usually contain additional metadata (i.e. retention time, peak intensities). FDR estimation is based on the target-decoy approach \cite{Elias2007}. For the generation of the MS2 decoys, the fragmentation tree-based rerooting method ensures the consistency of decoy spectra \cite{Scheubert2017}. Targeted extraction - The target-decoy assay library is then used to analyse SWATH data. 
-\subsubsection{Targeted extraction} Chromatogram extraction and peak-group scoring. This step is performed using an algorithm based on OpenSWATH \cite{Rost2014} for metabolomics data. 
-\subsubsection{Statistical validation} FDR estimation uses the PyProphet algorithm \cite{Teleman2015}. To prevent overfitting we chose the simpler linear model (LDA) for target-decoy discrimination in PyProphet, using MS1 and MS2 scoring with low correlated scores.
+\paragraph{Candidate identification} Feature detection, adduct grouping and accurate mass search are applied on DDA data. 
+\paragraph{Library construction}  The knowledge determined from the DDA data, about  compound identification, its potential adduct and the corresponding fragment spectra are used to perform fragment annotation via compositional fragmentation trees \cite{Duhrkop2019}. Afterwards transitions, which are the reference of a precursor to its fragment ions are stored in a so-called assay library. Assay libraries usually contain additional metadata (i.e. retention time, peak intensities). FDR estimation is based on the target-decoy approach \cite{Elias2007}. For the generation of the MS2 decoys, the fragmentation tree-based rerooting method ensures the consistency of decoy spectra \cite{Scheubert2017}. Targeted extraction - The target-decoy assay library is then used to analyse SWATH data. 
+\paragraph{Targeted extraction} Chromatogram extraction and peak-group scoring. This step is performed using an algorithm based on OpenSWATH \cite{Rost2014} for metabolomics data. 
+\paragraph{Statistical validation} FDR estimation uses the PyProphet algorithm \cite{Teleman2015}. To prevent overfitting we chose the simpler linear model (LDA) for target-decoy discrimination in PyProphet, using MS1 and MS2 scoring with low correlated scores.
 
 \begin{figure}[!t]
   \centering
