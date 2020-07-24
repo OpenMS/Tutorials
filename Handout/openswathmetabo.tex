@@ -92,7 +92,7 @@ Benchmark DIA samples were prepared by spiking different commercially available 
 \url{https://abibuilder.informatik.uni-tuebingen.de/archive/openms/Tutorials/Data/DIAMetAlyzer/}
 
 \subsection{Example Workflow}
-Example workflow for the usage of the DIAMetAlyzer Pipeline in KNIME (see Fig. \ref{fig:oswm_example_wf}). Inputs are the SWATH-MS data in profile mode (.mzML), a path for saving the new target-decoy assay library, the SIRIUS 4.0.1 executable, the DDA data (.mzML), custom libraries and adducts for AccurateMassSearch, the min/max fragment mass-to-charge to be able to restrict the mass of the transitions and the path to the PyProphet executable. The DDA is used for feature detection, adduct grouping, accurate mass search and forwarded to the AssayGeneratorMetabo. The constructed target library is used by the decoy generation node, which calls various python scripts to parse, reformat the input, call Passatutto and export the target-decoy assay library. The target-decoy assay library is processed with the SWATH-MS data in OpenSWATH. The results are used by PyProphet for scoring and output a list of metabolites with their respective q-value and quantitative information
+Example workflow for the usage of the DIAMetAlyzer Pipeline in KNIME (see Fig. \ref{fig:oswm_example_wf}). Inputs are the SWATH-MS data in profile mode (.mzML), a path for saving the new target-decoy assay library, the SIRIUS 4.0.1 executable, the DDA data (.mzML), custom libraries and adducts for AccurateMassSearch, the min/max fragment mass-to-charge to be able to restrict the mass of the transitions and the path to the PyProphet executable. The DDA is used for feature detection, adduct grouping, accurate mass search and forwarded to the AssayGeneratorMetabo. The constructed target library is used by the decoy generation node, which calls various python scripts to parse, reformat the input, call Passatutto and export the target-decoy assay library. The target-decoy assay library is processed with the SWATH-MS data in OpenSWATH. The results are used by PyProphet for scoring and output a list of metabolites with their respective q-value and quantitative information.
 
 \begin{figure}[!h]
   \centering
@@ -102,7 +102,7 @@ Example workflow for the usage of the DIAMetAlyzer Pipeline in KNIME (see Fig. \
 \end{figure}
 
 \subsection{Run the Workflow}
-These steps need to be followed to run the workflow successfully
+These steps need to be followed to run the workflow successfully:
 
 \begin{itemize}
 \item Add DDA Input Files (.mzML).
@@ -149,7 +149,6 @@ These steps need to be followed to run the workflow successfully
 \textbf{parameter} & \textbf{explanation} \\ \hline
 \textit{mass\_error\_value} & Tolerance allowed for accurate mass search. \\
 \textit{ionization\_mode} &  Positive or negative ionization mode. \\
-\textit{mass\_error\_value} & Tolerance allowed for accurate mass search. \\
 \end{tabular*}
 \end{center}
 
@@ -178,7 +177,7 @@ These steps need to be followed to run the workflow successfully
 \end{tabular*}
 \end{center} 
 
-\noindent If you are analysing a lot of big DIA mzML files ~3-20GB per File, it makes sense to  change how OpenSWATH processes the spectra. 
+\noindent If you are analysing a lot of big DIA mzML files $\approx$ 3-20GB per File, it makes sense to change how OpenSWATH processes the spectra. 
 
 \begin{center}
 \begin{tabular*}{\textwidth}{ p{5.5cm}|p{10.5cm} }
@@ -194,7 +193,7 @@ These steps need to be followed to run the workflow successfully
 pyprophet merge  --template path_to_target-decoy_assay_library.pqp --out merged.osw  ./*.osw
 \end{lstlisting}
 
-\noindent Afterwards, the results are scored using the MS1 and MS2 leves and filter for metabolomics scores, which have a low correlation. 
+\noindent Afterwards, the results are scored using the MS1 and MS2 levels and filter for metabolomics scores, which have a low correlation. 
 
 \begin{lstlisting}
 pyprophet score --in  merged.osw  --out  scored.osw --level ms1ms2 --ss_main_score "var_isotope_correlation_score" --ss_score_filter metabolomics
