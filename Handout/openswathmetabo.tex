@@ -4,7 +4,12 @@ We would like to present an automated DIA/SWATH analysis workflow for metabolomi
 
 \subsection{Workflow}
 
-The workflow follows multiple steps (see Fig. \ref{fig:pipline_overview}). \textbf{Candidate identification} - Feature detection, adduct grouping and accurate mass search are applied on DDA data. \textbf{Library construction} - The knowledge determined from the DDA data, about  compound identification, its potential adduct and the corresponding fragment spectra are used to perform fragment annotation via compositional fragmentation trees \cite{Duhrkop2019}. Afterwards transitions, which are the reference of a precursor to its fragment ions are stored in a so-called assay library. Assay libraries usually contain additional metadata (i.e. retention time, peak intensities). FDR estimation is based on the target-decoy approach \cite{Elias2007}. For the generation of the MS2 decoys, the fragmentation tree-based rerooting method ensures the consistency of decoy spectra \cite{Scheubert2017}. Targeted extraction - The target-decoy assay library is then used to analyse SWATH data. \textbf{Targeted extraction -} Chromatogram extraction and peak-group scoring. This step is performed using an algorithm based on OpenSWATH \cite{Rost2014} for metabolomics data. \textbf{Statistical validation} - FDR estimation uses the PyProphet algorithm \cite{Teleman2015}. To prevent overfitting we chose the simpler linear model (LDA) for target-decoy discrimination in PyProphet, using MS1 and MS2 scoring with low correlated scores.
+The workflow follows multiple steps (see Fig. \ref{fig:pipline_overview}). 
+
+\subsubsection{Candidate identification} Feature detection, adduct grouping and accurate mass search are applied on DDA data. 
+\subsubsection{Library construction}  The knowledge determined from the DDA data, about  compound identification, its potential adduct and the corresponding fragment spectra are used to perform fragment annotation via compositional fragmentation trees \cite{Duhrkop2019}. Afterwards transitions, which are the reference of a precursor to its fragment ions are stored in a so-called assay library. Assay libraries usually contain additional metadata (i.e. retention time, peak intensities). FDR estimation is based on the target-decoy approach \cite{Elias2007}. For the generation of the MS2 decoys, the fragmentation tree-based rerooting method ensures the consistency of decoy spectra \cite{Scheubert2017}. Targeted extraction - The target-decoy assay library is then used to analyse SWATH data. 
+\subsubsection{Targeted extraction} Chromatogram extraction and peak-group scoring. This step is performed using an algorithm based on OpenSWATH \cite{Rost2014} for metabolomics data. 
+\subsubsection{Statistical validation} FDR estimation uses the PyProphet algorithm \cite{Teleman2015}. To prevent overfitting we chose the simpler linear model (LDA) for target-decoy discrimination in PyProphet, using MS1 and MS2 scoring with low correlated scores.
 
 \begin{figure}[!t]
   \centering
@@ -100,14 +105,14 @@ Example workflow for the usage of the DIAMetAlyzer Pipeline in KNIME (see Fig. \
 These steps need to be followed to run the workflow successfully
 
 \begin{itemize}
-\item Add Input Files (.mzML).
+\item Add DDA Input Files (.mzML).
 \item Specify SIRIUS 4.0.1 executable.
 \item Specify library files (mapping, struct) for \KNIMENODE{AccurateMassSearch}.
+\item Add positive/negative adducts lists for \KNIMENODE{AccurateMassSearch}
 \item Supply an output path for the SIRIUS workspace in the \KNIMENODE{AssayGeneratorMetabo}.
-\item Specify an output path and target-decoy library name (e.g. target-decoy-assaylib.pqp) (PATH to save Deocy Assay Library output).
-\item Input SWATH files (.mzML).
-\item Specify Path to pyprophet installation (PATH to pyprophet).
-\item Specify output path in output folder.
+\item Specify additional paths and variables, such as an output path for the target-decoy assay library and a path to the pyprophet installation as well as decoy fragment mz filter (min/max).
+\item Input DIA/SWATH files (.mzML).
+\item Specify output path in the output folders.
 \item Ready to go - run the workflow! 
 \end{itemize}
 
