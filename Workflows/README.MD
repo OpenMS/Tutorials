@@ -1,4 +1,4 @@
 Description of workflows
 
-- [LFQ: Identification (Comet) + Quantification (ProteomicsLFQ) + MSstats post-processing](Example_OneTool_ProteomicsLFQ_MSstats.knwf)
-
+- [Example_OneTool_ProteomicsLFQ_MSstats.knwf:](Example_OneTool_ProteomicsLFQ_MSstats.knwf)
+Label-free identification and quantification using the comet search engine, the ProteomicsLFQ tool as well as statistical down-stream processing using MSstats
