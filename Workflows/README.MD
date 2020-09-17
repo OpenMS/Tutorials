@@ -1,2 +1,4 @@
 Description of workflows
-[a relative link](other_file.md)
+
+- [LFQ: Identification (Comet) + Quantification (ProteomicsLFQ) + MSstats post-processing](Example_OneTool_ProteomicsLFQ_MSstats.knwf)
+
