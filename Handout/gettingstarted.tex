@@ -102,6 +102,11 @@ The \texttt{msconvert} command line tool has no user interface but offers more o
 
 \note{To display all options you may type \menu{msconvert -{}-help}. Additional information is available on the ProteoWizard web page.}
 
+\subsubsection{ThermoRawFileParser}
+
+Recently the open-source platform independent ThermoRawFileParser tool has been developed. While Proteowizard and MSConvert are only available for Windows systems this new tool allows to also convert raw data on Mac or Linux.
+
+\note{To learn more about the ThermoRawFileParser and how to use it in KNIME see Section \ref{sec:Minimal_Workflow}} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -469,7 +474,7 @@ To distinguish them later on you can easily rename the workflows in the Workflow
 \end{itemize}
 
 \subsubsection{A minimal workflow}
-\label{Minimal_Workflow}
+\label{sec:Minimal_Workflow}
 
 Let us now start with the creation of our very first, very simple workflow.
 As a first step, we will gather some basic information about the data set before starting the
@@ -510,7 +515,7 @@ You will find some basic information of the data contained in the mzML file, e.g
 
 
 Workflows are typically constructed to process a large number of files automatically.
-As a simple example, consider you would like to gather this information for more than one file.
+As a simple example, consider you would like to convert multiple Thermo Raw files into the mzML format.
 We will now modify the workflow to compute the same information on three different files and then write the output files to a folder.
 
 \begin{itemize}
@@ -526,7 +531,7 @@ And close the dialog with \menu{Ok}.
 \item
 We now add two more nodes: the \KNIMENODE{ZipLoopStart} and the \KNIMENODE{ZipLoopEnd} node from the category \menu{Community Nodes > GenericKnimeNodes > Flow}. 
 \item
-Afterwards we connect the \KNIMENODE{Input Files} node to the first port of the \KNIMENODE{ZipLoopStart} node, the first port of the \KNIMENODE{ZipLoopStart} node to the \KNIMENODE{FileInfo} node, the first output port of the \KNIMENODE{FileInfo} node to the first input port of the \KNIMENODE{ZipLoopEnd} node, and the first output port of the \KNIMENODE{ZipLoopEnd} node to the \KNIMENODE{Output Folder} node (NOT to the \KNIMENODE{Output File}).
+Afterwards we connect the \KNIMENODE{Input Files} node to the first port of the \KNIMENODE{ZipLoopStart} node, the first port of the \KNIMENODE{ZipLoopStart} node to the \KNIMENODE{FileConverter} node, the first output port of the \KNIMENODE{FileConverter} node to the first input port of the \KNIMENODE{ZipLoopEnd} node, and the first output port of the \KNIMENODE{ZipLoopEnd} node to the \KNIMENODE{Output Folder} node (NOT to the \KNIMENODE{Output File}).
 The complete workflow is shown in \cref{fig:knime_minimal_loop}
 \item
 The workflow is already complete.
@@ -545,8 +550,8 @@ The \KNIMENODE{ZipLoopEnd} collects the single files that arrive at its input po
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{graphics/knime_setup/Minimal_FileInfoLoop}
-\caption{A minimal workflow calling FileInfo on multiple files in a loop.}
+\includegraphics[width=\textwidth]{graphics/knime_setup/Minimal_RawFileConverter_Loop}
+\caption{A minimal workflow calling the FileConverter on multiple Thermo Raw files in a loop.}
 \label{fig:knime_minimal_loop}
 \end{figure}
 
