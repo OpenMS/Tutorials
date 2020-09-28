@@ -1,7 +1,8 @@
 Description of workflows
 
-- [Example_OneTool_ProteomicsLFQ_MSstats.knwf:](Example_OneTool_ProteomicsLFQ_MSstats.knwf)
-Label-free identification and quantification using the comet search engine, the ProteomicsLFQ tool as well as statistical down-stream processing using MSstats.
+- [ProteomicsLFQ_tool_and_MSstats_postprocessing.knwf:](ProteomicsLFQ_tool_and_MSstats_postprocessing.knwf)
+Label-free identification and quantification using the comet search engine, the ProteomicsLFQ tool and statistical down-stream processing using MSstats.
+Compared to the other proteomics LFQ workflows, it is less complex as it combines quantification and inference steps in a single ProtemicLFQ tool.
 
 - [basic_peptide_identification:](basic_peptide_identification.knwf)
 Label-free identification using the omssa search engine.
@@ -13,7 +14,7 @@ Metabolomics assay library construction with decoy generation from DDA data and 
 Identification and quantification for isobaric experiments using MSGFPlus as search engine, epifany for inference and MSstatsTMT for statistical down-stream analysis.
 
 - [labelfree_with_protein_quantification:](labelfree_with_protein_quantification.knwf)
-TODO: What does it do?
+Label-free with protein quantification steps implemented using individual OpenMS tools
 
 - [Metabolite_Adduct_Grouping.knwf:](Metabolite_Adduct_Grouping.knwf)
 Quantification and identification via accurate mass based on multiple adduct grouping steps (adducts, neutral losses).
@@ -40,7 +41,7 @@ TODO: What does it do?
 Targeted extraction and scoring of transitions in DIA data based on an (iRT) assay library.
 
 - [Phosphoproteomics_ID.knwf:](Phosphoproteomics_ID.knwf)
-TODO: What does it do?
+Identification of Phosphorilation sites.
 
 - [Proteomics_LFQ.knwf:](Proteomics_LFQ.knwf)
 TODO: What does it do?
