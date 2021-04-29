@@ -3,6 +3,10 @@
 
 \documentclass[12pt]{myNotes}
 
+% Only needed for tex4ht (html)
+\def\pgfsysdriver{pgfsys-dvisvgm4ht.def}
+%\def\pgfsysdriver{pgfsys-tex4ht-updated.def}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[english]{babel}
 \hyphenation{TOPPView}
@@ -122,6 +126,10 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % subfigures
+\usepackage[font=footnotesize,
+            format=plain,
+            labelfont={bf,sf,footnotesize},
+            textfont=footnotesize]{caption}
 \usepackage{subcaption}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -223,12 +231,6 @@
 
 \usepackage[lmargin=25mm,rmargin=25mm,bmargin=25mm,tmargin=25mm]{geometry}
 
-\usepackage{floatrow}
-\usepackage{subcaption}
-\usepackage[font=footnotesize,
-            format=plain,
-            labelfont={bf,sf,footnotesize},
-            textfont=footnotesize]{caption}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %highlight text 
 \usepackage{xcolor, soul}
