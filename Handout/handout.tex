@@ -4,8 +4,10 @@
 \documentclass[12pt]{myNotes}
 
 % Only needed for tex4ht (html)
-\def\pgfsysdriver{pgfsys-dvisvgm4ht.def}
-%\def\pgfsysdriver{pgfsys-tex4ht-updated.def}
+\ifdefined\HCode %This driver to tex4ht only. For tikz
+   \def\pgfsysdriver{pgfsys-dvisvgm4ht.def}
+   %\def\pgfsysdriver{pgfsys-tex4ht-updated.def}
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[english]{babel}
@@ -81,33 +83,39 @@
 
 \newfontfamily{\menlo}{Menlo-Regular.ttf}
 
-\usepackage{listings}
-\usepackage{color}
-\usepackage{textcomp}
-\definecolor{listinggray}{gray}{0.9}
-\definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
-\lstset{
-    backgroundcolor=\color{lbcolor},
-    tabsize=4,
-    rulecolor=,
-    language=python,
-    basicstyle=\menlo\scriptsize,
-    upquote=true,
-    aboveskip={1.5\baselineskip},
-    columns=fixed,
-    showstringspaces=false,
-    extendedchars=true,
-    breaklines=true,
-    prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
-    frame=single,
-    showtabs=false,
-    showspaces=false,
-    showstringspaces=false,
-    identifierstyle=\menlo,
-    keywordstyle=\color[rgb]{0,0,1},
-    commentstyle=\color[rgb]{0.133,0.545,0.133},
-    stringstyle=\color[rgb]{0.627,0.126,0.941},
-}
+% We try to use minted now
+% \usepackage{listings}
+% \usepackage{color}
+% \usepackage{textcomp}
+% \definecolor{listinggray}{gray}{0.9}
+% \definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
+% \lstset{
+%     backgroundcolor=\color{lbcolor},
+%     tabsize=4,
+%     rulecolor=,
+%     language=python,
+%     basicstyle=\menlo\scriptsize,
+%     upquote=true,
+%     aboveskip={1.5\baselineskip},
+%     columns=fixed,
+%     showstringspaces=false,
+%     extendedchars=true,
+%     breaklines=true,
+%     prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+%     frame=single,
+%     showtabs=false,
+%     showspaces=false,
+%     showstringspaces=false,
+%     identifierstyle=\menlo,
+%     keywordstyle=\color[rgb]{0,0,1},
+%     commentstyle=\color[rgb]{0.133,0.545,0.133},
+%     stringstyle=\color[rgb]{0.627,0.126,0.941},
+% }
+\usepackage{xcolor}
+\definecolor{lbcolor}{rgb}{0.9, 0.9, 0.98}
+\usepackage{minted}
+\usemintedstyle{tango}
+\setminted{bgcolor=lbcolor, breaklines=true, baselinestretch=0.8, showspaces=false, fontsize=\footnotesize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % only use those two in combination
@@ -129,8 +137,7 @@
 \usepackage[font=footnotesize,
             format=plain,
             labelfont={bf,sf,footnotesize},
-            textfont=footnotesize]{caption}
-\usepackage{subcaption}
+            textfont=footnotesize]{subcaption}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Nicer tables
@@ -145,7 +152,7 @@
 \usetikzlibrary{calc}
 
 \global\mdfdefinestyle{notedefault}{topline=false,bottomline=false,rightline=false,leftmargin=1cm}
-\newcommand{\note}[1]{ \begin{mdframed}[style=notedefault,nobreak=true] \textbf{Note:}~#1 \end{mdframed} }
+\newcommand{\note}[1]{ \begin{mdframed}[topline=false,bottomline=false,rightline=false,leftmargin=1cm,nobreak=true] \textbf{Note:}~#1 \end{mdframed} }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newmdenv[

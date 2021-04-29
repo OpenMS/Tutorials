@@ -17,11 +17,13 @@ One basic requirement for the installation of python packages, in particular pyO
   \item Install NumPy (\url{http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy})
   \item Install pip (see above)
   \item On the command line:
-    \begin{lstlisting}
+    \begin{listing}
+\begin{minted}{bash}
     python -m pip install -U pip
     python -m pip install -U numpy
     python -m pip install pyopenms
-    \end{lstlisting}
+    \end{minted}
+\end{listing}
 \end{enumerate}
 
 \subsubsection{MacOS}
@@ -30,19 +32,25 @@ Here you can install miniconda and follow the further instructions. \\
 
 \begin{enumerate}
   \item Create new conda python environment
-    \begin{lstlisting}
+    \begin{listing}
+\begin{minted}{bash}
     conda create -n py37 python=3.7 anaconda
-    \end{lstlisting} 
+    \end{minted}
+\end{listing} 
     \item Activate py37 environment
-    \begin{lstlisting}
+    \begin{listing}
+\begin{minted}{bash}
     source activate py37
-    \end{lstlisting} 
+    \end{minted}
+\end{listing} 
   \item On the Terminal:
-    \begin{lstlisting}
+    \begin{listing}
+\begin{minted}{bash}
     pip install -U pip
     pip install -U numpy
     pip install pyopenms
-    \end{lstlisting}
+    \end{minted}
+\end{listing}
 \end{enumerate}
 
 \subsubsection{Linux}
@@ -52,9 +60,11 @@ Use your package manager apt-get or yum, where possible.
   \item Install NumPy (Debian / RedHat: python-numpy)
   \item Install setuptools (Debian / RedHat: python-setuptools)
   \item On the Terminal:
-    \begin{lstlisting}
+    \begin{listing}
+\begin{minted}{bash}
     pip install pyopenms
-    \end{lstlisting}
+    \end{minted}
+\end{listing}
 \end{enumerate}
 
 \subsubsection{IDE with Anaconda integration}
@@ -65,27 +75,33 @@ If you do not have python installed or do not want to modify your native install
 \noindent After installation the ANACONDA Navigator (Anaconda 3) should be available. Please start the application. To install pyopenms please choose the button "Environments" and click the play symbol of the base environment and "Open Terminal". \\
 
 \noindent  Update pip and install pyopenms (MacOS, Linux):
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}{bash}
 pip install -U pip
 pip install -U numpy
 pip install -U pyopenms
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \noindent  Update pip and install pyopenms (Windows):
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}{bash}
 python -m pip install -U pip
 python -m pip install -U numpy
 python -m pip install -U pyopenms
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \noindent Install a local available package:
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}{bash}
 pip install numpy-1.15.4-cp37*.whl
 pip install pyopenms-2.4.0-cp37*.whl
 or (in case of windows)
 python -m pip install -U numpy-1.15.4-cp37*.whl
 python -m pip install -U pyopenms-2.4.0-cp37*.whl
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \noindent The local available packages can be found in the directory corresponding to your operating system. Please use the absolute path to the packages for the installation.
     
@@ -98,7 +114,8 @@ Instructions on how to build pyOpenMS can be found online (\url{https://pyopenms
 A big advantage of pyOpenMS are its scripting capabilities (beyond its application in tool development). Most of the OpenMS datastructure can be accessed using python (\url{https://abibuilder.informatik.uni-tuebingen.de/archive/openms/Documentation/nightly/html/index.html}). Here we would like to give some examples on how pyOpenMS can be used for simple scripting task, such as peptide mass calculation and peptide/protein digestion as well as isotope distribution calculation. \\
 
 \noindent Calculation of the monoisotopic and average mass of a peptide sequence 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}{python}
 from pyopenms import *
 
 seq = AASequence.fromString("DFPIANGER")
@@ -109,10 +126,12 @@ average_mass = seq.getAverageWeight(Residue.ResidueType.Full, 0)
 print("The masses of the peptide sequence " + seq.toString().decode('utf-8') + " are:")
 print("mono: " + str(mono_mass))
 print("average: "+ str(average_mass))
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \noindent Enzymatic digest of a peptide/protein sequence 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}{python}
 enzyme = "Trypsin"
 to_digest = AASequence.fromString("MKWVTFISLLLLFSSAYSRGVFRRDTHKSEIAHRFKDLGE")
 after_digest = []
@@ -125,10 +144,12 @@ print("The peptide " + to_digest.toString().decode('utf-8') + " was digested usi
 
 for element in after_digest:
     print(element.toString().decode('utf-8'))
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \noindent Use empirical formula to calculate the isotope distribution 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}{python}
 from pyopenms import *
 
 methanol = EmpiricalFormula("CH3OH")
@@ -140,14 +161,16 @@ print(wm.getElementalComposition())
 isotopes = wm.getIsotopeDistribution( CoarseIsotopePatternGenerator(3) )
 for iso in isotopes.getContainer():
     print (iso.getMZ(), ":", iso.getIntensity())
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \noindent For further examples and the pyOpenMS datastructure please see \url{https://pyopenms.readthedocs.io/en/release_2.4.0/datastructures.html}. 
 
 \subsection{Tool development with pyOpenMS}
 Scripting is one side of pyOpenMS, the other is the ability to create Tools using the C++ OpenMS library in the background.  In the following section we will create a "ProteinDigestor" pyOpenMS Tool. It should be able to read in a fasta file. Digest the proteins with a specific enzyme (e.g. Trypsin) and export an idXML output file. Please see  \directory{Example\_Data/pyopenms} for code snippets.
 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}{bash}
 usage: ProteinDigestor.py [-h] [-in INFILE] [-out OUTFILE] [-enzyme ENZYME]
                           [-min_length MIN_LENGTH] [-max_length MAX_LENGTH]
                           [-missed_cleavages MISSED_CLEAVAGES]
@@ -162,12 +185,14 @@ optional arguments:
   -min_length MIN_LENGTH		Minimum length of peptide
   -max_length MAX_LENGTH		Maximum length of peptide
   -missed_cleavages MISSED_CLEAVAGES			The number of allowed missed cleavages
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \subsubsection{Basics}
 First, your tool needs to be able to read parameters from the command line and provide a main routine. Here standard Python can be used (no pyOpenMS is required so far).
 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}{python}
 #!/usr/bin/env python
 import sys
 
@@ -196,21 +221,27 @@ def handle_args():
 if __name__ == '__main__':
     options = handle_args()
     main(options)
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \noindent Open the Anaconda Terminal and change into the \directory{Example\_Data/pyopenms} directory. Execute the example script. 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}{bash}
 python ProteinDigestor_argparse.py -h
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}{bash}
 python ProteinDigestor_argparse.py -in mini_example.fasta -out mini_example_out.idXML -enzyme Trypsin -min_length 6 -max_length 40 -missed_cleavages 1
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \noindent The parameters are being read from the command line by the function handle\_args() and given to the main() function of the script, which prints the different variables.
 
 \noindent OpenMS has a ProteaseDB  class containing a list of enzymes which can be used for digestion of proteins. You can add this to the argparse code to be able to see the usable enzymes. From this point onward pyOpenMS is required. 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}{python}
     # from here pyopenms is needed
     # get available enzymes from ProteaseDB
     all_enzymes = []
@@ -218,12 +249,14 @@ python ProteinDigestor_argparse.py -in mini_example.fasta -out mini_example_out.
     
     # concatenate them to the enzyme argument.
     parser.add_argument('-enzyme', dest='enzyme', help='Enzymes which can be used for digestion: '+ ', '.join(map(bytes.decode, all_enzymes)))
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \subsubsection{Loading data structures with pyOpenMS}
 We already scripted enzymatic digestion with the AASequence and EnzymaticDigest (see above). To make this even easier, we can use an existing class in OpenMS, called ProteaseDigestion.
 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}{python}
     # Use the ProteaseDigestion class
     # set the enzyme used for digestion and the number of missed cleavages
     digestor = ProteaseDigestion()
@@ -234,10 +267,12 @@ We already scripted enzymatic digestion with the AASequence and EnzymaticDigest 
     # which will return the number of discarded digestions products  
     # and fill the current_digest list with digestes peptide sequences
     digestor.digest(aaseq.fromString(fe.sequence), current_digest, options.min_length, options.max_length)
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \noindent The next step is to use FASTAFile class to read the fasta input:
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}{python}
     # construct a FASTAFile Object and read the input file
     ff = FASTAFile()
     ff.readStart(options.infile)
@@ -247,17 +282,21 @@ We already scripted enzymatic digestion with the AASequence and EnzymaticDigest 
     
     # loop over the entry in the fasta while using while
     while(ff.readNext(fe)): 
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \noindent The output idXML needs the information about protein and peptide level, which can be saved in the ProteinIdentification and PeptideIdentification classes. 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}{python}
     idxml = IdXMLFile()
     idxml.store(options.outfile, protein_identifications, peptide_identifications)
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \noindent This is the part of the program which unifies the snippets provided above. Please have a closer look how the protein and peptide datastructure is incorporated in the program. 
 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}{python}
 def main(options):
     # read fasta file  
     ff = FASTAFile()
@@ -312,15 +351,18 @@ def main(options):
     print(str(dropped_by_length) + " peptides have been dropped due to the length restriction.")
     idxml = IdXMLFile()
     idxml.store(options.outfile, protein_identifications, peptide_identifications)
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \subsubsection{Putting things together}
 The paramter input and the functions can be used to construct the program we are looking for. If you are struggling please have a look in the example data section ProteinDigestor.py 
 
 \noindent Now you can run your tool in the Anaconda Terminal ( \directory{Example\_Data/pyopenms}): 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}{bash}
 python ProteinDigestor.py -in mini_example.fasta -out mini_example_out.idXML -enzyme Trypsin -min_length 6 -max_length 40 -missed_cleavages 1
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \subsubsection{Bonus task}
 

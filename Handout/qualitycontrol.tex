@@ -49,15 +49,19 @@ Import the workflow from \directory{Workflows / Quality Control / QC Metanodes.z
 
 R Dependencies: This section requires that the R packages ggplot2 and scales are both installed. This is the same procedure as in section \ref{sec:metaboR}. In case that you use an R installation where one or both of them are not yet installed, open the \KNIMENODE{R Snippet} nodes inside the metanodes you just used (double-click). Edit the script in the \textit{R Script} text editor from:\\
 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}{R}
 #install.packages("ggplot2")
 #install.packages("scales")
-\end{lstlisting}
+\end{minted}
+\end{listing}
 to 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}{R}
 install.packages("ggplot2")
 install.packages("scales")
-\end{lstlisting}
+\end{minted}
+\end{listing}
 Press \menu{Eval script} to execute the script.\newline
 
 \vspace{1cm}
@@ -85,7 +89,8 @@ We can also add brand new QC metrics to our qcML files. Remember the \KNIMENODE{
 \item Add an \KNIMENODE{R View (table)} next to the \KNIMENODE{IDTextReader} node and connect them.
 \item Edit the \KNIMENODE{R View (table)} by adding the \textit{R Script} according to this:
 \end{itemize}
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}{R}
 #install.packages("ggplot2")
 library("ggplot2")
 ggplot(knime.in, aes(x=peptide_charge)) + 
@@ -93,7 +98,8 @@ ggplot(knime.in, aes(x=peptide_charge)) +
  scale_x_discrete() + 
  ggtitle("Identified peptides charge histogram") + 
  ylab("Count")
-\end{lstlisting}
+\end{minted}
+\end{listing}
 \begin{itemize}
 \item This will create a plot like the \KNIMENODE{Histogram} node on \textit{peptide\_charge} \textbf{and} pass it on as an \textit{image}. 
 \item Now add and connect a \KNIMENODE{Image2FilePort} node from \menu{Community Nodes > GenericKnimeNodes > Flow} to the \KNIMENODE{R View (table)}.
