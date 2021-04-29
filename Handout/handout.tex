@@ -151,12 +151,17 @@
 \usepackage[framemethod=TikZ]{mdframed}
 \usetikzlibrary{calc}
 
-\global\mdfdefinestyle{notedefault}{topline=false,bottomline=false,rightline=false,leftmargin=1cm}
-\newcommand{\note}[1]{ \begin{mdframed}[topline=false,bottomline=false,rightline=false,leftmargin=1cm,nobreak=true] \textbf{Note:}~#1 \end{mdframed} }
+%% Add an unused type option to the mdframed environment, that we can use to put in the div class
+%% when converting to html (see my.cfg and mdframed.4ht)
+\makeatletter
+\mdf@dolist{\mdf@do@stringoption}{%
+  {type=={}}%
+}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newmdenv[
-  leftmargin=0pt,
+\global\mdfdefinestyle{note}{topline=false,bottomline=false,rightline=false,leftmargin=1cm,type=note}
+\newcommand{\note}[1]{ \begin{mdframed}[linewidth=1,style=note] \textbf{Note:}~#1 \end{mdframed} }
+
+\global\mdfdefinestyle{question}{ leftmargin=0pt,
   rightmargin=20pt,
   innertopmargin=30pt,
   innerbottommargin=10pt,
@@ -169,6 +174,18 @@
   font=\normalfont\normalsize,
   frametitlefont=\normalfont\normalsize\bfseries,
   frametitleaboveskip=1em,
+  type=question
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifdefined\HCode
+\newmdenv[
+  style=question,
+  frametitle=Question,
+  linewidth=1
+]{question}
+\else
+\newmdenv[
+  style=question,
   singleextra={
     \node[inner sep=0pt,anchor=north west,xshift=10pt,yshift=-30pt] at (P-|O) {\includegraphics[width=1.3cm]{graphics/assets/question23}};
     \node[inner sep=0pt,anchor=north west,yshift=-.8\baselineskip,font=\bfseries,xshift=10pt] at (P-|O) {Question};
@@ -178,10 +195,9 @@
     \node[inner sep=0pt,anchor=north west,yshift=-.8\baselineskip,font=\bfseries,xshift=10pt] at (P-|O) {Question};
   }
 ]{question}
+\fi
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newmdenv[
-  leftmargin=0pt,
+\global\mdfdefinestyle{task}{ leftmargin=0pt,
   rightmargin=20pt,
   innertopmargin=30pt,
   innerbottommargin=10pt,
@@ -194,6 +210,18 @@
   font=\normalfont\normalsize,
   frametitlefont=\normalfont\normalsize\bfseries,
   frametitleaboveskip=1em,
+  type=task
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifdefined\HCode
+\newmdenv[
+  style=task,
+  frametitle=Task,
+  linewidth=1
+]{task}
+\else
+\newmdenv[
+  style=task,
   singleextra={
     \node[inner sep=0pt,anchor=north west,xshift=10pt,yshift=-30pt] at (P-|O) {\includegraphics[width=1.3cm]{graphics/assets/check30}};
     \node[inner sep=0pt,anchor=north west,yshift=-.8\baselineskip,font=\bfseries,xshift=10pt] at (P-|O) {Task};
@@ -203,6 +231,7 @@
     \node[inner sep=0pt,anchor=north west,yshift=-.8\baselineskip,font=\bfseries,xshift=10pt] at (P-|O) {Task};
   }
 ]{task}
+\fi
 
 \newcommand\figstrut[2]{
 	% #1: Height of object
