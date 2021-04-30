@@ -85,6 +85,7 @@
 		\LARGE\textbf{User Tutorial}\\[5cm]		
 		\vfill
 		%\vspace{2cm}
+                \begin{figure}
 		\begin{minipage}{.5\textwidth}
 			\centering
 			\includegraphics[width=.8\linewidth, height=2cm]{./graphics/assets/deNBI_Logo_rgb.png}
@@ -93,7 +94,8 @@
 			\centering
 			\figstrut{5cm}{2cm}
 			\includegraphics[width=.8\linewidth, height=5cm]{./graphics/assets/elixir_germany_white_background.png}
-		\end{minipage}	
+		\end{minipage}
+                \end{figure}	
 		%\hfill\vspace{-2cm}\includegraphics[width=0.3\textwidth]{./graphics/assets/deNBI_Logo_rgb.png}\hfill\hspace{5cm}\vspace{1cm}\includegraphics[width=0.3\textwidth]{./graphics/assets/elixir_germany_white_background.png}\\
 	\end{center}
 	\newpage

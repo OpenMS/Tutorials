@@ -310,3 +310,60 @@ div.note{
 .ec-lmtt-10 {
     font-size: 100%
 }
+
+/* images in general: esp. inline images */
+img {
+  height: 1.12em;
+  margin-bottom: -4px;
+}
+
+/* not the images in the first 5 divs, the title page 
+i.e. revert to default */
+body > div:nth-child(-n+5) > * > img,
+body > div:nth-child(-n+5) > * > * > img {
+  max-height: 100%;
+  height: auto;
+  margin-bottom: 0;
+}
+
+/* and not in math-display, and not in figures */
+img.math-display,
+.fancybox-content img,
+figure img {
+  max-height: 100%;
+  height: auto;
+  margin-bottom: 0;
+}
+
+/* to zoom images when clicking and viewing in gallery mode*/
+.fancybox-content img {
+  width: 100% !important;
+}
+
+/* no border around gallery view. X to close will be on pic */
+.fancybox-content {
+  padding: 0 !important;
+}
+
+/* fancybox sets it to invisible otherwise */
+figure img {
+  display: block !important;
+}
+
+/* to have a new line after each figure. Modify if you need floating ones */
+figure.figure {
+  clear: both;
+  overflow: auto;
+  width: 100%;
+}
+
+/*figure::after {
+    clear: both;
+    position: absolute;
+    width: 100vw;
+    height: 1px;
+    content: 'foooo';
+    left: 0;
+    display: block;
+}*/
+
