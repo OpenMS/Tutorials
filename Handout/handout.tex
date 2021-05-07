@@ -7,6 +7,8 @@
 \ifdefined\HCode %This driver to tex4ht only. For tikz
    \def\pgfsysdriver{pgfsys-dvisvgm4ht.def}
    %\def\pgfsysdriver{pgfsys-tex4ht-updated.def}
+   % for some private definitions like filenames, folders, urls
+   \usepackage{defs-private}
 \fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -20,10 +22,7 @@
 
 % to comment lager blocks 
 \usepackage{comment}
-
-% for some private definitions like filenames, folders, urls
-\usepackage{defs-private}
-
+\usepackage{defsnohtml-private}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % We use UBUNTU font for a more professional look.
 % UBUNTU fonts can be downloaded from: http://font.ubuntu.com.
