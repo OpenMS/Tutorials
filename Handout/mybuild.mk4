@@ -1,3 +1,49 @@
+local log = logging.new("build file")
+
+local imgdir
+
+local function get_imgdir(par)
+  -- try to find imgdir:path in tex4ht options
+  local imgdir = par.tex4ht_sty_par:match("imgdir:([^,]+)")
+  if not imgdir then
+    imgdir = ""
+    log:warning("Cannot find imgdir")
+    log:warning('Please use: make4ht ' .. par.input .. ' "imgdir:path"')
+  end
+  return imgdir
+end
+
+local function make_img_name(name, par)
+  imgdir = imgdir or get_imgdir(par)
+  -- don't make new name if the image name already contains imgdir path
+  if string.find(name, imgdir, 1, true) then return name end
+  local name_parts = {}
+  -- construct output image name from make4ht output dir, imgdir and image name
+  if imgdir ~= "" then
+    name_parts[#name_parts+1] = imgdir
+  end
+  name_parts[#name_parts + 1] = name
+  -- turn name parts into path and normalize slashes
+  local newname = table.concat(name_parts, "/"):gsub("/+", "/")
+  return newname
+end
+
+
+local function copy_img(name, par)
+  local newname = make_img_name(name, par)
+  -- copy imge to the output dir
+  if newname ~= name then
+    if par.outdir~="" then newname = table.concat({par.outdir, newname}, "/") end
+    mkutils.copy(name, newname)
+    return false, "Copy generated images to " .. imgdir
+  end
+end
+
+
+Make:match("svg$", copy_img)
+Make:match("png$", copy_img)
+Make:match("jpg$", copy_img)
+
 if mode=="draft" then
   Make:htlatex {}
 else
@@ -7,3 +53,4 @@ else
   Make:htlatex {}
   Make:htlatex {}
 end
+mkutils.copy("test.css","output/test.css")
