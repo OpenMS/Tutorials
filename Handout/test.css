@@ -313,8 +313,11 @@ div.note{
 
 /* images in general: esp. inline images */
 img {
+  /* Somehow each svg scales differently (also in height) when I add this
+  * I wanted to have everything in line height.
   height: 1.12em;
   margin-bottom: -4px;
+  */
 }
 
 /* not the images in the first 5 divs, the title page 
