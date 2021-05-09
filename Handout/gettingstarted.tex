@@ -59,14 +59,14 @@ You can find a small RAW file on the USB stick \directory{ \ExampleDataFolder / 
 
 \begin{figure}
 \centering
-\includegraphics[width=12cm]{graphics/introduction/proteowizard.png}
+\includegraphics[width=12cm]{introduction/proteowizard.png}
 \caption{MSConvertGUI (part of ProteoWizard), allows converting raw files to mzML. Select the raw files you want to convert by clicking on the browse button and then on Add. Default parameters can usually be kept as-is. To reduce the initial data size, make sure that the peakPicking filter (converts profile data to centroided data (see Fig.~\ref{fig:ProfileCentroidData})) is listed, enabled (true) and applied to all MS levels (parameter "1-"). Start the conversion process by clicking on the Start button.}
 \label{fig:MSConvertGUI}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=12cm]{graphics/introduction/profilecentroided.png}
+\includegraphics[width=12cm]{introduction/profilecentroided.png}
 \caption{The amount of data in a spectra is reduced by peak picking. Here a profile spectrum (blue) is converted to centroided data (green). Most algorithms  from this point on will work with centroided data.}
 \label{fig:ProfileCentroidData}
 \end{figure}
@@ -102,7 +102,7 @@ Visualizing the data is the first step in quality control, an essential tool in 
 OpenMS provides a convenient viewer for some of the data: \OPENMSTOOL{TOPPView}.
 
 \begin{figure}
-\includegraphics[width=\textwidth]{graphics/introduction/TOPPView.png}
+\includegraphics[width=\textwidth]{introduction/TOPPView.png}
 \caption{TOPPView, the graphical application for viewing mass spectra and analysis results. Top window shows a small region of a peak map. In this 2D representation of the measured spectra, signals of eluting peptides are colored according to the raw peak intensities. The lower window displays an extracted spectrum (=scan) from the peak map. On the right side, the list of spectra can be browsed.}
 \label{fig:toppview}
 \end{figure}
@@ -111,7 +111,7 @@ OpenMS provides a convenient viewer for some of the data: \OPENMSTOOL{TOPPView}.
 We will make use of these later throughout the tutorial. Let's start with a first look at one of the files of our tutorial data set. Note that conceptually, there are no differences in visualizing metabolomic or proteomic data. Here, we inspect a simple proteomic measurement:
 
 \begin{figure}[!htb]
-\includegraphics[width=0.75\textwidth]{graphics/introduction/3dview.png}
+\includegraphics[width=0.75\textwidth]{introduction/3dview.png}
 \caption{3D representation of the measured spectra, signals of eluting peptides are colored according to the raw peak intensities.}
 \label{fig:toppview_3D}
 \end{figure}
@@ -166,7 +166,7 @@ We will make use of these later throughout the tutorial. Let's start with a firs
 \noindent Dependent on your data MS/MS spectra can be visualized as well (see Fig.\ref{fig:ms2}) . You can do so, by double-click on the MS/MS spectrum shown in scan view.
 \newline
 \begin{figure}[!htb]
-\includegraphics[width=0.75\textwidth]{graphics/introduction/ms2_introduction.png}
+\includegraphics[width=0.75\textwidth]{introduction/ms2_introduction.png}
 \caption{MS/MS spectrum}
 \label{fig:ms2}
 \end{figure}
@@ -361,7 +361,7 @@ deactivate potential downstream nodes connected to this port.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.5\textwidth]{graphics/knime_setup/knime_configure_dialog}
+\includegraphics[width=0.5\textwidth]{knime_setup/knime_configure_dialog.png}
 \caption{Node configuration dialog of an OpenMS node.}
 \label{fig:knime_configure}
 \end{figure}
@@ -369,7 +369,7 @@ deactivate potential downstream nodes connected to this port.
 \subsubsection{Overview of the graphical user interface}
 
 \begin{figure}
-\includegraphics[width=\textwidth]{graphics/knime_setup/knime_workbench_marked}
+\includegraphics[width=\textwidth]{knime_setup/knime_workbench_marked.png}
 \caption{The KNIME workbench.}
 \label{fig:knime_workbench}
 \end{figure}
@@ -495,7 +495,7 @@ You will find some basic information of the data contained in the mzML file, e.g
 
 \begin{figure}
 \centering
-\includegraphics[width=0.59\textwidth]{graphics/knime_setup/Minimal_FileInfo}
+\includegraphics[width=0.59\textwidth]{knime_setup/Minimal_FileInfo}
 \caption{A minimal workflow calling FileInfo on a single file.}
 \label{fig:knime_minimal}
 \end{figure}
@@ -537,7 +537,7 @@ The \KNIMENODE{ZipLoopEnd} collects the single files that arrive at its input po
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{graphics/knime_setup/Minimal_RawFileConverter_Loop.pdf}
+\includegraphics[width=\textwidth]{knime_setup/Minimal_RawFileConverter_Loop}
 \caption{A minimal workflow calling the FileConverter on multiple Thermo Raw files in a loop.}
 \label{fig:knime_minimal_loop}
 \end{figure}
@@ -547,7 +547,7 @@ Metabolomics analyses often involve working with chemical structures. Popular ch
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{graphics/metabo/structures_filter_workflow.png}
+\includegraphics[width=\textwidth]{metabo/structures_filter_workflow.png}
 \caption{Workflow to visualize a list of SMILES strings and filter them by predefined substructures.}
 \label{fig:structures_filter_workflow}
 \end{figure}
@@ -565,7 +565,7 @@ Metabolomics analyses often involve working with chemical structures. Popular ch
 
 \begin{figure}
 \centering
-\includegraphics[width=0.59\textwidth]{graphics/metabo/structures_filter_results.png}
+\includegraphics[width=0.59\textwidth]{metabo/structures_filter_results.png}
 \caption{Resulting list of compounds that contains at least one aromatic carboxylic acid group.}
 \label{fig:structures_filter_results}
 \end{figure}
