@@ -13,13 +13,13 @@ The workflow follows multiple steps (see Fig. \ref{fig:pipline_overview}).
 
 \begin{figure}[!t]
   \centering
-  \includegraphics[width=0.7\textwidth]{graphics/openswathmetabo/pipeline_overview.png}
+  \includegraphics[width=0.7\textwidth]{openswathmetabo/pipeline_overview.png}
   \caption{DIAMetAlyzer - pipeline for assay library generation and targeted analysis with statistical validation. DDA data is used for candidate identification containing feature detection, adduct grouping and accurate mass search. Library construction uses fragment annotation via compositional fragmentation trees and decoy generation using a fragmentation tree re-rooting method to create a target-decoy assay library. This library is used in a second step to analyse metabolomics DIA data performing targeted extraction, scoring and statistical validation (FDR estimation).}
   \label{fig:pipline_overview}
 \end{figure}
 
 \subsection{Prerequisites}
-Apart from the usual KNIME nodes, the workflow uses python scripting nodes. One basic requirement for the installation of python packages, in particular pyOpenMS, is a package manager for python. Using conda as an environment manger allows to specify a specific environment in the KNIME settings (\menu{File -> Preferences -> KNIME -> Python})
+Apart from the usual KNIME nodes, the workflow uses python scripting nodes. One basic requirement for the installation of python packages, in particular pyOpenMS, is a package manager for python. Using conda as an environment manger allows to specify a specific environment in the KNIME settings (\menu{File > Preferences > KNIME > Python})
 
 \subsubsection{Windows}
 We suggest do use a virtual environment for the Python 3 installation on windows. 
@@ -27,22 +27,28 @@ Here you can install miniconda and follow the further instructions. \\
 
 \begin{enumerate}
   \item Create new conda python environment
-    \begin{lstlisting}
+    \begin{listing}
+\begin{minted}{bash}
     conda create -n py37 python=3.7
-    \end{lstlisting} 
+    \end{minted}
+\end{listing} 
     \item Activate py37 environment
-    \begin{lstlisting}
+    \begin{listing}
+\begin{minted}{bash}
     conda activate py37
-    \end{lstlisting} 
+    \end{minted}
+\end{listing} 
   \item Install pip (see above)
   \item On the command line:
-    \begin{lstlisting}
+    \begin{listing}
+\begin{minted}{bash}
     python -m pip install -U pip
     python -m pip install -U numpy
     python -m pip install -U pandas
     python -m pip isntall -U pyprophet
     python -m pip install -U pyopenms
-    \end{lstlisting}
+    \end{minted}
+\end{listing}
 \end{enumerate}
 
 \subsubsection{MacOS}
@@ -51,21 +57,27 @@ Here you can install miniconda and follow the further instructions. \\
 
 \begin{enumerate}
   \item Create new conda python environment
-    \begin{lstlisting}
+    \begin{listing}
+\begin{minted}{bash}
     conda create -n py37 python=3.7
-    \end{lstlisting} 
+    \end{minted}
+\end{listing} 
     \item Activate py37 environment
-    \begin{lstlisting}
+    \begin{listing}
+\begin{minted}{bash}
     conda activate py37
-    \end{lstlisting} 
+    \end{minted}
+\end{listing} 
   \item On the Terminal:
-    \begin{lstlisting}
+    \begin{listing}
+\begin{minted}{bash}
     python -m pip install -U pip
     python -m pip install -U numpy
     python -m pip install -U pandas
     python -m pip isntall -U pyprophet
     python -m pip install -U pyopenms
-    \end{lstlisting}
+    \end{minted}
+\end{listing}
 \end{enumerate}
 
 \subsubsection{Linux}
@@ -75,13 +87,15 @@ Use your package manager apt-get or yum, where possible.
   \item Install NumPy (Debian / RedHat: python-numpy)
   \item Install setuptools (Debian / RedHat: python-setuptools)
   \item On the Terminal:
-    \begin{lstlisting}
+    \begin{listing}
+\begin{minted}{bash}
     python -m pip install -U pip
     python -m pip install -U numpy
     python -m pip install -U pandas
     python -m pip isntall -U pyprophet
     python -m pip install -U pyopenms
-    \end{lstlisting}
+    \end{minted}
+\end{listing}
 \end{enumerate}
 
 \subsection{Benchmark data}
@@ -96,7 +110,7 @@ Example workflow for the usage of the DIAMetAlyzer Pipeline in KNIME (see Fig. \
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=0.95\textwidth]{graphics/openswathmetabo/oswm_example_wf.png}
+  \includegraphics[width=0.95\textwidth]{openswathmetabo/oswm_example_wf.png}
   \caption{Example workflow for the usage of the DIAMetAlyzer Pipeline in KNIME}
   \label{fig:oswm_example_wf}
 \end{figure}
@@ -189,21 +203,27 @@ These steps need to be followed to run the workflow successfully:
 
 \noindent In the workflow pyprophet is called after OpenSWATH, it merges the result files, which allows to get enough data for the model training. 
 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}{bash}
 pyprophet merge  --template path_to_target-decoy_assay_library.pqp --out merged.osw  ./*.osw
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \noindent Afterwards, the results are scored using the MS1 and MS2 levels and filter for metabolomics scores, which have a low correlation. 
 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}{bash}
 pyprophet score --in  merged.osw  --out  scored.osw --level ms1ms2 --ss_main_score "var_isotope_correlation_score" --ss_score_filter metabolomics
-\end{lstlisting}
+\end{minted}
+\end{listing}
 \noindent Export the non filtered results: 
 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}{bash}
 pyprophet export-compound --in scored.osw --out scored + "_pyprophet_nofilter_ms1ms2.tsv" 
 --max_rs_peakgroup_qvalue 1000.0
-\end{lstlisting}
+\end{minted}
+\end{listing}
 \noindent Please see the workflow for actual parameter values used for the benchmarking dataset. \\
 
 

@@ -8,7 +8,7 @@ Quantification and identification of chemical compounds are basic tasks in metab
 
 %\begin{figure}[htbp]
 %  \centering
-%  \includegraphics[width=0.85\textwidth]{graphics/metabo/metabo_workflow}
+%  \includegraphics[width=0.85\textwidth]{metabo/metabo_workflow}
 %  \caption{Complete label-free metabolomics quantification workflow}
 %  \label{fig:consensusid}
 %\end{figure}
@@ -33,7 +33,7 @@ Connect a \KNIMENODE{Output Folder} to the output of the \KNIMENODE{FeatureFinde
 %TODO: FFM error - features and chromatograms - disable chrom_out
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=0.5\textwidth]{graphics/metabo/minimal_FFM_wf.png}
+  \includegraphics[width=0.5\textwidth]{metabo/minimal_FFM_wf.png}
   \caption{FeatureFinderMetabo workflow.}
   \label{fig:minimal_FFM_wf}
 \end{figure}
@@ -70,28 +70,28 @@ The parameters change the behavior of \KNIMENODE{FeatureFinderMetabo} as follows
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth]{graphics/metabo/ToppView_1.png}
+  \includegraphics[width=\textwidth]{metabo/ToppView_1.png}
   \caption{Opened .mzML in TOPPView.}
   \label{fig:ToppView_1}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth]{graphics/metabo/ToppView_2.png}
+  \includegraphics[width=\textwidth]{metabo/ToppView_2.png}
   \caption{Add new layer in TOPPView.}
   \label{fig:ToppView_2}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth]{graphics/metabo/ToppView_3.png}
+  \includegraphics[width=\textwidth]{metabo/ToppView_3.png}
   \caption{Overlay of the .mzML layer with the .featureXML layer. }
   \label{fig:ToppView_3}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth]{graphics/metabo/ToppView_4.png}
+  \includegraphics[width=\textwidth]{metabo/ToppView_4.png}
   \caption{Zoom of the overlay of the .mzML with the .featureXML layer. Here the individual isotope traces (blue lines) are assembled into a feature here shown as convex hull (rectangular box).}
   \label{fig:ToppView_4}
 \end{figure}
@@ -102,7 +102,7 @@ To facilitate the collection of features corresponding to the same compound ion 
 
 \begin{figure}[!htbp]
 	\centering
-	\includegraphics[width=\textwidth]{graphics/metabo/align.png}
+	\includegraphics[width=\textwidth]{metabo/align.png}
 	\caption[Map alignment]
 	{
 	\textbf{Map alignment.} The first feature map is used as a reference to which other maps are aligned. The calculated transformation brings corresponding features into close retention time proximity. Linking of these features form a so-called consensus features of a \textit{consensus map}.
@@ -146,7 +146,7 @@ The next step after retention time correction is the grouping of corresponding f
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.7\textwidth]{graphics/metabo/link.png}
+	\includegraphics[width=0.7\textwidth]{metabo/link.png}
 	\caption[Label-free quantification]
 	{
 	\textbf{Feature linking}. Features A and B correspond to the same analyte. The linking of features between runs (indicated by an arrow) allows comparing feature intensities.
@@ -185,7 +185,7 @@ Run the pipeline and inspect the output.
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.85\textwidth]{graphics/metabo/metabo_part1_with_labels.png}
+  \includegraphics[width=0.85\textwidth]{metabo/metabo_part1_with_labels.png}
   \caption{Label-free quantification workflow for metabolites}
   \label{fig:metabo_part1}
 \end{figure}
@@ -199,7 +199,7 @@ In the following section we will try to identify those metabolites.
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\textwidth]{graphics/metabo/ToppView_5.png}
+  \includegraphics[width=\textwidth]{metabo/ToppView_5.png}
   \caption{Visualization of .consensusXML output over the .mzML and .featureXML 'layer'. }
   \label{fig:ToppView_5}
 \end{figure}
@@ -247,7 +247,7 @@ The complete workflow from this section is shown in \cref{fig:metabo_part2}.
 %TODO: cosmetic use output folder after AccurateMassSearch in fig
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.85\textwidth]{graphics/metabo/metabo_part2.png}
+  \includegraphics[width=0.85\textwidth]{metabo/metabo_part2.png}
   \caption{Label-free quantification and identification workflow for metabolites}
   \label{fig:metabo_part2}
 \end{figure}
@@ -262,7 +262,7 @@ When executed, both nodes will import the OpenMS files and provide access to the
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.85\textwidth]{graphics/metabo/metabo_part3.png}
+  \includegraphics[width=0.85\textwidth]{metabo/metabo_part3.png}
   \caption{Label-free quantification and identification workflow for metabolites that loads the results into KNIME and joins the tables.}
   \label{fig:metabo_part3}
 \end{figure}
@@ -287,7 +287,7 @@ Metabolites commonly co-elute as ions with different adducts (e.g., glutathione+
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.90\textwidth]{graphics/metabo/mad.png}
+  \includegraphics[width=0.90\textwidth]{metabo/mad.png}
   \caption{Metabolite Adduct Decharger adduct grouping workflow}
   \label{fig:mad}
 \end{figure}
@@ -329,7 +329,7 @@ The retention time values are exported as a list based on the current PSI-Standa
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.7\textwidth]{graphics/metabo/speclib.png}
+  \includegraphics[width=0.7\textwidth]{metabo/speclib.png}
   \caption{Spectral library identification workflow}
   \label{fig:speclib}
 \end{figure}
@@ -354,7 +354,7 @@ Check in the .xlsx output from the \KNIMENODE{Excel writer (XLS)} if you can fin
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.85\textwidth]{graphics/metabo/glutathioneTV.png}
+  \includegraphics[width=0.85\textwidth]{metabo/glutathioneTV.png}
   \caption{Tandem spectrum of glutathione. Visualized in TOPPView.}
   \label{fig:glutathioneTandemSpectrum}
 \end{figure}
@@ -365,7 +365,7 @@ On the METLIN homepage search for \menu{Name} Glutathione using the \menu{Advanc
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.85\textwidth]{graphics/metabo/glutathioneMetlin.png}
+  \includegraphics[width=0.85\textwidth]{metabo/glutathioneMetlin.png}
   \caption{Tandem spectrum of glutathione. Visualized in Metlin. Note that several fragment spectra from varying collision energies are available.}
   \label{fig:glutathioneMetlin}
 \end{figure}
@@ -391,7 +391,7 @@ Use the file \directory{Example\_Data / Metabolomics / datasets \newline / Metab
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.85\textwidth]{graphics/metabo/denovoid.png}
+  \includegraphics[width=0.85\textwidth]{metabo/denovoid.png}
   \caption{\protect\textit{De novo} identification workflow}
   \label{fig:denovoid}
 \end{figure}
@@ -458,14 +458,16 @@ Inspect the nodes of this section. Customize your visualization and possibly try
 \label{sec:metaboR}
 R Dependencies: This section requires that the R packages \texttt{ggplot2} and \texttt{ggfortify} are both installed. \texttt{ggplot2} is part of the \textit{KNIME R Statistics Integration (Windows Binaries)} which should already be installed via the full KNIME installer, \texttt{ggfortify} however is not.
 In case that you use an R installation where one or both of them are not yet installed, add an \KNIMENODE{R Snippet} node and double-click to configure. In the \textit{R Script} text editor, enter the following code:
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}{R}
 #Include the next line if you also have to install ggplot2:
 install.packages("ggplot2")
 #Include the following lines to install ggfortify:
 install.packages("ggfortify")
 library(ggplot2)
 library(ggfortify)
-\end{lstlisting}
+\end{minted}
+\end{listing}
 You can remove the \texttt{install.packages} commands once it was successfully installed.
 
 Even though the basic capabilities for (interactive) plots in KNIME are valuable for initial data exploration, professional looking depiction of analysis results often relies on dedicated plotting libraries. The statistics language R supports the addition of a large variety of packages, including packages providing extensive plotting capabilities. This part of the workflow shows how to use R nodes in KNIME to visualize more advanced figures. Specifically, we make use of different plotting packages to realize heatmaps.
@@ -484,7 +486,7 @@ For that we use an \textit{Inner Join} \footnote{\textit{Inner Join} is a techni
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.7\textwidth]{graphics/metabo/reporting.png}
+  \includegraphics[width=0.7\textwidth]{metabo/reporting.png}
   \caption{Data preparation for reporting}
   \label{fig:reporting}
 \end{figure}
