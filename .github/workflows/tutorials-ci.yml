@@ -19,7 +19,7 @@ jobs:
       
       - uses: xu-cheng/latex-action@v2
         with:
-          working_directory: ${{ github.workspace }}/Tutorials/Handout
+          working_directory: ${{ github.workspace }}/Tutorials/Handout/
           root_file: handout.tex
           latexmk_use_xelatex: true
           latexmk_shell_escape: true
