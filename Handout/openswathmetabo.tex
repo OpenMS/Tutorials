@@ -33,78 +33,78 @@ Apart from the usual KNIME nodes, the workflow uses python scripting nodes. One 
 We suggest do use a virtual environment for the Python 3 installation on windows. 
 Here you can install miniconda and follow the further instructions. \\
 
-\begin{enumerate}
+\begin{description}
   \item Create new conda python environment
-    \begin{lstlisting}
+  	    \begin{listing}
     	\begin{minted}{bash}
    			conda create -n py39 python=3.9
-   		\end{minted}	
-    \end{lstlisting} 
+   		\end{minted}
+   		\end{listing}
   \item Activate py39 environment
-    \begin{lstlisting}
+    	\begin{listing}
     	\begin{minted}{bash}
     		conda activate py39    
     	\end{minted}
-    \end{lstlisting} 
+    	\end{listing}
   \item Install pip (see above)
   \item On the command line:
-    \begin{listing}
-\begin{minted}{bash}
-    python -m pip install -U pip
-    python -m pip install -U numpy
-    python -m pip install -U pandas
-    python -m pip isntall -U pyprophet
-    python -m pip install -U pyopenms
+    	\begin{listing}
+		\begin{minted}{bash}
+    		python -m pip install -U pip
+    		python -m pip install -U numpy
+    		python -m pip install -U pandas
+    		python -m pip isntall -U pyprophet
+    		python -m pip install -U pyopenms
     \end{minted}
-\end{listing}
-\end{enumerate}
+    \end{listing}
+\end{description}
 
 \subsubsection{MacOS}
 We suggest do use a virtual environment for the Python 3 installation on Mac. 
 Here you can install miniconda and follow the further instructions. \\
 
-\begin{enumerate}
+\begin{description}
   \item Create new conda python environment
-    \begin{lstlisting}
+      	\begin{listing}
     	\begin{minted}{bash}
     		conda create -n py39 python=3.9
     	\end{minted}
-    \end{lstlisting} 
+    	\end{listing}
     \item Activate py39 environment
-    \begin{lstlisting}
+        \begin{listing}
     	\begin{minted}{bash}
     		conda activate py39
     	\end{minted}
-    \end{lstlisting} 
+    	\end{listing}
   \item On the Terminal:
-    \begin{listing}
-\begin{minted}{bash}
-    python -m pip install -U pip
-    python -m pip install -U numpy
-    python -m pip install -U pandas
-    python -m pip isntall -U pyprophet
-    python -m pip install -U pyopenms
-    \end{minted}
-\end{listing}
-\end{enumerate}
+      	\begin{listing}
+		\begin{minted}{bash}
+    		python -m pip install -U pip
+    		python -m pip install -U numpy
+    		python -m pip install -U pandas
+    		python -m pip isntall -U pyprophet
+    		python -m pip install -U pyopenms
+		\end{minted}
+		\end{listing}
+\end{description}
 
 \subsubsection{Linux}
 Use your package manager apt-get or yum, where possible.
-\begin{enumerate}
+\begin{description}
   \item Install Python 3.9 (Debian: python-dev, RedHat: python-devel)
   \item Install NumPy (Debian / RedHat: python-numpy)
   \item Install setuptools (Debian / RedHat: python-setuptools)
   \item On the Terminal:
-    \begin{listing}
-\begin{minted}{bash}
-    python -m pip install -U pip
-    python -m pip install -U numpy
-    python -m pip install -U pandas
-    python -m pip isntall -U pyprophet
-    python -m pip install -U pyopenms
-    \end{minted}
-\end{listing}
-\end{enumerate}
+      	\begin{listing}
+		\begin{minted}{bash}
+   	 		python -m pip install -U pip
+    		python -m pip install -U numpy
+    		python -m pip install -U pandas
+    		python -m pip isntall -U pyprophet
+    		python -m pip install -U pyopenms
+        \end{minted}
+        \end{listing}
+\end{description}
 
 \subsection{Benchmark data}
 For the assay library construction pesticide mixes (Agilent Technologies, Waldbronn, Germany) were measured individually in solvent (DDA). 
@@ -221,7 +221,6 @@ Feature linking (internal): & \\
 pyprophet merge  --template path_to_target-decoy_assay_library.pqp --out merged.osw  ./*.osw
 \end{minted}
 \end{listing}
-
 \noindent Afterwards, the results are scored using the MS1 and MS2 levels and filter for metabolomics scores, which have a low correlation. 
 
 \begin{listing}
@@ -237,6 +236,7 @@ pyprophet export-compound --in scored.osw --out scored + "_pyprophet_nofilter_ms
 --max_rs_peakgroup_qvalue 1000.0
 \end{minted}
 \end{listing}
+
 \noindent Please see the workflow for actual parameter values used for the benchmarking dataset. \\
 
 \noindent  The workflow can be used without any identification (remove \KNIMENODE{AccurateMassSearch}). Here, all features (known\_unknowns) are processed. The assay library is constructed based on the chemical composition elucidated via the fragment annotation (SIRIUS 4). It is also possible to use identified and in addition unknown (non-identified) features, by using \KNIMENODE{AccurateMassSearch} in combination with the \textbf{use\_known\_unknowns} in the \KNIMENODE{AssayGeneratorMetabo}.  
