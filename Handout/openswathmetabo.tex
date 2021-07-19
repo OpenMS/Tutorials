@@ -42,7 +42,7 @@ Here you can install miniconda and follow the further instructions. \\
     \end{lstlisting} 
   \item Activate py39 environment
     \begin{lstlisting}
-    conda activate py39
+    conda activate py39    
     \end{lstlisting} 
   \item Install pip (see above)
   \item On the command line:
@@ -108,7 +108,7 @@ Benchmark DIA samples were prepared by spiking different commercially available 
 \url{https://abibuilder.informatik.uni-tuebingen.de/archive/openms/Tutorials/Data/DIAMetAlyzer/}
 
 \subsection{Example Workflow}
-Example workflow for the usage of the DIAMetAlyzer Pipeline in KNIME (see Fig. \ref{fig:oswm_example_wf}). Inputs are the SWATH-MS data in profile mode (.mzML), a path for saving the new target-decoy assay library, the SIRIUS 4.9.0 executable, the DDA data (.mzML), custom libraries and adducts for AccurateMassSearch, the min/max fragment mass-to-charge to be able to restrict the mass of the transitions and the path to the PyProphet executable. The DDA is used for feature detection, adduct grouping, accurate mass search and forwarded to the AssayGeneratorMetabo. The constructed target library is used by the decoy generation node, which calls various python scripts to parse, reformat the input, call Passatutto and export the target-decoy assay library. The target-decoy assay library is processed with the SWATH-MS data in OpenSWATH. The results are used by PyProphet for scoring and output a list of metabolites with their respective q-value and quantitative information.
+Example workflow for the usage of the DIAMetAlyzer Pipeline in KNIME (see Fig. \ref{fig:oswm_example_wf}). Inputs are the SWATH-MS data in profile mode (.mzML), a path for saving the new target-decoy assay library, the SIRIUS 4.9.0 executable, the DDA data (.mzML), custom libraries and adducts for \KNIMENODE{AccurateMassSearch}, the min/max fragment mass-to-charge to be able to restrict the mass of the transitions and the path to the PyProphet executable. The DDA is used for feature detection, adduct grouping, accurate mass search and forwarded to the \KNIMENODE{AssayGeneratorMetabo}. Here, feature mapping is performed to collect MS2 spectra that belong to a feature. All information collected before (feautre, adduct, putative identification, MS2 spectra) are then internally forwarded to SIRIUS. SIRIUS is used for fragment annotation and decoy generation based on the fragmentation tree re-rooting approach. This information is then used to filter spectra/decoys based on their explained intensity (min. 85\%). Afterwards internal feature linking is performed which is most important for untargeted experiments using a lot of DDA data to construct the library. The constructed target-decoy assay library is processed with the SWATH-MS data in OpenSWATH. The results are used by PyProphet for scoring and output a list of metabolites with their respective q-value and quantitative information.
 
 \begin{figure}[!h]
   \centering
@@ -142,9 +142,6 @@ These steps need to be followed to run the workflow successfully:
 \textit{noise\_threshold\_int} & Intensity threshold below which peaks are regarded as noise. \\
 \textit{chrom\_fwhm} & Expected chromatographic peak width (in seconds). \\
 \textit{mass\_error\_ppm} & Allowed mass deviation (in ppm) \\
-%\textit{algorithm $\rightarrow$ common $\rightarrow$ noise\_threshold\_int} & Intensity threshold below which peaks are regarded as noise. \\
-%\textit{algorithm $\rightarrow$ common $\rightarrow$ chrom\_fwhm} & Expected chromatographic peak width (in seconds). \\
-%\hl{\textit{algorithm $\rightarrow$ mtd $\rightarrow$ mass\_error\_ppm}} & Allowed mass deviation (in ppm) \\
 \end{tabular*}
 \end{center}
 
@@ -154,8 +151,6 @@ These steps need to be followed to run the workflow successfully:
 \textbf{parameter} & \textbf{explanation} \\ \hline
 \textit{mass\_max\_diff} & Maximum allowed mass tolerance per feature.. \\
 \textit{potential\_adducts} & Adducts used to explain mass differences - These should fit to the adduct list specified for AccurateMassSearch. \\
-%\hl{\textit{algorithm $\rightarrow$ MetaboliteFeatureDeconvolution $\rightarrow$ mass\_max\_diff}} & Maximum allowed mass tolerance per feature. \\
-%\hl{\textit{algorithm $\rightarrow$ MetaboliteFeatureDeconvolution $\rightarrow$ potential\_adducts}} & Adducts used to explain mass differences - These should fit to the adduct list specified for AccurateMassSearch. \\
 \end{tabular*}
 \end{center}
 
@@ -174,15 +169,25 @@ These steps need to be followed to run the workflow successfully:
 \textbf{parameter} & \textbf{explanation} \\ \hline
 \textit{min\_transitions} & Minimal number of transitions (3). \\
 \textit{max\_transitions} &  Maximal number of transitions (3). \\
+\textbf{min\_fragment\_mz} & Minimal m/z of a fragment ion choosen as a transition \\
+\textbf{max\_fragment\_mz} & Maximal m/z of a fragment ion choosen as a transition \\
 \textit{transitions\_threshold} & Further transitions need at least x\% of the maximum intensity. \\
+\textbf{fragment\_annotation\_score\_threshold} & Filters annotations based on the explained intensity of the peaks in a spectrum (0.8). \\
+SIRIUS (internal):
 \textit{out\_workspace\_directory} & Output directory for SIRIUS workspace (Fragmentation Trees). \\
 \textit{filter\_by\_num\_masstraces} &  Features have to have at least x MassTraces. To use this parameter feature\_only is neccessary. \\
 \textit{precursor\_mass\_tolerance} & Tolerance window for precursor selection (Feature selection in regard to the precursor). \\
 \textit{precursor\_rt\_tolerance} & Tolerance allowed for matching MS2 spectra depeding on the feature size (should be around the FWHM of the chromatograms). \\
 \textit{profile} & Specify the used analysis profile (e.g. qtof). \\
 \textit{elements} & Allowed elements for assessing the putative sumformula (e.g. CHNOP[5]S[8]Cl[1]). Elements found in the isotopic pattern are added automatically, but can be specified nonetheless. \\
+Feature linking (internal):
+\textbf{ambiguity\_resolution\_mz\_tolerance} & Mz tolerance for the resolution of identification ambiguity over multiple files - Feature linking m/z tolerance. ) \\
+\textbf{ambiguity\_resolution\_rt\_tolerance} & RT tolerance in seconds for the resolution of identification ambiguity over multiple files - Feature linking m/z tolerance. \\
+\textbf{total\_occurrence\_filter} & Filter compound based on total occurrence in analysed samples.\\
 \end{tabular*}
 \end{center}
+
+In case of the \textbf{total_occurrence_filter} the value to chose depends on the analysis strategy used. In the instance you are using only identified compounds (\textbf{use_known_unkowns} = false) - it will filter based on identified features. This means that even if the feature was detected in e.g. 50\% of all samples it might be only identified correctly by accurate mass search in 20\% of all samples. Using a \textbf{total_occurrence_filter} this specific feature would still be filtered out  due to less identifications. 
 
 \noindent\KNIMENODE{\textbf{OpenSWATH}}:
 \begin{center}
@@ -228,7 +233,4 @@ pyprophet export-compound --in scored.osw --out scored + "_pyprophet_nofilter_ms
 \end{listing}
 \noindent Please see the workflow for actual parameter values used for the benchmarking dataset. \\
 
-
-\noindent  The workflow can be used without any identification (remove \KNIMENODE{AccurateMassSearch}). Here, all features (known\_unknowns) are processed. The assay library is constructed based on the chemical composition elucidated via the fragment annotation. Quantification is possible, unfortunately the decoy generation and FDR estimation for this case is not yet available. 
-
-
+\noindent  The workflow can be used without any identification (remove \KNIMENODE{AccurateMassSearch}). Here, all features (known\_unknowns) are processed. The assay library is constructed based on the chemical composition elucidated via the fragment annotation (SIRIUS 4). It is also possible to use identified and in addition unknown (non-identified) features, by using \KNIMENODE{AccurateMassSearch} in combination with the \textbf{use_known_unknowns} in the \KNIMENODE{AssayGeneratorMetabo}.  
