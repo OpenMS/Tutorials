@@ -3,9 +3,7 @@
 We would like to present an automated DIA/SWATH analysis workflow for metabolomics, which takes advantage of experiment specific target-decoy assay library generation. This allows for targeted extraction, scoring and statistical validation of metabolomics DIA data \cite{Rost2014}, \cite{Teleman2015}. 
 
 \subsection{Workflow}
-The workflow follows multiple steps (see Fig. \ref{fig:pipline_overview}). 
-
-\textbf{Candidate identification.} Feature detection, adduct grouping and accurate mass search are applied on DDA data. \textbf{Library construction.} The knowledge determined from the DDA data, about  compound identification, its potential adduct and the corresponding fragment spectra are used to perform fragment annotation via compositional fragmentation trees sugin SIRIUS 4 \cite{Duhrkop2019}. Afterwards transitions, which are the reference of a precursor to its fragment ions are stored in a so-called assay library (Fig. \ref{fig:assay_library_generation}). Assay libraries usually contain additional metadata (i.e. retention time, peak intensities). FDR estimation is based on the target-decoy approach \cite{Elias2007}. For the generation of the MS2 decoys, the fragmentation tree-based rerooting method by Passatutto ensure the consistency of decoy spectra (Fig.\ref{fig:decoy_generation}) \cite{Scheubert2017}. The target-decoy assay library is then used to analyse the SWATH data. \textbf{Targeted extraction.} Chromatogram extraction and peak-group scoring. This step is performed using an algorithm based on OpenSWATH \cite{Rost2014} for metabolomics data. \textbf{Statistical validation} FDR estimation uses the PyProphet algorithm \cite{Teleman2015}. To prevent overfitting we chose the simpler linear model (LDA) for target-decoy discrimination in PyProphet, using MS1 and MS2 scoring with low correlated scores.
+The workflow follows multiple steps (see Fig. \ref{fig:pipline_overview}). \textbf{Candidate identification.} Feature detection, adduct grouping and accurate mass search are applied on DDA data. \textbf{Library construction.} The knowledge determined from the DDA data, about  compound identification, its potential adduct and the corresponding fragment spectra are used to perform fragment annotation via compositional fragmentation trees sugin SIRIUS 4 \cite{Duhrkop2019}. Afterwards transitions, which are the reference of a precursor to its fragment ions are stored in a so-called assay library (Fig. \ref{fig:assay_library_generation}). Assay libraries usually contain additional metadata (i.e. retention time, peak intensities). FDR estimation is based on the target-decoy approach \cite{Elias2007}. For the generation of the MS2 decoys, the fragmentation tree-based rerooting method by Passatutto ensure the consistency of decoy spectra (Fig.\ref{fig:decoy_generation}) \cite{Scheubert2017}. The target-decoy assay library is then used to analyse the SWATH data. \textbf{Targeted extraction.} Chromatogram extraction and peak-group scoring. This step is performed using an algorithm based on OpenSWATH \cite{Rost2014} for metabolomics data. \textbf{Statistical validation} FDR estimation uses the PyProphet algorithm \cite{Teleman2015}. To prevent overfitting we chose the simpler linear model (LDA) for target-decoy discrimination in PyProphet, using MS1 and MS2 scoring with low correlated scores.
 
 \begin{figure}[!t]
   \centering
@@ -180,7 +178,7 @@ These steps need to be followed to run the workflow successfully:
 \textbf{min\_fragment\_mz} & Minimal m/z of a fragment ion choosen as a transition \\
 \textbf{max\_fragment\_mz} & Maximal m/z of a fragment ion choosen as a transition \\
 \textit{transitions\_threshold} & Further transitions need at least x\% of the maximum intensity. \\
-\textbf{fragment\_annotation\_score\_threshold} & Filters annotations based on the explained intensity of the peaks in a spectrum (0.8). \\
+\textbf{fragment\_annotation score\_threshold} & Filters annotations based on the explained intensity of the peaks in a spectrum (0.8). \\
 SIRIUS (internal): & \\
 \textit{out\_workspace\_directory} & Output directory for SIRIUS workspace (Fragmentation Trees). \\
 \textit{filter\_by\_num\_masstraces} &  Features have to have at least x MassTraces. To use this parameter feature\_only is neccessary. \\
@@ -189,13 +187,13 @@ SIRIUS (internal): & \\
 \textit{profile} & Specify the used analysis profile (e.g. qtof). \\
 \textit{elements} & Allowed elements for assessing the putative sumformula (e.g. CHNOP[5]S[8]Cl[1]). Elements found in the isotopic pattern are added automatically, but can be specified nonetheless. \\
 Feature linking (internal): & \\
-\textbf{ambiguity\_resolution\_mz\_tolerance} & Mz tolerance for the resolution of identification ambiguity over multiple files - Feature linking m/z tolerance. ) \\
-\textbf{ambiguity\_resolution\_rt\_tolerance} & RT tolerance in seconds for the resolution of identification ambiguity over multiple files - Feature linking m/z tolerance. \\
+\textbf{ambiguity\_resolution mz\_tolerance} & Mz tolerance for the resolution of identification ambiguity over multiple files - Feature linking m/z tolerance. ) \\
+\textbf{ambiguity\_resolution rt\_tolerance} & RT tolerance in seconds for the resolution of identification ambiguity over multiple files - Feature linking m/z tolerance. \\
 \textbf{total\_occurrence\_filter} & Filter compound based on total occurrence in analysed samples.\\
 \end{tabular*}
 \end{center}
 
-In case of the \textbf{total\_occurrence\_filter} the value to chose depends on the analysis strategy used. In the instance you are using only identified compounds (\textbf{use\_known\_unkowns} = false) - it will filter based on identified features. This means that even if the feature was detected in e.g. 50\% of all samples it might be only identified correctly by accurate mass search in 20\% of all samples. Using a \textbf{total\_occurrence\_filter} this specific feature would still be filtered out  due to less identifications. 
+\noindent In case of the \textbf{total\_occurrence\_filter} the value to chose depends on the analysis strategy used. In the instance you are using only identified compounds (\textbf{use\_known\_unkowns} = false) - it will filter based on identified features. This means that even if the feature was detected in e.g. 50\% of all samples it might be only identified correctly by accurate mass search in 20\% of all samples. Using a \textbf{total\_occurrence\_filter} this specific feature would still be filtered out  due to less identifications. 
 
 \noindent\KNIMENODE{\textbf{OpenSWATH}}:
 \begin{center}
