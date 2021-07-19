@@ -1,0 +1,33 @@
+# Workfow to compile the handout 
+
+name: tutorials-ci
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          path: Handout
+      
+      - uses: xu-cheng/latex-action@v2
+        with:
+          root_file: handout.tex
+          latexmk_use_xelatex: true
+          latexmk_shell_escape: true
+        
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Handout
+          path: handout.pdf
+          
+
