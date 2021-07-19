@@ -15,17 +15,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          path: Handout
+          path: Tutorials
       
       - uses: xu-cheng/latex-action@v2
         with:
-          root_file: handout.tex
+          root_file: Handout/handout.tex
           latexmk_use_xelatex: true
           latexmk_shell_escape: true
         
       - uses: actions/upload-artifact@v2
         with:
           name: Handout
-          path: handout.pdf
+          path: Handout/handout.pdf
           
 
