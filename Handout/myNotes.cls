@@ -81,19 +81,21 @@
 \def\titlepage{
     \thispagestyle{empty}
     \begin{center}
-		\includegraphics[width=0.7\textwidth]{./graphics/assets/OpenMS_5cm_300ppi_transparent.png}\\[0.5cm]
+		\includegraphics[width=0.7\textwidth]{assets/OpenMS_5cm_300ppi_transparent.png}\\[0.5cm]
 		\LARGE\textbf{User Tutorial}\\[5cm]		
 		\vfill
 		%\vspace{2cm}
+                \begin{figure}
 		\begin{minipage}{.5\textwidth}
 			\centering
-			\includegraphics[width=.8\linewidth, height=2cm]{./graphics/assets/deNBI_Logo_rgb.png}
+			\includegraphics[width=.8\linewidth, height=2cm]{assets/deNBI_Logo_rgb.png}
 		\end{minipage}%
 		\begin{minipage}{.5\textwidth}
 			\centering
 			\figstrut{5cm}{2cm}
-			\includegraphics[width=.8\linewidth, height=5cm]{./graphics/assets/elixir_germany_white_background.png}
-		\end{minipage}	
+			\includegraphics[width=.8\linewidth, height=5cm]{assets/elixir_germany_white_background.png}
+		\end{minipage}
+                \end{figure}	
 		%\hfill\vspace{-2cm}\includegraphics[width=0.3\textwidth]{./graphics/assets/deNBI_Logo_rgb.png}\hfill\hspace{5cm}\vspace{1cm}\includegraphics[width=0.3\textwidth]{./graphics/assets/elixir_germany_white_background.png}\\
 	\end{center}
 	\newpage

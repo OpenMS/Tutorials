@@ -3,6 +3,14 @@
 
 \documentclass[12pt]{myNotes}
 
+% Only needed for tex4ht (html)
+\ifdefined\HCode %This driver to tex4ht only. For tikz
+   \def\pgfsysdriver{pgfsys-dvisvgm4ht.def}
+   %\def\pgfsysdriver{pgfsys-tex4ht-updated.def}
+   % for some private definitions like filenames, folders, urls
+   \usepackage{defs-private}
+\fi
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[english]{babel}
 \hyphenation{TOPPView}
@@ -14,7 +22,7 @@
 
 % to comment lager blocks 
 \usepackage{comment}
-
+\usepackage{defsnohtml-private}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % We use UBUNTU font for a more professional look.
 % UBUNTU fonts can be downloaded from: http://font.ubuntu.com.
@@ -58,6 +66,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{amsmath,amssymb,amscd,bm,dsfont,wasysym}
 \usepackage{graphicx}
+\graphicspath{{./graphics/}}
 \usepackage[xetex,
       unicode,
       colorlinks=false,
@@ -77,33 +86,39 @@
 
 \newfontfamily{\menlo}{Menlo-Regular.ttf}
 
-\usepackage{listings}
-\usepackage{color}
-\usepackage{textcomp}
-\definecolor{listinggray}{gray}{0.9}
-\definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
-\lstset{
-    backgroundcolor=\color{lbcolor},
-    tabsize=4,
-    rulecolor=,
-    language=python,
-    basicstyle=\menlo\scriptsize,
-    upquote=true,
-    aboveskip={1.5\baselineskip},
-    columns=fixed,
-    showstringspaces=false,
-    extendedchars=true,
-    breaklines=true,
-    prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
-    frame=single,
-    showtabs=false,
-    showspaces=false,
-    showstringspaces=false,
-    identifierstyle=\menlo,
-    keywordstyle=\color[rgb]{0,0,1},
-    commentstyle=\color[rgb]{0.133,0.545,0.133},
-    stringstyle=\color[rgb]{0.627,0.126,0.941},
-}
+% We try to use minted now
+% \usepackage{listings}
+% \usepackage{color}
+% \usepackage{textcomp}
+% \definecolor{listinggray}{gray}{0.9}
+% \definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
+% \lstset{
+%     backgroundcolor=\color{lbcolor},
+%     tabsize=4,
+%     rulecolor=,
+%     language=python,
+%     basicstyle=\menlo\scriptsize,
+%     upquote=true,
+%     aboveskip={1.5\baselineskip},
+%     columns=fixed,
+%     showstringspaces=false,
+%     extendedchars=true,
+%     breaklines=true,
+%     prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+%     frame=single,
+%     showtabs=false,
+%     showspaces=false,
+%     showstringspaces=false,
+%     identifierstyle=\menlo,
+%     keywordstyle=\color[rgb]{0,0,1},
+%     commentstyle=\color[rgb]{0.133,0.545,0.133},
+%     stringstyle=\color[rgb]{0.627,0.126,0.941},
+% }
+\usepackage{xcolor}
+\definecolor{lbcolor}{rgb}{0.9, 0.9, 0.98}
+\usepackage{minted}
+\usemintedstyle{tango}
+\setminted{bgcolor=lbcolor, breaklines=true, baselinestretch=0.8, showspaces=false, fontsize=\footnotesize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % only use those two in combination
@@ -122,7 +137,10 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % subfigures
-\usepackage{subcaption}
+\usepackage[font=footnotesize,
+            format=plain,
+            labelfont={bf,sf,footnotesize},
+            textfont=footnotesize]{subcaption}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Nicer tables
@@ -136,12 +154,17 @@
 \usepackage[framemethod=TikZ]{mdframed}
 \usetikzlibrary{calc}
 
-\global\mdfdefinestyle{notedefault}{topline=false,bottomline=false,rightline=false,leftmargin=1cm}
-\newcommand{\note}[1]{ \begin{mdframed}[style=notedefault,nobreak=true] \textbf{Note:}~#1 \end{mdframed} }
+%% Add an unused type option to the mdframed environment, that we can use to put in the div class
+%% when converting to html (see my.cfg and mdframed.4ht)
+\makeatletter
+\mdf@dolist{\mdf@do@stringoption}{%
+  {type=={}}%
+}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newmdenv[
-  leftmargin=0pt,
+\global\mdfdefinestyle{note}{topline=false,bottomline=false,rightline=false,leftmargin=1cm,type=note}
+\newcommand{\note}[1]{ \begin{mdframed}[linewidth=1,style=note] \textbf{Note:}~#1 \end{mdframed} }
+
+\global\mdfdefinestyle{question}{ leftmargin=0pt,
   rightmargin=20pt,
   innertopmargin=30pt,
   innerbottommargin=10pt,
@@ -154,19 +177,30 @@
   font=\normalfont\normalsize,
   frametitlefont=\normalfont\normalsize\bfseries,
   frametitleaboveskip=1em,
+  type=question
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifdefined\HCode
+\newmdenv[
+  style=question,
+  frametitle=Question,
+  linewidth=1
+]{question}
+\else
+\newmdenv[
+  style=question,
   singleextra={
-    \node[inner sep=0pt,anchor=north west,xshift=10pt,yshift=-30pt] at (P-|O) {\includegraphics[width=1.3cm]{graphics/assets/question23}};
+    \node[inner sep=0pt,anchor=north west,xshift=10pt,yshift=-30pt] at (P-|O) {\includegraphics[width=1.3cm]{assets/question23}};
     \node[inner sep=0pt,anchor=north west,yshift=-.8\baselineskip,font=\bfseries,xshift=10pt] at (P-|O) {Question};
   },
   firstextra={
-    \node[inner sep=0pt,anchor=north west,xshift=10pt,yshift=-30pt] at (P-|O) {\includegraphics[width=1.3cm]{graphics/assets/question23}};
+    \node[inner sep=0pt,anchor=north west,xshift=10pt,yshift=-30pt] at (P-|O) {\includegraphics[width=1.3cm]{assets/question23}};
     \node[inner sep=0pt,anchor=north west,yshift=-.8\baselineskip,font=\bfseries,xshift=10pt] at (P-|O) {Question};
   }
 ]{question}
+\fi
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newmdenv[
-  leftmargin=0pt,
+\global\mdfdefinestyle{task}{ leftmargin=0pt,
   rightmargin=20pt,
   innertopmargin=30pt,
   innerbottommargin=10pt,
@@ -179,15 +213,28 @@
   font=\normalfont\normalsize,
   frametitlefont=\normalfont\normalsize\bfseries,
   frametitleaboveskip=1em,
+  type=task
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifdefined\HCode
+\newmdenv[
+  style=task,
+  frametitle=Task,
+  linewidth=1
+]{task}
+\else
+\newmdenv[
+  style=task,
   singleextra={
-    \node[inner sep=0pt,anchor=north west,xshift=10pt,yshift=-30pt] at (P-|O) {\includegraphics[width=1.3cm]{graphics/assets/check30}};
+    \node[inner sep=0pt,anchor=north west,xshift=10pt,yshift=-30pt] at (P-|O) {\includegraphics[width=1.3cm]{assets/check30}};
     \node[inner sep=0pt,anchor=north west,yshift=-.8\baselineskip,font=\bfseries,xshift=10pt] at (P-|O) {Task};
   },
   firstextra={
-    \node[inner sep=0pt,anchor=north west,xshift=10pt,yshift=-30pt] at (P-|O) {\includegraphics[width=1.3cm]{graphics/assets/check30}};
+    \node[inner sep=0pt,anchor=north west,xshift=10pt,yshift=-30pt] at (P-|O) {\includegraphics[width=1.3cm]{assets/check30}};
     \node[inner sep=0pt,anchor=north west,yshift=-.8\baselineskip,font=\bfseries,xshift=10pt] at (P-|O) {Task};
   }
 ]{task}
+\fi
 
 \newcommand\figstrut[2]{
 	% #1: Height of object
@@ -223,15 +270,10 @@
 
 \usepackage[lmargin=25mm,rmargin=25mm,bmargin=25mm,tmargin=25mm]{geometry}
 
-\usepackage{floatrow}
-\usepackage{subcaption}
-\usepackage[font=footnotesize,
-            format=plain,
-            labelfont={bf,sf,footnotesize},
-            textfont=footnotesize]{caption}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %highlight text 
-\usepackage{xcolor, soul}
+\usepackage{xcolor}
+\usepackage{soul}
 \definecolor{lightgray}{RGB}{190,190,190}
 \sethlcolor{lightgray}
 
@@ -260,8 +302,8 @@
 	resources. You will become familiar with some of the basic functionalities of OpenMS/TOPP, TOPPView, as well as KNIME
 	and learn how to use a selection of TOPP tools used in the tutorial workflows.
 \item All sample data referenced in this tutorial can be found in the \newline
-	\directory{C: / Example\_Data} folder, on the USB stick that came with this tutorial, or released online on our GitHub repository
-	\hyperlink{https://github.com/OpenMS/Tutorials/releases}{OpenMS/Tutorials}).
+	\directory{\ExampleDataFolder} folder, on the USB stick that came with this tutorial, or released online on our GitHub repository
+	\hyperlink{https://github.com/OpenMS/Tutorials/releases}{OpenMS/Tutorials}.
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
