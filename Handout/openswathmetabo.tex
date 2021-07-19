@@ -83,7 +83,6 @@ Use your package manager apt-get or yum, where possible.
   \item Install NumPy (Debian / RedHat: python-numpy)
   \item Install setuptools (Debian / RedHat: python-setuptools)
   \item On the Terminal:
-    \begin{listing}
 \begin{minted}{bash}
     python -m pip install -U pip
     python -m pip install -U numpy
@@ -91,7 +90,6 @@ Use your package manager apt-get or yum, where possible.
     python -m pip isntall -U pyprophet
     python -m pip install -U pyopenms
     \end{minted}
-\end{listing}
 \end{enumerate}
 
 \subsection{Benchmark data}
@@ -204,27 +202,22 @@ Feature linking (internal): & \\
 
 \noindent In the workflow pyprophet is called after OpenSWATH, it merges the result files, which allows to get enough data for the model training. 
 
-\begin{listing}
 \begin{minted}{bash}
 pyprophet merge  --template path_to_target-decoy_assay_library.pqp --out merged.osw  ./*.osw
 \end{minted}
-\end{listing}
 
 \noindent Afterwards, the results are scored using the MS1 and MS2 levels and filter for metabolomics scores, which have a low correlation. 
 
-\begin{listing}
 \begin{minted}{bash}
 pyprophet score --in  merged.osw  --out  scored.osw --level ms1ms2 --ss_main_score "var_isotope_correlation_score" --ss_score_filter metabolomics
 \end{minted}
-\end{listing}
 \noindent Export the non filtered results: 
 
-\begin{listing}
 \begin{minted}{bash}
 pyprophet export-compound --in scored.osw --out scored + "_pyprophet_nofilter_ms1ms2.tsv" 
 --max_rs_peakgroup_qvalue 1000.0
 \end{minted}
-\end{listing}
+
 \noindent Please see the workflow for actual parameter values used for the benchmarking dataset. \\
 
 \noindent  The workflow can be used without any identification (remove \KNIMENODE{AccurateMassSearch}). Here, all features (known\_unknowns) are processed. The assay library is constructed based on the chemical composition elucidated via the fragment annotation (SIRIUS 4). It is also possible to use identified and in addition unknown (non-identified) features, by using \KNIMENODE{AccurateMassSearch} in combination with the \textbf{use\_known\_unknowns} in the \KNIMENODE{AssayGeneratorMetabo}.  
