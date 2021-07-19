@@ -37,20 +37,20 @@ Here you can install miniconda and follow the further instructions. \\
   \item Create new conda python environment
     	\begin{minted}{bash}
    			conda create -n py39 python=3.9
-   		\end{minted}	
+   		\end{minted} \\
   \item Activate py39 environment
     	\begin{minted}{bash}
     		conda activate py39    
-    	\end{minted}
+    	\end{minted} \\
   \item Install pip (see above)
   \item On the command line:
-\begin{minted}{bash}
-    python -m pip install -U pip
-    python -m pip install -U numpy
-    python -m pip install -U pandas
-    python -m pip isntall -U pyprophet
-    python -m pip install -U pyopenms
-    \end{minted}
+		\begin{minted}{bash}
+    		python -m pip install -U pip
+    		python -m pip install -U numpy
+    		python -m pip install -U pandas
+    		python -m pip isntall -U pyprophet
+    		python -m pip install -U pyopenms
+    \end{minted} \\
 \end{enumerate}
 
 \subsubsection{MacOS}
@@ -61,19 +61,19 @@ Here you can install miniconda and follow the further instructions. \\
   \item Create new conda python environment
     	\begin{minted}{bash}
     		conda create -n py39 python=3.9
-    	\end{minted}
+    	\end{minted}  \\
     \item Activate py39 environment
     	\begin{minted}{bash}
     		conda activate py39
-    	\end{minted}
+    	\end{minted} \\
   \item On the Terminal:
-\begin{minted}{bash}
-    python -m pip install -U pip
-    python -m pip install -U numpy
-    python -m pip install -U pandas
-    python -m pip isntall -U pyprophet
-    python -m pip install -U pyopenms
-    \end{minted}
+		\begin{minted}{bash}
+    		python -m pip install -U pip
+    		python -m pip install -U numpy
+    		python -m pip install -U pandas
+    		python -m pip isntall -U pyprophet
+    		python -m pip install -U pyopenms
+		\end{minted} \\
 \end{enumerate}
 
 \subsubsection{Linux}
@@ -83,13 +83,13 @@ Use your package manager apt-get or yum, where possible.
   \item Install NumPy (Debian / RedHat: python-numpy)
   \item Install setuptools (Debian / RedHat: python-setuptools)
   \item On the Terminal:
-\begin{minted}{bash}
-    python -m pip install -U pip
-    python -m pip install -U numpy
-    python -m pip install -U pandas
-    python -m pip isntall -U pyprophet
-    python -m pip install -U pyopenms
-    \end{minted}
+		\begin{minted}{bash}
+   	 		python -m pip install -U pip
+    		python -m pip install -U numpy
+    		python -m pip install -U pandas
+    		python -m pip isntall -U pyprophet
+    		python -m pip install -U pyopenms
+    \end{minted} \\
 \end{enumerate}
 
 \subsection{Benchmark data}
@@ -204,19 +204,19 @@ Feature linking (internal): & \\
 
 \begin{minted}{bash}
 pyprophet merge  --template path_to_target-decoy_assay_library.pqp --out merged.osw  ./*.osw
-\end{minted}
+\end{minted} \\
 
 \noindent Afterwards, the results are scored using the MS1 and MS2 levels and filter for metabolomics scores, which have a low correlation. 
 
 \begin{minted}{bash}
 pyprophet score --in  merged.osw  --out  scored.osw --level ms1ms2 --ss_main_score "var_isotope_correlation_score" --ss_score_filter metabolomics
-\end{minted}
+\end{minted} \\
 \noindent Export the non filtered results: 
 
 \begin{minted}{bash}
 pyprophet export-compound --in scored.osw --out scored + "_pyprophet_nofilter_ms1ms2.tsv" 
 --max_rs_peakgroup_qvalue 1000.0
-\end{minted}
+\end{minted} \\
 
 \noindent Please see the workflow for actual parameter values used for the benchmarking dataset. \\
 
