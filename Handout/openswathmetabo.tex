@@ -195,7 +195,7 @@ Feature linking (internal):
 \end{tabular*}
 \end{center}
 
-In case of the \textbf{total_occurrence_filter} the value to chose depends on the analysis strategy used. In the instance you are using only identified compounds (\textbf{use_known_unkowns} = false) - it will filter based on identified features. This means that even if the feature was detected in e.g. 50\% of all samples it might be only identified correctly by accurate mass search in 20\% of all samples. Using a \textbf{total_occurrence_filter} this specific feature would still be filtered out  due to less identifications. 
+In case of the \textbf{total\_occurrence\_filter} the value to chose depends on the analysis strategy used. In the instance you are using only identified compounds (\textbf{use\_known\_unkowns} = false) - it will filter based on identified features. This means that even if the feature was detected in e.g. 50\% of all samples it might be only identified correctly by accurate mass search in 20\% of all samples. Using a \textbf{total\_occurrence\_filter} this specific feature would still be filtered out  due to less identifications. 
 
 \noindent\KNIMENODE{\textbf{OpenSWATH}}:
 \begin{center}
@@ -241,4 +241,4 @@ pyprophet export-compound --in scored.osw --out scored + "_pyprophet_nofilter_ms
 \end{listing}
 \noindent Please see the workflow for actual parameter values used for the benchmarking dataset. \\
 
-\noindent  The workflow can be used without any identification (remove \KNIMENODE{AccurateMassSearch}). Here, all features (known\_unknowns) are processed. The assay library is constructed based on the chemical composition elucidated via the fragment annotation (SIRIUS 4). It is also possible to use identified and in addition unknown (non-identified) features, by using \KNIMENODE{AccurateMassSearch} in combination with the \textbf{use_known_unknowns} in the \KNIMENODE{AssayGeneratorMetabo}.  
+\noindent  The workflow can be used without any identification (remove \KNIMENODE{AccurateMassSearch}). Here, all features (known\_unknowns) are processed. The assay library is constructed based on the chemical composition elucidated via the fragment annotation (SIRIUS 4). It is also possible to use identified and in addition unknown (non-identified) features, by using \KNIMENODE{AccurateMassSearch} in combination with the \textbf{use\_known\_unknowns} in the \KNIMENODE{AssayGeneratorMetabo}.  
