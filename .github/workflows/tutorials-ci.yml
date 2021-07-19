@@ -19,7 +19,7 @@ jobs:
       
       - uses: xu-cheng/latex-action@v2
         with:
-          working_directory: ${{ github.workspace }}/Handout/
+          working_directory: /home/runner/work/Tutorials/Handout/
           root_file: handout.tex
           latexmk_use_xelatex: true
           latexmk_shell_escape: true
@@ -27,6 +27,6 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: Handout
-          path: Handout/handout.pdf
+          path: handout.pdf
           
 
