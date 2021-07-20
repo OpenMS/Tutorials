@@ -74,18 +74,18 @@ OpenSWATH requires an assay library to be supplied in the TraML format \cite{Deu
 \begin{description}
   \item[Linux or Mac] \hfill \\
     On the Terminal:
-    \begin{listing}
-\begin{minted}{bash}
+    \begin{code}
+	\begin{minted}{bash}
 TargetedFileConverter -in OpenSWATH_SGS_AssayLibrary_woDecoy.tsv -out OpenSWATH_SGS_AssayLibrary_woDecoy.TraML
     \end{minted}
-\end{listing}
+	\end{code}
   \item[Windows] \hfill \\
     On the TOPP command line:
-    \begin{listing}
-\begin{minted}{bash}
+    \begin{code}
+	\begin{minted}{bash}
 TargetedFileConverter.exe -in OpenSWATH_SGS_AssayLibrary_woDecoy.tsv -out OpenSWATH_SGS_AssayLibrary_woDecoy.TraML
     \end{minted}
-\end{listing}
+	\end{code}
 \end{description}
 
 \subsubsection{Appending decoys to a TraML file}
@@ -94,18 +94,18 @@ In addition to the target assays, OpenSWATH requires decoy assays in the library
 \begin{description}
   \item[Linux or Mac] \hfill \\
     On the Terminal:
-    \begin{listing}
-\begin{minted}{bash}
+    \begin{code}
+	\begin{minted}{bash}
 OpenSwathDecoyGenerator -in OpenSWATH_SGS_AssayLibrary_woDecoy.TraML -out OpenSWATH_SGS_AssayLibrary.TraML -method shuffle -switchKR false
     \end{minted}
-\end{listing}
+	\end{code}
   \item[Windows] \hfill \\
     On the TOPP command line:
-    \begin{listing}
-\begin{minted}{bash}
+    \begin{code}
+	\begin{minted}{bash}
   OpenSwathDecoyGenerator.exe -in OpenSWATH_SGS_AssayLibrary_woDecoy.TraML -out OpenSWATH_SGS_AssayLibrary.TraML -method shuffle -switchKR false
     \end{minted}
-\end{listing}
+	\end{code}
 \end{description}
 
 \subsection{OpenSWATH KNIME}
@@ -125,35 +125,35 @@ An example KNIME workflow for OpenSWATH is supplied in \directory{Workflows/} (F
 
 \noindent The resulting output can be found at your selected path, which will be used as input for mProphet. Execute the script on the Terminal (Linux or Mac) or cmd.exe (Windows) in \directory{Example\_Data/OpenSWATH/result}. Please use the absolute path to your R installation and the result file:
 
-\begin{listing}
+\begin{code}
 \begin{minted}{bash}
 R --slave --args bin_dir=../../../External_Tools/mProphet/ mquest=OpenSWATH_quant.tsv workflow=LABEL_FREE num_xval=5 run_log=FALSE write_classifier=1 write_all_pg=1 < ../../../External_Tools/mProphet/mProphet.R
 \end{minted}
-\end{listing}
+\end{code}
 or for windows
-\begin{listing}
+\begin{code}
 \begin{minted}{bash}
 "C:\Program Files\R\R-3.5.1\bin\x86\R.exe" --slave --args bin_dir=../../../External_Tools/mProphet/ mquest=OpenSWATH_quant.tsv workflow=LABEL_FREE num_xval=5 run_log=FALSE write_classifier=1 write_all_pg=1 < ../../../External_Tools/mProphet/mProphet.R
 \end{minted}
-\end{listing}
+\end{code}
 
 % begin comment pyopenms
 \begin{comment}
 \noindent If you have a valid python installation, pyProphet can be used. Further instructions the installation of python can be found in the pyOpenMS section. 
 
 \noindent Installation of the current stable version:
-\begin{listing}
+\begin{code}
 \begin{minted}{bash}
 pip install pyprophet
 \end{minted}
-\end{listing}
+\end{code}
 
 \noindent The following command should provide similar results to the mProphet script:
-\begin{listing}
+\begin{code}
 \begin{minted}{bash}
 pyprophet score --in OpenSWATH_quant.tsv --out OpenSWATH_quant_scoring.tsv --group_id transition_group_id --pi0_lambda 1e-6 1e-2 1e-6
 \end{minted}
-\end{listing}
+\end{code}
 \end{comment}
 % end comment pyopenms
 

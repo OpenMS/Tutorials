@@ -229,7 +229,7 @@ First, we install some additional extensions that are required by our OpenMS nod
 \noindent In addition, we need to install R for the statistical downstream analysis. Choose the directory that matches your operating system, double-click the R installer and follow the instructions. We recommend to use the default settings whenever possible. On macOS you also need to install XQuartz from the same directory.\\
 
 \noindent Afterwards open your R installation. If you use Windows, you will find an "R x64 3.6.X" icon on your desktop. If you use macOS, you will find R in your Applications folder. In R type the following lines (you might also copy them from the file \directory{R / install\_R\_packages.R} folder on the USB stick):
-\begin{listing}
+\begin{code}
 \begin{minted}{R}
   install.packages('Rserve',,"http://rforge.net/",type="source")
   install.packages("Cairo")
@@ -241,7 +241,7 @@ First, we install some additional extensions that are required by our OpenMS nod
   BiocManager::install()
   BiocManager::install(c("MSstats"))
 \end{minted}
-\end{listing}
+\end{code}
 
 \noindent In KNIME, click on \menu{KNIME > Preferences}, select the category \menu{KNIME > R} and set the "Path to R Home" to your installation path. You can use the following settings, if you installed R as described above:
 \begin{itemize}
@@ -628,9 +628,11 @@ If you get an error message like:
 If R is correctly recognized we can start writing an R script. Consider that we are interested in plotting the first 
 and second coordinates and color them according to their cluster number. In R this can be done in a single line.
 In the \KNIMENODE{R View (Table)} text editor, enter the following code: \\
+\begin{code}
 \begin{minted}{R}
 plot(x=knime.in$Universe_0_0, y=knime.in$Universe_0_1, main="Plotting column Universe_0_0 vs. Universe_0_1", col=knime.in$"Cluster Membership")
 \end{minted}
+\end{code}
         
 \textbf{Explanation:}
 The table provided as input to the \KNIMENODE{R View (Table)} node is available as R \texttt{data.frame} with name 
