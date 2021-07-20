@@ -116,7 +116,11 @@
 % }
 \usepackage{xcolor}
 \definecolor{lbcolor}{rgb}{0.9, 0.9, 0.98}
-\usepackage{minted}
+
+\usepackage[newfloat]{minted}
+\newenvironment{code}{\captionsetup{type=listing}}{}
+\SetupFloatingEnvironment{listing}{name=Source Code}
+
 \usemintedstyle{tango}
 \setminted{bgcolor=lbcolor, breaklines=true, baselinestretch=0.8, showspaces=false, fontsize=\footnotesize}
 
