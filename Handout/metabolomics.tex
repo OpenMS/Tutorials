@@ -375,19 +375,21 @@ On the METLIN homepage search for \menu{Name} Glutathione using the \menu{Advanc
 Another method for MS2 spectra-based metabolite identification is \textit{de novo} identification. 
 This approach can be used in addition to the other methods (accurate mass search, spectral library search) or individually if no spectral library is available. In this part of the tutorial, we discuss how metabolite spectra can be identified using \textit{de novo} tools. To this end, the tools SIRIUS and CSI:FingerID (\cite{Bocker2009,Bocker2016,Duhrkop2015}) were integrated in the OpenMS Framework as SiriusAdapter. SIRIUS uses isotope pattern analysis to detect the molecular formula and further analyses the fragmentation pattern of a compound using fragmentation trees. CSI:FingerID  is a method for searching a fingerprint of a small molecule (metabolite) in a molecular structure database.
 
-The node is able to work in different modes depending on the provided input. 
+The node \KNIMENODE{SiriusAdapter}  is able to work in different modes depending on the provided input.
 \begin{itemize}
 \item Input: mzML - SiriusAdapter will search all MS2 spectra in a map.  
 \item Input: mzML, featureXML (FeatureFinderMetabo) - SiriusAdapter can use the provided feature information to reduce the search space to valid features with MS2 spectra. Additionally it can use the isotopic trace information. 
 \item Input: mzML, featureXML (FeatureFinderMetabo / MetaboliteAdductDecharger / AccurateMassSearch) - SiriusAdapter can use the feature information as mentioned above together with feature adduct information from adduct grouping or previous identification.
 \end{itemize}
 
-The last approach is the preferred one, as SIRIUS gains a lot of additional information by using the OpenMS tools for preprocessing. 
+\noindent By using a mzML and featureXML, SIRIUS gains a lot of additional information by using the OpenMS tools for preprocessing.
 
 \begin{task}
 Construct the workflow as shown in Fig.~\ref{fig:denovoid}. \\
 Use the file \directory{Example\_Data / Metabolomics / datasets \newline / Metabolite\_DeNovoID.mzML} as input for your workflow.  
 \end{task}
+
+\noindent Below we show an example workflow for \textit{de novo} identification (Fig.~\ref{fig:denovoid}). Here, the node \KNIMENODE{FeatureFinderMetabo} is used for feature detection to annotate analytes in mz, rt, intensity and charge. This is followed by adduct grouping, trying to asses possible adducts based on the feature space using the \KNIMENODE{MetaboliteAdductDecharger}. In addition, the \KNIMENODE{HighResPrecursorMassCorrector} can use the newly generated feature information to map MS2 spectra, which were measured on one of the isotope traces to the monoisotopic precursor. This helps with feature mapping and analyte identification in the \KNIMENODE{SiriusAdapter} due to the usage of additional MS2 spectra that belong to a specific feature.
 
 \begin{figure}[htbp]
   \centering
@@ -396,7 +398,7 @@ Use the file \directory{Example\_Data / Metabolomics / datasets \newline / Metab
   \label{fig:denovoid}
 \end{figure}
 
-Run the workflow and inspect the output. \\
+\noindent Run the workflow and inspect the output. \\
 
 \noindent The output consists of two mzTab files and an internal .ms file. One mzTab for SIRIUS and the other for the CSI:FingerID. These provide information about the chemical formula, adduct and the possible compound structure. The information is referenced to the spectrum used in the analysis. Additional information can be extracted from the \KNIMENODE{SiriusAdapter} by setting an "out\_workspace\_directory". Here the SIRIUS workspace will be provided after the calculation has finished. This workspace contains information about annotated fragments for each successfully explained compound.
 
