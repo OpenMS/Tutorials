@@ -13,7 +13,7 @@ One basic requirement for the installation of python packages, in particular pyO
 
 \subsubsection{Windows}
 \begin{enumerate}
-  \item Install Python 3.7 (\url{http://www.python.org/download/})
+  \item Install Python 3.9 (\url{http://www.python.org/download/})
   \item Install NumPy (\url{http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy})
   \item Install pip (see above)
   \item On the command line:
@@ -34,7 +34,7 @@ Here you can install miniconda and follow the further instructions. \\
   \item Create new conda python environment
     \begin{code}
 	\begin{minted}{bash}
-conda create -n py37 python=3.7 anaconda
+conda create -n py37 python=3.9 anaconda
     \end{minted}
 	\end{code} 
     \item Activate py37 environment
@@ -56,7 +56,7 @@ source activate py37
 \subsubsection{Linux}
 Use your package manager apt-get or yum, where possible.
 \begin{enumerate}
-  \item Install Python 3.7 (Debian: python-dev, RedHat: python-devel)
+  \item Install Python 3.9 (Debian: python-dev, RedHat: python-devel)
   \item Install NumPy (Debian / RedHat: python-numpy)
   \item Install setuptools (Debian / RedHat: python-setuptools)
   \item On the Terminal:
@@ -95,11 +95,11 @@ python -m pip install -U pyopenms
 \noindent Install a local available package:
 \begin{code}
 \begin{minted}{bash}
-pip install numpy-1.15.4-cp37*.whl
-pip install pyopenms-2.4.0-cp37*.whl
+pip install numpy-1.20.0-cp37*.whl
+pip install pyopenms-2.7.0-cp37*.whl
 or (in case of windows)
-python -m pip install -U numpy-1.15.4-cp37*.whl
-python -m pip install -U pyopenms-2.4.0-cp37*.whl
+python -m pip install -U numpy-1.20.0-cp37*.whl
+python -m pip install -U pyopenms-2.7.0-cp37*.whl
 \end{minted}
 \end{code}
 
@@ -108,7 +108,7 @@ python -m pip install -U pyopenms-2.4.0-cp37*.whl
 \noindent  Now launch "Spyder" (python IDE) in the home menu.
 
 \subsection{Build instructions}
-Instructions on how to build pyOpenMS can be found online (\url{https://pyopenms.readthedocs.io/en/release_2.4.0/build_from_source.html}).
+Instructions on how to build pyOpenMS can be found online (\url{https://pyopenms.readthedocs.io/en/release_2.7.0/build_from_source.html}).
 
 \subsection{Scripting with pyOpenMS}
 A big advantage of pyOpenMS are its scripting capabilities (beyond its application in tool development). Most of the OpenMS datastructure can be accessed using python (\url{https://abibuilder.informatik.uni-tuebingen.de/archive/openms/Documentation/nightly/html/index.html}). Here we would like to give some examples on how pyOpenMS can be used for simple scripting task, such as peptide mass calculation and peptide/protein digestion as well as isotope distribution calculation. \\
@@ -164,7 +164,7 @@ for iso in isotopes.getContainer():
 \end{minted}
 \end{code}
 
-\noindent For further examples and the pyOpenMS datastructure please see \url{https://pyopenms.readthedocs.io/en/release_2.4.0/datastructures.html}. 
+\noindent For further examples and the pyOpenMS datastructure please see \url{https://pyopenms.readthedocs.io/en/release_2.7.0/datastructures.html}. 
 
 \subsection{Tool development with pyOpenMS}
 Scripting is one side of pyOpenMS, the other is the ability to create Tools using the C++ OpenMS library in the background.  In the following section we will create a "ProteinDigestor" pyOpenMS Tool. It should be able to read in a fasta file. Digest the proteins with a specific enzyme (e.g. Trypsin) and export an idXML output file. Please see  \directory{Example\_Data/pyopenms} for code snippets.

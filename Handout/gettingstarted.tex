@@ -28,9 +28,9 @@ on \textbf{macOS} you call
 
 and follow the instructions. For the OpenMS installation on \textbf{macOS}, you need to accept the license drag and drop the OpenMS folder into your Applications folder.
 \note{Due to increasing security measures for downloaded apps (e.g. path randomization) on \textbf{macOS} you might need to open TOPPView.app and TOPPAS.app while holding \keys{\ctrl} and accept the warning.
-If the app still does not open, you might need to move them from \directory{Applications / OpenMS-2.6.0} to e.g. your Desktop and back.}
+If the app still does not open, you might need to move them from \directory{Applications / OpenMS-2.7.0} to e.g. your Desktop and back.}
 On \textbf{Linux} you can extract KNIME to a folder of your choice and for TOPPView you need to install OpenMS via your package manager or build it on your own with the instructions under \href{https://www.openms.de/documentation}{www.openms.de/documentation}.
-\note{If you have installed OpenMS on Linux or macOS via your package manager (for instance by installing the \texttt{OpenMS-2.6.0-Linux.deb} package), then you need to set the \texttt{OPENMS\_DATA\_PATH} variable to the directory containing the shared data (normally \texttt{/usr/share/OpenMS}). This must be done prior to running any TOPP tool.}
+\note{If you have installed OpenMS on Linux or macOS via your package manager (for instance by installing the \texttt{OpenMS-2.7.0-Linux.deb} package), then you need to set the \texttt{OPENMS\_DATA\_PATH} variable to the directory containing the shared data (normally \texttt{/usr/share/OpenMS}). This must be done prior to running any TOPP tool.}
 
 \subsubsection{Installation from the internet}
 If you are working through this tutorial at home you can get the installers under the following links:
@@ -118,7 +118,7 @@ We will make use of these later throughout the tutorial. Let's start with a firs
 
 
 \begin{itemize}
-\item Start \OPENMSTOOL{TOPPView} (see \textbf{Windows}' Start-Menu or \directory{Applications/OpenMS-2.4.0} on \textbf{macOS})
+\item Start \OPENMSTOOL{TOPPView} (see \textbf{Windows}' Start-Menu or \directory{Applications/OpenMS-2.7.0} on \textbf{macOS})
 \item Go to \menu{File > Open File}, navigate to the directory where you copied the contents of the USB stick to,
       and select
       \directory{Example\_Data / Introduction / datasets / small / velos005614.mzML}
@@ -284,7 +284,7 @@ We included a custom KNIME update site to install the OpenMS KNIME plugins from 
 \begin{itemize}
  % If you base the tutorial on the nightly contributions (not recommended - more of a emergency measure)
   \item \label{it:add_site} In the now open dialog choose \menu{Add...} (in the upper right corner of the dialog) to define a new update site. In the opening dialog enter the following details. \\
-  \textit{Name:} \texttt{OpenMS 2.4 UpdateSite} \\
+  \textit{Name:} \texttt{OpenMS 2.7 UpdateSite} \\
   \textit{Location:}  \KnimeUSBUpdateSite \\
   \item \label{it:select_site} After pressing \keys{OK} KNIME will show you all the contents of the added Update Site.
   \item \textbf{Note:} From now on, you can use this repository for plugins in the \menu{Work with:} drop-down list.
