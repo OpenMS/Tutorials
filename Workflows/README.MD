@@ -1,3 +1,5 @@
+Tested on KNIME 5.2.0 and OpenMS 3.0
+
 Description of workflows
 
 - [ProteomicsLFQ_tool_and_MSstats_postprocessing.knwf:](ProteomicsLFQ_tool_and_MSstats_postprocessing.knwf)
